@@ -1,0 +1,158 @@
+/*
+@file style.css
+@description css main styles
+@author nick vincent-maloney
+@date 2014-0202
+*/
+
+html {
+	height: 100%;
+	min-height: 100%;
+}
+
+body {
+	height: 100%;
+	min-height: 100%;
+}
+
+header .container, .container #content {
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0 60px;
+}
+
+a, a:hover, a:active, a:focus, a:link {
+	text-decoration: none;
+	outline: 0;
+}
+
+footer {
+	background-color: #fff;
+    color: #000;
+    clear: both;
+	width: 100%;
+	margin-top: 5em;
+	height: 15em;
+	bottom: 0px;
+}
+
+nav { display: block; }
+
+button { margin-bottom: 1em; }
+
+/***** general *****/
+
+.as-label { margin-bottom: 0.3em; }
+
+.align-right { text-align: right; }
+
+.inline-block { display: inline-block; }
+
+.left-pad { padding-left: 6em; }
+
+.right-pad { padding-right: 5em; }
+
+.float-left { float: left; }
+
+.float-right { float: right; }
+
+.clear-both { clear: both; }
+
+.align-ctr { text-align: center; }
+
+.vert-align-top { vertical-align: top; }
+
+.font-14px { font-size: 14px; }
+
+.font-16px { font-size: 16px; }
+
+.font-18px { font-size: 18px; }
+
+.font-21px { font-size: 21px; }
+
+.font-24px { font-size: 24px; }
+
+.font-75p { font-size: 75%; }
+
+.font-85p { font-size: 85%; }
+
+.font-4em { font-size: 4em; }
+
+.form-width-20em { max-width: 20em;}
+
+.margin-top-2em { margin-top: 2em; }
+
+.top-mar-2em { margin-top: 2em; }
+
+.move-up-2em { margin-top: -2em; }
+
+.top-mar-5em { margin-top: 5em; }
+
+.bottom-mar-2em { margin-bottom: 2em; }
+
+.move-down-1em { margin-bottom: -1em; }
+
+.top-mar-1em { margin-top: 1em; }
+
+.bottom-mar-1em { margin-bottom: 1em; }
+
+.push-right-1em { margin-left: 1em; }
+
+.push-right-2em { margin-left: 2em; }
+
+.push-right-5em { margin-left: 5em; }
+
+.pad-right-5em { padding-right: 5em; }
+
+.pad-right-7em { padding-right: 7em; }
+
+.pad-left-7em { padding-left: 7em; }
+
+.pad-left-5em { padding-left: 5em; }
+
+.pad-left-2em { padding-left: 2em; }
+
+.center-section {
+    max-width: 50em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.height-5em {
+    height: 100%;
+    font-size: 30px;
+    line-height: 1.5;
+}
+
+.clear-both { clear: both; }
+
+.bold { font-weight: bold; } 
+
+.heading { margin-top: 2em; }
+
+.base-container {
+	width: 61.5%;
+	margin: 0 auto;
+}
+
+.nav {	
+	margin-top: 1em;
+	float: right;
+}
+
+.grow-image:hover {
+	-moz-transform:scale(1.4, 1.4);
+	-webkit-transform: scale(1.4, 1.4);
+    transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+    -moz-transition: 0.5s ease;
+	z-index: 9999;
+}
+
+.grow-image {
+	transition: 0.5s ease-out;
+    -webkit-transition: 0.5s ease-out;
+    -moz-transition: 0.5s ease-out;
+}
+
+.jumbotron { background-color: #fff; }

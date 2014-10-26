@@ -2,7 +2,7 @@
 @file style.css
 @description css main styles
 @author nick vincent-maloney
-@date 2014-0202
+@date 2014-1026
 */
 
 html {
@@ -112,10 +112,34 @@ button { margin-bottom: 1em; }
 
 .pad-left-2em { padding-left: 2em; }
 
+.input-tall {
+	height: 45px;
+}
+
 .center-section {
-    max-width: 50em;
+    max-width: 30em;
     margin-left: auto;
     margin-right: auto;
+}
+
+.acrostic-form {
+	margin-top: 2em;
+}
+
+.ctr-container {
+	overflow: auto;
+}
+
+.ctr-left {
+	display: inline-block;
+	float: left;
+	width: 50%;
+}
+
+.ctr-right {
+	display: inline-block;
+	float: right;
+	width: 50%;
 }
 
 .height-5em {
@@ -129,30 +153,5 @@ button { margin-bottom: 1em; }
 .bold { font-weight: bold; } 
 
 .heading { margin-top: 2em; }
-
-.base-container {
-	width: 61.5%;
-	margin: 0 auto;
-}
-
-.nav {	
-	margin-top: 1em;
-	float: right;
-}
-
-.grow-image:hover {
-	-moz-transform:scale(1.4, 1.4);
-	-webkit-transform: scale(1.4, 1.4);
-    transition: 0.5s ease;
-    -webkit-transition: 0.5s ease;
-    -moz-transition: 0.5s ease;
-	z-index: 9999;
-}
-
-.grow-image {
-	transition: 0.5s ease-out;
-    -webkit-transition: 0.5s ease-out;
-    -moz-transition: 0.5s ease-out;
-}
 
 .jumbotron { background-color: #fff; }

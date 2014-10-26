@@ -1,5 +1,5 @@
 """
-Django local settings for acrosticshirts acrosite project.
+Django local settings for acrosite project.
 """
 
 from .base import *

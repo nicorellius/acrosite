@@ -122,4 +122,4 @@ Cool resource: <a href="https://code.djangoproject.com/wiki/SplitSettings" targe
 [Here's](http://docs.python-guide.org/en/latest/writing/tests/) some useful bits about testing.  
 
 **Libraries**  
-We can use [nltk](http://www.nltk.org/) for doing fancy things and generating useful data sets -- analyzing corpora for sentiment, parts of speech, tokenizing, etc.  
+We can use [nltk](http://www.nltk.org/) for doing fancy things and generating useful data sets -- analyzing corpora for sentiment, parts of speech, tokenizing, etc. This was added to the `requirements.txt` file.

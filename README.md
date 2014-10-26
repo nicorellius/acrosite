@@ -38,7 +38,20 @@ Apache 2.2 (2.2 and above) <a href="http://httpd.apache.org/" target="_blank">ht
 PHP 5.4 (5.4.20 or above) <a href="http://php.net/">http://php.net/</a> (may not need this but installation a LAMP or LAMP stack is very easy - <a href="https://bitnami.com/stacks" target="_blank">https://bitnami.com/stacks</a>)    
 WSGI 3.4 (mod_wsgi) <a href="http://modwsgi.readthedocs.org/" target="_blank">http://modwsgi.readthedocs.org/</a>    
 
-Check the `requirements.txt` file on the root of this repository file for other dependencies plugins
+**Dependencies/requirements**
+
+Check the `requirements.txt` file on the root of this repository for up-to-date dependencies and plugins.
+
+    #requirements.txt for acrosite
+    distribute==0.7.3
+    Django==1.7
+    BeautifulSoup4==4.3.2
+    Pygments==1.6
+    django_compressor==1.4
+    django-localflavor==1.0
+    django-session-security==2.2.1
+    django-debug-toolbar==1.2.1
+    selenium==2.43.0
 
 Also, you will need `virtualenv` for isolating your Python projects:
 

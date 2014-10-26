@@ -66,6 +66,39 @@ Note that setting up file structure is a developer-centric activity. I usually u
     Django projects:    /home/<user>/dev/django/projects/<project_repo_name>/<project_name>
     virtualenvs:        /home/<user>/dev/virtenvs/<project_name>
     private bits:       /home/<user>/dev/prv/<project_name>
+    
+Here is a more detailed repository structure for this Django project:
+
+    `repository_name`    
+        `docs`    
+        `resouces`    
+        `.gitignore`    
+        `README.txt`    
+        `TODO.md`    
+        `requirements.txt`    
+        `. . .`
+        `django_project_name`
+            `django_site_name`
+                `. . .`  
+                `db.sqlite3`
+                `urls.py`
+                `wsgi.py`
+                `settings`
+                    `base.py`
+                    `local.py`
+                    `. . .`
+            `static`
+                `css`
+                `images`
+                `js`
+            `media`
+            `templates`
+                `base.html`
+                `app_name`
+                    `app_name_descriptor.html`
+                `. . .`
+            `manage.py`
+
 
 - Clone the repository
 - Pull changes and update
@@ -80,8 +113,6 @@ Note that setting up file structure is a developer-centric activity. I usually u
 - Start Django (and LAMP optionally) with startup script
 
 **Settings notes**
-NOTE: (Oct 21, 2014) Please edit acrosite/acrosite/local.py with all appropriate, local system-dependent files.
-Note that the current files in the repo are configured according to Nick's system.
 
 The preferred method for settings is to use per-dev settings files and check those into source control. In our case, we add `local.py` back to the repo, because it contains critical local settings (db, email settings, etc...), shared among all our local environments, and then we add to the repo these files: `settings/nick.py`, `settings/phil.py`, `settings/jimar.py`. These files will contain pointers to private bits and secrets existing on our file systems in different locations. According to the authors of Two Scoops of Django (<a href="http://twoscoopspress.org/products/two-scoops-of-django-1-5" target="_blank">1.5</a> and <a href="http://twoscoopspress.org/products/two-scoops-of-django-1-6" target="_blank">1.6</a>), keeping all the settings files in the repo is good practice. Another useful feature of using per-dev settings is that each dev might want a secific tool in their INSTALLED_APPS and so this would be something he could add to his `<dev_name>.py` file.
 

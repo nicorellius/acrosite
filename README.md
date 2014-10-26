@@ -92,4 +92,3 @@ Cool resource: <a href="https://code.djangoproject.com/wiki/SplitSettings" targe
 
 **Libraries**  
 We can use [nltk](http://www.nltk.org/) for doing fancy things and generating useful data sets -- analyzing corpora for sentiment, parts of speech, tokenizing, etc.  
-

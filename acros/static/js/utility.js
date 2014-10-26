@@ -3,6 +3,8 @@
 // jquery ready function
 //$(document).ready(function() {});
 
+$('#loading-spinner').hide();
+
 // get month function
 function get_month() {
 	
@@ -18,11 +20,10 @@ function get_month() {
 	return month;
 }
 
-// generic alert
 $('#gen-acrostic-btn').click(function() {
-	$('#loading').show();
+	$('#loading-spinner').show();
 	alert("no backend hooked up yet...");
-	$('#loading').hide();
+	$('#loading-spinner').hide();
 });
 
 // loading spinner script

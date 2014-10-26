@@ -14,3 +14,5 @@ with open('/home/nick/dev/prv/acros/secret_key.txt') as secret_key:
 # email smtp settings
 with open('/home/nick/dev/prv/acros/email_password.txt') as email_password:
     EMAIL_PASSWORD = email_password.read().strip()
+    
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD

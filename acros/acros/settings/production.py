@@ -7,7 +7,8 @@ from .base import *
 # set to tru for development
 DEBUG = False
 
-DATABASES = { # configure postgresql
+DATABASES = {
+    # configure postgresql for production
 }
 
 # static and media files

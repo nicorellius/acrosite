@@ -4,11 +4,7 @@ Django local settings for acrosticshirts acrosite project.
 
 from .base import *
 
-# secret key in local settings
-with open('/home/nick/dev/prv/acros/secret_key.txt') as secret_key:
-    SECRET_KEY = secret_key.read().strip()
-
-# set to tru for development
+# set to `True` for development
 DEBUG = True
 
 DATABASES = {
@@ -18,12 +14,11 @@ DATABASES = {
     }
 }
 
-# email smtp settings
-with open('/home/nick/dev/prv/acros/email_password.txt') as email_password:
-    EMAIL_PASSWORD = email_password.read().strip()
-
+# email settings
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'acrostic.mail@gmail.com'
-EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
+# this password is meant to be over-ridden in `settings/<devs_name>.py`
+# eg, set EMAIL_HOST_PASSWORD = EMAIL_PASSWORD after reading password from file
+EMAIL_HOST_PASSWORD = '' 
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = True

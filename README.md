@@ -110,7 +110,7 @@ Here is a more detailed repository structure for this Django project:
 - Install all requirements with command: `pip install -r requirements.txt`
 - Set up Django and database (SQLite for now - see docs for more details)
 - Set up SMTP email credentials, database credentials and secret key files in `prv` directory on development/production file system. This can be done several different ways. For my uses, I go with something like: `/home/<user>/dev/prv/<project_name>`
-- Start Django (and LAMP optionally) with startup script
+- Start Django (and LAMP optionally) with startup script. If you use `./manage.py runserver` be sure to include the settings for your local environment (eg, for nick): `./manage.py runserver --settings=acros.settings.nick`
 
 **Settings notes**
 

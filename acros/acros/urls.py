@@ -14,4 +14,9 @@ urlpatterns = patterns('',
     
     # main page index
     url(r'^$', TemplateView.as_view(template_name="index.html")),
+    
+    
+    # acrostic veiwer
+    # TODO: create GeneratorFormView class in forms.py
+     url(r'^generate/$', GeneratorFormView.as_view(name='generator_form_view')),
 )

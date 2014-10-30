@@ -6,7 +6,7 @@ import nltk
 Note here the use of relative imports. This is best practices in Django.
 They only work inside modules. Cross module imports require full path.
 """
-from .models import Word
+#from .models import Word
 
 
 def first_letter(word):
@@ -26,9 +26,9 @@ def get_formats(word):
 
     print(word)
 
-    old_question = Word(word)
+  #  old_question = Word(word)
 
-    print(old_question.word)
+ #   print(old_question.word)
         
     # todo
     # check one-many mapping of word length to formats and return set of formats
@@ -124,4 +124,4 @@ class WordMagicTest(unittest.TestCase):
             get_format("We're always cuddling koala's yearly"),
             ['PRP', 'VBP', 'RB', 'VBG', 'NN', 'POS', 'JJ'])
         
-        self.assertEqual(get_formats('sample'),'sample')
+        #self.assertEqual(get_formats('sample'),'sample')

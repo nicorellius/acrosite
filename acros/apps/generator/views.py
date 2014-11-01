@@ -14,7 +14,7 @@ from .forms import GenerateAcrosticForm
 
 
 
-class GenerateAcrosticView():
+class GenerateAcrosticView(View):
     
     # TODO: we may want consider using login_required decorator
     #@method_decorator(login_required)
@@ -28,7 +28,7 @@ class GenerateAcrosticView():
 
 
     
-class GenerateAcrosticFormView():
+class GenerateAcrosticFormView(View):
     
     form_class = GenerateAcrosticForm
     initial = {'key': 'value'}

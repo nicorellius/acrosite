@@ -9,7 +9,7 @@ desription  :   models for word generator
 from django.db import models
 
 # check out apps/common/models.py for BaseModel definition
-from apps.common.models import BaseModel
+from common.models import BaseModel
 
 
 

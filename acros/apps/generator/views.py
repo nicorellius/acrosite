@@ -6,6 +6,7 @@ classes     :   GeneratorView
 desription  :   views for word generator
 """
 
+
 from django.shortcuts import render
 
 

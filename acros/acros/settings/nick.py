@@ -1,8 +1,13 @@
 """
 Django developer specific settings for acrosite project.
+
+@date 2014-1026
+@author nicorellius
 """
 
 from .local import *
+
+
 
 # set to tru for development
 DEBUG = True

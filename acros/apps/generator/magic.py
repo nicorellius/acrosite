@@ -9,6 +9,7 @@ They only work inside modules. Cross module imports require full path.
 #from .models import Word
 
 
+
 def first_letter(word):
     return word[0]
 
@@ -26,9 +27,9 @@ def get_formats(word):
 
     print(word)
 
-  #  old_question = Word(word)
+    #old_question = Word(word)
 
- #   print(old_question.word)
+    #print(old_question.word)
         
     # todo
     # check one-many mapping of word length to formats and return set of formats
@@ -108,6 +109,7 @@ def get_format(acrostic):
     tokens = nltk.word_tokenize(acrostic)
     
     return [element[1] for element in nltk.pos_tag(tokens)]
+
 
 
 class WordMagicTest(unittest.TestCase):

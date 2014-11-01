@@ -82,35 +82,43 @@ Note that setting up file structure is a developer-centric activity. I usually u
     
 Here is a more detailed repository structure for this Django project:
 
-    `repository_name`    
-        `docs`    
-        `resouces`    
-        `.gitignore`    
-        `README.txt`    
-        `TODO.md`    
-        `requirements.txt`    
-        `. . .`
-        `django_project_name`
-            `django_site_name`
-                `. . .`  
-                `db.sqlite3`
-                `urls.py`
-                `wsgi.py`
-                `settings`
-                    `base.py`
-                    `local.py`
-                    `. . .`
-            `static`
-                `css`
-                `images`
-                `js`
-            `media`
-            `templates`
-                `base.html`
-                `app_name`
-                    `app_name_descriptor.html`
-                `. . .`
-            `manage.py`
+    repository_name/
+        . . .
+        
+        docs/    
+        resouces/    
+        .gitignore    
+        README.txt    
+        TODO.md    
+        requirements/
+            base.txt
+            local.txt
+            . . .
+        
+        django_project_name
+            . . .
+            
+            django_site_configuration_name
+                db.sqlite3
+                urls.py
+                wsgi.py
+                settings
+                    base.py
+                    local.py
+                    . . .
+                    
+            static
+                css
+                images
+                js
+            media
+            templates
+                base.html
+                app_name
+                    app_name_descriptor.html
+                . . .
+                
+            manage.py
 
 
 - Clone the repository

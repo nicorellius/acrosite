@@ -6,6 +6,6 @@ Pygments==1.6
 django_compressor==1.4
 django-localflavor==1.0
 django-session-security==2.2.1
-django-debug-toolbar==1.2.1
+#django-debug-toolbar==1.2.1 # this could be dev-specific
 selenium==2.43.0
 nltk==3.0.0

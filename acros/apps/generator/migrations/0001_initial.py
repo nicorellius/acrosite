@@ -13,10 +13,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Word',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
+                ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
+                ('slug', models.SlugField(help_text='slug for URLs')),
+                ('description', models.TextField(blank=True)),
                 ('word', models.CharField(max_length=200)),
             ],
             options={
+                'abstract': False,
             },
             bases=(models.Model,),
         ),

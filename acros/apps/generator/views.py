@@ -6,25 +6,11 @@ classes     :   GeneratorView, GeneratorFormView
 desription  :   views for word generator
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 
 from .models import Word
 from .forms import GenerateAcrosticForm
-
-
-
-class GenerateAcrosticView(View):
-    
-    # TODO: we may want consider using login_required decorator
-    #@method_decorator(login_required)
-    def get(self, request):
-        
-        words = get_object_or_404(Word)
-        
-        return render(request, 'index.html', {
-            'words': words,
-        })
 
 
     
@@ -32,8 +18,18 @@ class GenerateAcrosticFormView(View):
     
     form_class = GenerateAcrosticForm
     initial = {'key': 'value'}
-    template_name = 'index.html'
+    template_name = 'generator/generate.html'
     model = Word
+    
+    # TODO: we may want consider using login_required decorator
+    #@method_decorator(login_required)
+    def get(self, request):
+        
+        form = self.form_class()
+        
+        print("IP address for debug-toolbar: {0}".format(request.META['REMOTE_ADDR']))
+        
+        return render(request, self.template_name, {'form': form})
     
     # TODO: we may want consider using login_required decorator
     #@method_decorator(login_required)
@@ -41,22 +37,17 @@ class GenerateAcrosticFormView(View):
         
         word = Word()
         
-        form = self.form_class(request.POST, instance=word)
+        print("this view is trying to create a word object...")
         
-        print('name of current word object: ' + request.POST['word'])
+        form = self.form_class()
+        
+        #print('word object created: name of current word object: {0}'.format(request.POST['word']))
         
         if form.is_valid(): 
             
             word = form.cleaned_data['word']
             
-            document.owner = request.user
-            document.name = name
-            document.docfile = docfile
-            document.description = description
-            
-            document.save()
-            
-            self.send_upload_file_completed_message(request)
+            word.save()
             
             return HttpResponseRedirect('/generate/success/')
         
@@ -70,4 +61,4 @@ class GenerateAcrosticSuccessView(View):
     #@method_decorator(login_required)
     def get(self, request):
         
-        return render(request, 'index.html')
+        return render(request, 'generator/success.html')

@@ -12,7 +12,7 @@ from .models import Word
 
 
 
-class GenerateAcrosticForm():
+class GenerateAcrosticForm(forms.ModelForm):
 
     class Meta:
         model = Word
@@ -22,10 +22,11 @@ class GenerateAcrosticForm():
         max_length=50,
         widget = forms.TextInput(
             attrs = {
-                'class': 'form-control control-label',
+                'class': 'form-control input-tall control-label',
+                'id': 'vertical-word',
                 'type': 'text',
-                'name': 'name',
-                'placeholder': 'enter name',
+                'name': 'word',
+                'placeholder': 'Enter vertical word',
             }
         )
     )

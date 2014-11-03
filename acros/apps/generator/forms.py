@@ -16,16 +16,16 @@ class GenerateAcrosticForm(forms.ModelForm):
 
     class Meta:
         model = Word
-        fields = ['word',]
+        fields = ['name']
     
-    word = forms.CharField(
+    name = forms.CharField(
         max_length=50,
         widget = forms.TextInput(
             attrs = {
                 'class': 'form-control input-tall control-label',
                 'id': 'vertical-word',
                 'type': 'text',
-                'name': 'word',
+                'name': 'name',
                 'placeholder': 'Enter vertical word',
             }
         )

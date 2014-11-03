@@ -40,12 +40,12 @@
 				{% csrf_token %}
 				
 				<div class="form-group">
-                    <label for="word"></label>
-                    <div class="text-danger"><strong><em>{{ form.word.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
-                    {{ form.word }}
+                    <label for="name"></label>
+                    <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
+                    {{ form.name }}
                 </div>
 				
-				<button id="gen-acrostic-btn" type="submit" class="btn btn-primary btn-lg btn-block">Generate Acrostic</button>
+				<button type="submit" class="btn btn-primary btn-lg btn-block">Generate Acrostic</button>
 				
 			</form>
 			

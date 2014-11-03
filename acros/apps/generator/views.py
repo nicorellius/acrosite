@@ -8,6 +8,7 @@ desription  :   views for word generator
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
+from django.http import HttpResponseRedirect
 
 from .models import Word
 from .forms import GenerateAcrosticForm
@@ -27,7 +28,7 @@ class GenerateAcrosticFormView(View):
         
         form = self.form_class()
         
-        print("IP address for debug-toolbar: {0}".format(request.META['REMOTE_ADDR']))
+        print("ip address for debug-toolbar: {0}".format(request.META['REMOTE_ADDR']))
         
         return render(request, self.template_name, {'form': form})
     
@@ -39,13 +40,13 @@ class GenerateAcrosticFormView(View):
         
         print("this view is trying to create a word object...")
         
-        form = self.form_class()
+        form = self.form_class(request.POST, instance=word)
         
-        #print('word object created: name of current word object: {0}'.format(request.POST['word']))
+        print('word object created: {0}'.format(request.POST['name']))
         
         if form.is_valid(): 
             
-            word = form.cleaned_data['word']
+            name = form.cleaned_data['name']
             
             word.save()
             
@@ -61,4 +62,6 @@ class GenerateAcrosticSuccessView(View):
     #@method_decorator(login_required)
     def get(self, request):
         
-        return render(request, 'generator/success.html')
+        words = Word.objects.all()
+        
+        return render(request, 'generator/success.html', {'words': words})

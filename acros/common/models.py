@@ -1,3 +1,11 @@
+"""
+file        :   models.py
+date        :   2014-1101
+module      :   common
+classes     :   BaseModel
+desription  :   base model for all other models
+"""
+
 from django.db import models
 
 class BaseModel (models.Model):

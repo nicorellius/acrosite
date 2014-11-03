@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
-                ('word', models.CharField(max_length=200)),
+                ('name', models.CharField(max_length=200)),
             ],
             options={
                 'abstract': False,

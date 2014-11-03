@@ -20,7 +20,7 @@
 			</div>
 			
 			<div class="ctr-right">
-				<h2>a·cros·tic</h2>
+				<a href="/"><h2>a·cros·tic</h2></a>
 				<p><strong>/əˈkrôstik,əˈkräs-/</strong></p>
 				<em>noun</em>
 				<p>
@@ -31,7 +31,15 @@
 				
 		</div>
 		
-		<h2>SUCCESS (well, not really - just testing still ;-))</h2>
+		<p>&nbsp;</p>
+		
+		{% for word in words %}
+		
+			<div class="alert alert-success" role="alert">
+				<p>SUCCESS! You have created a word: {{ word.name }}</p>
+			</div>
+			
+		{% endfor %}
 		
 		<div class="clear-both"></div>
 		

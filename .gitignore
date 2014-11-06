@@ -54,6 +54,9 @@ docs/_build/
 # PyBuilder
 target/
 
+# SQLite 3 database
+*.sqlite3
+
 # for now, no images, videos, fonts...
 *.avi
 *.ai

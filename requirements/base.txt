@@ -9,3 +9,4 @@ django-session-security==2.2.1
 #django-debug-toolbar==1.2.1 # this could be dev-specific
 selenium==2.43.0
 nltk==3.0.0
+#invoke # deployment tool - fabric's successor; supports python 3.x

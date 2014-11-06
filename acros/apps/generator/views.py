@@ -1,9 +1,9 @@
 """
-file        :   views.py
-date        :   2014-1101
-module      :   generator
-classes     :   GeneratorView, GeneratorFormView
-desription  :   views for word generator
+file         :   views.py
+date         :   2014-11-01
+module       :   generator
+classes      :   GeneratorView, GeneratorFormView
+description  :   views for word generator
 """
 
 from django.shortcuts import render, get_object_or_404

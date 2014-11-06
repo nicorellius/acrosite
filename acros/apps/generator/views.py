@@ -42,13 +42,14 @@ class GenerateAcrosticFormView(View):
         
         form = self.form_class(request.POST, instance=word)
         
-        print('word object created: {0}'.format(request.POST['name']))
-        
         if form.is_valid(): 
             
             name = form.cleaned_data['name']
             
             word.save()
+            
+            if word != '':
+                print("word object created: '{0}'".format(request.POST['name']))
             
             return HttpResponseRedirect('/generate/success/')
         
@@ -62,6 +63,7 @@ class GenerateAcrosticSuccessView(View):
     #@method_decorator(login_required)
     def get(self, request):
         
-        words = Word.objects.all()
+        #words = Word.objects.all() # to fetch all objects
+        word = Word.objects.all().last() # to fetch the `newest` item
         
-        return render(request, 'generator/success.html', {'words': words})
+        return render(request, 'generator/success.html', {'word': word})

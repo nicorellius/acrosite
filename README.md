@@ -139,6 +139,26 @@ The preferred method for settings is to use per-dev settings files and check tho
 
 Cool resource: <a href="https://code.djangoproject.com/wiki/SplitSettings" target="_blank">https://code.djangoproject.com/wiki/SplitSettings</a>
 
+**Development environemnt**
+
+In order to use `django-admin.py` for your administrative tasks, you should first set you virtual environments `bin/activate` script to set a couple environmental variables (this is an example of Nick's local environment):
+
+`vim /home/nick/dev/virtenvs/acros/bin/activate`
+
+At the top of the file, add these bits:
+
+    # export djngo settings for this virtual environment
+    export DJANGO_SETTINGS_MODULE='acros.settings.nick'
+    
+    # export new PYTHONPATH
+    export PYTHONPATH=$PYTHONPATH:/home/nick/dev/django/projects/acrosite/acros
+    
+Then, when in the working directory, you can issue commands like this:
+
+    django-admin runserver
+    django-admin.py runserver
+    ./manage.py runserver
+
 **Unit Testing**  
 [Here's](http://docs.python-guide.org/en/latest/writing/tests/) some useful bits about testing.  
 

@@ -45,8 +45,6 @@ Check the `requirements.txt` file on the root of this repository for up-to-date 
     #requirements.txt for acrosite
     distribute==0.7.3
     Django==1.7
-    BeautifulSoup4==4.3.2
-    Pygments==1.6
     django_compressor==1.4
     django-localflavor==1.0
     django-session-security==2.2.1

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from acrosite.acros.apps.generator.models import Word
+from .models import Word
 
 # Create your tests here.
 class WordMethodTests(TestCase):

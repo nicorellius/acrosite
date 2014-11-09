@@ -45,8 +45,6 @@ Check the `requirements.txt` file on the root of this repository for up-to-date 
     #requirements.txt for acrosite
     distribute==0.7.3
     Django==1.7
-    BeautifulSoup4==4.3.2
-    Pygments==1.6
     django_compressor==1.4
     django-localflavor==1.0
     django-session-security==2.2.1
@@ -74,22 +72,23 @@ Windows:
 
 **Briefly**
 
-Note that setting up file structure is a developer-centric activity. I usually use something like this:
+Note that setting up file structure is a developer-centric activity. I usually use something like this (Linux):
 
-    Django projects:    /home/<user>/dev/django/projects/<project_repo_name>/<project_name>
-    virtualenvs:        /home/<user>/dev/virtenvs/<project_name>
-    private bits:       /home/<user>/dev/prv/<project_name>
+    Django projects         /home/<user>/dev/django/projects/<project_repo_name>/<project_name>
+    Virtual environments    /home/<user>/dev/virtenvs/<project_name>
+    Private/secret bits     /home/<user>/dev/prv/<project_name>
     
 Here is a more detailed repository structure for this Django project:
 
     repository_name/
         . . .
         
-        docs/    
-        resouces/    
-        .gitignore    
-        README.txt    
-        TODO.md    
+        docs/
+        resouces/
+        .gitignore 
+        README.md
+        TODO.md
+        AUTHORS.md
         requirements/
             base.txt
             local.txt
@@ -141,17 +140,17 @@ Cool resource: <a href="https://code.djangoproject.com/wiki/SplitSettings" targe
 
 **Development environemnt**
 
-In order to use `django-admin.py` for your administrative tasks, you should first set you virtual environments `bin/activate` script to set a couple environmental variables (this is an example of Nick's local environment):
+In order to use `django-admin.py` for your administrative tasks, you must first adjust your virtual environment's `bin/activate` script to set a couple environmental variables (this is an example of Nick's local environment):
 
 `vim /home/nick/dev/virtenvs/acros/bin/activate`
 
-At the top of the file, add these bits:
+At the top of the file, add these lines:
 
-    # export djngo settings for this virtual environment
+    # export Django settings for this virtual environment
     export DJANGO_SETTINGS_MODULE='acros.settings.nick'
     
-    # export new PYTHONPATH
-    export PYTHONPATH=$PYTHONPATH:/home/nick/dev/django/projects/acrosite/acros
+    # export new PYTHONPATH for this virtual environment
+    export PYTHONPATH=/home/nick/dev/django/projects/acrosite/acros
     
 Then, when in the working directory, you can issue commands like this:
 

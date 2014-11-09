@@ -45,6 +45,7 @@ class GenerateAcrosticFormView(View):
         if form.is_valid(): 
             
             name = form.cleaned_data['name']
+            word.generate_acrostic()
             
             word.save()
             

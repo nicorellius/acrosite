@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Word',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
-                ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
+                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
+                ('modified', models.DateTimeField(verbose_name='modified date', auto_now=True)),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
                 ('name', models.CharField(max_length=200)),

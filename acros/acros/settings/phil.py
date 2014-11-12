@@ -7,7 +7,7 @@ Created on Oct 28, 2014
 
 from .local import *
 
-# set to tru for development
+# set to true for development
 DEBUG = True
 
 # secret key in local settings

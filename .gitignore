@@ -59,6 +59,12 @@ docs/_build/
 # PyBuilder
 target/
 
+# SQLite 3 database
+*.sqlite3
+
+# for now, don't source control migrations
+migrations/
+
 # for now, no images, videos, fonts...
 *.avi
 *.ai
@@ -77,3 +83,5 @@ target/
 *.svg
 *.ttf
 *.woff
+
+*.prefs

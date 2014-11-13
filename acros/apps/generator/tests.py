@@ -9,8 +9,8 @@ description  :   tests for generator application
 from django.test import TestCase
 
 from .models import Word
-
-
+from . import magic
+from nltk.sem.evaluate import Undefined
 
 class WordExistsTestCase(TestCase):
     
@@ -27,3 +27,23 @@ class WordExistsTestCase(TestCase):
         
         self.assertEqual(hello.name, 'hello')
         self.assertEqual(goodbye.name, 'goodbye')
+        
+        
+        '''
+class WordMagicTest(TestCase):
+
+    def test(self):
+        
+        self.assertEqual(first_letter("Abracadabra"), "A")
+        
+        self.assertEqual(get_format("So happy it's Thursday"), ['IN', 'JJ', 'PRP', 'VBZ', 'NNP'])
+        
+        self.assertEqual(get_format("Thank God it's Friday"), ['NNP', 'NNP', 'PRP', 'VBZ', 'NNP'])
+        
+        self.assertEqual(
+            get_format("We're always cuddling koala's yearly"),
+            ['PRP', 'VBP', 'RB', 'VBG', 'NN', 'POS', 'JJ'])
+        
+        #self.assertEqual(get_formats('sample'),'sample')
+        
+        '''

@@ -21,6 +21,7 @@ class GenerateAcrosticFormView(View):
     initial = {'key': 'value'}
     template_name = 'generator/generate.html'
     model = Word
+    #model = Acrostic #need to set the model here, that way .save() method works, also update database
     
     # TODO: we may want consider using login_required decorator
     #@method_decorator(login_required)
@@ -50,6 +51,7 @@ class GenerateAcrosticFormView(View):
             #acrostic.save()
             
             name = form.cleaned_data['name']
+           
             word.generate_acrostic()
             word.acrostic_text = acrostic.component_words
             word.save()
@@ -62,7 +64,7 @@ class GenerateAcrosticFormView(View):
         return render(request, self.template_name, {'form': form})
     
 
-
+ 
 class GenerateAcrosticSuccessView(View):
 
     # TODO: we may want consider using login_required decorator

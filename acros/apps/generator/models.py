@@ -9,7 +9,7 @@ desription  :   models for word generator
 from django.db import models
 #from magic import get_format 
 # @UnresolvedImport
-import magic
+from . import magic
 
 # check out common/models.py for BaseModel definition
 from common.models import BaseModel  # @UnresolvedImport
@@ -58,7 +58,7 @@ class Acrostic(BaseModel):
     cute animals
     Shakespearean dialect
     political
-    each acrosic theme corresponds to a set of word libraries and 
+    each acrostic theme corresponds to a set of word libraries and 
     constructions.
     '''
     theme = models.CharField(max_length=200, default= 'ALL_CATEGORIES')

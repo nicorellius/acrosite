@@ -48,6 +48,11 @@ coverage.xml
 *.pydevproject
 *.project
 
+# Intellij
+./idea
+*.iml
+*.iws
+
 # Sphinx documentation
 docs/_build/
 

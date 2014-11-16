@@ -1,0 +1,8 @@
+TO UPDATE DATABASE:
+
+# delete all migrationsn
+# delete database file
+
+python manage.py syncdb
+python manage.py makemigrations
+python manage.py migrate

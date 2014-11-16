@@ -33,11 +33,11 @@
 		
 		<p>&nbsp;</p>
 		
-		{#% for word in words %#}
+		{#% for acrostic in acrostics %#}
 		
 			<div class="alert alert-success" role="alert" id="acrosticMessage">
 				<p>SUCCESS! Here is your acrostic:</p>
-				<div id="acrostic" style="visibility: hidden;">{{ word.acrostic_text }}</div>
+				<div id="acrostic" style="visibility: hidden;">{{ acrostic.horizontal_words }}</div>
 				<script>
 			        var array = document.getElementById("acrostic").innerHTML.split(';');
 			        for (var i = 0; i < array.length; i++) {

@@ -11,7 +11,6 @@ from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
 from .models import Acrostic
-from .models import Word
 from .forms import GenerateAcrosticForm # @UnresolvedImport
 
     
@@ -20,8 +19,8 @@ class GenerateAcrosticFormView(View):
     form_class = GenerateAcrosticForm
     initial = {'key': 'value'}
     template_name = 'generator/generate.html'
-    model = Word
-    #model = Acrostic #need to set the model here, that way .save() method works, also update database
+    #model = Word
+    model = Acrostic #need to set the model here, that way .save() method works, also update database
     
     # TODO: we may want consider using login_required decorator
     #@method_decorator(login_required)
@@ -37,27 +36,21 @@ class GenerateAcrosticFormView(View):
     #@method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         
-        word = Word()
+        acrostic = Acrostic()
         
-        print("this view is trying to create a word object...")
+        print("this view is trying to create an acrostic object...")
         
-        form = self.form_class(request.POST, instance=word)
+        form = self.form_class(request.POST, instance=acrostic)
         
         if form.is_valid(): 
                         
             vert_word = form.cleaned_data['name']
             acrostic = Acrostic()
             acrostic.generate_random_acrostic(vert_word)
-            #acrostic.save()
+            acrostic.save()
             
-            name = form.cleaned_data['name']
-           
-            word.generate_acrostic()
-            word.acrostic_text = acrostic.component_words
-            word.save()
-            
-            if word != '':
-                print("word object created: '{0}'".format(request.POST['name']))
+            if acrostic != '':
+                print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
             
             return HttpResponseRedirect('/generate/success/')
         
@@ -71,8 +64,7 @@ class GenerateAcrosticSuccessView(View):
     #@method_decorator(login_required)
     def get(self, request):
         
-        #words = Word.objects.all() # to fetch all objects
         # to fetch the `newest` item
-        word = Word.objects.all().last()  # @UndefinedVariable
+        acrostic = Acrostic.objects.all().last()  # @UndefinedVariable
         
-        return render(request, 'generator/success.html', {'word': word})
+        return render(request, 'generator/success.html', {'acrostic': acrostic})

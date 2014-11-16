@@ -10,9 +10,11 @@ from django.db import models
 #from magic import get_format 
 # @UnresolvedImport
 from . import magic #@UnresolvedImport
+from . import populate
 
 # check out common/models.py for BaseModel definition
 from common.models import BaseModel  # @UnresolvedImport
+#from apps.generator.populate import basic_word_list
 
 class Word(BaseModel):
     
@@ -44,9 +46,74 @@ class Acrostic(BaseModel):
         
         print("Part of speech: ", magic.get_format(vert_word)) 
         
+        basic_words = self.basic_word_list()
+        
         if vert_word.upper() == 'TEST':
             self.horizontal_words = "Take;Every;Single;Tangerine"
-        else:
-            self.horizontal_words = "A;B;C"
+        else: 
+            characters = list(vert_word) #returns array of characters
+            str = ""
+            for letter in characters:
+                for word in basic_words:
+                    print(word.name, letter, word.name.startswith(letter))
+                    if word.name.startswith(letter):
+                        letter = word.name
+                str = str + letter + ";"
+            self.horizontal_words = str
         print("Acrostic: ", self.horizontal_words);
         return self.horizontal_words
+    
+    def basic_word_list(self):
+        word1 = Word()
+        word1.name = "apple"
+        word1.part_of_speech = "NN"
+        word1.themes = "fruits;"
+    
+        word2 = Word()
+        word2.name = "banana"
+        word2.part_of_speech = "NN"
+        word2.themes = "fruits;"
+    
+        word3 = Word()
+        word3.name = "cockroach"
+        word3.part_of_speech = "NN"
+        word3.themes ="insects;gross"
+    
+        word4 = Word()
+        word4.name = "dancing"
+        word4.part_of_speech = "V"
+        word4.themes = "party;romantic"
+    
+        word5 = Word()
+        word5.name = "elephant"
+        word5.part_of_speech = "NN"
+        word5.themes = "animal;circus"
+        
+        word6 = Word()
+        word6.name = "is"
+        word6.part_of_speech = "V"
+        word6.themes = ""
+        
+        word7 = Word()
+        word7.name = "overindulgently"
+        word7.part_of_speech ="ADV"
+        word7.themes = "long;negative"
+        
+        word8 = Word()
+        word8.name = "ugly"
+        word8.part_of_speech ="ADJ"
+        word8.themes ="negative"
+        
+        word9 = Word()
+        word9.name = "terrible"
+        word9.part_of_speech = "ADJ"
+        word9.themes = "negative"
+        
+        word10 = Word()
+        word10.name = "randy"
+        word10.part_of_speech = "ADJ"
+        word10.themes = "BritishProfanity;names"
+        
+        word_list = [word1, word2, word3, word4, word5,
+                     word6, word7, word8, word9, word10]
+        return word_list

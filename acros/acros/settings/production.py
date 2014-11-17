@@ -4,7 +4,7 @@ Django production settings for acrosite project.
 
 from .base import *
 
-# set to tru for development
+# set to False for production
 DEBUG = False
 
 # for databases, https://docs.djangoproject.com/en/1.7/ref/settings/#databases

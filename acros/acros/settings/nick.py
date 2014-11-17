@@ -1,8 +1,8 @@
 """
 Django developer specific settings for acrosite project.
 
-@date 2014-1026
-@author nicorellius
+2014-1026
+nicorellius
 """
 
 from .local import *

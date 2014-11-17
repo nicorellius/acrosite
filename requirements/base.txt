@@ -6,5 +6,6 @@ django-localflavor==1.0
 django-session-security==2.2.1
 #django-debug-toolbar==1.2.1 # this could be dev-specific
 selenium==2.43.0
-nltk==3.0.0
+#nltk==3.0.0 # issues with nltk and NumPy
+#numpy==1.9.1 # issues with nltk and NumPy
 #invoke # deployment tool - fabric's successor; supports python 3.x

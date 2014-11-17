@@ -35,19 +35,9 @@
 		
 		{#% for word in words %#}
 		
-			<div class="alert alert-success" role="alert" id="acrosticMessage">
-				<p>SUCCESS! Here is your acrostic:</p>
+			<div class="alert alert-success" role="alert">
+				<p>SUCCESS! Your word: {{word.name}} ... and your acrostic:</p>
 				<p>{{ word.acrostic_text }}</p>
-				
-				
-				
-				
-				
-				<script>
-					var array = split_input({{ word.acrostic_text }}, ;);
-			        var elem = document.getElementById("acrosticMessage");
-			        elem.textContent = array[0];
-				</script>
 			</div>
 			
 		{#% endfor %#}

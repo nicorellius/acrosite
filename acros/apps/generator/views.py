@@ -10,9 +10,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
-from .models import Acrostic
-from .models import Word
-from .forms import GenerateAcrosticForm # @UnresolvedImport
+from .models import Word, Acrostic
+from .forms import GenerateAcrosticForm
 
     
 class GenerateAcrosticFormView(View):
@@ -37,6 +36,7 @@ class GenerateAcrosticFormView(View):
     def post(self, request, *args, **kwargs):
         
         word = Word()
+        #acrostic = Acrostic()
         
         print("this view is trying to create a word object...")
         
@@ -44,18 +44,19 @@ class GenerateAcrosticFormView(View):
         
         if form.is_valid(): 
                         
-            vert_word = form.cleaned_data['name']
-            acrostic = Acrostic()
-            acrostic.generate_random_acrostic(vert_word)
-            #acrostic.save()
-            
             name = form.cleaned_data['name']
+            #vert_word = form.cleaned_data['name']
+
+            #acrostic.generate_random_acrostic(vert_word)
+            #acrostic.save()
+           
             word.generate_acrostic()
-            word.acrostic_text = acrostic.component_words
+            #word.acrostic_text = acrostic.component_words
             word.save()
             
             if word != '':
-                print("word object created: '{0}'".format(request.POST['name']))
+                print("word name: '{0}'".format(request.POST['name']))
+                print("word acrostic text: '{0}'".format(word.acrostic_text))
             
             return HttpResponseRedirect('/generate/success/')
         
@@ -71,6 +72,6 @@ class GenerateAcrosticSuccessView(View):
         
         #words = Word.objects.all() # to fetch all objects
         # to fetch the `newest` item
-        word = Word.objects.all().last()  # @UndefinedVariable
+        word = Word.objects.all().last()
         
         return render(request, 'generator/success.html', {'word': word})

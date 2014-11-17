@@ -11,6 +11,7 @@ from django.db import models
 # @UnresolvedImport
 from . import magic #@UnresolvedImport
 from . import populate
+import random
 
 # check out common/models.py for BaseModel definition
 from common.models import BaseModel  # @UnresolvedImport
@@ -19,9 +20,9 @@ from common.models import BaseModel  # @UnresolvedImport
 class Word(BaseModel):
     
     name = models.CharField(max_length=200)
-    part_of_speech = models.CharField(max_length=200)
-    themes = models.CharField(max_length=200)
-    valuation = models.FloatField()
+    part_of_speech = models.CharField(max_length=200,default="NN")
+    themes = models.CharField(max_length=200,default="")
+    valuation = models.FloatField(default=-1.0) #a -1 flag implies "no valuation assigned"
     
     def __str__(self):
         return self.name
@@ -44,30 +45,39 @@ class Acrostic(BaseModel):
     def generate_random_acrostic(self, vert_word):
         self.vertical_word = vert_word
         
-        print("Part of speech: ", magic.get_format(vert_word)) 
+        #print("Part of speech: ", magic.get_format(vert_word)) 
         
-        basic_words = self.basic_word_list()
-        
-        if vert_word.upper() == 'TEST':
-            self.horizontal_words = "Take;Every;Single;Tangerine"
-        else: 
-            characters = list(vert_word) #returns array of characters
-            str = ""
-            for letter in characters:
-                for word in basic_words:
-                    print(word.name, letter, word.name.startswith(letter))
-                    if word.name.startswith(letter):
-                        letter = word.name
-                str = str + letter + ";"
-            self.horizontal_words = str
+        #build word database if no words currently in database.
+        if not Word.objects.all():
+            Acrostic.basic_word_list(self)
+            
+        characters = list(vert_word) #returns array of characters
+        horz_words = ""
+        for letter in characters:
+                
+            #filter list appropriately
+            availableWords = Word.objects.filter(name__startswith=letter)
+                
+            if not availableWords:
+                horz_words = horz_words + letter + ";"
+            else:
+                w = random.choice(availableWords)
+                horz_words = horz_words + w.name + ";"
+        self.horizontal_words = horz_words
         print("Acrostic: ", self.horizontal_words);
         return self.horizontal_words
-    
+        
     def basic_word_list(self):
         word1 = Word()
         word1.name = "apple"
         word1.part_of_speech = "NN"
         word1.themes = "fruits;"
+        
+        word11 = Word()
+        word11.name = "amazon"
+        
+        word12 = Word()
+        word12.name = "abalone"
     
         word2 = Word()
         word2.name = "banana"
@@ -114,6 +124,17 @@ class Acrostic(BaseModel):
         word10.part_of_speech = "ADJ"
         word10.themes = "BritishProfanity;names"
         
-        word_list = [word1, word2, word3, word4, word5,
-                     word6, word7, word8, word9, word10]
-        return word_list
+        word1.save()
+        word2.save()
+        word3.save()
+        word4.save()
+        word5.save()
+        word6.save()
+        word7.save()
+        word8.save()
+        word9.save()
+        word10.save()
+        word11.save()
+        word12.save()
+        
+        return

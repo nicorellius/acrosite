@@ -1,0 +1,26 @@
+[
+	{
+		"model":"generator.Word",
+		"pk":1,
+		"fields": {
+			"name": "Apple",
+			"part_of_speech": "NN",
+			"themes": "fruits;",
+			"created": "2014-11-16T05:09:38.876Z",
+			"modified": "2014-11-16T06:02:55.062Z",
+			"valuation": "-1.0"
+		}
+	},
+	{
+		"model": "generator.Word",
+		"pk":2,
+		"fields": {
+			"name": "Banana",
+			"part_of_speech": "NN",
+			"themes": "fruits;",
+			"created": "2014-11-16T05:09:38.876Z",
+			"modified": "2014-11-16T06:02:55.062Z",
+			"valuation": "-1.0"
+		}
+	}
+]

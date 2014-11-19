@@ -9,13 +9,9 @@ Word:
 		the part (or parts) of speech associated with this word.
 		For example: noun, adjective, or verb.
 
-	themes
-		a list of strings associated with a certain 'theme'.
-		A theme simply refers to a particular predefined
-		collection of words (usually manually curated).
-		A theme may be quite abstract or concrete: For example,
-		a 'theme' could be 'fruits', or it could be 'embarrassing'.
-		The list of themes are associated with the word so that
+	tags
+		a list of strings associated with a specific abstract idea.
+		The list of tags are associated with the word so that
 		in the generation of acrostics, the themes are readily
 		available.
 
@@ -32,6 +28,14 @@ Acrostic:
 	horizontal_words
 		The list of words or phrases that comprise the rows of the 
 		acrostic.  Words are separated by a semicolon.
+	theme
+		An abstract topic or category associated with an acrostic.  At some point,
+		this may be specified by the user (they could choose to generate
+		a "cute animal" acrostic, for example, or a "religion" acrostic).
+	construction_id
+		See Construction.construction_id.
+
+Construction:
 	construction
 		Describes the parts of speech acceptable for the horizontal words
 		in the acrostic.  Usually, a sequence of the parts of speech
@@ -39,12 +43,8 @@ Acrostic:
 		where the vertical word is any part of speech, the first horizontal 
 		word is a noun, the second is  noun, the third is an adjective, and
 		the fourth is a noun.
-	construction_name
+	construction_id
 		A name associated with the specific sequence of parts of speech
 		associated with the horizontal words in the acrostic.  This field
 		helps describe the construction field in a human-meaningful way
 		(like "texas" or "shakespearean" instead of "noun-noun-adjective-noun")
-	theme
-		An abstract topic or category associated with an acrostic.  At some point,
-		this may be specified by the user (they could choose to generate
-		a "cute animal" acrostic, for example, or a "religion" acrostic).

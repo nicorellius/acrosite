@@ -10,7 +10,7 @@ from django.db import models
 #from magic import get_format 
 # @UnresolvedImport
 from . import magic #@UnresolvedImport
-from . import populate
+#from . import populate
 import random
 
 # check out common/models.py for BaseModel definition
@@ -21,18 +21,21 @@ class Word(BaseModel):
     
     name = models.CharField(max_length=200)
     part_of_speech = models.CharField(max_length=200,default="NN")
-    themes = models.CharField(max_length=200,default="")
+    tags = models.CharField(max_length=200,default="")
     valuation = models.FloatField(default=-1.0) #a -1 flag implies "no valuation assigned"
     
     def __str__(self):
         return self.name
     
+class Construction(BaseModel):
+    construction = models.CharField(max_length=200)
+    construction_id = models.CharField(max_length=200, default= 'Anything')    
+    
 class Acrostic(BaseModel):
     
     vertical_word = models.CharField(max_length=200, default = 'N/A')
     horizontal_words = models.CharField(max_length=200, default = 'N;/;A')
-    construction = models.CharField(max_length=200)
-    construction_name = models.CharField(max_length=200, default= 'Anything')
+    construction_id = models.CharField(max_length=200, default= 'Anything')
     theme = models.CharField(max_length=200, default= 'ALL_CATEGORIES')
     
     def __str__(self):
@@ -71,7 +74,7 @@ class Acrostic(BaseModel):
         word1 = Word()
         word1.name = "apple"
         word1.part_of_speech = "NN"
-        word1.themes = "fruits;"
+        word1.tags = "fruits;"
         
         word11 = Word()
         word11.name = "amazon"
@@ -82,47 +85,47 @@ class Acrostic(BaseModel):
         word2 = Word()
         word2.name = "banana"
         word2.part_of_speech = "NN"
-        word2.themes = "fruits;"
+        word2.tags = "fruits;"
     
         word3 = Word()
         word3.name = "cockroach"
         word3.part_of_speech = "NN"
-        word3.themes ="insects;gross"
+        word3.tags ="insects;gross"
     
         word4 = Word()
         word4.name = "dancing"
         word4.part_of_speech = "V"
-        word4.themes = "party;romantic"
+        word4.tags = "party;romantic"
     
         word5 = Word()
         word5.name = "elephant"
         word5.part_of_speech = "NN"
-        word5.themes = "animal;circus"
+        word5.tags = "animal;circus"
         
         word6 = Word()
         word6.name = "is"
         word6.part_of_speech = "V"
-        word6.themes = ""
+        word6.tags = ""
         
         word7 = Word()
         word7.name = "overindulgently"
         word7.part_of_speech ="ADV"
-        word7.themes = "long;negative"
+        word7.tags = "long;negative"
         
         word8 = Word()
         word8.name = "ugly"
         word8.part_of_speech ="ADJ"
-        word8.themes ="negative"
+        word8.tags ="negative"
         
         word9 = Word()
         word9.name = "terrible"
         word9.part_of_speech = "ADJ"
-        word9.themes = "negative"
+        word9.tags = "negative"
         
         word10 = Word()
         word10.name = "randy"
         word10.part_of_speech = "ADJ"
-        word10.themes = "BritishProfanity;names"
+        word10.tags = "BritishProfanity;names"
         
         word1.save()
         word2.save()

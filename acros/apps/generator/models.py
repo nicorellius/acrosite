@@ -39,7 +39,7 @@ class Acrostic(BaseModel):
         component_words = self.horizontal_words.split(';')
         str = ""
         for word in component_words:
-            str = str + word + "\n"
+            str = str + "\n" + word
         return str
     
     def generate_random_acrostic(self, vert_word):

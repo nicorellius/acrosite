@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load custom %}
 
 {% block title %} So Happy It's Thursday {% endblock %}
 
@@ -37,14 +38,9 @@
 		
 			<div class="alert alert-success" role="alert" id="acrosticMessage">
 				<p>SUCCESS! Here is your acrostic:</p>
-				<div id="acrostic" style="visibility: hidden;">{{ acrostic.horizontal_words }}</div>
-				<script>
-			        var array = document.getElementById("acrostic").innerHTML.split(';');
-			        for (var i = 0; i < array.length; i++) {
-			        	var acr_word = "<p>" + array[i] + "</p>";
-			        	document.write(acr_word);
-			        }
-				</script>
+				
+				{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}		
+
 			</div>
 			
 		{#% endfor %#}

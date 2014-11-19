@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'common',
     'apps.logs',
     'apps.generator',
+    'apps.generator.templatetags',
 )
 
 MIDDLEWARE_CLASSES = (

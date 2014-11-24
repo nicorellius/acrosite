@@ -35,9 +35,23 @@
 		
 		{#% for word in words %#}
 		
-			<div class="alert alert-success" role="alert">
+
+				<!--<div class="alert alert-success" role="alert">
 				<p>SUCCESS! Your word: {{word.name}} ... and your acrostic:</p>
-				<p>{{ word.acrostic_text }}</p>
+				<p>{{ word.acrostic_text }}</p>-->
+
+			<div class="alert alert-success" role="alert" id="acrosticMessage">
+				
+				<p>SUCCESS! Here is your acrostic:</p>
+				<div id="acrostic" style="visibility: hidden;">{{ word.acrostic_text }}</div>
+				<script>
+			        var array = document.getElementById("acrostic").innerHTML.split(';');
+			        for (var i = 0; i < array.length; i++) {
+			        	var acr_word = "<p>" + array[i] + "</p>";
+			        	document.write(acr_word);
+			        }
+				</script>
+
 			</div>
 			
 		{#% endfor %#}

@@ -6,34 +6,48 @@ classes     :
 description :   Generate an acrostic based on various inputs and the database of words.
 """
 
-from .populate import basic_list
+from .populate import populate_database
 from .models import Word, Acrostic
 import random
 
-def generate_random_acrostic(vert_word):
+def generate_random_acrostic(vert_word, *args):
    
     acrostic = Acrostic()
     acrostic.vertical_word = vert_word
     
+    if len(args) == 1:
+        construction = args[0].get_list()
+    
     #build word database if no words currently in database.
-    if not Word.objects.all():
-        basic_list()
+    if not Word.objects.all(): # @UndefinedVariable
+        populate_database()
             
     characters = list(vert_word) #returns array of characters
     horz_words = ""
+    counter = 0
     for letter in characters:
                 
         #filter list appropriately
-        availableWords = Word.objects.filter(name__startswith=letter)
-                
+        #availableWords = Word.objects.filter(name__startswith=letter) # @UndefinedVariable
+        
+        if len(args) == 0:
+            availableWords = Word.objects.filter(name__startswith=letter) # @UndefinedVariable
+        elif len(args) == 1:
+            availableWords = (Word.objects.filter( # @UndefinedVariable
+                              name__startswith=letter,
+                              part_of_speech=construction[counter]))
+        else:
+            #default - only filter by letter
+            availableWords = Word.objects.filter(name__startswith=letter) # @UndefinedVariable
+            
         if not availableWords:
             horz_words = horz_words + letter + ";"
         else:
             w = random.choice(availableWords)
             horz_words = horz_words + w.name + ";"
-    
+        counter += 1
+        
     acrostic.vertical_word = vert_word
     acrostic.horizontal_words = horz_words
     print("Acrostic:\n", acrostic.__str__());
-    return acrostic
-        
+    return acrostic        

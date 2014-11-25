@@ -29,8 +29,14 @@ class Word(BaseModel):
         return str
     
 class Construction(BaseModel):
-    construction = models.CharField(max_length=200)
-    construction_id = models.CharField(max_length=200, default= 'Anything')    
+    sequence = models.CharField(max_length=200)
+    constr_id = models.CharField(max_length=200, default= 'Anything')    
+    
+    def __str__(self):
+        return self.constr_id + ":\n" + self.sequence
+    
+    def get_list(self):
+        return self.sequence.split(";")
     
 class Acrostic(BaseModel):
     

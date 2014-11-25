@@ -1,16 +1,14 @@
 """
 file        :   forms.py
-date        :   2014-1030
+date        :   2014-10-30
 module      :   generator
 classes     :   GeneratorFromView
-desription  :   forms for word generator
+description :   forms for word generator
 """
 
 from django import forms
 
 from .models import Word
-
-
 
 class GenerateAcrosticForm(forms.ModelForm):
 

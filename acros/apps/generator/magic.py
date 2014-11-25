@@ -8,8 +8,6 @@ They only work inside modules. Cross module imports require full path.
 """
 #from .models import Word
 
-
-
 def first_letter(word):
     return word[0]
 

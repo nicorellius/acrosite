@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Acrostic
 from .forms import GenerateAcrosticForm # @UnresolvedImport
+from .generate import generate_random_acrostic
 
     
 class GenerateAcrosticFormView(View):
@@ -44,10 +45,9 @@ class GenerateAcrosticFormView(View):
         if form.is_valid(): 
                         
             vert_word = form.cleaned_data['name']
-            acrostic = Acrostic()
-            acrostic.generate_random_acrostic(vert_word)
+            acrostic = generate_random_acrostic(vert_word)
             acrostic.save()
-            
+                        
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
             
@@ -64,6 +64,6 @@ class GenerateAcrosticSuccessView(View):
     def get(self, request):
         
         # to fetch the `newest` item
-        acrostic = Acrostic.objects.all().last()  # @UndefinedVariable
+        acrostic = Acrostic.objects.all().last() # @UndefinedVariable
         
         return render(request, 'generator/success.html', {'acrostic': acrostic})

@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
-from .models import Acrostic
+from .models import Acrostic, Construction
 from .forms import GenerateAcrosticForm #@UnresolvedImport
 from .generate import generate_random_acrostic
 from .constructions import A_to_N, AA_N_pattern
@@ -47,8 +47,12 @@ class GenerateAcrosticFormView(View):
                         
             vert_word = form.cleaned_data['name']
  
-            #construction = A_to_N(vert_word)
-            construction = AA_N_pattern(vert_word)
+            construction = A_to_N(vert_word)
+            #construction = AA_N_pattern(vert_word)
+            
+            #construction = Construction()
+            #construction.sequence = "P;A;N;VI;AV"
+            #construction.sequence = "N;VI;N;N;VI;AV"
             acrostic = generate_random_acrostic(vert_word, construction)
             #acrostic = generate_random_acrostic(vert_word)
             

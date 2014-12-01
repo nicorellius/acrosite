@@ -1,0 +1,137 @@
+# Pronouns
+
+the	PS	cute;	0.0
+a	PS	cute;	0.0
+my	PS	cute;	0.0
+his	PS	cute;	0.0
+her	PS	cute;	0.0
+our	PS	cute;	0.0
+people's	PS	cute;	0.0
+world's	PS	cute;	0.0
+your	PS	cute;	0.0
+children's	PS	cute;	0.0
+
+# Nouns (singular)
+
+buddy	NS	cute;	0.0
+cohort	NS	cute;	0.0
+companion	NS	cute;	0.0
+cutie	NS	cute;	0.0
+dog	NS	cute;	0.0
+doggy	NS	cute;	0.0
+ear	NS	cute;	0.0
+feet	NS	cute;	0.0
+friend	NS	cute;	0.0
+hound	NS	cute;	0.0
+I	NS	cute;	0.0
+legs	NS	cute;	0.0
+mutt	NS	cute;	0.0
+pal	NS	cute;	0.0
+partner	NS	cute;	0.0
+paws	NS	cute;	0.0
+pup	NS	cute;	0.0
+pupparoo	NS	cute;	0.0
+puppy	NS	cute;	0.0
+rump	NS	cute;	0.0
+tail	NS	cute;	0.0
+
+# Adjectives
+
+adorable	A	cute;	0.0
+adventurous	A	cute;	0.0
+affectionate	A	cute;	0.0
+amicable	A	cute;	0.0
+brave	A	cute;	0.0
+bubbly	A	cute;	0.0
+charming	A	cute;	0.0
+cute	A	cute;	0.0
+energetic	A	cute;	0.0
+enthusiastic	A	cute;	0.0
+excellent	A	cute;	0.0
+faithful	A	cute;	0.0
+fluffy	A	cute;	0.0
+friendly	A	cute;	0.0
+furry	A	cute;	0.0
+gentle	A	cute;	0.0
+good	A	cute;	0.0
+happy	A	cute;	0.0
+helpful	A	cute;	0.0
+interesting	A	cute;	0.0
+kind	A	cute;	0.0
+little	A	cute;	0.0
+loving	A	cute;	0.0
+loyal	A	cute;	0.0
+neat	A	cute;	0.0
+nice	A	cute;	0.0
+moody	A	cute;	0.0
+oh-so-cute	A	cute;	0.0
+only	A	cute;	0.0
+precious	A	cute;	0.0
+yapping	A	cute;	0.0
+reliable	A	cute;	0.0
+resourceful	A	cute;	0.0
+ruffled	A	cute;	0.0
+sensitive	A	cute;	0.0
+small	A	cute;	0.0
+sociable	A	cute;	0.0
+special	A	cute;	0.0
+tidy	A	cute;	0.0
+tiny	A	cute;	0.0
+tough	A	cute;	0.0
+unique	A	cute;	0.0
+warm	A	cute;	0.0
+warmhearted	A	cute;	0.0
+
+# Verbs
+
+acts	VS	cute;	0.0
+alerts	VS	cute;	0.0
+balances	VS	cute;	0.0
+barks	VS	cute;	0.0
+bathes	VS	cute;	0.0
+beams	VS	cute;	0.0
+begs	VS	cute;	0.0
+behaves	VS	cute;	0.0
+bellows	VS	cute;	0.0
+blinks	VS	cute;	0.0
+blushes	VS	cute;	0.0
+bounces	VS	cute;	0.0
+bites	VS	cute;	0.0
+calls	VS	cute;	0.0
+catches	VS	cute;	0.0
+charges	VS	cute;	0.0
+chews	VS	cute;	0.0
+claps	VS	cute;	0.0
+climbs	VS	cute;	0.0
+comforts	VS	cute;	0.0
+crawls	VS	cute;	0.0
+curls	VS	cute;	0.0
+gallops	VS	cute;	0.0
+itches	VS	cute;	0.0
+jumps	VS	cute;	0.0
+leaps	VS	cute;	0.0
+munches	VS	cute;	0.0
+nibbles	VS	cute;	0.0
+pokes	VS	cute;	0.0
+shakes	VS	cute;	0.0
+sneezes	VS	cute;	0.0
+sniffles	VS	cute;	0.0
+snorts	VS	cute;	0.0
+trots	VS	cute;	0.0
+whimpers	VS	cute;	0.0
+
+# Adverbs
+
+always	D	cute;	0.0
+emotionally	D	cute;	0.0
+enthusiastically	D	cute;	0.0
+gingerly	D	cute;	0.0
+happily	D	cute;	0.0
+jumpily	D	cute;	0.0
+lovingly	D	cute;	0.0
+nicely	D	cute;	0.0
+smartly	D	cute;	0.0
+sweetly	D	cute;	0.0
+tenderly	D	cute;	0.0
+tentatively	D	cute;	0.0
+youthfully D	cute;	0.0

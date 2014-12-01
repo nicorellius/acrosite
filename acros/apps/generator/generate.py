@@ -6,9 +6,9 @@ classes     :
 description :   Generate an acrostic based on various inputs and the database of words.
 """
 
-from .populate import populate_database
+from .populate import populate_database, subject_database
 from .models import Word, Acrostic
-import random
+import random, re
 
 def generate_random_acrostic(vert_word, *args):
    
@@ -20,7 +20,8 @@ def generate_random_acrostic(vert_word, *args):
     
     #build word database if no words currently in database.
     if not Word.objects.all(): # @UndefinedVariable
-        populate_database()
+        #populate_database()
+        subject_database("resources/CuteAnimals.txt")
             
     characters = list(vert_word) #returns array of characters
     horz_words = ""
@@ -44,7 +45,8 @@ def generate_random_acrostic(vert_word, *args):
             horz_words = horz_words + letter + ";"
         else:
             w = random.choice(availableWords)
-            horz_words = horz_words + w.name + ";"
+            horz = re.sub('[_]', ' ', w.name)
+            horz_words = horz_words + horz + ";"
         counter += 1
         
     acrostic.vertical_word = vert_word

@@ -13,7 +13,7 @@ from django.http import HttpResponseRedirect
 from .models import Acrostic, Construction
 from .forms import GenerateAcrosticForm #@UnresolvedImport
 from .generate import generate_random_acrostic
-from .constructions import A_to_N, AA_N_pattern
+from .constructions import A_to_N, AA_N_pattern, A_to_NS_VS_D
 
     
 class GenerateAcrosticFormView(View):
@@ -47,12 +47,14 @@ class GenerateAcrosticFormView(View):
                         
             vert_word = form.cleaned_data['name']
  
-            construction = A_to_N(vert_word)
+            #construction = A_to_N(vert_word)
             #construction = AA_N_pattern(vert_word)
+            construction = A_to_NS_VS_D(vert_word)
             
             #construction = Construction()
             #construction.sequence = "P;A;N;VI;AV"
             #construction.sequence = "N;VI;N;N;VI;AV"
+            #construction.sequence = "A;A;NS;VS;D"
             acrostic = generate_random_acrostic(vert_word, construction)
             #acrostic = generate_random_acrostic(vert_word)
             

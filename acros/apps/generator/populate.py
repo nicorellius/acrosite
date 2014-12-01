@@ -8,6 +8,27 @@ description :   Populate the database with Word models.
 
 from .models import Word
 
+def subject_database(database_file):
+    f = open(database_file)
+    counter = 0
+    for line in f:
+        if len(line) > 1:
+            chars = list(line)
+            if chars[0] != "#":
+                params = line.split()
+            
+                word = Word()
+                word.name = params[0]
+                word.part_of_speech = params[1]
+                word.tags = params[2]
+                word.valuation = params[3]
+                word.save()
+                counter += 1
+            
+    f.close()
+    print(("Subject database " + database_file + " imported  (" + str(counter) + " entries)."))
+    return
+
 def populate_database():
     counter = 0;
     counter += import_negative_adjectives()
@@ -112,7 +133,7 @@ def import_common_adverbs():
         word = Word()
         word.name = line.strip()
         word.tags = "Common;"
-        word.part_of_speech = "AV"
+        word.part_of_speech = "D"
         word.save()
         counter += 1
     f.close()

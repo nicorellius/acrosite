@@ -1,7 +1,7 @@
 # Animals (plural nouns)
 
 alligator_babies	NP	cute;	0.0
-bears	NP	cute;	0.0
+bear_cubs	NP	cute;	0.0
 buffalo	NP	cute;	0.0
 bunnies	NP	cute;	0.0
 cats	NP	cute;	0.0
@@ -28,6 +28,7 @@ leopards	NP	cute;	0.0
 lil'_guys	NP	cute;	0.0
 lions	NP	cute;	0.0
 mini-pigs	NP	cute;	0.0
+meerkats	NP	cute;	0.0
 monkeys	NP	cute;	0.0
 narwhales	NP	cute;	0.0
 owls	NP	cute;	0.0
@@ -135,7 +136,7 @@ chew	VP	cute;	0.0
 clap	VP	cute;	0.0
 climb	VP	cute;	0.0
 comfort	VP	cute;	0.0
-crawl	VP	cute;	0.0
+cuddle	VP	cute;	0.0
 curl	VP	cute;	0.0
 dance	VP	cute;	0.0
 decorate	VP	cute;	0.0
@@ -217,6 +218,7 @@ roar	VP	cute;	0.0
 rule	VP	cute;	0.0
 shake	VP	cute;	0.0
 sneeze	VP	cute;	0.0
+scamper	VP	cute;	0.0
 scoot	VP	cute;	0.0
 scratch	VP	cute;	0.0
 shiver	VP	cute;	0.0

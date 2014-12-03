@@ -42,11 +42,11 @@ def generate_random_acrostic(vert_word, *args):
             availableWords = Word.objects.filter(name__startswith=letter) # @UndefinedVariable
             
         if not availableWords:
-            horz_words = horz_words + letter + ";"
+            horz_words = "{0}{1};".format(horz_words,letter)
         else:
             w = random.choice(availableWords)
             horz = re.sub('[_]', ' ', w.name)
-            horz_words = horz_words + horz + ";"
+            horz_words = "{0}{1};".format(horz_words,horz)
         counter += 1
         
     acrostic.vertical_word = vert_word

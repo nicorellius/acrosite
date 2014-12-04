@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load custom %}
 
 {% block title %} So Happy It's Thursday {% endblock %}
 
@@ -31,25 +32,20 @@
 				
 		</div>
 		
-		<div class="clear-both"></div>
-			
-		<div class="acrostic-form">
+		<p>&nbsp;</p>
 		
-			<form role="form" method="post" onsubmit="return validate_generate_acrostic_form(this);">
+		{#% for acrostic in acrostics %#}
+		
+			<div class="alert alert-success" role="alert" id="acrosticMessage">
+				<p>SUCCESS! Here is your acrostic:</p>
 				
-				{% csrf_token %}
-				
-				<div class="form-group">
-                    <label for="name"></label>
-                    <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
-                    {{ form.name }}
-                </div>
-				
-				<button type="submit" class="btn btn-primary btn-lg btn-block">Generate Acrostic</button>
-				
-			</form>
+				{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}		
+
+			</div>
 			
-		</div>
+		{#% endfor %#}
+		
+		<div class="clear-both"></div>
 		
 	</section>
 

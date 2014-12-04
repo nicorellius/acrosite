@@ -17,3 +17,20 @@ markdown syntax: http://daringfireball.net/projects/markdown/syntax
 - authentication backend. django-registration, django-profiles may not be compatible with python 3
 - choose css framework
 
+============================
+TODO: Wednesday, Dec 3, 2014
+
+(1) DB Structure - Schema
+- Everybody
+- include a field for stars (for star interface, for rating, and then saving)
+
+(2) Authentication system
+- Nick
+
+(3) Integration with learning algorithm
+- Phil + Jimar
+
+(4) Integrate AJAX
+
+(5) Add simple template buttons for user
+- Nick

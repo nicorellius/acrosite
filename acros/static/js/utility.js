@@ -62,7 +62,7 @@ $(document).ready(function() {
         return false;
     })
     
-    $('a').click(function() {
+    $('.back-to-top').click(function() {
         
 		var href = $.attr(this, 'href');
         

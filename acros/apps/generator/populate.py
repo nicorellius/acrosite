@@ -8,6 +8,7 @@ description :   Populate the database with Word models.
 
 from .models import Word
 
+
 def subject_database(database_file):
     f = open(database_file)
     counter = 0
@@ -28,6 +29,7 @@ def subject_database(database_file):
     f.close()
     print(("Subject database " + database_file + " imported  (" + str(counter) + " entries)."))
     return
+
 
 def populate_database():
     counter = 0;

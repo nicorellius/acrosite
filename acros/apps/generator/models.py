@@ -11,11 +11,12 @@ from django.db import models
 # check out common/models.py for BaseModel definition
 from common.models import BaseModel  # @UnresolvedImport
 
+
 class Word(BaseModel):
     
     name = models.CharField(max_length=200)
-    part_of_speech = models.CharField(max_length=200,default="NN")
-    tags = models.CharField(max_length=200,default="")
+    part_of_speech = models.CharField(max_length=200, default="NN")
+    tags = models.CharField(max_length=200, default="")
     valuation = models.FloatField(default=-1.0) #a -1 flag implies "no valuation assigned"
     
     def __str__(self):
@@ -27,8 +28,10 @@ class Word(BaseModel):
             str = str + "\t" + tag + "\n"
         str = str + "valuation: " + self.valuation
         return str
-    
+
+
 class Construction(BaseModel):
+    
     sequence = models.CharField(max_length=200)
     constr_id = models.CharField(max_length=200, default= 'Anything')    
     
@@ -37,7 +40,8 @@ class Construction(BaseModel):
     
     def get_list(self):
         return self.sequence.split(";")
-    
+
+
 class Acrostic(BaseModel):
     
     vertical_word = models.CharField(max_length=200, default = 'N/A')

@@ -68,7 +68,6 @@ class GenerateAcrosticFormView(View):
         return render(request, self.template_name, {'form': form})
     
 
- 
 class GenerateAcrosticSuccessView(View):
 
     # TODO: we may want consider using login_required decorator

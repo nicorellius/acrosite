@@ -11,7 +11,7 @@
 		
 		<div class="ctr-container">
 			
-			<div class="ctr-left">
+			<div class="ctr-left pad-10px">
 				
 				<h2><strong>S</strong>o</h2>
 				<h2><strong>H</strong>appy</h2>
@@ -20,7 +20,7 @@
 				
 			</div>
 			
-			<div class="ctr-right">
+			<div class="ctr-right pad-10px">
 				<a href="/"><h2>a&bull;cros&bull;tic</h2></a> 
 				<p><strong>/&#601;&#712;kr&ocirc;stik,&#601;&#712;kr&auml;s-/</strong></p>
 				<em>noun</em>
@@ -28,22 +28,33 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					a poem, word puzzle, or other composition in which certain letters in each line form a word or words.
 				</p>
+				
 			</div>
 				
 		</div>
 		
 		<p>&nbsp;</p>
 		
-		{#% for acrostic in acrostics %#}
-		
-			<div class="alert alert-success" role="alert" id="acrosticMessage">
-				<p>SUCCESS! Here is your acrostic:</p>
+		<div class="ctr-container">
 				
-				{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}		
-
+			<div class="ctr-left pad-10px">
+				<a href="/generate/" class="btn btn-lg btn-block btn-warning">Start over</a>
 			</div>
 			
-		{#% endfor %#}
+			<div class="ctr-right pad-10px">
+				<a href="{% url generate %}" class="btn btn-lg btn-block btn-success">Re-acrosticize</a>
+			</div>
+			
+		</div>
+		
+		<p>&nbsp;</p>
+		
+		<div class="alert alert-success" role="alert">
+			<p>SUCCESS! Here is your acrostic:</p>
+			
+			{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}		
+
+		</div>
 		
 		<div class="clear-both"></div>
 		

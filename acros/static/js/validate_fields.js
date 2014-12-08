@@ -27,7 +27,7 @@ function validate_field(field) {
 
 // validate name field, simple presence validation
 // TODO: we need to come up with sensible word validation
-function validate_word(field) {
+function validate_name(field) {
 	
 	if (field == "") {
 		return "Please enter a word.\n";

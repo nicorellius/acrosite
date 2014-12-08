@@ -42,6 +42,10 @@ button { margin-bottom: 1em; }
 
 /***** general *****/
 
+.pad-10px { padding: 10px; }
+
+.pad-1em { padding: 1em; }
+
 .as-label { margin-bottom: 0.3em; }
 
 .align-right { text-align: right; }
@@ -117,9 +121,18 @@ button { margin-bottom: 1em; }
 }
 
 .center-section {
-    max-width: 30em;
+    max-width: 32em;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* this class is for the custom.acrosticize templatetag */
+.acrostic-letter {
+	font-family: "Courier New", Courier, monospace;
+	font-weight: bold;
+	font-size: 20px; /* may need to adjust this size a bit */
+	text-transform: capitalize;
+	color: red;
 }
 
 .acrostic-form {

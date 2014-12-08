@@ -26,10 +26,9 @@ function validate_form(form) {
 
 function validate_generate_acrostic_form(form) {
 	
-	var name		=  validate_name(form.name.value);
-	var docfile 	=  validate_field(form.docfile.value);
+	var name = validate_name(form.name.value);
 
-	if (name == "" && docfile == "") {
+	if (name == "") {
 		return true;
 	}
 	

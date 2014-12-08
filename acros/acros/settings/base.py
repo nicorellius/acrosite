@@ -46,7 +46,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,7 +57,6 @@ INSTALLED_APPS = (
     'common',
     'apps.logs',
     'apps.generator',
-    'apps.generator.templatetags',
 )
 
 MIDDLEWARE_CLASSES = (

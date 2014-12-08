@@ -1,16 +1,21 @@
-'''
-Created on Nov 19, 2014
-
-@author: phillipseitzer
-'''
+"""
+file        :   custom.py
+date        :   2014-11-19
+module      :   generator.templatetags
+classes     :   
+description :   custom templatetags for generator app
+"""
 
 from django import template
 
+
 register = template.Library()
+
 
 @register.filter(name='usplit')
 def usplit(value, arg):
     return value.split(arg)
+
 
 @register.filter(name='acrosticize')
 def acrosticize(value):
@@ -22,14 +27,21 @@ def acrosticize(value):
             first_character = True
             for char in word_chars:
                 if first_character:
-                    formatted_text = (formatted_text 
-                    + "<strong>" 
-                    + "<font color=\"red\" face=\"courier\" size=\"4\">"
-                    + char.upper() 
-                    + "</font>"
-                    + " "
-                    + "</strong>"
+                    # see styles.css, class acrostic-letter for this bit of styling
+                    formatted_text = '{0}{1}{2}{3}'.format(
+                        formatted_text,
+                        '<span class="acrostic-letter">',
+                        char.upper(),
+                        '</span>'
                     )
+                    #formatted_text = (formatted_text
+                    #+ "<strong>" 
+                    #+ "<font color=\"red\" face=\"courier\" size=\"4\">"
+                    #+ char.upper() 
+                    #+ "</font>"
+                    #+ " "
+                    #+ "</strong>"
+                    #)
                 else:
                     formatted_text = formatted_text + char.lower()
                 first_character = False   

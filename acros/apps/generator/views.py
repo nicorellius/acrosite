@@ -27,7 +27,13 @@ class GenerateAcrosticFormView(View):
     #@method_decorator(login_required)
     def get(self, request):
         
-        form = self.form_class()
+        name = request.GET.get('name', '')
+        
+        if name != '':
+            form = self.form_class(request.GET, name)
+            
+        else:
+            form = self.form_class()
         
         print("ip address for debug-toolbar: {0}".format(request.META['REMOTE_ADDR']))
         

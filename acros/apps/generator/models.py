@@ -15,19 +15,23 @@ from common.models import BaseModel  # @UnresolvedImport
 class Word(BaseModel):
     
     name = models.CharField(max_length=200)
-    part_of_speech = models.CharField(max_length=200, default="NN")
-    tags = models.CharField(max_length=200, default="")
+    part_of_speech = models.CharField(max_length=200, default='NN')
+    tags = models.CharField(max_length=200, default='')
     valuation = models.FloatField(default=-1.0) #a -1 flag implies "no valuation assigned"
     
     def __str__(self):
-        str = (self.name + "\n"
-               + self.part_of_speech + "\n"
-               + "tags:\n")
+        
+        string = ''.join(self.name, '\n', self.part_of_speech, '\n', 'tags:\n')
+        
         tags_array = self.tags.split(';')
+        
         for tag in tags_array:
-            str = str + "\t" + tag + "\n"
-        str = str + "valuation: " + self.valuation
-        return str
+            string = ''.join(string, '\t', tag, '\n')
+            
+        
+        string = ''.join(string, 'valuation: ', self.valuation)
+        
+        return string
 
 
 class Construction(BaseModel):
@@ -36,10 +40,10 @@ class Construction(BaseModel):
     constr_id = models.CharField(max_length=200, default= 'Anything')    
     
     def __str__(self):
-        return self.constr_id + ":\n" + self.sequence
+        return ''.join(self.constr_id, ':\n', self.sequence)
     
     def get_list(self):
-        return self.sequence.split(";")
+        return self.sequence.split(';')
 
 
 class Acrostic(BaseModel):
@@ -50,8 +54,12 @@ class Acrostic(BaseModel):
     theme = models.CharField(max_length=200, default= 'ALL_CATEGORIES')
     
     def __str__(self):
+        
         component_words = self.horizontal_words.split(';')
-        str = ""
+        
+        string = ''
+        
         for word in component_words:
-            str = str + "\n" + word
-        return str
+            string = string + '\n' + word
+            
+        return string

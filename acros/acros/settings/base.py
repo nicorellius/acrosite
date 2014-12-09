@@ -44,6 +44,7 @@ MANAGERS = ADMINS
 # set before deployment to dev test and production
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 INSTALLED_APPS = (

@@ -18,7 +18,7 @@ function validate_form(form) {
 	}
 	
 	else {
-		$("#loading").hide();
+		$("#loading-spinner").hide();
 		alert("You must enter required fields in the form. Thanks!");
 		return false;
 	}
@@ -33,7 +33,7 @@ function validate_generate_acrostic_form(form) {
 	}
 	
 	else {
-		$("#loading").hide();
+		$("#loading-spinner").hide();
 		alert("You must enter required fields in the form. Thanks!");
 		return false;
 	}

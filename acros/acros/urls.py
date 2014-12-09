@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name="index.html")),
     
     # acrostic veiwer
-    url(r'^generate/$', GenerateAcrosticFormView.as_view(), name='generate_acrostic_form_view'),
-    url(r'^generate/success/$', GenerateAcrosticSuccessView.as_view(), name='generate_acrostic_success_view'),
+    url(r'^generate/acrostic/$', GenerateAcrosticFormView.as_view(), name='generate_acrostic_form_view'),
+    url(r'^generate/acrostic/success/$', GenerateAcrosticSuccessView.as_view(), name='generate_acrostic_success_view'),
     
 )

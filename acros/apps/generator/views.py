@@ -69,7 +69,7 @@ class GenerateAcrosticFormView(View):
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
             
-            return HttpResponseRedirect('/generate/success/')
+            return HttpResponseRedirect('/generate/acrostic/success/')
         
         return render(request, self.template_name, {'form': form})
     

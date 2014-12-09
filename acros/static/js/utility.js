@@ -27,8 +27,8 @@ $('#gen-acrostic-btn').click(function() {
 });
 
 // loading spinner script
-$('a.spinner, button.spinner').click(function() {
-	$('#loading').show();
+$('.spinner').click(function() {
+	$('#loading-spinner').show();
 });
 
 $(document).ajaxComplete(function() {

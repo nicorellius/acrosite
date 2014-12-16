@@ -48,8 +48,9 @@ coverage.xml
 *.pydevproject
 *.project
 
-# Intellij
+# Intellij, PyCharm
 ./idea
+.idea/
 *.iml
 *.iws
 

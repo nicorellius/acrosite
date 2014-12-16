@@ -2,11 +2,6 @@ import unittest
 import operator
 import nltk
 
-"""
-Note here the use of relative imports. This is best practices in Django.
-They only work inside modules. Cross module imports require full path.
-"""
-#from .models import Word
 
 def first_letter(word):
     return word[0]
@@ -33,7 +28,8 @@ def get_formats(word):
     # check one-many mapping of word length to formats and return set of formats
     # we could also return formats of size -+2 to account for word contractions
     return []
-    
+
+
 def rank_formats(formats):
     
     """
@@ -109,7 +105,6 @@ def get_format(acrostic):
     return [element[1] for element in nltk.pos_tag(tokens)]
 
 
-
 class WordMagicTest(unittest.TestCase):
 
     def test(self):
@@ -124,4 +119,4 @@ class WordMagicTest(unittest.TestCase):
             get_format("We're always cuddling koala's yearly"),
             ['PRP', 'VBP', 'RB', 'VBG', 'NN', 'POS', 'JJ'])
         
-        #self.assertEqual(get_formats('sample'),'sample')
+        # self.assertEqual(get_formats('sample'),'sample')

@@ -59,6 +59,6 @@ class Acrostic(BaseModel):
         string = ''
         
         for word in component_words:
-            string = ''.join([string + '\n' + word])
+            string = ''.join([string, '\n', word])
             
         return string

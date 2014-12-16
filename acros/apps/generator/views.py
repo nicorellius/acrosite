@@ -24,7 +24,7 @@ class GenerateAcrosticFormView(View):
     model = Acrostic
     
     # TODO: we may want consider using login_required decorator
-    #@method_decorator(login_required)
+    # @method_decorator(login_required)
     def get(self, request):
         
         name = request.GET.get('name', '')
@@ -40,7 +40,7 @@ class GenerateAcrosticFormView(View):
         return render(request, self.template_name, {'form': form})
     
     # TODO: we may want consider using login_required decorator
-    #@method_decorator(login_required)
+    # @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         
         acrostic = Acrostic()
@@ -53,16 +53,16 @@ class GenerateAcrosticFormView(View):
                         
             vert_word = form.cleaned_data['name']
  
-            #construction = A_to_N(vert_word)
-            #construction = AA_N_pattern(vert_word)
+            # construction = A_to_N(vert_word)
+            # construction = AA_N_pattern(vert_word)
             construction = A_to_NS_VS_D(vert_word)
             
-            #construction = Construction()
-            #construction.sequence = "P;A;N;VI;AV"
-            #construction.sequence = "N;VI;N;N;VI;AV"
-            #construction.sequence = "A;A;NS;VS;D"
+            # construction = Construction()
+            # construction.sequence = "P;A;N;VI;AV"
+            # construction.sequence = "N;VI;N;N;VI;AV"
+            # construction.sequence = "A;A;NS;VS;D"
             acrostic = generate_random_acrostic(vert_word, construction)
-            #acrostic = generate_random_acrostic(vert_word)
+            # acrostic = generate_random_acrostic(vert_word)
             
             acrostic.save()
                         
@@ -77,8 +77,9 @@ class GenerateAcrosticFormView(View):
 class GenerateAcrosticSuccessView(View):
 
     # TODO: we may want consider using login_required decorator
-    #@method_decorator(login_required)
-    def get(self, request):
+    # @method_decorator(login_required)
+    @staticmethod
+    def get(request):
         
         # to fetch the `newest` item
         acrostic = Acrostic.objects.all().last() # @UndefinedVariable

@@ -44,6 +44,31 @@ MANAGERS = ADMINS
 # set before deployment to dev test and production
 ALLOWED_HOSTS = []
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    # Required by allauth template tags
+    'django.core.context_processors.request',
+    # allauth specific context processors
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
+)
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+# allauth configuration
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+"""
+site id for main site. This should be changed it deploying to development or production
+see sites in admin, and change domain name to match the server name
+"""
 SITE_ID = 1
 
 # Application definition
@@ -58,6 +83,15 @@ INSTALLED_APPS = (
     'common',
     'apps.logs',
     'apps.generator',
+    'localflavor',
+    # allauth registration and providers
+    'allauth',
+    'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.twitter',
+    # 'allauth.socialaccount.providers.stackexchange',
+    # 'allauth.socialaccount.providers.facebook',
 )
 
 MIDDLEWARE_CLASSES = (

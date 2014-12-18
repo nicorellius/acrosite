@@ -81,8 +81,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'common',
-    'apps.logs',
+    'apps.accounts',
     'apps.generator',
+    'apps.logs',
     'localflavor',
     # allauth registration and providers
     'allauth',

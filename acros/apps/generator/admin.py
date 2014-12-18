@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.db import models
 
 from .models import Word, Construction, Acrostic
 
@@ -7,13 +6,13 @@ from .models import Word, Construction, Acrostic
 class WordAdmin(admin.ModelAdmin):
     
     # fields display on change list
-    list_display = ['name', 'part_of_speech', 'tags', 'valuation',]
+    list_display = ['name', 'part_of_speech', 'tags', 'valuation', ]
     
     # fields to filter the change list with
-    list_filter = ['created',]
+    list_filter = ['created', ]
     
     # fields to search in change list
-    search_fields = ['name',]
+    search_fields = ['name', ]
     
     # enable the date drill down on change list
     date_hierarchy = 'created'
@@ -31,13 +30,13 @@ class WordAdmin(admin.ModelAdmin):
 class ConstructionAdmin(admin.ModelAdmin):
     
     # fields display on change list
-    list_display = ['sequence', 'constr_id',]
+    list_display = ['sequence', 'constr_id', ]
     
     # fields to filter the change list with
-    list_filter = ['created',]
+    list_filter = ['created', ]
     
     # fields to search in change list
-    search_fields = ['name',]
+    search_fields = ['name', ]
     
     # enable the date drill down on change list
     date_hierarchy = 'created'
@@ -55,13 +54,13 @@ class ConstructionAdmin(admin.ModelAdmin):
 class AcrosticAdmin(admin.ModelAdmin):
     
     # fields display on change list
-    list_display = ['vertical_word', 'horizontal_words', 'construction_id', 'theme',]
+    list_display = ['vertical_word', 'horizontal_words', 'construction_id', 'theme', ]
     
     # fields to filter the change list with
-    list_filter = ['created',]
+    list_filter = ['created', ]
     
     # fields to search in change list
-    search_fields = ['name',]
+    search_fields = ['name', ]
     
     # enable the date drill down on change list
     date_hierarchy = 'created'
@@ -80,4 +79,3 @@ class AcrosticAdmin(admin.ModelAdmin):
 admin.site.register(Word, WordAdmin)
 admin.site.register(Construction, ConstructionAdmin)
 admin.site.register(Acrostic, AcrosticAdmin)
-    

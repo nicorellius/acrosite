@@ -9,7 +9,7 @@ description  :   models for word generator
 from django.db import models
 
 # check out common/models.py for BaseModel definition
-from common.models import BaseModel  # @UnresolvedImport
+from common.models import BaseModel
 
 
 class Word(BaseModel):
@@ -18,6 +18,8 @@ class Word(BaseModel):
     part_of_speech = models.CharField(max_length=200, default='NN')
     tags = models.CharField(max_length=200, default='')
     valuation = models.FloatField(default=-1.0)  # a -1 flag implies "no valuation assigned"
+    # prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
+    # themes = models.CharField(max_length=200, default='politics')
     
     def __str__(self):
 
@@ -36,7 +38,9 @@ class Word(BaseModel):
 class Construction(BaseModel):
     
     sequence = models.CharField(max_length=200)
-    constr_id = models.CharField(max_length=200, default= 'Anything')    
+    themes = models.CharField(max_length=200)
+    tags = models.CharField(max_length=200)
+    type = models.CharField(max_length=200)
     
     def __str__(self):
         return ''.join([self.constr_id, ':\n', self.sequence])
@@ -47,10 +51,10 @@ class Construction(BaseModel):
 
 class Acrostic(BaseModel):
     
-    vertical_word = models.CharField(max_length=200, default = 'N/A')
-    horizontal_words = models.CharField(max_length=200, default = 'N;/;A')
-    construction_id = models.CharField(max_length=200, default= 'Anything')
-    theme = models.CharField(max_length=200, default= 'ALL_CATEGORIES')
+    vertical_word = models.CharField(max_length=200, default='N/A')
+    horizontal_words = models.CharField(max_length=200, default='N;/;A')
+    construction_id = models.CharField(max_length=200, default='Anything')
+    theme = models.CharField(max_length=200, default='ALL_CATEGORIES')
     
     def __str__(self):
         

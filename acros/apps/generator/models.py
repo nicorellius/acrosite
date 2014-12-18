@@ -7,6 +7,7 @@ description  :   models for word generator
 """
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # check out common/models.py for BaseModel definition
 from common.models import BaseModel
@@ -18,8 +19,8 @@ class Word(BaseModel):
     part_of_speech = models.CharField(max_length=200, default='NN')
     tags = models.CharField(max_length=200, default='')
     valuation = models.FloatField(default=-1.0)  # a -1 flag implies "no valuation assigned"
-    # prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
-    # themes = models.CharField(max_length=200, default='politics')
+    prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
+    themes = models.CharField(max_length=200, default='politics')
     
     def __str__(self):
 
@@ -35,12 +36,20 @@ class Word(BaseModel):
         return string
 
 
+class Theme(BaseModel):
+
+    name = models.CharField(max_length=200, default='default theme')
+    group = models.CharField(max_length=200, blank=True, default='main')
+    tags = models.CharField(max_length=200, blank=True, default='')
+    words = models.CharField(max_length=1000)
+
+
 class Construction(BaseModel):
     
     sequence = models.CharField(max_length=200)
     themes = models.CharField(max_length=200)
-    tags = models.CharField(max_length=200)
-    type = models.CharField(max_length=200)
+    tags = models.CharField(max_length=200, blank=True, default='')
+    type = models.CharField(max_length=200, blank=True, default='')
     
     def __str__(self):
         return ''.join([self.constr_id, ':\n', self.sequence])
@@ -53,8 +62,8 @@ class Acrostic(BaseModel):
     
     vertical_word = models.CharField(max_length=200, default='N/A')
     horizontal_words = models.CharField(max_length=200, default='N;/;A')
-    construction_id = models.CharField(max_length=200, default='Anything')
-    theme = models.CharField(max_length=200, default='ALL_CATEGORIES')
+    construction = models.OneToOneField(Construction, primary_key=True)
+    theme = models.ForeignKey(Theme)
     
     def __str__(self):
         
@@ -66,3 +75,10 @@ class Acrostic(BaseModel):
             string = ''.join([string, '\n', word])
             
         return string
+
+
+class Score(BaseModel):
+
+    value = models.IntegerField(max_length=1, default=0)
+    acrostic = models.ForeignKey(Acrostic)
+    user = models.ForeignKey(User)

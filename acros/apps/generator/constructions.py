@@ -7,6 +7,14 @@ description :   A repository for different sorts of constructions.
 """
 from .models import Construction
 
+#KEY:
+# N = noun
+# V = verb
+# A = adjective
+# D = adverb
+#
+# P = plural (modifies above 4)
+# S = singular (modifeis above 4)
 
 def adjective_noun(vertical_word):  # A_to_N
     
@@ -25,7 +33,11 @@ def adjective_noun(vertical_word):  # A_to_N
     
     return construction
 
-def A_to_NS_VS_D(vertical_word):
+#a bunch of adjectives, until the last 3, which are 
+# NS = noun, singular
+# VS = verb, singular
+# D = adverb
+def A_to_NS_VS_D(vertical_word): # A_to_NS_VS_D
     
     characters = list(vertical_word)
     
@@ -54,11 +66,13 @@ def A_to_NS_VS_D(vertical_word):
     
     construction = Construction()
     construction.sequence = constr
-    construction.constr_id = 'adjectives-to-NP-VP-D'
+    construction.constr_id = 'adjectives-to-NP-VP-D' #VP = verb plural
     
     return construction
     
-    
+
+# when the vertical_word has more than 3 letters, repeat adjective-adjective-noun,
+# otherwise, handle specially.
 def AA_N_pattern(vertical_word):
     
     characters = list(vertical_word)

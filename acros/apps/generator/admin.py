@@ -60,7 +60,7 @@ class AcrosticAdmin(admin.ModelAdmin):
     list_filter = ['created', ]
     
     # fields to search in change list
-    search_fields = ['name', ]
+    search_fields = ['horizontal_words', ]
     
     # enable the date drill down on change list
     date_hierarchy = 'created'

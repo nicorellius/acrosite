@@ -34,7 +34,7 @@ def adj_to_noun(vertical_word):  # A_to_N
     
     construction = Construction()
     construction.sequence = constr
-    construction.constr_id = 'all-adjectives-except-last-noun'
+    construction.description = 'all-adjectives-except-last-noun'
     
     return construction
 
@@ -44,31 +44,31 @@ def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
     characters = list(vertical_word)
     
     counter = 1
-    constr = ''
+    sequence = ''
 
     if len(characters) == 1:
-        constr = 'A;'
+        sequence = 'A;'
 
     elif len(characters) == 2:
-        constr = 'A;NP;'
+        sequence = 'A;NP;'
 
     elif len(characters) == 3:
-        constr = 'A;A;NP;'
+        sequence = 'A;A;NP;'
 
     else:
         counter = 3
 
         while counter < len(characters):
-            constr = constr + 'A;'
+            sequence += 'A;'
             counter += 1
 
-        constr = constr + 'NP;VP;D;'
+        sequence += 'NP;VP;D;'
     
-    print(constr)
+    print(sequence)
     
     construction = Construction()
-    construction.sequence = constr
-    construction.constr_id = 'adjectives-to-NP-VP-D'
+    construction.sequence = sequence
+    construction.description = 'adjectives-to-NP-VP-D'
     
     return construction
     
@@ -80,27 +80,27 @@ def adj_adj_noun_pattern(vertical_word):  # AA_N_pattern
     characters = list(vertical_word)
     
     counter = 0
-    constr = ""
+    sequence = ""
 
     while counter < len(characters):
 
         if counter % 3 == 2:
-            constr = constr + 'N;'
+            sequence += 'N;'
 
         else:
-            constr = constr + 'A;'
+            sequence += 'A;'
 
         counter += 1
     
     # modify for various special cases
     if counter < 3:
-        constr = constr[:-2] + 'N;'
+        sequence = sequence[:-2] + 'N;'
 
     elif counter % 3 != 0:
-        constr = constr[:-2] + 'N;'
+        sequence = sequence[:-2] + 'N;'
         
     construction = Construction()
-    construction.sequence = constr
-    construction.constr_id = 'AA-N-pattern'
+    construction.sequence = sequence
+    construction.description = 'AA-N-pattern'
     
     return construction

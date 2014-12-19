@@ -64,7 +64,7 @@ class Acrostic(BaseModel):
     vertical_word = models.CharField(max_length=200, default='N/A')
     horizontal_words = models.CharField(max_length=200, default='N;/;A')
     construction = models.OneToOneField(Construction, primary_key=True)
-    theme = models.ForeignKey(Theme, null=False)
+    theme = models.ForeignKey(Theme, default=1)
     
     def __str__(self):
         

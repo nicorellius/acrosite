@@ -53,11 +53,9 @@ button { margin-bottom: 1em; }
 .inline-block { display: inline-block; }
 
 .left-pad { padding-left: 6em; }
-
 .right-pad { padding-right: 5em; }
 
 .float-left { float: left; }
-
 .float-right { float: right; }
 
 .clear-both { clear: both; }
@@ -67,19 +65,12 @@ button { margin-bottom: 1em; }
 .vert-align-top { vertical-align: top; }
 
 .font-14px { font-size: 14px; }
-
 .font-16px { font-size: 16px; }
-
 .font-18px { font-size: 18px; }
-
 .font-21px { font-size: 21px; }
-
 .font-24px { font-size: 24px; }
-
 .font-75p { font-size: 75%; }
-
 .font-85p { font-size: 85%; }
-
 .font-4em { font-size: 4em; }
 
 .form-width-20em { max-width: 20em;}
@@ -87,33 +78,26 @@ button { margin-bottom: 1em; }
 .margin-top-2em { margin-top: 2em; }
 
 .top-mar-2em { margin-top: 2em; }
-
-.move-up-2em { margin-top: -2em; }
-
 .top-mar-5em { margin-top: 5em; }
 
-.bottom-mar-2em { margin-bottom: 2em; }
-
+.move-up-2em { margin-top: -2em; }
 .move-down-1em { margin-bottom: -1em; }
 
-.top-mar-1em { margin-top: 1em; }
-
 .bottom-mar-1em { margin-bottom: 1em; }
+.bottom-mar-2em { margin-bottom: 2em; }
+
+.top-mar-1em { margin-top: 1em; }
+.top-mar-2em { margin-top: 2em; }
 
 .push-right-1em { margin-left: 1em; }
-
 .push-right-2em { margin-left: 2em; }
-
 .push-right-5em { margin-left: 5em; }
 
 .pad-right-5em { padding-right: 5em; }
-
 .pad-right-7em { padding-right: 7em; }
 
 .pad-left-7em { padding-left: 7em; }
-
 .pad-left-5em { padding-left: 5em; }
-
 .pad-left-2em { padding-left: 2em; }
 
 .input-tall {

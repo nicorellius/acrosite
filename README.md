@@ -30,7 +30,7 @@ Regarding IDEs, I found a neat markdown plugin for Komodo that enables me to vie
 
 The essential components of the development stack are as follows (SQLite will be used until we need to scale, at which point PostgreSQL):
 
-Python 3.2 <a href="https://www.python.org" target="_blank">https://www.python.org</a>    
+Python 3.2, 3.3 or 3.4 <a href="https://www.python.org" target="_blank">https://www.python.org</a>    
 Django 1.7 <a href="https://www.djangoproject.com/" target="_blank">https://www.djangoproject.com/</a>    
 SQLite3 3.7.9 <a href="http://www.sqlite.org/" target="_blank">http://www.sqlite.org/</a>    
 PostgreSQL 8/9 <a href="http://www.postgresql.org/" target="_blank">http://www.postgresql.org/</a>    
@@ -132,13 +132,13 @@ Here is a more detailed repository structure for this Django project:
 - Set up SMTP email credentials, database credentials and secret key files in `prv` directory on development/production file system. This can be done several different ways. For my uses, I go with something like: `/home/<user>/dev/prv/<project_name>`
 - Start Django (and LAMP optionally) with startup script. If you use `./manage.py runserver` be sure to include the settings for your local environment (eg, for nick): `./manage.py runserver --settings=acros.settings.nick`
 
-**Settings notes**
+##Settings notes
 
 The preferred method for settings is to use per-dev settings files and check those into source control. In our case, we add `local.py` back to the repo, because it contains critical local settings (db, email settings, etc...), shared among all our local environments, and then we add to the repo these files: `settings/nick.py`, `settings/phil.py`, `settings/jimar.py`. These files will contain pointers to private bits and secrets existing on our file systems in different locations. According to the authors of Two Scoops of Django (<a href="http://twoscoopspress.org/products/two-scoops-of-django-1-5" target="_blank">1.5</a> and <a href="http://twoscoopspress.org/products/two-scoops-of-django-1-6" target="_blank">1.6</a>), keeping all the settings files in the repo is good practice. Another useful feature of using per-dev settings is that each dev might want a secific tool in their INSTALLED_APPS and so this would be something he could add to his `<dev_name>.py` file.
 
 Cool resource: <a href="https://code.djangoproject.com/wiki/SplitSettings" target="_blank">https://code.djangoproject.com/wiki/SplitSettings</a>
 
-**Development environemnt**
+##Development environment
 
 In order to use `django-admin.py` for your administrative tasks, you must first adjust your virtual environment's `bin/activate` script to set a couple environmental variables (this is an example of Nick's local environment):
 
@@ -158,8 +158,28 @@ Then, when in the working directory, you can issue commands like this:
     django-admin.py runserver
     ./manage.py runserver
 
-**Unit Testing**  
+##Unit Testing  
 [Here's](http://docs.python-guide.org/en/latest/writing/tests/) some useful bits about testing.  
 
-**Libraries**  
+##Libraries 
 We can use [nltk](http://www.nltk.org/) for doing fancy things and generating useful data sets -- analyzing corpora for sentiment, parts of speech, tokenizing, etc. This was added to the `requirements.txt` file.
+
+##Tips and Tricks  
+This section is to collect tips and tricks we've learned so far. 
+
+**Installing a Fresh Database**
+
+For example, when applying new migrations or to start from scratch to get your database up and running these steps will help:
+
+1. Delete your database file
+2. Delete all your `migrations` folders.
+3. Then run these commands:
+
+        ./manage.py syncdb   # accept the creation of the admin, and follow instructions
+        ./manage.py makemigrations generator
+        ./manage.py makemigrations accounts
+        ./manage.py migrate
+        ./manage.py runserver
+        
+4. Launch the application and create your first acrostic. This will take a couple minutes while the database is populated with words.
+5. Then log in to [http://localhost:8000/admin/](http://localhost:8000/admin/) and use credentials you created above and check out the database.

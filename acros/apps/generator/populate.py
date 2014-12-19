@@ -58,7 +58,7 @@ def populate_database():
 
 
 def import_negative_adjectives():
-    f = open("resources/top100NegativeAdjectives.txt")
+    f = open("resources/top_100_negative_adjectives.txt")
     # https://www.englishclub.com/vocabulary/adjectives-personality-negative.htm
     
     counter = 0
@@ -80,7 +80,7 @@ def import_negative_adjectives():
 
 def import_positive_adjectives():
 
-    f = open("resources/top100PositiveAdjectives.txt")
+    f = open("resources/top_100_positive_adjectives.txt")
     # https://www.englishclub.com/vocabulary/adjectives-personality-positive.htm
     
     counter = 0
@@ -101,7 +101,7 @@ def import_positive_adjectives():
 
 
 def import_other_adjectives():
-    f = open("resources/OtherAdjectives.txt")
+    f = open("resources/other_adjectives.txt")
     # added by hand
     
     counter = 0
@@ -123,7 +123,7 @@ def import_other_adjectives():
 
 def import_common_nouns():
 
-    f = open("resources/top100CommonNouns.txt")
+    f = open("resources/top_100_common_nouns.txt")
     # http://www.espressoenglish.net/100-common-nouns-in-english/
     
     counter = 0
@@ -146,7 +146,7 @@ def import_common_nouns():
 
 def import_common_infinitive_verbs():
 
-    f = open("resources/CommonInfinitiveVerbs.txt")
+    f = open("resources/common_infinitive_verbs.txt")
     # http://www.enchantedlearning.com/wordlist/verbs.shtml
     
 
@@ -169,7 +169,7 @@ def import_common_infinitive_verbs():
 
 def import_common_adverbs():
 
-    f = open("resources/CommonAdverbs.txt")
+    f = open("resources/common_adverbs.txt")
     # http://www.enchantedlearning.com/wordlist/adverbs.shtml
     
     counter = 0
@@ -191,7 +191,7 @@ def import_common_adverbs():
 
 def import_pronouns():
 
-    f = open("resources/Pronouns.txt")
+    f = open("resources/pronouns.txt")
     # http://www.enchantedlearning.com/wordlist/adverbs.shtml
     
     counter = 0 

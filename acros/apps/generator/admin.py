@@ -30,7 +30,7 @@ class WordAdmin(admin.ModelAdmin):
 class ConstructionAdmin(admin.ModelAdmin):
     
     # fields display on change list
-    list_display = ['sequence', 'constr_id', ]
+    list_display = ['sequence', 'themes',  'tags', 'type', ]
     
     # fields to filter the change list with
     list_filter = ['created', ]
@@ -70,7 +70,7 @@ class AcrosticAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (None, {
-            'fields': ('vertical_word', 'horizontal_words', 'construction_id', 'theme',)
+            'fields': ('vertical_word', 'horizontal_words', 'construction', 'theme', )
         }),
     )
 

@@ -24,17 +24,18 @@ def adj_to_noun(vertical_word):  # A_to_N
     characters = list(vertical_word)
     
     counter = 1
-    constr = ''
+    sequence = ''
 
     while counter < len(characters):
-        constr = constr + 'A;'
+        sequence += 'A;'
         counter += 1
 
-    constr = constr + 'NS;'
+    sequence += 'NS;'
     
     construction = Construction()
-    construction.sequence = constr
+    construction.sequence = sequence
     construction.description = 'all-adjectives-except-last-noun'
+    construction.save()
     
     return construction
 
@@ -69,6 +70,7 @@ def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
     construction = Construction()
     construction.sequence = sequence
     construction.description = 'adjectives-to-NP-VP-D'
+    construction.save()
     
     return construction
     
@@ -102,5 +104,6 @@ def adj_adj_noun_pattern(vertical_word):  # AA_N_pattern
     construction = Construction()
     construction.sequence = sequence
     construction.description = 'AA-N-pattern'
+    construction.save()
     
     return construction

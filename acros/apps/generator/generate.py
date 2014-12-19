@@ -9,12 +9,16 @@ description :   Generate an acrostic based on various inputs and the database of
 import random
 import re
 
-from .populate import populate_database, subject_database
-from .models import Word, Acrostic
+from .populate import subject_database
+# from .populate import populate_database
+
+from .models import Word, Acrostic, Theme
 
 
 def generate_random_acrostic(vert_word, *args):
-   
+
+    theme = Theme()
+
     acrostic = Acrostic()
     acrostic.vertical_word = vert_word
     
@@ -23,12 +27,21 @@ def generate_random_acrostic(vert_word, *args):
     
     # build word database if no words currently in database.
     if not Word.objects.all():
+
         print("populating database...")
+
         # populate_database()
-        subject_database('resources/CuteAnimals.txt')
+
+        subject_database('resources/cute_animals.txt')
+
+        theme.name = 'cute animals'
+        theme.group = 'animals'
+        theme.tags = 'cute, animals'
+        theme.save()
             
     characters = list(vert_word)  # returns array of characters
-    horz_words = ""
+
+    horz_words = ''
 
     counter = 0
 

@@ -78,7 +78,7 @@ class GenerateAcrosticSuccessView(View):
 
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
-    def get(request):
+    def get(self, request):
         
         # to fetch the `newest` item
         acrostic = Acrostic.objects.all().last()

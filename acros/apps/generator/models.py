@@ -31,7 +31,7 @@ class Word(BaseModel):
         for tag in tags_array:
             string = ''.join([string, '\t', tag, '\n'])
 
-        string = ''.join([string, 'valuation: ', self.valuation])
+        string = ''.join([string, 'valuation: ', str(self.valuation)])
         
         return string
 
@@ -47,13 +47,12 @@ class Theme(BaseModel):
 class Construction(BaseModel):
     
     sequence = models.CharField(max_length=200)
-    constr_id = models.CharField(max_length=200)
     themes = models.CharField(max_length=200)
     tags = models.CharField(max_length=200, blank=True, default='')
     type = models.CharField(max_length=200, blank=True, default='')
     
     def __str__(self):
-        return ''.join([self.constr_id, ':\n', self.sequence])
+        return ''.join([self.sequence, ' | ', self.description])
     
     def get_list(self):
         return self.sequence.split(';')

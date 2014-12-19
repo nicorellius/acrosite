@@ -11,9 +11,9 @@ from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
 from .models import Acrostic, Construction
-from .forms import GenerateAcrosticForm #@UnresolvedImport
+from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
-from .constructions import A_to_N, AA_N_pattern, A_to_NS_VS_D
+from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_sin_verb_sin_adj
 
     
 class GenerateAcrosticFormView(View):
@@ -53,9 +53,9 @@ class GenerateAcrosticFormView(View):
                         
             vert_word = form.cleaned_data['name']
  
-            # construction = A_to_N(vert_word)
-            # construction = AA_N_pattern(vert_word)
-            construction = A_to_NS_VS_D(vert_word)
+            # construction = adj_to_noun(vert_word)
+            # construction = adj_adj_noun_pattern(vert_word)
+            construction = adj_to_noun_sin_verb_sin_adj(vert_word)
             
             # construction = Construction()
             # construction.sequence = "P;A;N;VI;AV"
@@ -78,10 +78,9 @@ class GenerateAcrosticSuccessView(View):
 
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
-    @staticmethod
     def get(request):
         
         # to fetch the `newest` item
-        acrostic = Acrostic.objects.all().last() # @UndefinedVariable
+        acrostic = Acrostic.objects.all().last()
         
         return render(request, 'generator/success.html', {'acrostic': acrostic})

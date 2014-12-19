@@ -7,24 +7,29 @@ description :   A repository for different sorts of constructions.
 """
 from .models import Construction
 
-#KEY:
-# N = noun
-# V = verb
-# A = adjective
-# D = adverb
-#
-# P = plural (modifies above 4)
-# S = singular (modifeis above 4)
+"""
+KEY:
+N = noun - use `noun`
+V = verb - use `verb`
+A = adjective - use `adj`
+D = adverb - use `adv`
 
-def adjective_noun(vertical_word):  # A_to_N
+P = plural (modifies above 4) - use `plu`
+S = singular (modifies above 4) - use `sin`
+"""
+
+
+def adj_to_noun(vertical_word):  # A_to_N
     
     characters = list(vertical_word)
     
     counter = 1
     constr = ''
+
     while counter < len(characters):
         constr = constr + 'A;'
         counter += 1
+
     constr = constr + 'NS;'
     
     construction = Construction()
@@ -33,11 +38,8 @@ def adjective_noun(vertical_word):  # A_to_N
     
     return construction
 
-#a bunch of adjectives, until the last 3, which are 
-# NS = noun, singular
-# VS = verb, singular
-# D = adverb
-def A_to_NS_VS_D(vertical_word): # A_to_NS_VS_D
+
+def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
     
     characters = list(vertical_word)
     
@@ -66,14 +68,14 @@ def A_to_NS_VS_D(vertical_word): # A_to_NS_VS_D
     
     construction = Construction()
     construction.sequence = constr
-    construction.constr_id = 'adjectives-to-NP-VP-D' #VP = verb plural
+    construction.constr_id = 'adjectives-to-NP-VP-D'
     
     return construction
     
 
 # when the vertical_word has more than 3 letters, repeat adjective-adjective-noun,
 # otherwise, handle specially.
-def AA_N_pattern(vertical_word):
+def adj_adj_noun_pattern(vertical_word):  # AA_N_pattern
     
     characters = list(vertical_word)
     

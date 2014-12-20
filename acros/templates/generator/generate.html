@@ -20,13 +20,15 @@
 			</div>
 			
 			<div class="ctr-right">
-				<a href="/"><h2>a&bull;cros&bull;tic</h2></a> 
+
+                <a href="/"><h2>a&bull;cros&bull;tic</h2></a>
 				<p><strong>/&#601;&#712;kr&ocirc;stik,&#601;&#712;kr&auml;s-/</strong></p>
 				<em>noun</em>
 				<p>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					a poem, word puzzle, or other composition in which certain letters in each line form a word or words.
 				</p>
+
 			</div>
 				
 		</div>
@@ -38,7 +40,24 @@
 			<form id="generate-acrostic-form" role="form" method="post" onsubmit="return validate_generate_acrostic_form(this);">
 				
 				{% csrf_token %}
-				
+
+                <div class="ctr-right move-up-3em">
+
+					<select class="bootstrap-select show-tick" data-live-search="true" data-style="btn-success">
+                        <option selected>Select an Acrostic Theme</option>
+						<option value="cute-animals">Cute Animals</option>
+						<option value="politics">Politics</option>
+						<option value="sports">Sports</option>
+						<option value="economics">Economics</option>
+                        <option value="current-events">Current Events</option>
+						<option value="movies">Movies</option>
+                        <option value="books-literature">Books/Literature</option>
+                        <option value="explicit">Explicit</option>
+                        <option value="religion">Religion</option>
+					</select>
+
+                </div>
+
 				<div class="form-group">
                     <label for="name"></label>
                     <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>

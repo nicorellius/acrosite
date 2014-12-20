@@ -77,17 +77,16 @@ button { margin-bottom: 1em; }
 
 .margin-top-2em { margin-top: 2em; }
 
+.top-mar-1em { margin-top: 1em; }
 .top-mar-2em { margin-top: 2em; }
 .top-mar-5em { margin-top: 5em; }
 
+.move-up-3em { margin-top: -3em; }
 .move-up-2em { margin-top: -2em; }
 .move-down-1em { margin-bottom: -1em; }
 
 .bottom-mar-1em { margin-bottom: 1em; }
 .bottom-mar-2em { margin-bottom: 2em; }
-
-.top-mar-1em { margin-top: 1em; }
-.top-mar-2em { margin-top: 2em; }
 
 .push-right-1em { margin-left: 1em; }
 .push-right-2em { margin-left: 2em; }

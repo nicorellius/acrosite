@@ -35,3 +35,12 @@ Where possible, it is recommended to use the pop-0008 style guide for writing Py
 
         component_words = self.horizontal_words.split(';')
         print("DEBUG: error rendering view.")
+        
+- use augmented assignment statements where possible:
+
+        sequence = sequence + 1  # not good
+        sequence += 1  # good
+        
+- comments should be double spaced after end of code line and have one space between pound sign and comment:
+
+        print("fatal error: please try again!")  # error message

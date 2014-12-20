@@ -75,10 +75,13 @@ def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
     return construction
     
 
-# when the vertical_word has more than 3 letters, repeat adjective-adjective-noun,
-# otherwise, handle specially.
 def adj_adj_noun_pattern(vertical_word):  # AA_N_pattern
-    
+
+    """
+    when the vertical_word has more than 3 letters,
+    repeat adjective-adjective-noun, otherwise, handle specially.
+    """
+
     characters = list(vertical_word)
     
     counter = 0

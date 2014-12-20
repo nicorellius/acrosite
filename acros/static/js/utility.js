@@ -80,3 +80,8 @@ $(document).ready(function() {
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
+
+// bootstrap select plugin
+$(document).ready(function () {
+    $('.bootstrap-select').selectpicker();
+});

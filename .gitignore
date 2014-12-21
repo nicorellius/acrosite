@@ -49,7 +49,6 @@ coverage.xml
 *.project
 
 # Intellij, PyCharm
-./idea
 .idea/
 *.iml
 *.iws
@@ -62,9 +61,6 @@ target/
 
 # SQLite 3 database
 *.sqlite3
-
-# for now, don't source control migrations
-**/migrations/
 
 # for now, no images, videos, fonts...
 *.avi

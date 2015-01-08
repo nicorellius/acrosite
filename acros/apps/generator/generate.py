@@ -15,9 +15,12 @@ from .populate import subject_database
 from .models import Word, Acrostic, Theme
 
 
-def generate_random_acrostic(vert_word, *args):
 
+def generate_random_acrostic(vert_word, theme_name, *args):
+
+    #TODO: retrieve the pre-generated theme based on its name
     theme = Theme()
+    theme.name = theme_name
 
     acrostic = Acrostic()
     acrostic.vertical_word = vert_word
@@ -25,19 +28,24 @@ def generate_random_acrostic(vert_word, *args):
     if len(args) == 1:
         construction = args[0].get_list()
     
+    # TODO: populate word table database appropriately
     # build word database if no words currently in database.
     if not Word.objects.all():
 
-        print("populating database...")
-
+        print("re-populating database with theme {0}".format(theme_name))
+        subject_database('resources/{0}.txt'.format(theme_name))
         # populate_database()
+ 
+        # subject_database('resources/{0}.txt'.format(ts));
+        #subject_database('resources/cute_animals.txt')
 
-        subject_database('resources/cute_animals.txt')
-
+        '''
         theme.name = 'cute animals'
         theme.group = 'animals'
         theme.tags = 'cute, animals'
         theme.save()
+        '''
+
             
     characters = list(vert_word)  # returns array of characters
 
@@ -55,7 +63,7 @@ def generate_random_acrostic(vert_word, *args):
                 name__startswith=letter,
                 part_of_speech=construction[counter])
             )
-
+        
         else:
             # default - only filter by letter
             available_words = Word.objects.filter(name__startswith=letter)

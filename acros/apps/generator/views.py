@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
-from .models import Acrostic, Construction
+from .models import Acrostic, Construction, Theme
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
 from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_sin_verb_sin_adj
@@ -69,7 +69,8 @@ class GenerateAcrosticFormView(View):
             # construction.sequence = "P;A;N;VI;AV"
             # construction.sequence = "N;VI;N;N;VI;AV"
             # construction.sequence = "A;A;NS;VS;D"
-            acrostic = generate_random_acrostic(vert_word, construction)
+            
+            acrostic = generate_random_acrostic(vert_word, ts, construction)
             # acrostic = generate_random_acrostic(vert_word)
             
             acrostic.save()

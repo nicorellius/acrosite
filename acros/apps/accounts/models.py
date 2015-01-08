@@ -7,14 +7,13 @@ description  :   database fields for accounts module, including user profile
 """
 
 import datetime
+
 from django import forms
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.core.files.images import get_image_dimensions
-
-from localflavor.us.forms import USPhoneNumberField
 
 from common.models import BaseModel
 
@@ -65,9 +64,9 @@ class UserProfile(BaseModel):
             # validate content type
             main, sub = avatar.content_type.split('/')
 
-            if not (main == 'image' and sub in base.IMAGE_FORMAT): #['jpeg', 'pjpeg', 'gif', 'png']):
+            if not (main == 'image' and sub in base.IMAGE_FORMAT):  # ['jpeg', 'pjpeg', 'gif', 'png']):
 
-                raise forms.ValidationError(u'Please use a JPG, GIF or PNG image.')
+                raise forms.ValidationError('Please use a JPG, GIF or PNG image.')
 
             # IMAGE_FORMAT = ('.png','.gif','.jpg','.jpeg')
 
@@ -75,7 +74,7 @@ class UserProfile(BaseModel):
             if len(avatar) > (20 * 1024):
 
                 raise forms.ValidationError(
-                    _(u'Avatar file size may not exceed 20 Kb.'))
+                    _('Avatar file size may not exceed 20 Kb.'))
 
         except AttributeError:
             """

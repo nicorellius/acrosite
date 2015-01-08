@@ -42,6 +42,14 @@ class GenerateAcrosticFormView(View):
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
+
+        """
+        debug for theme drop down values
+        consider using messages framework instead:
+            https://stackoverflow.com/questions/1463489/
+        """
+        ts = request.POST.get('theme-selector', '')
+        print(ts)
         
         acrostic = Acrostic()
         
@@ -69,9 +77,12 @@ class GenerateAcrosticFormView(View):
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
             
-            return HttpResponseRedirect('/generate/acrostic/success/')
+            return HttpResponseRedirect('/generate/acrostic/success?ts={0}'.format(ts))
         
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {
+            'form': form,
+            'theme-selector': ts,
+        })
     
 
 class GenerateAcrosticSuccessView(View):
@@ -82,5 +93,12 @@ class GenerateAcrosticSuccessView(View):
         
         # to fetch the `newest` item
         acrostic = Acrostic.objects.all().last()
+
+        # consider using messages framework instead:
+        #     https://stackoverflow.com/questions/1463489/
+        ts = request.GET.get('ts', '')
         
-        return render(request, 'generator/success.html', {'acrostic': acrostic})
+        return render(request, 'generator/success.html', {
+            'acrostic': acrostic,
+            'ts': ts,
+        })

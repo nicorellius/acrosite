@@ -7,9 +7,7 @@ nicorellius
 
 from .local import *
 
-
-
-# set to tru for development
+# set to True for development
 DEBUG = True
 
 # secret key in local settings
@@ -22,4 +20,7 @@ with open('/home/nick/dev/prv/acros/email_password.txt') as email_password:
     
 EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 
-INSTALLED_APPS += ('debug_toolbar',)
+INSTALLED_APPS += (
+    'debug_toolbar',
+    'sslserver',
+)

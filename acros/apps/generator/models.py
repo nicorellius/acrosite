@@ -2,8 +2,8 @@
 file        :   models.py
 date        :   2014-1101
 module      :   generator
-classes     :   Word
-description  :   models for word generator
+classes     :   Word, Theme, Construction, Acrostic, Score
+description :   models for arostic generator
 """
 
 from django.db import models

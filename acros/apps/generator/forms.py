@@ -10,6 +10,7 @@ from django import forms
 
 from .models import Word
 
+
 class GenerateAcrosticForm(forms.ModelForm):
 
     class Meta:
@@ -18,8 +19,8 @@ class GenerateAcrosticForm(forms.ModelForm):
     
     name = forms.CharField(
         max_length=50,
-        widget = forms.TextInput(
-            attrs = {
+        widget=forms.TextInput(
+            attrs={
                 'class': 'form-control input-tall control-label',
                 'id': 'vertical-word',
                 'type': 'text',

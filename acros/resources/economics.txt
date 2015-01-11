@@ -12,6 +12,7 @@
 # Adjectives
 
 # Plural Nouns
+Corporations	NP
 
 # Plural Verbs
 

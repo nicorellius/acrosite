@@ -10,14 +10,15 @@
 #		tags, valuation
 
 # Adjectives
-a-BL	A
-b-BL	A
+#a-BL	A
+#b-BL	A
 
 # Plural Nouns
-c-BL	NP
+#c-BL	NP
+Chesshire-Cats	NP
 
 # Plural Verbs
-o-BL	VP
+#o-BL	VP
 
 # Adverbs
-n-BL	D
+#n-BL	D

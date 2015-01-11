@@ -10,14 +10,14 @@
 #		tags, valuation
 
 # Adjectives
-a-CE	A
-b-CE	A
+#a-CE	A
+#b-CE	A
 
 # Plural Nouns
-c-CE	NP
+charlie_hebdo	NP
 
 # Plural Verbs
-o-CE	VP
+#o-CE	VP
 
 # Adverbs
-n-CE	D
+#n-CE	D

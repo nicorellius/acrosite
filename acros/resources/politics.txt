@@ -16,7 +16,8 @@ blasphemous	A
 
 # Plural Nouns
 congressmen	NP
-corporations	NP
+coup d'états	NP
+committees	NP
 
 # Plural Verbs
 occupy	VP

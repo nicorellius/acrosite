@@ -67,7 +67,7 @@ def populate_database(theme_files):
     counter += import_negative_adjectives()
     counter += import_positive_adjectives()
     counter += import_other_adjectives()
-    counter += import_common_nouns()
+    # counter += import_common_nouns()
     counter += import_common_infinitive_verbs()
     counter += import_common_adverbs()
     counter += import_pronouns()
@@ -181,7 +181,7 @@ def import_common_infinitive_verbs():
         word = Word()
         word.name = line.strip()
         word.tags = "Common;"
-        word.part_of_speech = "VS"
+        word.part_of_speech = "VP" # really, it's VS, but for now let's assume this for testing.
         word.themes = "all"
         word.save()
         counter += 1

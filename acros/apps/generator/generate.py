@@ -9,7 +9,7 @@ description :   Generate an acrostic based on various inputs and the database of
 import random
 import re
 
-from .populate import subject_database
+from .populate import subject_database, all_subject_databases
 # from .populate import populate_database
 
 from .models import Word, Acrostic, Theme
@@ -30,15 +30,31 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     
     # TODO: populate word table database appropriately
     # build word database if no words currently in database.
-    Word.objects.all().delete()
+    # Word.objects.all().delete()
     
     if not Word.objects.all():
-
+        
+        #default settings
         if (theme_name == 'Select an Acrostic Theme'):
             theme_name = 'cute_animals'
 
-        print("repopulating database with theme {0}".format(theme_name))
-        subject_database('resources/{0}.txt'.format(theme_name))
+        print("rebuilding entire database.")
+        themes = [
+                  "cute_animals",
+                  "politics",
+                  "sports",
+                  "economics",
+                  "current_events",
+                  "movies",
+                  "books_literature",
+                  "explicit",
+                  "religion",
+                  ]
+        
+        all_subject_databases(themes)
+
+        #print("repopulating database with theme {0}".format(theme_name))
+        #subject_database('resources/{0}.txt'.format(theme_name))
             
     characters = list(vert_word)  # returns array of characters
 
@@ -49,17 +65,23 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     for letter in characters:
         
         if len(args) == 0:
-            available_words = Word.objects.filter(name__startswith=letter)
+            available_words = Word.objects.filter(
+                themes__contains=theme_name,
+                name__startswith=letter,
+            )
 
         elif len(args) == 1:
             available_words = (Word.objects.filter(
+                themes__contains=theme_name,                     
                 name__startswith=letter,
                 part_of_speech=construction[counter])
             )
         
         else:
-            # default - only filter by letter
-            available_words = Word.objects.filter(name__startswith=letter)
+            # default - only filter by letter (theme agnostic)
+            available_words = Word.objects.filter(
+                name__startswith=letter
+            )
             
         if not available_words:
             horz_words = "{0}{1};".format(horz_words, letter)

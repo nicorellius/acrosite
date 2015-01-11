@@ -8,11 +8,19 @@ description :   Populate the database with Word models.
 
 from .models import Word
 
+def all_subject_databases(theme_files):
+    for file in theme_files:
+        print("Importing theme-specific word list: {0}.".format(file))
+        subject_database("resources/{0}.txt".format(file), file)
+    return
 
-def subject_database(database_file):
+def subject_database(database_file, *args):
 
     f = open(database_file)
-
+    theme_name = "none"
+    if (len(args) > 0):
+        theme_name = args[0]
+    
     counter = 0
 
     for line in f:
@@ -30,6 +38,7 @@ def subject_database(database_file):
                 #Required arguments
                 word.name = params[0]
                 word.part_of_speech = params[1]
+                word.themes = theme_name
                 
                 #Optional arguments
                 if (len(params) > 2):

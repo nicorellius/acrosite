@@ -9,18 +9,15 @@ description :   Generate an acrostic based on various inputs and the database of
 import random
 import re
 
-from .populate import subject_database, all_subject_databases
+from .populate import populate_database
 # from .populate import populate_database
 
 from .models import Word, Acrostic, Theme
+from django.db.models import Q
 
 
 
 def generate_random_acrostic(vert_word, theme_name, *args):
-
-    #TODO: retrieve the pre-generated theme based on its name
-    theme = Theme()
-    theme.name = theme_name
 
     acrostic = Acrostic()
     acrostic.vertical_word = vert_word
@@ -28,16 +25,12 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     if len(args) == 1:
         construction = args[0].get_list()
     
-    # TODO: populate word table database appropriately
+    # TODO: populate word table before this screen
     # build word database if no words currently in database.
     # Word.objects.all().delete()
     
     if not Word.objects.all():
         
-        #default settings
-        if (theme_name == 'Select an Acrostic Theme'):
-            theme_name = 'cute_animals'
-
         print("rebuilding entire database.")
         themes = [
                   "cute_animals",
@@ -51,7 +44,12 @@ def generate_random_acrostic(vert_word, theme_name, *args):
                   "religion",
                   ]
         
-        all_subject_databases(themes)
+        #if no theme is specified, choose one at random.
+        if (theme_name == 'Select an Acrostic Theme'):
+            theme_name = random.choice(themes)
+            print('theme randomly selected to {0}'.format(theme_name))
+          
+        populate_database(themes)
 
         #print("repopulating database with theme {0}".format(theme_name))
         #subject_database('resources/{0}.txt'.format(theme_name))
@@ -61,26 +59,26 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     horz_words = ''
 
     counter = 0
-
+    #general = 'books_literature'
+    all_themes = "all"
     for letter in characters:
         
         if len(args) == 0:
             available_words = Word.objects.filter(
-                themes__contains=theme_name,
-                name__startswith=letter,
+                Q(themes__contains=theme_name) | Q(themes__contains=all_themes),
+                Q(name__startswith=letter),
             )
 
         elif len(args) == 1:
-            available_words = (Word.objects.filter(
-                themes__contains=theme_name,                     
-                name__startswith=letter,
-                part_of_speech=construction[counter])
+            available_words = Word.objects.filter(
+                Q(name__startswith=letter),
+                Q(part_of_speech=construction[counter]),
+                Q(themes__contains=theme_name) | Q(themes__contains=all_themes),
             )
         
         else:
-            # default - only filter by letter (theme agnostic)
             available_words = Word.objects.filter(
-                name__startswith=letter
+                Q(name__startswith=letter)
             )
             
         if not available_words:

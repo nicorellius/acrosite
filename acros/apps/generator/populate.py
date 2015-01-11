@@ -9,10 +9,13 @@ description :   Populate the database with Word models.
 from .models import Word
 
 def all_subject_databases(theme_files):
+    print ("Importing all theme-specific files.")
+    counter = 0
+    
     for file in theme_files:
         print("Importing theme-specific word list: {0}.".format(file))
-        subject_database("resources/{0}.txt".format(file), file)
-    return
+        counter += subject_database("resources/{0}.txt".format(file), file)
+    return counter
 
 def subject_database(database_file, *args):
 
@@ -53,12 +56,12 @@ def subject_database(database_file, *args):
             
     f.close()
 
-    print("Subject database {0} imported  ({1} entries).".format(database_file, str(counter)))
+    print("Subject database {0} imported ({1} entries).".format(database_file, str(counter)))
 
-    return
+    return counter
 
 
-def populate_database():
+def populate_database(theme_files):
 
     counter = 0
     counter += import_negative_adjectives()
@@ -68,6 +71,7 @@ def populate_database():
     counter += import_common_infinitive_verbs()
     counter += import_common_adverbs()
     counter += import_pronouns()
+    counter += all_subject_databases(theme_files)
 
     print("Successfully built a word database of {0} words.".format(str(counter)))
     
@@ -75,7 +79,7 @@ def populate_database():
 
 
 def import_negative_adjectives():
-    f = open("resources/top_100_negative_adjectives.txt")
+    f = open("resources/general/top_100_negative_adjectives.txt")
     # https://www.englishclub.com/vocabulary/adjectives-personality-negative.htm
     
     counter = 0
@@ -85,6 +89,7 @@ def import_negative_adjectives():
         word.name = line.strip()
         word.tags = "Common;Negative;"
         word.part_of_speech = "A"
+        word.themes = "all"
         word.save()
         counter += 1
 
@@ -97,7 +102,7 @@ def import_negative_adjectives():
 
 def import_positive_adjectives():
 
-    f = open("resources/top_100_positive_adjectives.txt")
+    f = open("resources/general/top_100_positive_adjectives.txt")
     # https://www.englishclub.com/vocabulary/adjectives-personality-positive.htm
     
     counter = 0
@@ -107,6 +112,7 @@ def import_positive_adjectives():
         word.name = line.strip()
         word.tags = "Common;Positive;"
         word.part_of_speech = "A"
+        word.themes = "all"
         word.save()
         counter += 1
 
@@ -118,7 +124,7 @@ def import_positive_adjectives():
 
 
 def import_other_adjectives():
-    f = open("resources/other_adjectives.txt")
+    f = open("resources/general/other_adjectives.txt")
     # added by hand
     
     counter = 0
@@ -128,6 +134,7 @@ def import_other_adjectives():
         word.name = line.strip()
         word.tags = "Common;"
         word.part_of_speech = "A"
+        word.themes = "all"
         word.save()
         counter += 1
 
@@ -140,7 +147,7 @@ def import_other_adjectives():
 
 def import_common_nouns():
 
-    f = open("resources/top_100_common_nouns.txt")
+    f = open("resources/general/top_100_common_nouns.txt")
     # http://www.espressoenglish.net/100-common-nouns-in-english/
     
     counter = 0
@@ -150,7 +157,8 @@ def import_common_nouns():
         L = line.split()
         word.name = L[1].strip()
         word.tags = "Common;"
-        word.part_of_speech = "N"
+        word.part_of_speech = "NS"
+        word.themes = "all"
         word.save()
         counter += 1
 
@@ -163,7 +171,7 @@ def import_common_nouns():
 
 def import_common_infinitive_verbs():
 
-    f = open("resources/common_infinitive_verbs.txt")
+    f = open("resources/general/common_infinitive_verbs.txt")
     # http://www.enchantedlearning.com/wordlist/verbs.shtml
     
 
@@ -173,7 +181,8 @@ def import_common_infinitive_verbs():
         word = Word()
         word.name = line.strip()
         word.tags = "Common;"
-        word.part_of_speech = "VI"
+        word.part_of_speech = "VS"
+        word.themes = "all"
         word.save()
         counter += 1
 
@@ -186,7 +195,7 @@ def import_common_infinitive_verbs():
 
 def import_common_adverbs():
 
-    f = open("resources/common_adverbs.txt")
+    f = open("resources/general/common_adverbs.txt")
     # http://www.enchantedlearning.com/wordlist/adverbs.shtml
     
     counter = 0
@@ -196,19 +205,20 @@ def import_common_adverbs():
         word.name = line.strip()
         word.tags = "Common;"
         word.part_of_speech = "D"
+        word.themes = "all"
         word.save()
         counter += 1
 
     f.close()
 
-    print(("Imported " + str(counter) + " common adverbs."))
+    print("Imported {0} common adverbs.".format(str(counter)))
 
     return counter
 
 
 def import_pronouns():
 
-    f = open("resources/pronouns.txt")
+    f = open("resources/general/pronouns.txt")
     # http://www.enchantedlearning.com/wordlist/adverbs.shtml
     
     counter = 0 
@@ -218,12 +228,13 @@ def import_pronouns():
         word.name = line.strip()
         word.tags = "Common;"
         word.part_of_speech = "P"
+        word.themes = "all"
         word.save()
         counter += 1
 
     f.close()
 
-    print(("Imported " + str(counter) + " pronouns."))
+    print(("Imported {0} pronouns.".format(str(counter))))
 
     return counter
 

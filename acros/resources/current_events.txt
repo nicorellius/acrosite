@@ -10,9 +10,14 @@
 #		tags, valuation
 
 # Adjectives
+a-CE	A
+b-CE	A
 
 # Plural Nouns
+c-CE	NP
 
 # Plural Verbs
+o-CE	VP
 
 # Adverbs
+n-CE	D

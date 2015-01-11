@@ -10,9 +10,14 @@
 #		tags, valuation
 
 # Adjectives
+a-BL	A
+b-BL	A
 
 # Plural Nouns
+c-BL	NP
 
 # Plural Verbs
+o-BL	VP
 
 # Adverbs
+n-BL	D

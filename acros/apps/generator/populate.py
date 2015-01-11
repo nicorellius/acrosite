@@ -26,10 +26,18 @@ def subject_database(database_file):
                 params = line.split()
             
                 word = Word()
+                
+                #Required arguments
                 word.name = params[0]
                 word.part_of_speech = params[1]
-                word.tags = params[2]
-                word.valuation = params[3]
+                
+                #Optional arguments
+                if (len(params) > 2):
+                    word.tags = params[2]
+                    
+                    if (len(params) > 3):
+                        word.valuation = params[3]
+
                 word.save()
 
                 counter += 1

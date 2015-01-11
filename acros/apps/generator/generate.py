@@ -30,22 +30,15 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     
     # TODO: populate word table database appropriately
     # build word database if no words currently in database.
+    Word.objects.all().delete()
+    
     if not Word.objects.all():
 
-        print("re-populating database with theme {0}".format(theme_name))
+        if (theme_name == 'Select an Acrostic Theme'):
+            theme_name = 'cute_animals'
+
+        print("repopulating database with theme {0}".format(theme_name))
         subject_database('resources/{0}.txt'.format(theme_name))
-        # populate_database()
- 
-        # subject_database('resources/{0}.txt'.format(ts));
-        #subject_database('resources/cute_animals.txt')
-
-        '''
-        theme.name = 'cute animals'
-        theme.group = 'animals'
-        theme.tags = 'cute, animals'
-        theme.save()
-        '''
-
             
     characters = list(vert_word)  # returns array of characters
 

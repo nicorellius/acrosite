@@ -40,7 +40,7 @@ def adj_to_noun(vertical_word):  # A_to_N
     return construction
 
 
-def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
+def adj_to_noun_verb_adv(vertical_word, isplural):  # A_to_NS_VS_D
     
     characters = list(vertical_word)
     
@@ -51,7 +51,10 @@ def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
         sequence = 'A;'
 
     elif len(characters) == 2:
-        sequence = 'A;NP;'
+        if (isplural):
+            sequence = 'A;NP;'
+        else:
+            sequence = 'A;NS;'
 
     elif len(characters) == 3:
         sequence = 'A;A;NP;'
@@ -63,13 +66,17 @@ def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
             sequence += 'A;'
             counter += 1
 
-        sequence += 'NP;VP;D;'
+        if (isplural):
+            sequence += 'NP;VP;D;'
+        else:
+            sequence += 'NS;VS;D;'
+
     
     print(sequence)
     
     construction = Construction()
     construction.sequence = sequence
-    construction.description = 'adjectives-to-NP-VP-D'
+    construction.description = 'adjectives-to-NVD'
     construction.save()
     
     return construction

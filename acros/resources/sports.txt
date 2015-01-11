@@ -8,3 +8,21 @@
 #
 #	Optional args:
 #		tags, valuation
+
+# Adjectives
+aggressive	A
+awesome	A
+bold	A
+brilliant	A
+
+# Plural Nouns
+captains	NP
+competitors	NP
+
+# Plural Verbs
+open	VP
+overpower	VP
+
+# Adverbs
+noticeably	VP
+naturally	VP

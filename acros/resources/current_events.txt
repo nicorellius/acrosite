@@ -8,3 +8,11 @@
 #
 #	Optional args:
 #		tags, valuation
+
+# Adjectives
+
+# Plural Nouns
+
+# Plural Verbs
+
+# Adverbs

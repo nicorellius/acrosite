@@ -8,3 +8,19 @@
 #
 #	Optional args:
 #		tags, valuation
+
+# Adjectives
+awesome	A
+angelic	A
+beautiful	A
+
+# Plural Nouns
+christs	NP
+catholics	NP
+crosses	NP
+
+# Plural Verbs
+offer	VP
+
+# Adverbs
+nobly	D

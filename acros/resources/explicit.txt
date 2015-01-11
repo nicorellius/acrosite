@@ -8,3 +8,20 @@
 #
 #	Optional args:
 #		tags, valuation
+
+# Adjectives
+ass-like	A
+anal	A
+bitchy	A
+bangin	A
+
+# Plural Nouns
+cunts	NP
+cocksuckers	NP
+
+# Plural Verbs
+operate	VP
+
+# Adverbs
+nicely	D
+notably	D

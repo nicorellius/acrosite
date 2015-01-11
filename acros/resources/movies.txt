@@ -8,3 +8,16 @@
 #
 #	Optional args:
 #		tags, valuation
+
+# Adjectives
+anxious	A
+beautiful	A
+
+# Plural Nouns
+closers	NP
+
+# Plural Verbs
+overact	VP
+
+# Adverbs
+noticeably	D

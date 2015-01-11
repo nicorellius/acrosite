@@ -14,11 +14,11 @@ asshole	A
 abhorrent	A
 blasphemous	A
 
-# Noun Plural
-captains	NP
-coercers	NP
+# Plural Nouns
+congressmen	NP
+corporations	NP
 
-# Verb Plural
+# Plural Verbs
 occupy	VP
 overreach	VP
 

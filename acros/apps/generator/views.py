@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
-from .models import Acrostic, Construction
+from .models import Acrostic, Construction, Theme
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
 from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_sin_verb_sin_adj
@@ -52,6 +52,7 @@ class GenerateAcrosticFormView(View):
         print(ts)
         
         acrostic = Acrostic()
+        theme = Theme()
         
         print("this view is trying to create an acrostic object...")
         
@@ -73,15 +74,19 @@ class GenerateAcrosticFormView(View):
             # acrostic = generate_random_acrostic(vert_word)
             
             acrostic.save()
+
+            theme.name = ts  # form.cleaned_data['theme-selector']
+            theme.save()
                         
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
             
-            return HttpResponseRedirect('/generate/acrostic/success?ts={0}'.format(ts))
+            return HttpResponseRedirect('/generate/acrostic/success/?theme={0}'.format(ts))
         
         return render(request, self.template_name, {
             'form': form,
             'theme-selector': ts,
+            'theme': theme,
         })
     
 
@@ -96,7 +101,7 @@ class GenerateAcrosticSuccessView(View):
 
         # consider using messages framework instead:
         #     https://stackoverflow.com/questions/1463489/
-        ts = request.GET.get('ts', '')
+        ts = request.GET.get('theme', '')
         
         return render(request, 'generator/success.html', {
             'acrostic': acrostic,

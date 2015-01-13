@@ -16,7 +16,6 @@ from .models import Word, Acrostic, Theme
 from django.db.models import Q
 
 
-
 def generate_random_acrostic(vert_word, theme_name, *args):
 
     acrostic = Acrostic()
@@ -33,33 +32,33 @@ def generate_random_acrostic(vert_word, theme_name, *args):
         
         print("rebuilding entire database.")
         themes = [
-                  "cute_animals",
-                  "politics",
-                  "sports",
-                  "economics",
-                  "current_events",
-                  "movies",
-                  "books_literature",
-                  "explicit",
-                  "religion",
-                  ]
+            "cute_animals",
+            "politics",
+            "sports",
+            "economics",
+            "current_events",
+            "movies",
+            "books_literature",
+            "explicit",
+            "religion",
+        ]
         
-        #if no theme is specified, choose one at random.
-        if (theme_name == 'Select an Acrostic Theme'):
+        # if no theme is specified, choose one at random.
+        if theme_name == 'Select an Acrostic Theme':
             theme_name = random.choice(themes)
             print('theme randomly selected to {0}'.format(theme_name))
           
         populate_database(themes)
 
-        #print("repopulating database with theme {0}".format(theme_name))
-        #subject_database('resources/{0}.txt'.format(theme_name))
+        # print("repopulating database with theme {0}".format(theme_name))
+        # subject_database('resources/{0}.txt'.format(theme_name))
             
     characters = list(vert_word)  # returns array of characters
 
     horz_words = ''
 
     counter = 0
-    #general = 'books_literature'
+    # general = 'books_literature'
     all_themes = "all"
     for letter in characters:
         

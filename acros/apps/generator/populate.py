@@ -8,8 +8,9 @@ description :   Populate the database with Word models.
 
 from .models import Word
 
+
 def all_subject_databases(theme_files):
-    print ("Importing all theme-specific files.")
+    print("Importing all theme-specific files.")
     counter = 0
     
     for file in theme_files:
@@ -17,11 +18,12 @@ def all_subject_databases(theme_files):
         counter += subject_database("resources/{0}.txt".format(file), file)
     return counter
 
+
 def subject_database(database_file, *args):
 
     f = open(database_file)
     theme_name = "none"
-    if (len(args) > 0):
+    if len(args) > 0:
         theme_name = args[0]
     
     counter = 0

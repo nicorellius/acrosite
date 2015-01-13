@@ -30,7 +30,7 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     
     if not Word.objects.all():
         
-        print("rebuilding entire database.")
+        print("Rebuilding entire database...")
         themes = [
             "cute_animals",
             "politics",
@@ -46,7 +46,7 @@ def generate_random_acrostic(vert_word, theme_name, *args):
         # if no theme is specified, choose one at random.
         if theme_name == 'Select an Acrostic Theme':
             theme_name = random.choice(themes)
-            print('theme randomly selected to {0}'.format(theme_name))
+            print('Theme randomly selected to {0}'.format(theme_name))
           
         populate_database(themes)
 

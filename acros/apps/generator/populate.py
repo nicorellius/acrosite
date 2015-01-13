@@ -10,12 +10,15 @@ from .models import Word
 
 
 def all_subject_databases(theme_files):
+
     print("Importing all theme-specific files.")
+
     counter = 0
     
     for file in theme_files:
         print("Importing theme-specific word list: {0}.".format(file))
         counter += subject_database("resources/{0}.txt".format(file), file)
+
     return counter
 
 
@@ -23,6 +26,7 @@ def subject_database(database_file, *args):
 
     f = open(database_file)
     theme_name = "none"
+
     if len(args) > 0:
         theme_name = args[0]
     
@@ -40,16 +44,16 @@ def subject_database(database_file, *args):
             
                 word = Word()
                 
-                #Required arguments
+                # required arguments
                 word.name = params[0]
                 word.part_of_speech = params[1]
                 word.themes = theme_name
                 
-                #Optional arguments
-                if (len(params) > 2):
+                # optional arguments
+                if len(params) > 2:
                     word.tags = params[2]
                     
-                    if (len(params) > 3):
+                    if len(params) > 3:
                         word.valuation = params[3]
 
                 word.save()
@@ -126,6 +130,7 @@ def import_positive_adjectives():
 
 
 def import_other_adjectives():
+
     f = open("resources/general/other_adjectives.txt")
     # added by hand
     

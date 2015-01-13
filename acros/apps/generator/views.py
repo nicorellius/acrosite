@@ -17,11 +17,11 @@ from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_verb_a
 
     
 class GenerateAcrosticFormView(View):
-    
+
+    model = Acrostic
     form_class = GenerateAcrosticForm
     initial = {'key': 'value'}
     template_name = 'generator/generate.html'
-    model = Acrostic
     
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
@@ -35,7 +35,7 @@ class GenerateAcrosticFormView(View):
         else:
             form = self.form_class()
         
-        print("ip address for debug-toolbar: {0}".format(request.META['REMOTE_ADDR']))
+        print("IP address for debug-toolbar: {0}".format(request.META['REMOTE_ADDR']))
         
         return render(request, self.template_name, {'form': form})
     
@@ -48,12 +48,12 @@ class GenerateAcrosticFormView(View):
         consider using messages framework instead:
             https://stackoverflow.com/questions/1463489/
         """
-        ts = request.POST.get('theme-selector', '')
-        print(ts)
+        theme = request.POST.get('theme-selector', '')
+        print(theme)
         
         acrostic = Acrostic()
         
-        print("this view is trying to create an acrostic object...")
+        print("This view is trying to create an acrostic object...")
         
         form = self.form_class(request.POST, instance=acrostic)
         
@@ -70,19 +70,19 @@ class GenerateAcrosticFormView(View):
             # construction.sequence = "N;VI;N;N;VI;AV"
             # construction.sequence = "A;A;NS;VS;D"
             
-            acrostic = generate_random_acrostic(vert_word, ts, construction)
+            acrostic = generate_random_acrostic(vert_word, theme, construction)
             # acrostic = generate_random_acrostic(vert_word)
             
             acrostic.save()
                         
             if acrostic != '':
-                print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
+                print("Acrostic object created with vertical word: '{0}'".format(request.POST['name']))
             
-            return HttpResponseRedirect('/generate/acrostic/success?ts={0}'.format(ts))
+            return HttpResponseRedirect('/generate/acrostic/success?theme={0}'.format(theme))
         
         return render(request, self.template_name, {
             'form': form,
-            'theme-selector': ts,
+            'theme': theme,
         })
     
 
@@ -97,9 +97,9 @@ class GenerateAcrosticSuccessView(View):
 
         # consider using messages framework instead:
         #     https://stackoverflow.com/questions/1463489/
-        ts = request.GET.get('ts', '')
+        theme = request.GET.get('theme', '')
         
         return render(request, 'generator/success.html', {
             'acrostic': acrostic,
-            'ts': ts,
+            'theme': theme,
         })

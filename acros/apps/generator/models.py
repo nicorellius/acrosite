@@ -18,9 +18,9 @@ class Word(BaseModel):
     name = models.CharField(max_length=200)
     part_of_speech = models.CharField(max_length=200, default='NS')
     tags = models.CharField(max_length=200, default='')
-    valuation = models.FloatField(default=-1.0)  # a -1 flag implies "no valuation assigned"
+    valuation = models.FloatField(default=-1.0)  # a -1.0 flag implies "no valuation assigned"
     prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
-    themes = models.CharField(max_length=200, default='politics')
+    themes = models.CharField(max_length=1000, default='politics')
     
     def __str__(self):
 

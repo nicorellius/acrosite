@@ -40,7 +40,7 @@ def adj_to_noun(vertical_word):  # A_to_N
     return construction
 
 
-def adj_to_noun_verb_adv(vertical_word, isplural):  # A_to_NS_VS_D
+def adj_to_noun_verb_adv(vertical_word, is_plural):  # A_to_NS_VS_D
     
     characters = list(vertical_word)
     
@@ -51,7 +51,8 @@ def adj_to_noun_verb_adv(vertical_word, isplural):  # A_to_NS_VS_D
         sequence = 'A;'
 
     elif len(characters) == 2:
-        if (isplural):
+
+        if is_plural:
             sequence = 'A;NP;'
         else:
             sequence = 'A;NS;'
@@ -66,11 +67,10 @@ def adj_to_noun_verb_adv(vertical_word, isplural):  # A_to_NS_VS_D
             sequence += 'A;'
             counter += 1
 
-        if (isplural):
+        if is_plural:
             sequence += 'NP;VP;D;'
         else:
             sequence += 'NS;VS;D;'
-
     
     print(sequence)
     

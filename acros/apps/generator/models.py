@@ -46,7 +46,7 @@ class Theme(BaseModel):
 
 class Construction(BaseModel):
     
-    sequence = models.CharField(max_length=200)
+    sequence = models.CharField(max_length=200, unique=True)
     themes = models.CharField(max_length=200)
     tags = models.CharField(max_length=200, blank=True, default='')
     type = models.CharField(max_length=200, blank=True, default='')
@@ -60,10 +60,10 @@ class Construction(BaseModel):
 
 class Acrostic(BaseModel):
     
-    vertical_word = models.CharField(max_length=200, default='N/A')
-    horizontal_words = models.CharField(max_length=200, default='N;/;A')
+    vertical_word = models.CharField(max_length=200, default='shit')
+    horizontal_words = models.CharField(max_length=200, default='so;happy;it\'s;thursday')
     construction = models.OneToOneField(Construction, primary_key=True)
-    theme = models.ForeignKey(Theme, default=1)
+    theme = models.ForeignKey(Theme, default='all')
     
     def __str__(self):
         

@@ -60,7 +60,13 @@
 		<div class="alert alert-success" role="alert">
 			<p>SUCCESS!</p>
 
-            <p>The theme you selected is: <strong>{{ theme }}</strong></p>
+            <p>The theme you selected is: <strong>
+                {% if theme == 'books_literature' %}
+                    {{ theme|prettify:'/' }}
+                {% else %}
+                    {{ theme|prettify:' ' }}
+                {% endif %}
+            </strong></p>
 
             <p style="margin-top: 2em;">Here is your acrostic:</p>
 

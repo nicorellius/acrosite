@@ -147,7 +147,7 @@ def import_other_adjectives():
 
     f.close()
 
-    print("Imported {0} other adjectives.".format(str(counter)))
+    print("Imported {0} other adjective(s).".format(str(counter)))
 
     return counter
 

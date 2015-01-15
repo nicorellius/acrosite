@@ -27,26 +27,27 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     # TODO: populate word table before this screen
     # build word database if no words currently in database.
     # Word.objects.all().delete()
+
+    themes = [
+        "cute_animals",
+        "politics",
+        "sports",
+        "economics",
+        "current_events",
+        "movies",
+        "books_literature",
+        "explicit",
+        "religion",
+    ]
+
+    # if no theme is specified, choose one at random.
+    if theme_name == 'Select an Acrostic Theme':
+        theme_name = random.choice(themes)
+        print('Theme randomly selected to {0}'.format(theme_name))
     
     if not Word.objects.all():
         
         print("Rebuilding entire database...")
-        themes = [
-            "cute_animals",
-            "politics",
-            "sports",
-            "economics",
-            "current_events",
-            "movies",
-            "books_literature",
-            "explicit",
-            "religion",
-        ]
-        
-        # if no theme is specified, choose one at random.
-        if theme_name == 'Select an Acrostic Theme':
-            theme_name = random.choice(themes)
-            print('Theme randomly selected to {0}'.format(theme_name))
           
         populate_database(themes)
 
@@ -93,6 +94,6 @@ def generate_random_acrostic(vert_word, theme_name, *args):
     acrostic.vertical_word = vert_word
     acrostic.horizontal_words = horz_words
 
-    print("Acrostic:\n", acrostic.__str__());
+    print("Acrostic:\n", acrostic.__str__())
 
     return acrostic

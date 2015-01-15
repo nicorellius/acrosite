@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Construction',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
-                ('sequence', models.CharField(max_length=200)),
+                ('sequence', models.CharField(unique=True, max_length=200)),
                 ('themes', models.CharField(max_length=200)),
                 ('tags', models.CharField(blank=True, default='', max_length=200)),
                 ('type', models.CharField(blank=True, default='', max_length=200)),
@@ -33,13 +33,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Acrostic',
             fields=[
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
+                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
-                ('vertical_word', models.CharField(default='N/A', max_length=200)),
-                ('horizontal_words', models.CharField(default='N;/;A', max_length=200)),
-                ('construction', models.OneToOneField(primary_key=True, to='generator.Construction', serialize=False)),
+                ('vertical_word', models.CharField(default='shit', max_length=200)),
+                ('horizontal_words', models.CharField(default="so;happy;it's;thursday", max_length=200)),
+                ('construction', models.OneToOneField(to='generator.Construction', serialize=False, primary_key=True)),
             ],
             options={
                 'abstract': False,
@@ -49,8 +49,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Score',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
@@ -66,15 +66,14 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Theme',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
                 ('name', models.CharField(default='default theme', max_length=200)),
                 ('group', models.CharField(blank=True, default='main', max_length=200)),
                 ('tags', models.CharField(blank=True, default='', max_length=200)),
-                ('words', models.CharField(max_length=1000)),
             ],
             options={
                 'abstract': False,
@@ -84,17 +83,17 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Word',
             fields=[
-                ('id', models.AutoField(auto_created=True, serialize=False, verbose_name='ID', primary_key=True)),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
                 ('name', models.CharField(max_length=200)),
-                ('part_of_speech', models.CharField(default='NN', max_length=200)),
+                ('part_of_speech', models.CharField(default='NS', max_length=200)),
                 ('tags', models.CharField(default='', max_length=200)),
                 ('valuation', models.FloatField(default=-1.0)),
                 ('prevalence', models.IntegerField(default=0, max_length=1)),
-                ('themes', models.CharField(default='politics', max_length=200)),
+                ('themes', models.CharField(default='all', max_length=1000)),
             ],
             options={
                 'abstract': False,

@@ -20,7 +20,7 @@ class Word(BaseModel):
     tags = models.CharField(max_length=200, default='')
     valuation = models.FloatField(default=-1.0)  # a -1.0 flag implies "no valuation assigned"
     prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
-    themes = models.CharField(max_length=1000, default='politics')
+    themes = models.CharField(max_length=1000, default='all')
     
     def __str__(self):
 
@@ -41,7 +41,7 @@ class Theme(BaseModel):
     name = models.CharField(max_length=200, default='default theme')
     group = models.CharField(max_length=200, blank=True, default='main')
     tags = models.CharField(max_length=200, blank=True, default='')
-    words = models.CharField(max_length=1000)
+    # words = models.CharField(max_length=1000)  # themes should be part of word not this way
 
 
 class Construction(BaseModel):
@@ -59,11 +59,13 @@ class Construction(BaseModel):
 
 
 class Acrostic(BaseModel):
-    
+
+    DEFAULT_THEME_ID = 1  # we should create a default theme called `all` with id of 1
+
     vertical_word = models.CharField(max_length=200, default='shit')
     horizontal_words = models.CharField(max_length=200, default='so;happy;it\'s;thursday')
     construction = models.OneToOneField(Construction, primary_key=True)
-    theme = models.ForeignKey(Theme, default='all')
+    theme = models.ForeignKey(Theme, default=DEFAULT_THEME_ID)
     
     def __str__(self):
         

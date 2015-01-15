@@ -35,7 +35,7 @@ class ConstructionAdmin(admin.ModelAdmin):
     
 class AcrosticAdmin(admin.ModelAdmin):
 
-    list_display = ['vertical_word', 'horizontal_words', 'construction', 'theme', ]
+    list_display = ['vertical_word', 'horizontal_words', 'construction', ]
     list_filter = ['created', ]
     search_fields = ['horizontal_words', ]
     date_hierarchy = 'created'
@@ -43,14 +43,14 @@ class AcrosticAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (None, {
-            'fields': ('vertical_word', 'horizontal_words', 'construction', 'theme', )
+            'fields': ('vertical_word', 'horizontal_words', 'construction', )
         }),
     )
 
 
 class ThemeAdmin(admin.ModelAdmin):
 
-    list_display = ['name', 'group', 'tags', 'words', ]
+    list_display = ['name', 'group', 'tags', ]
     list_filter = ['created', ]
     search_fields = ['name', ]
     date_hierarchy = 'created'
@@ -58,7 +58,7 @@ class ThemeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'group', 'tags', 'words',)
+            'fields': ('name', 'group', 'tags', )
         }),
     )
 

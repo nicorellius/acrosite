@@ -69,14 +69,19 @@ class GenerateAcrosticFormView(View):
             # construction.sequence = "P;A;N;VI;AV"
             # construction.sequence = "N;VI;N;N;VI;AV"
             # construction.sequence = "A;A;NS;VS;D"
-            
+
+            print("Calling generate acrostic function...")
             acrostic = generate_random_acrostic(vert_word, theme, construction)
             # acrostic = generate_random_acrostic(vert_word)
             
             acrostic.save()
+            # print("acrostic.theme: {0}".format())
                         
             if acrostic != '':
-                print("Acrostic object created with vertical word: '{0}'".format(request.POST['name']))
+                print("Acrostic object created with vertical word '{0}' and theme '{1}'.".format(
+                    request.POST['name'],
+                    theme
+                ))
             
             return HttpResponseRedirect('/generate/acrostic/success?theme={0}'.format(theme))
         

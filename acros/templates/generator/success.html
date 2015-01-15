@@ -68,7 +68,10 @@
                 {% endif %}
             </strong></p>
 
-            <p style="margin-top: 2em;">Here is your acrostic:</p>
+            <p>Rate this acrostic</p>
+            <div class="rateit" data-rateit-resetable="false"></div>
+
+            <p>Here is your acrostic:</p>
 
 			{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
 

@@ -13,10 +13,26 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Acrostic',
+            fields=[
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
+                ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
+                ('slug', models.SlugField(help_text='slug for URLs')),
+                ('description', models.TextField(blank=True)),
+                ('vertical_word', models.CharField(default='shit', max_length=200)),
+                ('horizontal_words', models.CharField(default="so;happy;it's;thursday", max_length=200)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Construction',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
@@ -31,26 +47,10 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Acrostic',
-            fields=[
-                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
-                ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
-                ('slug', models.SlugField(help_text='slug for URLs')),
-                ('description', models.TextField(blank=True)),
-                ('vertical_word', models.CharField(default='shit', max_length=200)),
-                ('horizontal_words', models.CharField(default="so;happy;it's;thursday", max_length=200)),
-                ('construction', models.OneToOneField(to='generator.Construction', serialize=False, primary_key=True)),
-            ],
-            options={
-                'abstract': False,
-            },
-            bases=(models.Model,),
-        ),
-        migrations.CreateModel(
             name='Score',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
@@ -66,8 +66,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Theme',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
@@ -83,8 +83,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Word',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('created', models.DateTimeField(verbose_name='create date', auto_now_add=True)),
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('created', models.DateTimeField(auto_now_add=True, verbose_name='create date')),
                 ('modified', models.DateTimeField(auto_now=True, verbose_name='modified date')),
                 ('slug', models.SlugField(help_text='slug for URLs')),
                 ('description', models.TextField(blank=True)),
@@ -99,6 +99,12 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='acrostic',
+            name='construction',
+            field=models.ForeignKey(to='generator.Construction', default=1),
+            preserve_default=True,
         ),
         migrations.AddField(
             model_name='acrostic',

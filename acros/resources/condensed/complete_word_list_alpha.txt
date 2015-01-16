@@ -1,0 +1,49 @@
+# This file contains all entries in the Word database for use with the alpha version.
+# Each line in the file contains the word database entry.
+#
+# For alpha, valuations are not used.
+#
+# Each line is a tab-delimited, with the tabs being as follows:
+#
+#	name	part_of_speech	themes	tags
+#
+#	Required args:
+#		name, part_of_speech, themes
+#
+#	Optional args:
+#		tags
+#
+#	The underscore character is used to represent a space.
+#	Lists are delimited by a semicolon.
+#	
+#	Parts of speech have the following organization:
+#
+#	NS: Noun Singular
+#	NP: Noun Plural
+#	A: Adjective
+#	VS: Verb Singular
+#	VP: Verb Plural
+#	D: Adverb
+#	P: Pronoun
+#
+#	The list is organized by part of speech, and then alphabetically.
+#
+#	For alpha, we will focus on three themes:
+#
+#		(1) Cute Animals
+#		(2) Politics
+#		(3) Explicit
+
+# Noun Singular (NS)
+
+# Noun Plural (NP)
+
+# Adjective (A)
+
+# Verb Singular (VS)
+
+# Verb Plural (VP)
+
+# Adverb (D)
+
+# Pronoun (P)

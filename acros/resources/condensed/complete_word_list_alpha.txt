@@ -32,13 +32,270 @@
 #
 #		(1) Cute Animals
 #		(2) Politics
-#		(3) Explicit
+#		(3) Music
 
-# Noun Singular (NS)
+# ================================= #
+# Nouns Singular (NS) and Plural (NP)
+# ================================= #
 
-# Noun Plural (NP)
+# Cute Animals
+
+alligator	NS	cute_animals	animal
+alligators	NP	cute_animals	animal
+bear	NS	cute_animals	animal
+bears	NP	cute_animals	animal
+bison	NS	cute_animals	animal
+bison	NP	cute_animals	animal
+buffalo	NS	cute_animals	animal
+buffaloes	NP	cute_animals	animal
+bunny	NS	cute_animals	animal
+bunnies	NP	cute_animals	animal
+cat	NS	cute_animals	animal
+cats	NP	cute_animals	animal
+chipmunk	NS	cute_animals	animal
+chipmunks	NP	cute_animals	animal
+clownfish	NS	cute_animals	animal
+clownfish	NP	cute_animals	animal
+dog	NS	cute_animals	animal
+dogs	NP	cute_animals	animal
+doggy	NS	cute_animals	animal
+doggies	NP	cute_animals	animal
+elephant	NS	cute_animals	animal
+elephants	NP	cute_animals	animal
+fox	NS	cute_animals	animal
+foxes	NP	cute_animals	animal
+frog	NS	cute_animals	animal
+frogs	NP	cute_animals	animal
+froggy	NS	cute_animals	animal
+froggies	NP	cute_animals	animal
+gopher	NS	cute_animals	animal
+gophers	NP	cute_animals	animal
+guinea_pig	NS	cute_animals	animal
+guinea_pigs	NP	cute_animals	animal
+hippo	NS	cute_animals	animal
+hippos	NP	cute_animals	animal
+horse	NS	cute_animals	animal
+horses	NP	cute_animals	animal
+horsey	NS	cute_animals	animal
+horsies	NP	cute_animals	animal
+iguana	NS	cute_animals	animal
+iguanas	NP	cute_animals	animal
+jellyfish	NS	cute_animals	animal
+jellyfish	NP	cute_animals	animal
+kangaroo	NS	cute_animals	animal
+kangaroos	NP	cute_animals	animal
+kitten	NS	cute_animals	animal
+kittens	NP	cute_animals	animal
+kitty	NS	cute_animals	animal
+kitties	NS	cute_animals	animal
+koala	NS	cute_animals	animal
+koalas	NP	cute_animals	animal
+koala_bear	NS	cute_animals	animal
+koala_bears	NP	cute_animals	animal
+lamb	NS	cute_animals	animal
+lambs	NP	cute_animals	animal
+leopard	NS	cute_animals	animal
+leopards	NP	cute_animals	animal
+lion	NS	cute_animals	animal
+lions	NP	cute_animals	animal
+mini-pig	NS	cute_animals	animal
+mini-pigs	NP	cute_animals	animal
+meerkat	NS	cute_animals	animal
+meerkats	NP	cute_animals	animal
+monkey	NS	cute_animals	animal
+monkeys	NP	cute_animals	animal
+moose	NS	cute_animals	animal
+moose	NP	cute_animals	animal
+narwhale	NS	cute_animals	animal
+narwhales	NP	cute_animals	animal
+owl	NS	cute_animals	animal
+owls	NP	cute_animals	animal
+orca	NS	cute_animals	animal
+orcas	NP	cute_animals	animal
+otter	NS	cute_animals	animal
+otters	NP	cute_animals	animal
+panda	NS	cute_animals	animal
+pandas	NP	cute_animals	animal
+panda_bear	NS	cute_animals	animal
+panda_bears	NP	cute_animals	animal
+pig	NS	cute_animals	animal
+pigs	NP	cute_animals	animal
+piggy	NS	cute_animals	animal
+piggies	NP	cute_animals	animal
+porcupine	NS	cute_animals	animal
+porcupines	NP	cute_animals	animal
+puppy	NS	cute_animals	animal
+puppies	NP	cute_animals	animal
+quail	NS	cute_animals	animal
+quails	NP	cute_animals	animal
+rabbit	NS	cute_animals	animal
+rabbits	NP	cute_animals	animal
+raccoon	NS	cute_animals	animal
+raccoons	NP	cute_animals	animal
+seal	NS	cute_animals	animal
+seals	NP	cute_animals	animal
+sheep	NS	cute_animals	animal
+sheep	NP	cute_animals	animal
+squirrel	NS	cute_animals	animal
+squirrels	NP	cute_animals	animal
+teacup_pig	NS	cute_animals	animal
+teacup_pigs	NP	cute_animals	animal
+unicorn	NS	cute_animals	animal
+unicorns	NP	cute_animals	animal
+vole	NS	cute_animals	animal
+voles	NP	cute_animals	animal
+wallaby	NS	cute_animals	animal
+wallabies	NP	cute_animals	animal
+weasel	NS	cute_animals	animal
+weasels	NP	cute_animals	animal
+whale	NS	cute_animals	animal
+whales	NP	cute_animals	animal
+yak	NS	cute_animals	animal
+yaks	NP	cute_animals	animal
+zebra	NS	cute_animals	animal
+zebras	NP	cute_animals	animal
+
+# Music
+
+beat	NS	music	component
+beats	NP	music	component
+chord	NS	music	component
+chords	NP	music	component
+drum	NS	music	instrument
+drums	NP	music	instrument
+guitar	NS	music	instrument
+guitars	NP	music	instrument
+harmony	NS	music	component
+harmonies	NP	music	component
+harp	NS	music	instrument
+harps	NP	music	instrument
+harpsichord	NS	music	instrument
+harpsichords	NP	music	instrument
+jam	NS	music
+jams	NP	music
+melody	NS	music	component
+melodies	NP	music	component
+note	NS	music	component
+notes	NP	music	component
+piano	NS	music	instrument
+pianos	NP	music	instrument
+tune	NS	music
+tunes	NP	music
+violin	NS	music	instrument
+violins	NP	music	instrument
+slaps	NP	music
+song	NS	music	unit
+songs	NS	music	unit
+symphony	NS	music	unit
+symphonies	NP	music	unit
+xylophone	NS	music	instrument
+xylophones	NS	music	instrument
+zither	NS	music	instrument
+zithers	NP	music	instrument
+
+# Politics - only
+
+administration	NS	politics
+alliance	NS	politics
+alliances	NP	politics
+america	NS	politics
+approbriation_bill	NS	politics
+assembly	NS	politics
+autonomy	NS	politics	idea
+authoritarian	NS	politics	person
+authoritarians	NP	politics	person
+balance_of_power	NS	politics	idea
+ballot	NS	politics
+ballots	NS	politics
+barack_obama	NS	politics	person
+biden	NS	politics	person
+bill	NS	politics
+bills	NP	politics
+campaign	NS	politics
+campaigns	NP	politics
+cabinet	NS	politics
+chairman	NS	politics	person
+chairmen	NS	politics	person
+citizen	NS	politics	person
+citizens	NP	politics	person
+citizenship	NS	politics	idea
+communism	NS	politics	idea
+communist	NS	politics	person
+communists	NP	politics	person
+congress	NS	politics
+council	NS	politics
+constitution	NS	politics
+democrat	NS	politics	person
+democrats	NS	politics	person
+democracy	NS	politics	idea
+department	NS	politics
+donation	NS	politics
+donations	NS	politics
+election	NS	politics
+elections	NP	politics
+electorate	NS	politics
+fascism	NS	politics	idea
+fascist	NS	politics	person
+fascists	NP	politics	person
+freedom	NS	politics	idea
+freedoms	NP	politics
+fundraiser	NS	politics
+fundraisers	NP	politics
+government	NS	politics
+governments	NP	politics
+governor	NS	politics
+governors	NP	politics
+house_of_representatives	NS	politics
+immigration	NS	politics
+immigrant	NS	politics	person
+immigrants	NS	politics	person
+issue	NS	politics
+issues	NP	politics
+joe_biden	NS	politics	person
+justice	NS	politics	person;idea
+justices	NP	politics
+liberal	NS	politics	person
+liberals	NP	politics	person
+liberalism	NS	politics	idea
+liberty	NS	politics
+majority	NS	politics
+majorities	NP	politics
+mayor	NS	politics	person
+minority	NS	politics
+minorities	NP	politics
+mitch_mcconnell	NS	politics	person
+nation	NS	politics
+nations	NP	politics
+obama	NS	politics	person
+party	NS	politics
+parties	NP	politics
+politics	NS	politics	idea
+politician	NS	politics	person
+politicians	NS	politics	person
+presidency	NS	politics	idea
+president	NS	politics	person
+presidents	NS	politics	person
+race	NS	politics
+republican	NS	politics	person
+republicans	NS	politics	person
+run	NS	politics
+senate	NS	politics
+senator	NS	politics	person
+senators	NS	politics	person
+socialism	NS	politics	idea
+socialist	NS	politics	person
+socialists	NP	politics	person
+treasury	NS	politics
+treasurer	NS	politics	person
+united_states	NS	politics
+vice_president	NS	politics	person
+vote	NS	politics
+votes	NP	politics
+voter_turnout	NS	politics
 
 # Adjective (A)
+
+laissez-faire	NS	politics
 
 # Verb Singular (VS)
 

@@ -11,11 +11,11 @@ import re
 
 from .populate import populate_database
 # from .populate import populate_database
+from .filter_sets import cute_animals_cute
 
 from .models import Word, Acrostic, Theme
 from django.db.models import Q
-
-
+    
 def generate_random_acrostic(vert_word, theme_name, *args):
 
     acrostic = Acrostic()
@@ -70,11 +70,41 @@ def generate_random_acrostic(vert_word, theme_name, *args):
             )
 
         elif len(args) == 1:
+            '''
             available_words = Word.objects.filter(
                 Q(name__startswith=letter),
                 Q(part_of_speech=construction[counter]),
                 Q(themes__contains=theme_name) | Q(themes__contains=all_themes),
             )
+            '''
+            '''
+            available_words = Word.objects.filter(
+                Q(name__startswith=letter),
+                Q(part_of_speech=construction[counter]),
+                Q(themes__contains=theme_name),
+            )
+            '''
+            
+            filters = [
+                       Q(name__startswith=letter),
+                       Q(part_of_speech=construction[counter]),
+                       Q(themes__contains=theme_name)
+                       ]
+            
+            pre_filter = Word.objects.all()
+        
+            # progressively refine set - this is more efficient than chaining queries.
+            # please see
+            # https://docs.djangoproject.com/en/1.7/ref/models/querysets/#id4
+            for filter_query in filters:
+                post_filter = pre_filter.filter(filter_query)
+                pre_filter = post_filter
+                
+            available_words = post_filter
+            '''
+            available_words = get_available_words(filters)
+            '''
+            
         
         else:
             available_words = Word.objects.filter(
@@ -96,4 +126,41 @@ def generate_random_acrostic(vert_word, theme_name, *args):
 
     print("Acrostic:\n", acrostic.__str__())
 
+    return acrostic
+
+def generate_cute_animal_acrostic(vert_word):
+    
+    acrostic = Acrostic()
+    
+    filter_sets = cute_animals_cute(vert_word)
+    
+    horz_words = ''
+    counter = 0
+    characters = list(vert_word)
+    
+    for filter in filter_sets:
+        
+        pre_filter = Word.objects.all()
+        
+        for filter_query in filter:
+            post_filter = pre_filter.filter(filter_query)
+            pre_filter = post_filter
+                
+        available_words = post_filter
+
+        if not available_words:
+            horz_words = "{0}{1};".format(horz_words, characters[counter])
+
+        else:
+            w = random.choice(available_words)
+            horz = re.sub('[_]', ' ', w.name)
+            horz_words = "{0}{1};".format(horz_words, horz)
+
+        counter += 1
+    
+    acrostic.vertical_word = vert_word
+    acrostic.horizontal_words = horz_words
+
+    print("Acrostic:\n", acrostic.__str__())
+    
     return acrostic

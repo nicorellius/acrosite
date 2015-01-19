@@ -17,7 +17,7 @@ def all_subject_databases(theme_files):
     
     for file in theme_files:
         print("Importing theme-specific word list: {0}.".format(file))
-        counter += subject_database("resources/{0}.txt".format(file), file)
+        counter += subject_database("resources/themes/{0}.txt".format(file), file)
 
     return counter
 

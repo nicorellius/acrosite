@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 
 from .models import Acrostic, Construction, Theme
 from .forms import GenerateAcrosticForm
-from .generate import generate_random_acrostic
+from .generate import generate_random_acrostic, generate_cute_animal_acrostic
 from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_verb_adv
 
     
@@ -71,7 +71,8 @@ class GenerateAcrosticFormView(View):
             # construction.sequence = "A;A;NS;VS;D"
 
             print("Calling generate acrostic function...")
-            acrostic = generate_random_acrostic(vert_word, theme, construction)
+            #acrostic = generate_random_acrostic(vert_word, theme, construction)
+            acrostic = generate_cute_animal_acrostic(vert_word)
             # acrostic = generate_random_acrostic(vert_word)
             
             acrostic.save()

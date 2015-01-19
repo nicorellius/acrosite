@@ -35,7 +35,6 @@ class Word(BaseModel):
         
         return string
 
-
 class Theme(BaseModel):
 
     name = models.CharField(max_length=200, default='default theme')
@@ -55,7 +54,8 @@ class Construction(BaseModel):
         return ''.join([self.sequence, ' | ', self.description])
     
     def get_list(self):
-        return self.sequence.split(';')
+        list_with_empty = self.sequence.split(';')
+        return [i for i in list_with_empty if i != '']
 
 
 class Acrostic(BaseModel):

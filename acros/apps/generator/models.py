@@ -15,9 +15,9 @@ from common.models import BaseModel
 
 class Word(BaseModel):
     
-    name = models.CharField(max_length=200)
-    part_of_speech = models.CharField(max_length=200, default='NS')
-    tags = models.CharField(max_length=200, default='')
+    name = models.CharField(max_length=100)
+    part_of_speech = models.CharField(max_length=20, default='NS')
+    tags = models.CharField(max_length=1000, default='')
     valuation = models.FloatField(default=-1.0)  # a -1.0 flag implies "no valuation assigned"
     prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
     themes = models.CharField(max_length=1000, default='all')
@@ -45,7 +45,7 @@ class Theme(BaseModel):
 
 class Construction(BaseModel):
     
-    sequence = models.CharField(max_length=200, unique=True)
+    sequence = models.CharField(max_length=1000, unique=True)
     themes = models.CharField(max_length=200)
     tags = models.CharField(max_length=200, blank=True, default='')
     type = models.CharField(max_length=200, blank=True, default='')

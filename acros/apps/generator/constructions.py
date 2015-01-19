@@ -146,3 +146,5 @@ def all_nouns(vertical_word, is_plural):
     construction = Construction()
     construction.sequence = sequence
     construction.description = 'all_nouns'
+    
+    return construction

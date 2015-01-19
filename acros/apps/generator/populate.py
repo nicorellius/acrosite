@@ -8,6 +8,34 @@ description :   Populate the database with Word models.
 
 from .models import Word
 
+def import_alpha_list():
+    
+    f = open("resources/condensed/complete_word_list_alpha.txt")
+    counter = 0;
+    
+    for line in f:
+        print(line)
+        if len(line) > 1:
+
+            chars = list(line)
+
+            if chars[0] != "#":
+
+                params = line.split('\t')
+            
+                word = Word()
+                
+                # required arguments
+                word.name = params[0]
+                word.part_of_speech = params[1]
+                word.themes = params[2]
+                word.tags = params[3]
+                word.save()
+
+                counter += 1
+    
+    print("Constructed Word database with {0} Entries.".format(counter))
+    return
 
 def all_subject_databases(theme_files):
 
@@ -70,14 +98,14 @@ def subject_database(database_file, *args):
 def populate_database(theme_files):
 
     counter = 0
-    counter += import_negative_adjectives()
+    # counter += import_negative_adjectives()
     counter += import_positive_adjectives()
-    counter += import_other_adjectives()
+    # counter += import_other_adjectives()
     # counter += import_common_nouns()
-    counter += import_common_infinitive_verbs()
-    counter += import_common_adverbs()
-    counter += import_pronouns()
-    counter += all_subject_databases(theme_files)
+    # counter += import_common_infinitive_verbs()
+    # counter += import_common_adverbs()
+    # counter += import_pronouns()
+    # counter += all_subject_databases(theme_files)
 
     print("Successfully built a word database of {0} words.".format(str(counter)))
     
@@ -93,10 +121,11 @@ def import_negative_adjectives():
     for line in f:
         word = Word()
         word.name = line.strip()
-        word.tags = "Common;Negative;"
+        word.tags = "common;negative;"
         word.part_of_speech = "A"
-        word.themes = "all"
+        word.themes = "cute_animals;music;politics"
         word.save()
+        print('{0}\tA\tcute_animals;music;politics\tcommon;negative'.format(word.name));
         counter += 1
 
     f.close()
@@ -116,10 +145,11 @@ def import_positive_adjectives():
     for line in f:
         word = Word()
         word.name = line.strip()
-        word.tags = "Common;Positive;"
+        word.tags = "common;positive;"
         word.part_of_speech = "A"
-        word.themes = "all"
+        word.themes = "cute_animals;music;politics"
         word.save()
+        print('{0}\tA\tcute_animals;music;politics\tcommon;positive;'.format(word.name));
         counter += 1
 
     f.close()

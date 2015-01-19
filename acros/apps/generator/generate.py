@@ -9,7 +9,7 @@ description :   Generate an acrostic based on various inputs and the database of
 import random
 import re
 
-from .populate import populate_database
+from .populate import populate_database,import_alpha_list
 # from .populate import populate_database
 from .filter_data import create_acrostic_filter_data
 
@@ -71,6 +71,7 @@ def rebuild_database(force_rebuild):
     if not Word.objects.all():
         print("Rebuilding entire database...")
          
+        '''
         themes = [
         "cute_animals",
         "politics",
@@ -84,5 +85,8 @@ def rebuild_database(force_rebuild):
         ] 
         
         populate_database(themes)
+        '''
+        
+        import_alpha_list();
         
     return

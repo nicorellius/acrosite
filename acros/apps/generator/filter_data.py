@@ -43,6 +43,7 @@ def cute_animals(vert_word, construction_type):
     elif construction_type == 7:
         constr = all_nouns(vert_word, False)
     parts_of_speech = constr.get_list()
+
     characters = list(vert_word)
     
     # initialize empty
@@ -55,6 +56,8 @@ def cute_animals(vert_word, construction_type):
         add_first_letter_filter(filters, letter)
         add_part_of_speech(filters, part_of_speech)
         add_theme(filters,'cute_animals')
+        if (part_of_speech == 'A'):
+            add_tag(filters, 'positive')
         
         filter_set.append(filters)
         counter += 1

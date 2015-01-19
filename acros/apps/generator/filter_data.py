@@ -5,7 +5,7 @@ Created on Jan 18, 2015
 '''
 import random
 from django.db.models import Q
-from .constructions import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern
+from .constructions import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 
 def add_first_letter_filter(filters, letter):
     filters.append(Q(name__startswith=letter),)
@@ -33,7 +33,15 @@ def cute_animals(vert_word, construction_type):
     elif construction_type == 2:
         constr = adj_to_noun(vert_word);
     elif construction_type == 3:
-        constr = adj_adj_noun_pattern(vert_word);
+        constr = adj_adj_noun_pattern(vert_word, True);
+    elif construction_type == 4:
+        constr = adj_adj_noun_pattern(vert_word, False);
+    elif construction_type == 5:
+        constr = all_adj(vert_word)
+    elif construction_type == 6:
+        constr = all_nouns(vert_word, True)
+    elif construction_type == 7:
+        constr = all_nouns(vert_word, False)
     parts_of_speech = constr.get_list()
     characters = list(vert_word)
     
@@ -57,7 +65,7 @@ def create_acrostic_filter_data(vert_word, theme_name):
     
     acrostic_data = []
     
-    cute_animal_types = [1,2,3]
+    cute_animal_types = [1,2,3,4,5,6,7]
     politics_types = [1,2]
     music_types = [1,2]
     

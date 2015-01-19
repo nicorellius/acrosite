@@ -11,9 +11,9 @@ import re
 
 from .populate import populate_database
 # from .populate import populate_database
-from .filter_sets import cute_animals_cute
+from .filter_data import create_acrostic_filter_data
 
-from .models import Word, Acrostic, Theme
+from .models import Word, Acrostic
 from django.db.models import Q
     
 def generate_random_acrostic(vert_word, theme_name, *args):
@@ -128,11 +128,16 @@ def generate_random_acrostic(vert_word, theme_name, *args):
 
     return acrostic
 
-def generate_cute_animal_acrostic(vert_word):
+def generate_cute_animal_acrostic(vert_word, theme_name):
     
-    acrostic = Acrostic()
+    # database rebuilding: for use with database file import testing
+    # rebuild_database(True)
+    # rebuild_database(False)
     
-    filter_sets = cute_animals_cute(vert_word)
+    filter_set_data = create_acrostic_filter_data(vert_word, theme_name)
+    filter_sets = filter_set_data[0]
+    construction_list = filter_set_data[1]
+    tag_list = filter_set_data[2]
     
     horz_words = ''
     counter = 0
@@ -157,10 +162,39 @@ def generate_cute_animal_acrostic(vert_word):
             horz_words = "{0}{1};".format(horz_words, horz)
 
         counter += 1
-    
+        
+    #Create Acrostic from all relevant data
+    acrostic = Acrostic()
     acrostic.vertical_word = vert_word
     acrostic.horizontal_words = horz_words
+    acrostic.theme_name = theme_name
+    acrostic.construction_sequence = construction_list
+    acrostic.tag_sequence = tag_list
 
     print("Acrostic:\n", acrostic.__str__())
     
     return acrostic
+
+def rebuild_database(force_rebuild):
+    
+    if force_rebuild==True:
+        Word.objects.all().delete()
+    
+    if not Word.objects.all():
+        print("Rebuilding entire database...")
+         
+        themes = [
+        "cute_animals",
+        "politics",
+        "sports",
+        "economics",
+        "current_events",
+        "movies",
+        "books_literature",
+        "explicit",
+        "religion",
+        ] 
+        
+        populate_database(themes)
+        
+    return

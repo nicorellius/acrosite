@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
-from .models import Acrostic, Construction, Theme
+from .models import Acrostic
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic, generate_cute_animal_acrostic
 from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_verb_adv
@@ -72,7 +72,7 @@ class GenerateAcrosticFormView(View):
 
             print("Calling generate acrostic function...")
             #acrostic = generate_random_acrostic(vert_word, theme, construction)
-            acrostic = generate_cute_animal_acrostic(vert_word)
+            acrostic = generate_cute_animal_acrostic(vert_word, theme)
             # acrostic = generate_random_acrostic(vert_word)
             
             acrostic.save()

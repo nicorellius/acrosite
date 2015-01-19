@@ -60,13 +60,11 @@ class Construction(BaseModel):
 
 class Acrostic(BaseModel):
 
-    DEFAULT_THEME_ID = 1  # we should create a default theme called `all` with id of 1
-    DEFAULT_CONSTRUCTION_ID = 1  # we should create a default theme called `all` with id of 1
-
     vertical_word = models.CharField(max_length=200, default='shit')
     horizontal_words = models.CharField(max_length=200, default='so;happy;it\'s;thursday')
-    construction = models.ForeignKey('Construction', default=DEFAULT_CONSTRUCTION_ID)
-    theme = models.ForeignKey('Theme', default=DEFAULT_THEME_ID)
+    theme_name = models.CharField(max_length=200,default='')
+    construction_sequence = models.CharField(max_length=200, default='P;A;VS;NS')
+    tag_sequence = models.CharField(max_length=200, default='')
     
     def __str__(self):
         
@@ -82,6 +80,6 @@ class Acrostic(BaseModel):
 
 class Score(BaseModel):
 
-    value = models.IntegerField(max_length=1, default=0)
+    value = models.FloatField(max_length=5, default=0)
     acrostic = models.ForeignKey(Acrostic)
     user = models.ForeignKey(User)

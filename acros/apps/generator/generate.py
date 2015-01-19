@@ -70,23 +70,16 @@ def rebuild_database(force_rebuild):
     
     if not Word.objects.all():
         print("Rebuilding entire database...")
-         
         '''
         themes = [
         "cute_animals",
         "politics",
-        "sports",
-        "economics",
-        "current_events",
-        "movies",
-        "books_literature",
-        "explicit",
-        "religion",
         ] 
         
         populate_database(themes)
         '''
         
         import_alpha_list();
+        
         
     return

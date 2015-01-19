@@ -14,7 +14,9 @@ def import_alpha_list():
     counter = 0;
     
     for line in f:
-        print(line)
+        #for debugging - to identify the problem line (when parsing not working correctly)
+        #print(line)
+        
         if len(line) > 1:
 
             chars = list(line)
@@ -85,7 +87,6 @@ def subject_database(database_file, *args):
                         word.valuation = params[3]
 
                 word.save()
-
                 counter += 1
             
     f.close()
@@ -99,13 +100,13 @@ def populate_database(theme_files):
 
     counter = 0
     # counter += import_negative_adjectives()
-    counter += import_positive_adjectives()
+    # counter += import_positive_adjectives()
     # counter += import_other_adjectives()
     # counter += import_common_nouns()
     # counter += import_common_infinitive_verbs()
     # counter += import_common_adverbs()
     # counter += import_pronouns()
-    # counter += all_subject_databases(theme_files)
+    counter += all_subject_databases(theme_files)
 
     print("Successfully built a word database of {0} words.".format(str(counter)))
     

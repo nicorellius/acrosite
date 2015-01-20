@@ -501,7 +501,7 @@ witty	A	cute_animals;music;politics;	common;positive;
 zealous	A	cute_animals;music;politics;	common;positive;
 
 # Politics
-laissez-faire	NS	politics;	;
+laissez-faire	A	politics;	;
 
 # Music
 

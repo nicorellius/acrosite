@@ -19,7 +19,7 @@ P = plural (modifies above 4) - use `plu`
 S = singular (modifies above 4) - use `sin`
 """
 
-def adj_to_noun(vertical_word):  # A_to_N
+def adj_to_noun(vertical_word, is_plural):  # A_to_N
     
     characters = list(vertical_word)
     
@@ -30,7 +30,10 @@ def adj_to_noun(vertical_word):  # A_to_N
         sequence += 'A;'
         counter += 1
 
-    sequence += 'NP;'
+    if is_plural:
+        sequence += 'NP;'
+    else:
+        sequence += 'NS;'
     
     construction = Construction()
     construction.sequence = sequence

@@ -14,6 +14,7 @@ def import_alpha_list():
     counter = 0;
     
     for line in f:
+        
         #for debugging - to identify the problem line (when parsing not working correctly)
         #print(line)
         
@@ -38,6 +39,7 @@ def import_alpha_list():
     
     print("Constructed Word database with {0} Entries.".format(counter))
     return
+
 
 def all_subject_databases(theme_files):
 

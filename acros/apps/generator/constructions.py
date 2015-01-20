@@ -74,8 +74,6 @@ def adj_to_noun_verb_adv(vertical_word, is_plural):  # A_to_NS_VS_D
         else:
             sequence += 'NS;VS;D;'
     
-    print(sequence)
-    
     construction = Construction()
     construction.sequence = sequence
     construction.description = 'adjectives-to-NVD'

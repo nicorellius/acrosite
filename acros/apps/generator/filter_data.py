@@ -64,6 +64,8 @@ def cute_animals(vert_word, construction_type):
     
     return [filter_set,parts_of_speech,[]]
 
+
+
 def politics(vert_word, construction_type):
     
     print('Building politics acrostic with construction type {0}'.format(construction_type))
@@ -99,9 +101,67 @@ def politics(vert_word, construction_type):
         counter += 1
     
     return [filter_set,parts_of_speech,tags]
+
+
+def animals_jamming(vert_word):
+               
+    characters = list(vert_word)
     
+    if len(characters) == 1:
+        constr = ['NP']
+        tags = ['instrument']
+    elif len(characters) == 2:
+        constr = ['NP','VP']
+        tags = ['animal','make_music']
+    else:
+        constr = ['NP','VP','NP']
+        tags = ['animal','make_music','instrument']
     
+    if len(characters) > 3:
+        
+        counter = 3
+        while counter < len(characters):
+            counter += 1
+            constr.insert(0,'A')
+            tags.insert(0,'positive')
     
+    counter = 0
+    
+    filter_set = []
+    while counter < len(constr):
+        filters = []
+        add_first_letter_filter(filters, characters[counter])
+        add_part_of_speech(filters, constr[counter])
+        add_tag(filters, tags[counter])
+        filter_set.append(filters)
+        counter += 1
+            
+    return [filter_set, constr, tags]
+
+
+
+def just_instruments(vert_word):
+    
+    characters = list(vert_word)
+    
+    constr = []
+    tags = []
+    filter_set = []
+    
+    for character in characters:
+        constr.append('NP')
+        tags.append('instrument')
+        filters = []
+        add_first_letter_filter(filters, character)
+        add_part_of_speech(filters, 'NP')
+        add_tag(filters, 'instrument')
+        add_theme(filters, 'music')
+        filter_set.append(filters)
+    
+    return [filter_set, constr, tags] 
+
+
+
 def create_acrostic_filter_data(vert_word, theme_name):
     
     acrostic_data = []
@@ -115,22 +175,19 @@ def create_acrostic_filter_data(vert_word, theme_name):
         construction_and_tag_type = random.choice(cute_animal_types)
         acrostic_data = cute_animals(vert_word, construction_and_tag_type)
         
-    elif theme_name=='politics':
-        
-        construction_and_tag_type = random.choice(politics_types)
-        acrostic_data = politics(vert_word, construction_and_tag_type)
-            
     elif theme_name=='music':
         
-        print('music')
         construction_and_tag_type = random.choice(music_types)
         
-        if construction_and_tag_type == cute_animal_types[1]:
-            print('type 1')
-        elif construction_and_tag_type == cute_animal_types[2]:
-            print('type 2')
-        else:
-            print('no type')
+        if construction_and_tag_type == 1:
+            acrostic_data = animals_jamming(vert_word)
+        elif construction_and_tag_type == 2:
+            acrostic_data = just_instruments(vert_word)
+                
+    elif theme_name=='politics':
     
+        construction_and_tag_type = random.choice(politics_types)
+        acrostic_data = politics(vert_word, construction_and_tag_type)
+        
     return acrostic_data
     

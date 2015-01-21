@@ -6,6 +6,7 @@ classes     :
 description :   A repository for different sorts of constructions.
 """
 from .models import Construction
+from _collections_abc import Sequence
 
 """
 KEY:
@@ -18,8 +19,7 @@ P = plural (modifies above 4) - use `plu`
 S = singular (modifies above 4) - use `sin`
 """
 
-
-def adj_to_noun(vertical_word):  # A_to_N
+def adj_to_noun(vertical_word, is_plural):  # A_to_N
     
     characters = list(vertical_word)
     
@@ -30,13 +30,15 @@ def adj_to_noun(vertical_word):  # A_to_N
         sequence += 'A;'
         counter += 1
 
-    sequence += 'NS;'
+    if is_plural:
+        sequence += 'NP;'
+    else:
+        sequence += 'NS;'
     
     construction = Construction()
     construction.sequence = sequence
     construction.description = 'all-adjectives-except-last-noun'
-    construction.save()
-    
+
     return construction
 
 
@@ -72,17 +74,14 @@ def adj_to_noun_verb_adv(vertical_word, is_plural):  # A_to_NS_VS_D
         else:
             sequence += 'NS;VS;D;'
     
-    print(sequence)
-    
     construction = Construction()
     construction.sequence = sequence
     construction.description = 'adjectives-to-NVD'
-    construction.save()
-    
+
     return construction
     
-
-def adj_adj_noun_pattern(vertical_word):  # AA_N_pattern
+       
+def adj_adj_noun_pattern(vertical_word, is_plural):  # AA_N_pattern
 
     """
     when the vertical_word has more than 3 letters,
@@ -97,7 +96,10 @@ def adj_adj_noun_pattern(vertical_word):  # AA_N_pattern
     while counter < len(characters):
 
         if counter % 3 == 2:
-            sequence += 'N;'
+            if is_plural:
+                sequence += 'NP;'
+            else:
+                sequence += 'NS;'
 
         else:
             sequence += 'A;'
@@ -114,6 +116,36 @@ def adj_adj_noun_pattern(vertical_word):  # AA_N_pattern
     construction = Construction()
     construction.sequence = sequence
     construction.description = 'AA-N-pattern'
-    construction.save()
+    
+    return construction
+
+def all_adj(vertical_word):
+    
+    characters = list(vertical_word)
+    
+    sequence = ''
+    for character in characters:
+        sequence +='A;'
+    
+    construction = Construction()
+    construction.sequence = sequence
+    construction.description = 'all_adjectives'
+
+    return construction
+
+def all_nouns(vertical_word, is_plural):
+    
+    characters = list(vertical_word)
+    
+    sequence = ''
+    for character in characters:
+        if is_plural:
+            sequence += 'NP;'
+        else:
+            sequence += 'NS;'
+            
+    construction = Construction()
+    construction.sequence = sequence
+    construction.description = 'all_nouns'
     
     return construction

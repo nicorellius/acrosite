@@ -35,7 +35,7 @@ class ConstructionAdmin(admin.ModelAdmin):
     
 class AcrosticAdmin(admin.ModelAdmin):
 
-    list_display = ['vertical_word', 'horizontal_words', 'construction', ]
+    list_display = ['vertical_word', 'horizontal_words', ]
     list_filter = ['created', ]
     search_fields = ['horizontal_words', ]
     date_hierarchy = 'created'
@@ -43,7 +43,7 @@ class AcrosticAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (None, {
-            'fields': ('vertical_word', 'horizontal_words', 'construction', )
+            'fields': ('vertical_word', 'horizontal_words', )
         }),
     )
 

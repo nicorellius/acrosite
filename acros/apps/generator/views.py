@@ -6,15 +6,13 @@ classes      :   GeneratorView, GeneratorFormView
 description  :   views for word generator
 """
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
-from .models import Acrostic, Construction, Theme
+from .models import Acrostic
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
-from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_verb_adv
-
     
 class GenerateAcrosticFormView(View):
 
@@ -60,24 +58,12 @@ class GenerateAcrosticFormView(View):
         if form.is_valid(): 
                         
             vert_word = form.cleaned_data['name']
- 
-            # construction = adj_to_noun(vert_word)
-            # construction = adj_adj_noun_pattern(vert_word)
-            construction = adj_to_noun_verb_adv(vert_word, True)
-            
-            # construction = Construction()
-            # construction.sequence = "P;A;N;VI;AV"
-            # construction.sequence = "N;VI;N;N;VI;AV"
-            # construction.sequence = "A;A;NS;VS;D"
 
             print("Calling generate acrostic function...")
-            acrostic = generate_random_acrostic(vert_word, theme, construction)
-            # acrostic = generate_random_acrostic(vert_word)
-            
-            acrostic.save()
-            # print("acrostic.theme: {0}".format())
-                        
+            acrostic = generate_random_acrostic(vert_word, theme)
+
             if acrostic != '':
+                acrostic.save()
                 print("Acrostic object created with vertical word '{0}' and theme '{1}'.".format(
                     request.POST['name'],
                     theme

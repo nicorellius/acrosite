@@ -1,28 +1,36 @@
-'''
-Created on Jan 18, 2015
+"""
+file        :   filter_data.py
+date        :   2015-01-18
+application :   generator
+classes     :
+description :
+"""
 
-@author: phillipseitzer
-'''
 import random
 from django.db.models import Q
 from .constructions import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
-from .tags import all_tag,same_except_last
+from .tags import all_tag, same_except_last
+
 
 def add_first_letter_filter(filters, letter):
     filters.append(Q(name__startswith=letter),)
     return filters
 
+
 def add_theme(filters, theme_name):
     filters.append(Q(themes__contains=theme_name),)
     return filters
+
 
 def add_tag(filters, tag):
     filters.append(Q(tags__contains=tag),)
     return filters
 
+
 def add_part_of_speech(filters, pos):
     filters.append(Q(part_of_speech=pos),)
     return filters
+
 
 def cute_animals(vert_word, construction_type):
     
@@ -190,4 +198,3 @@ def create_acrostic_filter_data(vert_word, theme_name):
         acrostic_data = politics(vert_word, construction_and_tag_type)
         
     return acrostic_data
-    

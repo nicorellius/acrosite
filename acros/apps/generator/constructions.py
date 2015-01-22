@@ -6,7 +6,7 @@ classes     :
 description :   A repository for different sorts of constructions.
 """
 from .models import Construction
-from _collections_abc import Sequence
+#from _collections_abc import Sequence
 
 """
 KEY:

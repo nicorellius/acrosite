@@ -13,7 +13,8 @@ from django.http import HttpResponseRedirect
 from .models import Acrostic
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
-    
+
+
 class GenerateAcrosticFormView(View):
 
     model = Acrostic

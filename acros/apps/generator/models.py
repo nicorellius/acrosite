@@ -35,6 +35,7 @@ class Word(BaseModel):
         
         return string
 
+
 class Theme(BaseModel):
 
     name = models.CharField(max_length=200, default='default theme')

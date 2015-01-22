@@ -9,8 +9,7 @@ description :   Generate an acrostic based on various inputs and the database of
 import random
 import re
 
-from .populate import populate_database,import_alpha_list
-# from .populate import populate_database
+from .populate import populate_database, import_alpha_list
 from .filter_data import create_acrostic_filter_data
 
 from .models import Word, Acrostic
@@ -79,7 +78,6 @@ def rebuild_database(force_rebuild):
         populate_database(themes)
         '''
         
-        import_alpha_list();
-        
-        
+        import_alpha_list()
+
     return

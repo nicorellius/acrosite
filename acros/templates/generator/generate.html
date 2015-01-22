@@ -7,38 +7,13 @@
 {% block content %}
 	
 	<section class="center-section">
-		
-		<div class="ctr-container">
-			
-			<div class="ctr-left">
-				
-				<h2><strong>S</strong>o</h2>
-				<h2><strong>H</strong>appy</h2>
-				<h2><strong>I</strong>t's</h2>
-				<h2><strong>T</strong>hursday</h2>
-				
-			</div>
-			
-			<div class="ctr-right">
 
-                <a href="/"><h2>a&bull;cros&bull;tic</h2></a>
-				<p><strong>/&#601;&#712;kr&ocirc;stik,&#601;&#712;kr&auml;s-/</strong></p>
-				<em>noun</em>
-				<p>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					a poem, word puzzle, or other composition in which certain letters in each line form a word or words.
-				</p>
+    <h1 class="margin-bottom-1em" style="font-size: 110px;">ecrostic<span style="font-size: 20px;">.com</span></h1>
 
-			</div>
-				
-		</div>
-		
-		<div class="clear-both"></div>
-			
-		<div class="acrostic-form">
-		
+    <div class="acrostic-form">
+
 			<form id="generate-acrostic-form" role="form" method="post" onsubmit="return validate_generate_acrostic_form(this);">
-				
+
 				{% csrf_token %}
 
                 <div class="ctr-right move-up-3em">
@@ -63,11 +38,11 @@
                     <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
                     {{ form.name }}
                 </div>
-				
+
 				<button type="submit" class="btn btn-primary btn-lg btn-block spinner">Generate Acrostic</button>
-				
+
 			</form>
-			
+
 		</div>
 		
 	</section>

@@ -45,7 +45,7 @@ class Theme(BaseModel):
 
 
 class Construction(BaseModel):
-    
+
     sequence = models.CharField(max_length=200)
     themes = models.CharField(max_length=200)
     tags = models.CharField(max_length=200, blank=True, default='')

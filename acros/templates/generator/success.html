@@ -9,15 +9,22 @@
 	
 	<section class="center-section">
 
-        <h1 style="font-size: 110px;">ecrostic<span style="font-size: 20px;">.com</span></h1>
+        <h1 class="move-up-30px" style="font-size: 110px;">ecrostic<span style="font-size: 20px;">.com</span></h1>
 		
-		<div class="ctr-container">
-				
+		<p style="color: slategray; font-size: 25px; letter-spacing: 2px;">
+
+		{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
+
+        </p>
+		
+		<div class="clear-both"></div>
+
+        <div class="ctr-container margin-top-2em">
+
 			<div class="ctr-left pad-10px">
 				<a href="/generate/acrostic/" class="btn btn-lg btn-block btn-warning">Start over</a>
 			</div>
-			
-			<!-- write now, this is comprimise. once we implement ajax, this will be will be possible -->
+
 			<div class="ctr-right pad-10px">
 				<a href="/generate/acrostic?name={{ acrostic.vertical_word }}" class="btn btn-lg btn-block btn-success redo">
 					Generate another
@@ -26,25 +33,8 @@
 					Generate another
 				</button>-->
 			</div>
-			
-			 
-			
-		</div>
-		
-		<p>&nbsp;</p>
-		
-		<div class="alert alert-success" role="alert">
-			<p>SUCCESS!</p>
-
-            <p>The theme you selected is: <strong>{{ ts }}</strong></p>
-
-            <p style="margin-top: 2em;">Here is your acrostic:</p>
-
-			{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
 
 		</div>
-		
-		<div class="clear-both"></div>
 		
 	</section>
 

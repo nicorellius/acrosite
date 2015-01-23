@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Word, Construction, Acrostic, Theme, Score
+from .models import Word, Acrostic, Theme, Score
 
 
 class WordAdmin(admin.ModelAdmin):
@@ -27,28 +27,28 @@ class WordAdmin(admin.ModelAdmin):
     )
 
     
-class ConstructionAdmin(admin.ModelAdmin):
-    
-    # fields display on change list
-    list_display = ['sequence', 'themes',  'tags', 'type', ]
-    
-    # fields to filter the change list with
-    list_filter = ['created', ]
-    
-    # fields to search in change list
-    search_fields = ['name', ]
-    
-    # enable the date drill down on change list
-    date_hierarchy = 'created'
-    
-    # enable the save buttons on top on change form
-    save_on_top = True
-    
-    fieldsets = (
-        (None, {
-            'fields': ('sequence', 'constr_id',)
-        }),
-    )
+# class ConstructionAdmin(admin.ModelAdmin):
+#
+#     # fields display on change list
+#     list_display = ['sequence', 'themes',  'tags', 'type', ]
+#
+#     # fields to filter the change list with
+#     list_filter = ['created', ]
+#
+#     # fields to search in change list
+#     search_fields = ['name', ]
+#
+#     # enable the date drill down on change list
+#     date_hierarchy = 'created'
+#
+#     # enable the save buttons on top on change form
+#     save_on_top = True
+#
+#     fieldsets = (
+#         (None, {
+#             'fields': ('sequence', 'constr_id',)
+#         }),
+#     )
 
     
 class AcrosticAdmin(admin.ModelAdmin):
@@ -78,7 +78,7 @@ class AcrosticAdmin(admin.ModelAdmin):
 class ThemeAdmin(admin.ModelAdmin):
 
     # fields display on change list
-    list_display = ['name', 'group', 'tags', 'words', ]
+    list_display = ['name', 'group', 'tags', ]
 
     # fields to filter the change list with
     list_filter = ['created', ]
@@ -94,7 +94,7 @@ class ThemeAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'group', 'tags', 'words',)
+            'fields': ('name', 'group', 'tags',)
         }),
     )
 
@@ -125,7 +125,7 @@ class ScoreAdmin(admin.ModelAdmin):
  
 # register classes in admin, uses auto_register for apps
 admin.site.register(Word, WordAdmin)
-admin.site.register(Construction, ConstructionAdmin)
+# admin.site.register(Construction, ConstructionAdmin)
 admin.site.register(Acrostic, AcrosticAdmin)
-admin.site.register(Theme, ThemeAdmin)
+# admin.site.register(Theme, ThemeAdmin)
 admin.site.register(Score, ScoreAdmin)

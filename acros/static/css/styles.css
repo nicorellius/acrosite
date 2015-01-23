@@ -88,6 +88,8 @@ button { margin-bottom: 1em; }
 .move-up-30px { margin-top: -30px; }
 .move-down-1em { margin-bottom: -1em; }
 
+.margin-bottom-70px { margin-bottom: 70px; }
+
 .bottom-mar-1em { margin-bottom: 1em; }
 .bottom-mar-2em { margin-bottom: 2em; }
 .margin-bottom-5em { margin-bottom: 5em; }
@@ -155,6 +157,10 @@ button { margin-bottom: 1em; }
 .heading { margin-top: 2em; }
 
 .jumbotron { background-color: #fff; }
+
+.big-header {
+    font-size: 110px;
+}
 
 /* loading page spinner */
 

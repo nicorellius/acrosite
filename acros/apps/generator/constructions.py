@@ -13,6 +13,7 @@ N = noun - use `noun`
 V = verb - use `verb`
 A = adjective - use `adj`
 D = adverb - use `adv`
+NV = noun verb - use `noun-verb`, eg `it's`
 
 P = plural (modifies above 4) - use `plu`
 S = singular (modifies above 4) - use `sin`

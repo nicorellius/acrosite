@@ -15,10 +15,10 @@ from common.models import BaseModel
 
 class Word(BaseModel):
     
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, default='')
     part_of_speech = models.CharField(max_length=200, default='NN')
-    tags = models.CharField(max_length=200, default='')
-    valuation = models.FloatField(default=-1.0)  # a -1 flag implies "no valuation assigned"
+    tags = models.CharField(max_length=200, blank=True)
+    valuation = models.FloatField(default=-1.0, blank=True)  # a -1 flag implies "no valuation assigned"
     prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
     themes = models.CharField(max_length=200, default='politics')
     
@@ -38,32 +38,31 @@ class Word(BaseModel):
 
 class Theme(BaseModel):
 
-    name = models.CharField(max_length=200, default='default theme')
-    group = models.CharField(max_length=200, blank=True, default='main')
-    tags = models.CharField(max_length=200, blank=True, default='')
-    words = models.CharField(max_length=1000)
+    name = models.CharField(max_length=200, default='default')
+    group = models.CharField(max_length=200, default='main')
+    tags = models.CharField(max_length=200, blank=True)
 
 
 class Construction(BaseModel):
 
-    sequence = models.CharField(max_length=200)
-    themes = models.CharField(max_length=200)
-    tags = models.CharField(max_length=200, blank=True, default='')
-    type = models.CharField(max_length=200, blank=True, default='')
-    
+    sequence = models.CharField(max_length=200, default='A;A;A;NP;')
+    themes = models.CharField(max_length=200, blank=True    )
+    tags = models.CharField(max_length=200, blank=True)
+    type = models.CharField(max_length=200, blank=True)
+
     def __str__(self):
         return ''.join([self.sequence, ' | ', self.description])
-    
+
     def get_list(self):
         return self.sequence.split(';')
 
 
 class Acrostic(BaseModel):
     
-    vertical_word = models.CharField(max_length=200, default='N/A')
-    horizontal_words = models.CharField(max_length=200, default='N;/;A')
-    construction = models.OneToOneField(Construction, primary_key=True)
-    theme = models.ForeignKey(Theme, default=1)
+    vertical_word = models.CharField(max_length=200, default='shit')
+    horizontal_words = models.CharField(max_length=200, default='so;happy;it\s;thursday')
+    construction = models.CharField(max_length=200, default='A;A;NV;N')
+    theme = models.CharField(max_length=200, default='offensive')
     
     def __str__(self):
         

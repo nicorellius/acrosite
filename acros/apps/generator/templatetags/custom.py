@@ -22,7 +22,7 @@ def acrosticize(value):
 
     string_array = value.split(";")
 
-    formatted_text = "<br>"
+    formatted_text = ''
 
     for word in string_array:
 
@@ -34,7 +34,12 @@ def acrosticize(value):
             for char in word_chars:
 
                 if first_character:
-                    formatted_text = '{0}{1}{2}{3}'.format(formatted_text, '<span class="acrostic-letter">', char.upper(), '</span>')
+                    formatted_text = '{0}{1}{2}{3}'.format(
+                        formatted_text,
+                        '<span class="acrostic-letter">',
+                        char.upper(),
+                        '</span>'
+                    )
 
                 else:
                     formatted_text = formatted_text + char.lower()

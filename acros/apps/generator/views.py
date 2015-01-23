@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 
-from .models import Acrostic, Construction, Theme
+from .models import Acrostic, Theme
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
 from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_sin_verb_sin_adj

@@ -28,24 +28,39 @@ def generate_random_acrostic(vert_word, theme_name):
     tag_list = filter_set_data[2]
     
     horz_words = ''
+    horz_list = []
     counter = 0
     characters = list(vert_word)
     
     for filter in filter_sets:
         
+        #initial state- all objects
         pre_filter = Word.objects.all()
         
+        # filter based on construction and vertical word
         for filter_query in filter:
             post_filter = pre_filter.filter(filter_query)
             pre_filter = post_filter
-                
-        available_words = post_filter
-
-        if not available_words:
+        
+        #handle duplicates - disallow duplicates unless the entire filtered list has been exhausted
+        available_words = list(post_filter)
+        duplicate_filtered = list(available_words)
+        for word in available_words:
+            if word in horz_list:
+                duplicate_filtered.remove(word)
+        
+        if not duplicate_filtered:
+            duplicate_filtered = available_words
+        
+        # if no words remain after all filters have been applied, return an empty character
+        if not duplicate_filtered:
             horz_words = "{0}{1};".format(horz_words, characters[counter])
 
+        # select a word at random
         else:
-            w = random.choice(available_words)
+            w = random.choice(duplicate_filtered)
+            horz_list.append(w)
+            
             horz = re.sub('[_]', ' ', w.name)
             horz_words = "{0}{1};".format(horz_words, horz)
 

@@ -23,17 +23,7 @@ class Word(BaseModel):
     themes = models.CharField(max_length=1000, default='all')
     
     def __str__(self):
-
-        string = ''.join([self.name, '\n', self.part_of_speech, '\n', 'tags:\n'])
-        
-        tags_array = self.tags.split(';')
-        
-        for tag in tags_array:
-            string = ''.join([string, '\t', tag, '\n'])
-
-        string = ''.join([string, 'valuation: ', str(self.valuation)])
-        
-        return string
+        return self.name
 
 class Theme(BaseModel):
 

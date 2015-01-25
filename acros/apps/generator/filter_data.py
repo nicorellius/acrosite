@@ -159,35 +159,24 @@ def just_instruments(vert_word):
 
 
 
-def create_acrostic_filter_data(vert_word, theme_name):
+def create_acrostic_filter_data(vert_word, theme_name, construction_type):
     
     acrostic_data = []
     
-    cute_animal_types = [1,2,3,4,5,6,7]
-    politics_types = [1,2,3,4]
-    music_types = [1,2]
-    
     if theme_name=='cute_animals':
-        
-        construction_and_tag_type = random.choice(cute_animal_types)        
-        acrostic_data = cute_animals(vert_word, construction_and_tag_type)
+              
+        acrostic_data = cute_animals(vert_word, construction_type)
         
     elif theme_name=='music':
-        
-        construction_and_tag_type = random.choice(music_types)
-                
-        if construction_and_tag_type == 1:
+               
+        if construction_type == 1:
             acrostic_data = animals_jamming(vert_word)
-        elif construction_and_tag_type == 2:
+        elif construction_type == 2:
             acrostic_data = just_instruments(vert_word)
                 
     elif theme_name=='politics':
     
-        construction_and_tag_type = random.choice(politics_types)
-        
-        construction_and_tag_type = 4
-        
-        acrostic_data = politics(vert_word, construction_and_tag_type)
+        acrostic_data = politics(vert_word, construction_type)
         
     return acrostic_data
     

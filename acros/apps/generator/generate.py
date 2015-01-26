@@ -10,7 +10,7 @@ import random
 import re
 
 from .populate import import_alpha_list
-from .filter_data import create_acrostic_filter_data
+from .build_construction import create_acrostic_data
 
 from .models import Word, Acrostic
     
@@ -36,7 +36,7 @@ def generate_random_acrostic(vert_word, theme_name):
         
         construction_type = random.choice(construction_id_list)
         
-        filter_set_data = create_acrostic_filter_data(vert_word, theme_name, construction_type)
+        filter_set_data = create_acrostic_data(vert_word, theme_name, construction_type)
         filter_sets = filter_set_data[0]
         construction_list = filter_set_data[1]
         tag_list = filter_set_data[2]

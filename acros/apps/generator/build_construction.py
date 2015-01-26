@@ -3,28 +3,33 @@ Created on Jan 18, 2015
 
 @author: phillipseitzer
 '''
-import random
-from django.db.models import Q
+
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 from .tags import same_except_last
+from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_theme,add_tag_filter
 
-def add_first_letter_filter(filters, letter):
-    filters.append(Q(name__startswith=letter),)
-    return filters
+def create_acrostic_data(vert_word, theme_name, construction_type):
+    
+    acrostic_data = []
+    
+    if theme_name=='cute_animals':
+              
+        acrostic_data = cute_animals_theme(vert_word, construction_type)
+        
+    elif theme_name=='music':
+               
+        if construction_type == 1:
+            acrostic_data = animals_jamming(vert_word)
+        elif construction_type == 2:
+            acrostic_data = just_instruments(vert_word)
+                
+    elif theme_name=='politics':
+    
+        acrostic_data = politics_theme(vert_word, construction_type)
+        
+    return acrostic_data
 
-def add_theme(filters, theme_name):
-    filters.append(Q(themes__contains=theme_name),)
-    return filters
-
-def add_tag(filters, tag):
-    filters.append(Q(tags__contains=tag),)
-    return filters
-
-def add_part_of_speech(filters, pos):
-    filters.append(Q(part_of_speech=pos),)
-    return filters
-
-def cute_animals(vert_word, construction_type):
+def cute_animals_theme(vert_word, construction_type):
     
     print('Building cute animals acrostic with construction type {0}'.format(construction_type))
     
@@ -53,10 +58,10 @@ def cute_animals(vert_word, construction_type):
     while counter < len(characters):
         filters = []
         add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech(filters, parts_of_speech[counter])
+        add_part_of_speech_filter(filters, parts_of_speech[counter])
         add_theme(filters,'cute_animals')
         if (parts_of_speech[counter] == 'A'):
-            add_tag(filters, 'positive')
+            add_tag_filter(filters, 'positive')
         
         filter_set.append(filters)
         counter += 1
@@ -65,7 +70,7 @@ def cute_animals(vert_word, construction_type):
 
 
 
-def politics(vert_word, construction_type):
+def politics_theme(vert_word, construction_type):
     
     print('Building politics acrostic with construction type {0}'.format(construction_type))
  
@@ -90,9 +95,9 @@ def politics(vert_word, construction_type):
     while counter < len(characters):
         filters = []
         add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech(filters, parts_of_speech[counter])
+        add_part_of_speech_filter(filters, parts_of_speech[counter])
         add_theme(filters,'politics')
-        add_tag(filters, tags[counter])
+        add_tag_filter(filters, tags[counter])
         
         filter_set.append(filters)
         counter += 1
@@ -128,8 +133,8 @@ def animals_jamming(vert_word):
     while counter < len(constr):
         filters = []
         add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech(filters, constr[counter])
-        add_tag(filters, tags[counter])
+        add_part_of_speech_filter(filters, constr[counter])
+        add_tag_filter(filters, tags[counter])
         filter_set.append(filters)
         counter += 1
             
@@ -150,8 +155,8 @@ def just_instruments(vert_word):
         tags.append('instrument')
         filters = []
         add_first_letter_filter(filters, character)
-        add_part_of_speech(filters, 'NP')
-        add_tag(filters, 'instrument')
+        add_part_of_speech_filter(filters, 'NP')
+        add_tag_filter(filters, 'instrument')
         add_theme(filters, 'music')
         filter_set.append(filters)
     
@@ -159,24 +164,5 @@ def just_instruments(vert_word):
 
 
 
-def create_acrostic_filter_data(vert_word, theme_name, construction_type):
-    
-    acrostic_data = []
-    
-    if theme_name=='cute_animals':
-              
-        acrostic_data = cute_animals(vert_word, construction_type)
-        
-    elif theme_name=='music':
-               
-        if construction_type == 1:
-            acrostic_data = animals_jamming(vert_word)
-        elif construction_type == 2:
-            acrostic_data = just_instruments(vert_word)
-                
-    elif theme_name=='politics':
-    
-        acrostic_data = politics(vert_word, construction_type)
-        
-    return acrostic_data
+
     

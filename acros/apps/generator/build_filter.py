@@ -21,7 +21,3 @@ def add_tag_list_filter(filters, tag_list):
 def add_part_of_speech_filter(filters, pos):
     filters.append(Q(part_of_speech=pos),)
     return filters
-
-def add_theme(filters, theme_name):
-    filters.append(Q(themes__contains=theme_name),)
-    return filters

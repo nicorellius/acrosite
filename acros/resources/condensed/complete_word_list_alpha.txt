@@ -608,7 +608,7 @@ intolerant	A	cute_animals;music;politics;	common;negative;
 irresponsible	A	cute_animals;music;politics;	common;negative;
 jealous	A	cute_animals;music;politics;	common;negative;
 lazy	A	cute_animals;music;politics;	common;negative;
-Machiavellian	A	cute_animals;music;politics;	common;negative;
+machiavellian	A	cute_animals;music;politics;	common;negative;
 materialistic	A	cute_animals;music;politics;	common;negative;
 mean	A	cute_animals;music;politics;	common;negative;
 miserly	A	cute_animals;music;politics;	common;negative;

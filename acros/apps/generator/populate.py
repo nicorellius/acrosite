@@ -10,9 +10,9 @@ from .models import Word
 
 def import_alpha_list():
         
-    f = open("resources/condensed/complete_word_list_alpha.txt")
+    f = open("resources/condensed/complete_word_list_alpha_v2.txt")
     counter = 0;
-    
+
     for line in f:
         
         #for debugging - to identify the problem line (when parsing not working correctly)
@@ -31,15 +31,13 @@ def import_alpha_list():
                 # required arguments
                 word.name = params[0]
                 word.part_of_speech = params[1]
-                word.themes = params[2]
-                word.tags = params[3]
+                word.tags = params[2]
                 word.save()
 
                 counter += 1
     
-    print("Constructed Word database with {0} Entries.".format(counter))
+    print("Constructed Word database with {0} Entries.".format(counter))            
     return
-
 
 def all_subject_databases(theme_files):
 

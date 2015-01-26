@@ -6,7 +6,7 @@ Created on Jan 18, 2015
 
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 from .tags import same_except_last
-from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_theme,add_tag_filter
+from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter
 
 def create_acrostic_data(vert_word, theme_name, construction_type):
     
@@ -59,7 +59,7 @@ def cute_animals_theme(vert_word, construction_type):
         filters = []
         add_first_letter_filter(filters, characters[counter])
         add_part_of_speech_filter(filters, parts_of_speech[counter])
-        add_theme(filters,'cute_animals')
+        add_tag_filter(filters,'cute_animals')
         if (parts_of_speech[counter] == 'A'):
             add_tag_filter(filters, 'positive')
         
@@ -96,7 +96,7 @@ def politics_theme(vert_word, construction_type):
         filters = []
         add_first_letter_filter(filters, characters[counter])
         add_part_of_speech_filter(filters, parts_of_speech[counter])
-        add_theme(filters,'politics')
+        add_tag_filter(filters,'politics')
         add_tag_filter(filters, tags[counter])
         
         filter_set.append(filters)
@@ -157,7 +157,7 @@ def just_instruments(vert_word):
         add_first_letter_filter(filters, character)
         add_part_of_speech_filter(filters, 'NP')
         add_tag_filter(filters, 'instrument')
-        add_theme(filters, 'music')
+        add_tag_filter(filters, 'music')
         filter_set.append(filters)
     
     return [filter_set, parts_of_speech, tags] 

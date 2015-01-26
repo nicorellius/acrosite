@@ -9,7 +9,7 @@ description :   Populate the database with Word models.
 from .models import Word
 
 def import_alpha_list():
-        
+
     f = open("resources/condensed/complete_word_list_alpha_v2.txt")
     counter = 0;
 
@@ -36,9 +36,51 @@ def import_alpha_list():
 
                 counter += 1
     
-    print("Constructed Word database with {0} Entries.".format(counter))            
+    print("Constructed Word database with {0} Entries.".format(counter))        
     return
 
+
+def alphabetize_and_replace_list(original_list, replacement_list_path):
+    f = open(original_list)
+    word_list = []
+    comments_list = []
+    for line in f:
+        
+        #for debugging - to identify the problem line (when parsing not working correctly)
+        #print(line)
+        
+        if len(line) > 1:
+
+            chars = list(line)
+
+            if chars[0] != "#":
+
+                params = line.split('\t')
+                
+                #sort tags list
+                tags_list = params[2].strip().split(';')
+                tags_list.sort()
+                tags_sorted = ''
+                for tag in tags_list:
+                    if tag != '':
+                        tags_sorted += tag + ';'
+
+                line_entry = '{0}\t{1}\t{2}\n'.format(params[0],params[1],tags_sorted)
+                word_list.append(line_entry)
+            else:
+                comments_list.append(line)
+    f.close()
+    
+    #write to new file
+    with open(replacement_list_path,'w') as f_out:
+        for comment in comments_list:
+            f_out.write(comment)
+        
+        for word_entry in word_list:
+            f_out.write(word_entry)
+    
+    return
+    
 def all_subject_databases(theme_files):
 
     print("Importing all theme-specific files.")

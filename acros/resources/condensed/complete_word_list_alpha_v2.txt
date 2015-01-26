@@ -1013,3 +1013,64 @@ zip	VP	cute_animals;positive;
 zither	NS	instrument;music;
 zithers	NP	instrument;music;
 zoom	VP	cute_animals;positive;
+aha!	E	exclamation;positive
+alright!	E	exclamation;positive
+amen!	E	exclamation;positive
+bam!	E	exclamation;positive
+behold!	E	exclamation;positive
+boom!	E	exclamation;positive
+boo-yah!	E	exclamation;positive
+bravo!	E	exclamation;positive
+cha-ching!	E	exclamation;positive
+cheers!	E	exclamation;positive
+come on!	E	exclamation;positive
+dear me!	E	exclamation;positive
+eureka!	E	exclamation;positive
+excellent!	E	exclamation;positive
+exceptional!	E	exclamation;positive
+fantastic!	E	exclamation;positive
+gadzooks!	E	exclamation;positive
+gee whiz!	E	exclamation;positive
+gesundheit!	E	exclamation;positive
+good golly!	E	exclamation;positive
+goodness!	E	exclamation;positive
+hallelujah!	E	exclamation;positive
+holy vegetables!	E	exclamation;positive
+hooray!	E	exclamation;positive
+hurray!	E	exclamation;positive
+i say!	E	exclamation;positive
+indeed!	E	exclamation;positive
+jumpin' jehosephat!	E	exclamation;positive
+ka-ching!	E	exclamation;positive
+killer!	E	exclamation;positive
+look here!	E	exclamation;positive
+lovely!	E	exclamation;positive
+man!	E	exclamation;positive
+my word!	E	exclamation;positive
+oho!	E	exclamation;positive
+okay!	E	exclamation;positive
+rah rah!	E	exclamation;positive
+right on!	E	exclamation;positive
+roger that!	E	exclamation;positive
+shucks!	E	exclamation;positive
+so!	E	exclamation;positive
+sup!	E	exclamation;positive
+ta-da!	E	exclamation;positive
+tally-ho!	E	exclamation;positive
+very nice!	E	exclamation;positive
+very well!	E	exclamation;positive
+voila!	E	exclamation;positive
+well, well, well!	E	exclamation;positive
+whoa!	E	exclamation;positive
+woo-hoo!	E	exclamation;positive
+wow!	E	exclamation;positive
+x-cellent!	E	exclamation;positive
+x-ceptional!	E	exclamation;positive
+yay!	E	exclamation;positive
+yippee!	E	exclamation;positive
+yes!	E	exclamation;positive
+yowza!	E	exclamation;positive
+you don't say!	E	exclamation;positive
+zoons!	E	exclamation;positive
+zounds!	E	exclamation;positive
+zowie!	E	exclamation;positive

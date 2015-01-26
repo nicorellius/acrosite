@@ -6,15 +6,19 @@ Created on Jan 18, 2015
 
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 from .tags import same_except_last
-from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter
+from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_to_list
 
 def create_acrostic_data(vert_word, theme_name, construction_type):
     
     acrostic_data = []
     
     if theme_name=='cute_animals':
-              
-        acrostic_data = cute_animals_theme(vert_word, construction_type)
+        if construction_type <= 7:
+            acrostic_data = cute_animals_theme(vert_word, construction_type)
+        elif construction_type == 8:
+            acrostic_data = animals_jamming(vert_word)
+        elif construction_type == 9:
+            acrostic_data = exclamation_animals_jamming(vert_word)
         
     elif theme_name=='music':
                
@@ -22,7 +26,9 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
             acrostic_data = animals_jamming(vert_word)
         elif construction_type == 2:
             acrostic_data = just_instruments(vert_word)
-                
+        elif construction_type == 3:
+            acrostic_data = exclamation_animals_jamming(vert_word)
+        
     elif theme_name=='politics':
     
         acrostic_data = politics_theme(vert_word, construction_type)
@@ -141,7 +147,65 @@ def animals_jamming(vert_word):
     return [filter_set, constr, tags]
 
 
-
+def exclamation_animals_jamming(vert_word):
+    
+    constr = []
+    tags = []
+    
+    characters = list(vert_word)
+    
+    if len(characters) == 1:
+        constr = ['NP']
+        tags = [['instrument','music']]
+    elif len(characters) == 2:
+        constr = ['NP','VP']
+        tags = [['animal'],['make_music']]
+    elif len(characters) == 3:
+        constr = ['NP','VP','NP']
+        tags = [['animal'],['make_music'],['instrument','music']]
+    elif len(characters) == 4:
+        constr = ['NP','VP','NP','D']
+        tags = [['animal'],['make_music'],['instrument','music'],['positive','cute_animals']]
+    elif len(characters) == 5:
+        constr = ['E','NP','VP','NP','D']
+        tags = [['exclamation','positive'],['animal'],['make_music'],['instrument','music'],['positive','cute_animals']]
+    else:
+        counter = 5;
+        constr = ['E']
+        tags = [['exclamation','positive']]
+        while counter < len(characters):
+            constr.append('A')
+            tags.append(['positive'])
+            counter += 1
+        
+        constr.append('NP')
+        constr.append('VP')
+        constr.append('NP')
+        constr.append('D')
+        
+        tags.append(['animal'])
+        tags.append(['make_music'])
+        tags.append(['instrument','music'])
+        tags.append(['positive','cute_animals'])
+    
+    
+    filter_set = []
+    counter = 0
+    while counter < len(characters):
+        filters = []
+        add_first_letter_filter(filters, characters[counter])
+        add_part_of_speech_filter(filters, constr[counter])
+        add_tag_list_filter(filters, tags[counter])
+        filter_set.append(filters)
+        counter += 1
+    
+    
+    formatted_tags = condense_tags_to_list(tags)
+    print(filter_set)
+    print(constr)
+    print(formatted_tags)
+    return [filter_set, constr, tags]
+    
 def just_instruments(vert_word):
     
     characters = list(vert_word)

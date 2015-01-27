@@ -3,7 +3,7 @@ file        :   urls.py
 date        :   2014-1026
 module      :   acros
 classes     :   
-desription  :   main URLConf for acrosite
+description :   main URLConf for acrosite
 """
 
 from django.conf.urls import patterns, include, url

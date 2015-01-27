@@ -1,0 +1,1 @@
+Activate your account within {{ expiration_days }} days.

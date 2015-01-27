@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+<html>
+	
+<head>
+    <title>{% block title %} Activation complete | Aerial Solutions {% endblock %}</title>
+</head>
+
+<body>
+	
+	{% block content %}
+        
+        <div class="alert-success align-ctr font-16px top-mar-5em">
+            <p>Thanks, your account has been activated.</p>
+            <p><a href="/accounts/login/">Log in</a> if you haven't already.</p>
+        </div>
+        
+	{% endblock %}
+
+</body>
+
+</html>

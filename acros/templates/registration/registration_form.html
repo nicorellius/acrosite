@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+<html>
+	
+<head>
+    <title>{% block title %} Create an account | Aerial Solutions {% endblock %}</title>
+</head>
+
+<body>
+    
+    {% block content %}
+        
+    <div class="auth-box">
+	
+	{% if form.errors %}
+	    <div class="alert-warning align-ctr font-16px top-mar-2em">
+			<p>
+				Please correct the registration form below and try again.<br />
+				{% for error in form.non_field_errors %}
+					{{ error }}
+				{% endfor %}
+			</p>
+	    </div>
+	{% endif %}
+        <div class="auth-form">
+            <form role="form" method="post">
+                {% csrf_token %}
+                <h2>Create an account</h2>
+                <div class="font-16px top-mar-1em">
+                    <div class="form-group">
+						<label for="id_username">Username</label>
+						{{ form.username }}
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label>
+						{{ form.email }}
+					</div>
+					<div class="form-group">
+						<label for="id_password1">Password</label>
+						{{ form.password1 }}
+					</div>
+					<div class="form-group">
+						<label for="id_password2">Re-enter password</label>
+						{{ form.password2 }}
+					</div>
+										
+					<button class="btn btn-lg btn-primary btn-block top-mar-2em" type="submit">Create account</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+	
+    
+    {% endblock %}
+
+
+</body>
+
+</html>

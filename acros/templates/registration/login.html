@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+<html>
+	
+<head>
+    <title>{% block title %} Log in | Aerial Solutions {% endblock %}</title>
+</head>
+
+<body>
+	
+{% block content %}
+	
+<div class="auth-box">
+	
+	{% if form.errors %}
+		<div class="alert-warning align-ctr font-16px top-mar-2em">
+			<p>Sorry, that's not a valid username or password.</p>
+			
+		</div>
+	{% endif %}
+	
+	{% if messages %}
+		<div class="alert-success align-ctr font-16px top-mar-2em">
+			{% for message in messages %}
+				{{ message }}
+			{% endfor %}
+		</div>
+	{% endif %}
+	
+	<div class="auth-form">
+		<form class="form-signin" method="post" action="/accounts/login/" onsubmit="return validate_login_form(this);">
+			
+			{% csrf_token %}
+			<h2 class="form-signin-heading">Please log in</h2>
+			<div class="font-16px top-mar-1em">
+				<label for="id_username"></label>
+				{{ form.username }}
+				<label for="id_password"></label>
+				{{ form.password }}
+				<div class="form-group">
+					<div class="col-sm-10">
+						<div class="level-checkbox">
+							<label for="checkbox">
+								{{ form.remember_me }} Remember me
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<button class="btn btn-lg btn-primary btn-block activate-spinner" type="submit">Log in</button>
+			</div>
+			<p id="password-reset"><a href="/accounts/password/reset/">Forget your password?</a></p>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
+
+</body>
+
+</html>

@@ -272,16 +272,45 @@ def music_connexpr(vert_word):
     elif len(characters) == 11:
         parts_of_speech = ['NP','VP','D','C','NP','VP','D','C','NP','VP','D']
         tags = [['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
-    '''
     else:
-        if len(characters) % 3 == 2:
-            counter = 0
-            while counter < len(characters):
-                parts_of_speech.append('NP')
-                parts_of_speech.append('VP')
-                parts_of_speech.append('D')
-    '''
-        
+        if len(characters) % 4 == 0:
+            tags.append(['positive'])
+            parts_of_speech.append('A')
+            
+        elif len(characters) % 4 == 1:
+            tags.append(['positive'])
+            parts_of_speech.append('A')
+            
+            tags.append(['positive'])
+            parts_of_speech.append('A')
+
+        elif len(characters) % 4 == 2:
+
+            tags.append(['positive'])
+            parts_of_speech.append('A')
+            
+            tags.append(['positive'])
+            parts_of_speech.append('A')
+            
+            tags.append(['positive'])
+            parts_of_speech.append('A')
+
+        counter = 0
+        while counter < len(characters):
+            parts_of_speech.append('NP')
+            parts_of_speech.append('VP')
+            parts_of_speech.append('D')
+                
+            tags.append(['instrument','music'])
+            tags.append(['make_music'])
+            tags.append(['positive'])
+            
+            if counter + 3 < len(characters):
+                parts_of_speech.append('C')
+                tags.append(['connexpr'])
+            
+            counter += 4
+
     filter_set = []
     counter = 0;
     while counter < len(characters):

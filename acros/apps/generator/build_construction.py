@@ -28,12 +28,15 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
             acrostic_data = just_instruments(vert_word)
         elif construction_type == 3:
             acrostic_data = exclamation_animals_jamming(vert_word)
+        elif construction_type == 4:
+            acrostic_data = music_connexpr(vert_word);
         
     elif theme_name=='politics':
     
         acrostic_data = politics_theme(vert_word, construction_type)
         
     return acrostic_data
+
 
 def cute_animals_theme(vert_word, construction_type):
     
@@ -56,23 +59,28 @@ def cute_animals_theme(vert_word, construction_type):
         parts_of_speech = all_nouns(vert_word, False)
     
     # initialize empty
-    filter_set = [];
+    filter_set = []
+    tags = []
     counter = 0;
     
     characters = list(vert_word)
         
     while counter < len(characters):
         filters = []
+        tags_list = []
         add_first_letter_filter(filters, characters[counter])
         add_part_of_speech_filter(filters, parts_of_speech[counter])
         add_tag_filter(filters,'cute_animals')
+        tags_list.append('cute_animals')
         if (parts_of_speech[counter] == 'A'):
             add_tag_filter(filters, 'positive')
+            tags_list.append('positive')
         
+        tags.append(tags_list)
         filter_set.append(filters)
         counter += 1
     
-    return [filter_set,parts_of_speech,[]]
+    return [filter_set,parts_of_speech,tags]
 
 
 
@@ -201,10 +209,7 @@ def exclamation_animals_jamming(vert_word):
     
     
     formatted_tags = condense_tags_to_list(tags)
-    print(filter_set)
-    print(constr)
-    print(formatted_tags)
-    return [filter_set, constr, tags]
+    return [filter_set, constr, formatted_tags]
     
 def just_instruments(vert_word):
     
@@ -227,6 +232,67 @@ def just_instruments(vert_word):
     return [filter_set, parts_of_speech, tags] 
 
 
+def music_connexpr(vert_word):
+    
+    tags = []
+    parts_of_speech = []
+    
+    characters = list(vert_word)
+    
+    if len(characters) == 1:
+        parts_of_speech = ['NP']
+        tags = [['instrument','music']]
+    elif len(characters) == 2:
+        parts_of_speech = ['NP','VP']
+        tags = [['instrument','music'],['make_music']]
+    elif len(characters) == 3:
+        parts_of_speech = ['NP','VP','D']
+        tags = [['instrument','music'],['make_music'],['positive']]
+    elif len(characters) == 4:
+        parts_of_speech = ['A','NP','VP','D']
+        tags = [['positive'],['instrument','music'],['make_music'],['positive']]
+    elif len(characters) == 5:
+        parts_of_speech = ['NP','VP','C','NP','VP']
+        tags = [['instrument','music'],['make_music'],['connexpr'],['instrument','music'],['make_music']]
+    elif len(characters) == 6:
+        parts_of_speech = ['NP','VP','C','NP','VP','D']
+        tags = [['instrument','music'],['make_music'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+    elif len(characters) == 7:
+        parts_of_speech = ['NP','VP','D','C','NP','VP','D']
+        tags = [['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+    elif len(characters) == 8:
+        parts_of_speech = ['A','NP','VP','D','C','NP','VP','D']
+        tags = [['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+    elif len(characters) == 9:
+        parts_of_speech = ['A','NP','VP','D','C','A','NP','VP','D']
+        tags = [['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['positive'],['instrument','music'],['make_music'],['positive']]
+    elif len(characters) == 10:
+        parts_of_speech = ['A','A','NP','VP','D','C','A','NP','VP','D']
+        tags = [['positive'],['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['positive'],['instrument','music'],['make_music'],['positive']]
+    elif len(characters) == 11:
+        parts_of_speech = ['NP','VP','D','C','NP','VP','D','C','NP','VP','D']
+        tags = [['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+    '''
+    else:
+        if len(characters) % 3 == 2:
+            counter = 0
+            while counter < len(characters):
+                parts_of_speech.append('NP')
+                parts_of_speech.append('VP')
+                parts_of_speech.append('D')
+    '''
+        
+    filter_set = []
+    counter = 0;
+    while counter < len(characters):
+        filters = []
+        add_first_letter_filter(filters, characters[counter])
+        add_part_of_speech_filter(filters, parts_of_speech[counter])
+        add_tag_list_filter(filters, tags[counter])
+        filter_set.append(filters)
+        counter += 1
 
+    formatted_tags = condense_tags_to_list(tags)
+    return [filter_set,parts_of_speech,formatted_tags]
 
     

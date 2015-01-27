@@ -24,7 +24,7 @@ def generate_random_acrostic(vert_word, theme_name):
     construction_dictionary = {
         'cute_animals':[1,2,3,4,5,6,7,8,9],
         'politics':[1,2,3,4],
-        'music':[1,2,3],
+        'music':[1,2,3,4], #TODO: type 4 isn't finished yet
         }
     
     construction_id_list = construction_dictionary[theme_name]
@@ -80,13 +80,33 @@ def generate_random_acrostic(vert_word, theme_name):
             # select a word at random
             else:
                 w = random.choice(duplicate_filtered)
-                horz_word_list.append(w)
-            
                 horz_word = re.sub('[_]', ' ', w.name)
-                horz_words = "{0}{1};".format(horz_words, horz_word)
+                horz_word_list.append(horz_word)
+            
+                #horz_words = "{0}{1};".format(horz_words, horz_word)
 
             counter += 1
+       
+    #Post-acrostic modifications
+    counter = 1
+    period_to_last = False
+    while counter < len(horz_word_list):
+        chars = list(horz_word_list[counter])
+        if chars[len(chars) - 1] == ',':
+            horz_word_list[counter-1] = '{0}.'.format(horz_word_list[counter-1])
+            period_to_last = True
+        counter += 1
         
+    if period_to_last:
+        if horz_word_list[counter-1] != '.':
+            horz_word_list[counter-1] = '{0}.'.format(horz_word_list[counter-1])
+    
+    horz_words = ''
+    for horz_word in horz_word_list:
+        horz_words = "{0}{1};".format(horz_words,horz_word)
+    
+    print(horz_words)
+                
     #Create Acrostic from all relevant data
     acrostic = Acrostic()
     acrostic.vertical_word = vert_word

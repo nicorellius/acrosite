@@ -22,9 +22,9 @@ def generate_random_acrostic(vert_word, theme_name):
     
     #master list of available options
     construction_dictionary = {
-        'cute_animals':[1,2,3,4,5,6,7,8,9],
+        'cute_animals':[1,2,3,4],
         'politics':[1,2,3,4],
-        'music':[1,2,3,4], #TODO: type 4 isn't finished yet
+        'music':[1,2,3,4],
         }
     
     construction_id_list = construction_dictionary[theme_name]

@@ -13,12 +13,8 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
     acrostic_data = []
     
     if theme_name=='cute_animals':
-        if construction_type <= 7:
+        if construction_type <= 4:
             acrostic_data = cute_animals_theme(vert_word, construction_type)
-        elif construction_type == 8:
-            acrostic_data = animals_jamming(vert_word)
-        elif construction_type == 9:
-            acrostic_data = exclamation_animals_jamming(vert_word)
         
     elif theme_name=='music':
                
@@ -50,13 +46,7 @@ def cute_animals_theme(vert_word, construction_type):
     elif construction_type == 3:
         parts_of_speech = adj_adj_noun_pattern(vert_word, True);
     elif construction_type == 4:
-        parts_of_speech = adj_adj_noun_pattern(vert_word, False);
-    elif construction_type == 5:
-        parts_of_speech = all_adj(vert_word)
-    elif construction_type == 6:
         parts_of_speech = all_nouns(vert_word, True)
-    elif construction_type == 7:
-        parts_of_speech = all_nouns(vert_word, False)
     
     # initialize empty
     filter_set = []

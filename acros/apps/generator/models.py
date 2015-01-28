@@ -25,6 +25,7 @@ class Word(BaseModel):
     def __str__(self):
         return self.name
 
+
 class Theme(BaseModel):
 
     name = models.CharField(max_length=200, default='default theme')

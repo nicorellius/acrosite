@@ -8,6 +8,7 @@ description :   Populate the database with Word models.
 
 from .models import Word
 
+
 def import_alpha_list():
 
     f = open("resources/condensed/complete_word_list_alpha.txt")

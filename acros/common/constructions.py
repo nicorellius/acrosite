@@ -17,20 +17,7 @@ S = singular (modifies above 4) - use `sin`
 """
 
 
-def constant(f):
-
-    def fset(self, value):
-        raise SyntaxError
-
-    def fget(self):
-        return f()
-    return property(fget, fset)
-
-
-@constant
-def NS_VS_D():
-    return 'NS;VS;D;'
-
+NS_VS_D = 'NS;VS;D;'
 NS_VS_A_N = 'NS;VS;A;N'
 NS_VS_A_D = 'NS;VS;A;D'
 NP_VP_D = 'NP;VP;D;'

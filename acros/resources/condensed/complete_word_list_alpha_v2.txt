@@ -612,7 +612,7 @@ nice	A	common;cute_animals;music;politics;positive;
 nicely	D	cute_animals;positive;
 nod	VP	cute_animals;positive;
 noisily	D	cute_animals;positive;
-noodlin'	VP	make_music;music;
+noodle	VP	make_music;music;
 note	NS	component;music;
 notes	NP	component;music;
 notoriously	D	negative;politics;

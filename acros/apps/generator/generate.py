@@ -23,9 +23,13 @@ def generate_random_acrostic(vert_word, theme_name):
     #master list of available options
     construction_dictionary = {
         'cute_animals':[1,2,3,4],
-        'politics':[1,2,3,4],
+        'politics':[1,2],
         'music':[1,2,3,4],
         }
+    
+    #in case the user does not select a theme
+    if theme_name not in construction_dictionary:
+        theme_name = random.choice(list(construction_dictionary.keys()))
     
     construction_id_list = construction_dictionary[theme_name]
     
@@ -71,6 +75,7 @@ def generate_random_acrostic(vert_word, theme_name):
             if not duplicate_filtered:
                 if len(construction_id_list) == 1:
                     horz_words = "{0}{1};".format(horz_words, characters[counter])
+                    horz_word_list.append(characters[counter])
                 else:
                     build_or_rebuild_required = True
                     construction_id_list.remove(construction_type)
@@ -82,8 +87,6 @@ def generate_random_acrostic(vert_word, theme_name):
                 w = random.choice(duplicate_filtered)
                 horz_word = re.sub('[_]', ' ', w.name)
                 horz_word_list.append(horz_word)
-            
-                #horz_words = "{0}{1};".format(horz_words, horz_word)
 
             counter += 1
        

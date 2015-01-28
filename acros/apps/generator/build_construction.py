@@ -29,8 +29,11 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
         
     elif theme_name=='politics':
     
-        acrostic_data = politics_theme(vert_word, construction_type)
-        
+        if construction_type == 1 or construction_type == 2:
+            acrostic_data = politics_theme(vert_word, construction_type)
+        elif construction_type == 3:
+            acrostic_data = political_figure_question(vert_word)
+            
     return acrostic_data
 
 
@@ -83,12 +86,6 @@ def politics_theme(vert_word, construction_type):
         tags = same_except_last(vert_word, 'positive','idea')
     elif construction_type == 2:
         parts_of_speech = adj_to_noun(vert_word, True)
-        tags = same_except_last(vert_word, 'positive','person')
-    elif construction_type == 3:
-        parts_of_speech = adj_to_noun(vert_word, False)
-        tags = same_except_last(vert_word, 'negative','idea')
-    elif construction_type == 4:
-        parts_of_speech = adj_to_noun(vert_word, True)
         tags = same_except_last(vert_word, 'negative','person')
     
     filter_set = [];
@@ -107,6 +104,40 @@ def politics_theme(vert_word, construction_type):
         counter += 1
     
     return [filter_set,parts_of_speech,tags]
+
+
+# TODO: unfinished
+def political_figure_question(vert_word):
+    
+    filter_set = []
+    tags = []
+    parts_of_speech = []
+    
+    characters= list(vert_word)
+    
+    if len(characters) == 1:
+        tags = [['political_figure']]
+        parts_of_speech = ['NS']
+    elif len(characters) == 2:
+        tags = [['political_figure'],[]]
+        parts_of_speech = ['NS','VP']
+    elif len(characters) == 3:
+        tags = [['political_figure'],['politics'],['positive']]
+        parts_of_speech = ['NS','VP','D']
+    elif len(characters) == 4:
+        tags = [['political_figure'],['politics'],['politics'],['positive']]
+        parts_of_speech = ['NS','VP','NP','D']
+        
+    counter = 0
+    while counter < len(characters):
+        filters = []
+        add_part_of_speech_filter(filters, parts_of_speech[counter])
+        add_tag_list_filter(filters, tags[counter])
+        filter_set.append(filters)
+        counter += 1    
+        
+    return [filter_set, parts_of_speech, tags]
+
 
 
 def animals_jamming(vert_word):

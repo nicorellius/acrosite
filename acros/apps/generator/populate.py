@@ -10,7 +10,7 @@ from .models import Word
 
 def import_alpha_list():
 
-    f = open("resources/condensed/complete_word_list_alpha_v2.txt")
+    f = open("resources/condensed/complete_word_list_alpha.txt")
     counter = 0;
 
     for line in f:
@@ -35,7 +35,6 @@ def import_alpha_list():
                 word.save()
 
                 counter += 1
-    
     print("Constructed Word database with {0} Entries.".format(counter))        
     return
 
@@ -71,13 +70,17 @@ def alphabetize_and_replace_list(original_list, replacement_list_path):
                 comments_list.append(line)
     f.close()
     
+    #sorted alphabetically by word
+    word_list.sort()
+    
     #write to new file
     with open(replacement_list_path,'w') as f_out:
         for comment in comments_list:
             f_out.write(comment)
         
         for word_entry in word_list:
-            f_out.write(word_entry)
+            if word_entry.strip() != '':
+                f_out.write(word_entry)
     
     return
     

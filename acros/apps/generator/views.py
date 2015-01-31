@@ -33,7 +33,7 @@ class GenerateAcrosticFormView(View):
         print('{0} {1}'.format(name, theme))
         
         if name != '':
-            form = self.form_class(request.GET, name, theme)
+            form = self.form_class(request.GET, name)
             
         else:
             form = self.form_class()
@@ -55,7 +55,7 @@ class GenerateAcrosticFormView(View):
         print(ts)
         
         acrostic = Acrostic()
-        theme = Theme()
+        # theme = Theme()
         
         print("this view is trying to create an acrostic object...")
         
@@ -78,8 +78,8 @@ class GenerateAcrosticFormView(View):
             
             acrostic.save()
 
-            theme.name = ts  # form.cleaned_data['theme-selector']
-            theme.save()
+            # theme.name = ts  # form.cleaned_data['theme-selector']
+            # theme.save()
                         
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
@@ -89,7 +89,7 @@ class GenerateAcrosticFormView(View):
         return render(request, self.template_name, {
             'form': form,
             'theme-selector': ts,
-            'theme': theme,
+            # 'theme': theme,
         })
     
 

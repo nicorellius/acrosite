@@ -85,3 +85,32 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('.bootstrap-select').selectpicker();
 });
+
+$(document).ready(function () {
+    var value = $.QueryString['theme'];
+    console.log(value);
+    $('#theme-selector [value=" + value + "]').prop('selected', true)
+});
+
+// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+(function($) {
+    $.QueryString = (function(a) {
+        if (a == "") return {};
+        var b = {};
+        for (var i = 0; i < a.length; ++i)
+        {
+            var p=a[i].split('=');
+            if (p.length != 2) continue;
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+        }
+        return b;
+    })(window.location.search.substr(1).split('&'))
+})(jQuery);
+
+// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

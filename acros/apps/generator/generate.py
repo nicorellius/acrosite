@@ -40,15 +40,13 @@ def generate_random_acrostic(vert_word, theme_name):
         
         construction_type = random.choice(construction_id_list)
         
-        construction_type = 3
-        
         filter_set_data = create_acrostic_data(vert_word, theme_name, construction_type)
         filter_sets = filter_set_data[0]
         construction_list = filter_set_data[1]
         tag_list = filter_set_data[2]
     
-        horz_words = ''
-        horz_word_list = []
+        horz_word_list = []         # contains the actual word objects
+        horz_wordtext_list = []     # contains the text to be rendered to the screen
         counter = 0
         characters = list(vert_word)
     
@@ -76,8 +74,8 @@ def generate_random_acrostic(vert_word, theme_name):
             # if no construction works, return an empty character.
             if not duplicate_filtered:
                 if len(construction_id_list) == 1:
-                    horz_words = "{0}{1};".format(horz_words, characters[counter])
-                    horz_word_list.append(characters[counter])
+                    horz_word_list.append(None)
+                    horz_wordtext_list.append(characters[counter])
                 else:
                     build_or_rebuild_required = True
                     construction_id_list.remove(construction_type)
@@ -87,30 +85,16 @@ def generate_random_acrostic(vert_word, theme_name):
             # select a word at random
             else:
                 w = random.choice(duplicate_filtered)
-                horz_word = re.sub('[_]', ' ', w.name)
-                horz_word_list.append(horz_word)
+                horz_word_list.append(w)
+                horz_wordtext_list.append(re.sub('[_]', ' ', w.name))
 
             counter += 1
-       
-    #Post-acrostic modifications
-    counter = 1
-    period_to_last = False
-    while counter < len(horz_word_list):
-        chars = list(horz_word_list[counter])
-        if chars[len(chars) - 1] == ',':
-            horz_word_list[counter-1] = '{0}.'.format(horz_word_list[counter-1])
-            period_to_last = True
-        counter += 1
-        
-    if period_to_last:
-        if horz_word_list[counter-1] != '.':
-            horz_word_list[counter-1] = '{0}.'.format(horz_word_list[counter-1])
+    
+    horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)
     
     horz_words = ''
-    for horz_word in horz_word_list:
+    for horz_word in horz_wordtext_list:
         horz_words = "{0}{1};".format(horz_words,horz_word)
-    
-    print(horz_words)
                 
     #Create Acrostic from all relevant data
     acrostic = Acrostic()
@@ -123,6 +107,35 @@ def generate_random_acrostic(vert_word, theme_name):
     print("Acrostic:\n", acrostic.__str__())
     
     return acrostic
+
+
+
+
+def punctuation_modifications(horz_word_list, horz_wordtext_list):
+    
+    counter = 1
+    period_to_last = False
+    while counter < len(horz_wordtext_list):
+        chars = list(horz_wordtext_list[counter])
+        if chars[len(chars) - 1] == ',':
+            actual_word = counter -1
+            while horz_word_list[actual_word] is None:
+                actual_word = actual_word - 1;
+            horz_wordtext_list[actual_word] = '{0}.'.format(horz_wordtext_list[actual_word])
+            period_to_last = True
+        counter += 1
+        
+    if period_to_last:
+        actual_word = counter - 1;
+        while horz_word_list[actual_word] is None:
+            actual_word = actual_word -1
+        if horz_wordtext_list[actual_word] != '.':
+            horz_wordtext_list[actual_word] = '{0}.'.format(horz_wordtext_list[actual_word])
+    
+    
+    return horz_wordtext_list
+
+
 
 def rebuild_database(force_rebuild):
     

@@ -79,9 +79,5 @@ target/
 *.eps
 *.psd
 *.jpeg
-*.eot
-*.svg
-*.ttf
-*.woff
 
 *.prefs

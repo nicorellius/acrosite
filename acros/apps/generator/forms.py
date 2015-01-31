@@ -29,3 +29,16 @@ class GenerateAcrosticForm(forms.ModelForm):
             }
         )
     )
+
+    theme = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control input-tall control-label',
+                'id': 'vertical-word',
+                'type': 'text',
+                'name': 'name',
+                'placeholder': 'Enter vertical word',
+            }
+        )
+    )

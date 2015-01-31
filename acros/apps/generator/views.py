@@ -28,9 +28,12 @@ class GenerateAcrosticFormView(View):
     def get(self, request):
         
         name = request.GET.get('name', '')
+        theme = request.GET.get('theme', '')
+
+        print('{0} {1}'.format(name, theme))
         
         if name != '':
-            form = self.form_class(request.GET, name)
+            form = self.form_class(request.GET, name, theme)
             
         else:
             form = self.form_class()

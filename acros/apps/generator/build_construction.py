@@ -40,7 +40,7 @@ def create_filters(vert_word, horz_words, theme_name, construction_type):
     acrostic_data = []
     
     if theme_name == 'cute_animals' and construction_type == 1:
-        acrostic_data = create_filter_example(vert_word, horz_words)
+        acrostic_data = animals_jamming_rewrite(vert_word, horz_words)
     
     return acrostic_data
 
@@ -164,6 +164,34 @@ def political_figure_question(vert_word):
     return [filter_set, parts_of_speech, tags]
 
 
+def animals_jamming_rewrite(vert_word, word_list):
+    
+    filters = []
+    part_of_speech = ''
+    tags = []
+    
+    characters = list(vert_word)
+    word_length = len(characters)
+    word_num = len(word_list) + 1
+    
+    if word_length - word_num > 2:
+        part_of_speech = 'A'
+        tags = ['positive']
+    elif word_length - word_num == 2:
+        part_of_speech = 'NP'
+        tags = ['animal']
+    elif word_length - word_num == 1:
+        part_of_speech = 'VP'
+        tags = ['make_music']
+    elif word_length - word_num == 0:
+        part_of_speech = 'NP'
+        tags = ['instrument']
+    
+    add_first_letter_filter(filters, vert_word[word_num])
+    add_part_of_speech_filter(filters, part_of_speech)
+    add_tag_list_filter(filters, tags)
+    
+    return [filters, part_of_speech, tags]
 
 def animals_jamming(vert_word):
                

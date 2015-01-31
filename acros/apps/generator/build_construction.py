@@ -36,6 +36,31 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
             
     return acrostic_data
 
+def create_filters(vert_word, horz_words, theme_name, construction_type):
+    acrostic_data = []
+    
+    if theme_name == 'cute_animals' and construction_type == 1:
+        acrostic_data = create_filter_example(vert_word, horz_words)
+    
+    return acrostic_data
+
+def create_filter_example(vert_word, word_list):
+    
+    filters = []
+    tags = []
+    part_of_speech = ''
+    
+    word_number = len(word_list) + 1
+    
+    characters = list(vert_word)
+    add_first_letter_filter(filters, characters[word_number])
+    
+    '''
+    TODO: add all filters, tags, parts of speech as necessary as a function of the
+    current list of words, and position (word_number).
+    This way, we can have a more relaxed definition as to when to add certain kinds of constructions.
+    '''
+    return [filters, tags, part_of_speech]
 
 def cute_animals_theme(vert_word, construction_type):
     

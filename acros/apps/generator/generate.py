@@ -40,6 +40,8 @@ def generate_random_acrostic(vert_word, theme_name):
         
         construction_type = random.choice(construction_id_list)
         
+        construction_type = 3
+        
         filter_set_data = create_acrostic_data(vert_word, theme_name, construction_type)
         filter_sets = filter_set_data[0]
         construction_list = filter_set_data[1]

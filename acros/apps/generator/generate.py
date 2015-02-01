@@ -22,22 +22,25 @@ def generate_random_acrostic(vert_word, theme_name):
     
     #master list of available options
     construction_dictionary = {
-        'cute_animals':[1,2,3,4],
-        'politics':[1,2],
-        'music':[1,2,3,4],
+        'cute_animals':[[1],[2,3,4]],
+        'politics':[[1,2]],
+        'music':[[3,4],[1],[2]],
         }
     
     #in case the user does not select a theme
     if theme_name not in construction_dictionary:
         theme_name = random.choice(list(construction_dictionary.keys()))
     
-    construction_id_list = construction_dictionary[theme_name]
+    construction_preference_level = 0
+    
+    #initialization: first-string
+    construction_id_list = construction_dictionary[theme_name][construction_preference_level]
     
     build_or_rebuild_required = True
     
     while build_or_rebuild_required:
         build_or_rebuild_required = False
-        
+    
         construction_type = random.choice(construction_id_list)
         
         filter_set_data = create_acrostic_data(vert_word, theme_name, construction_type)
@@ -73,10 +76,19 @@ def generate_random_acrostic(vert_word, theme_name):
             # if no words remain after all filters have been applied, try a different construction
             # if no construction works, return an empty character.
             if not duplicate_filtered:
-                if len(construction_id_list) == 1:
-                    horz_word_list.append(None)
-                    horz_wordtext_list.append(characters[counter])
+                if len(construction_id_list) == 1: # no more constructions in this preference level
+                    if (construction_preference_level+1) < len(construction_dictionary[theme_name]):
+                        # move to the next preference level
+                        build_or_rebuild_required = True
+                        construction_preference_level += 1
+                        construction_id_list = construction_dictionary[theme_name][construction_preference_level]
+                    else:
+                        # no more preference levels, and no more constructions in this preference level.
+                        # just return the characters, and a 'None' word.
+                        horz_word_list.append(None)
+                        horz_wordtext_list.append(characters[counter])
                 else:
+                    # check other constructions in this level
                     build_or_rebuild_required = True
                     construction_id_list.remove(construction_type)
                     break

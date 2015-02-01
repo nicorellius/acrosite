@@ -22,8 +22,8 @@ def generate_random_acrostic(vert_word, theme_name):
     
     #master list of available options
     construction_dictionary = {
+        'my_name':[[1,2]],
         'cute_animals':[[1],[2,3,4]],
-        'politics':[[1,2]],
         'music':[[1],[2],[3]],
         }
     
@@ -40,6 +40,13 @@ def generate_random_acrostic(vert_word, theme_name):
         build_or_rebuild_required = False
     
         construction_type = random.choice(construction_id_list)
+        
+        #TODO: think about handling this in a more intelligent way
+        add_on_value = 0
+        if theme_name == 'my_name':
+            add_ons = [0,0,2]
+            add_on_value = random.choice(add_ons)
+            construction_type += add_on_value
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
@@ -92,7 +99,7 @@ def generate_random_acrostic(vert_word, theme_name):
                 else:
                     # check other constructions in this level
                     build_or_rebuild_required = True
-                    construction_id_list.remove(construction_type)
+                    construction_id_list.remove(construction_type-add_on_value)
                     break
 
 
@@ -102,6 +109,7 @@ def generate_random_acrostic(vert_word, theme_name):
                 horz_word_list.append(w)
                 horz_wordtext_list.append(re.sub('[_]', ' ', w.name))
 
+            print(horz_word_list)
             counter += 1
     
     horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)
@@ -121,8 +129,6 @@ def generate_random_acrostic(vert_word, theme_name):
     print("Acrostic:\n", acrostic.__str__())
     
     return acrostic
-
-
 
 
 def punctuation_modifications(horz_word_list, horz_wordtext_list):

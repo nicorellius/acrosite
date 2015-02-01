@@ -4,9 +4,12 @@ Created on Jan 18, 2015
 @author: phillipseitzer
 '''
 
+import random
+
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 from .tags import same_except_last
-from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_list
+from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_list,add_tag_OR_filter,add_pos_OR_filter
+from .models import Word
 
 def create_acrostic_data(vert_word, theme_name, construction_type):
     
@@ -36,19 +39,107 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
             
     return acrostic_data
 
-def create_filters(vert_word, horz_words, theme_name, construction_type):
+def create_filters(vert_word, word_list, theme_name, construction_type):
     acrostic_data = []
     
-    if theme_name == 'music':
+    if theme_name == 'my_name':
+        '''
+        [1,2] have equal priority. 3 and 4 are hidden types, which are
+        realized when 1 or 2 is seleted, and then there is 1/3 chance that
+        1 or 2 will be converted to 3 or 4.  1 and 3 are the same (except positive)
+        2 and 4are the same (except negative).
+        '''
         if construction_type == 1:
-            acrostic_data = instruments_making_music(vert_word, horz_words)
+            acrostic_data = positive_adjectives(vert_word, word_list, True)
         elif construction_type == 2:
-            acrostic_data = animals_jamming(vert_word, horz_words)
+            acrostic_data = positive_adv_adj(vert_word, word_list, True)
         elif construction_type == 3:
-            acrostic_data = just_instruments(vert_word, horz_words)
+            acrostic_data = positive_adjectives(vert_word, word_list, False)
+        elif construction_type == 4:
+            acrostic_data = positive_adv_adj(vert_word, word_list, False)
+    elif theme_name == 'music':
+        if construction_type == 1:
+            acrostic_data = instruments_making_music(vert_word, word_list)
+        elif construction_type == 2:
+            acrostic_data = animals_jamming(vert_word, word_list)
+        elif construction_type == 3:
+            acrostic_data = just_instruments(vert_word, word_list)
             
     return acrostic_data
 
+def positive_adjectives(vert_word, word_list, is_positive):
+    
+    part_of_speech = 'A'
+    if is_positive:
+        tags = ['positive']
+    else:
+        tags = ['negative']    
+        
+    characters = list(vert_word)
+    word_num = len(word_list)
+    
+    exact = True
+    
+    #TODO: this is the variable-connexpr part - doesn't seem to be working that well here.
+    '''   
+    if len(characters) - word_num > 3 and word_num > 3:
+        if word_list[word_num-1] is not None:
+            previous_word = word_list[word_num-1]
+            if previous_word.part_of_speech == 'A':
+                exact = False   #either a connecting expression or an adjective.
+    
+    '''
+    filters = []
+    add_first_letter_filter(filters, characters[word_num])
+    
+    if exact:  
+        add_part_of_speech_filter(filters, part_of_speech)
+        add_tag_list_filter(filters, tags)
+    else:
+        add_pos_OR_filter(filters, 'C','A')
+        add_tag_OR_filter(filters, 'connexpr','positive')
+        
+    return [filters, part_of_speech, tags]
+
+
+
+#TODO
+
+def positive_adv_adj(vert_word, word_list, is_positive):
+
+    characters = list(vert_word)
+    word_length = len(characters)
+    word_num = len(word_list)
+    
+    part_of_speech = ''
+    if is_positive:
+        tags = ['positive']
+    else:
+        tags = ['negative']
+    
+    if word_length % 2 == 0:
+        if word_num % 2 == 0:
+            part_of_speech = 'D'
+        else:
+            part_of_speech = 'A'
+    else:
+        if word_length - word_num > 3:
+            if word_num % 2 == 0:
+                part_of_speech = 'D'
+            else:
+                part_of_speech = 'A'
+        else:
+            if word_num >= word_length-1:
+                part_of_speech = 'A'
+            else:
+                part_of_speech = 'D'
+                
+    filters = []
+    add_first_letter_filter(filters, characters[word_num])
+    add_tag_filter(filters, tags[0])
+    add_part_of_speech_filter(filters, part_of_speech)
+    
+    return [filters, part_of_speech, tags]
 
 def cute_animals_theme(vert_word, construction_type):
     

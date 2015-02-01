@@ -39,8 +39,9 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
 def create_filters(vert_word, horz_words, theme_name, construction_type):
     acrostic_data = []
     
-    if theme_name == 'cute_animals' and construction_type == 1:
-        acrostic_data = animals_jamming_rewrite(vert_word, horz_words)
+    if theme_name == 'music':
+        if construction_type == 1:
+            acrostic_data = animals_jamming(vert_word, horz_words)
     
     return acrostic_data
 
@@ -164,7 +165,7 @@ def political_figure_question(vert_word):
     return [filter_set, parts_of_speech, tags]
 
 
-def animals_jamming_rewrite(vert_word, word_list):
+def animals_jamming(vert_word, word_list):
     
     filters = []
     part_of_speech = ''
@@ -172,61 +173,26 @@ def animals_jamming_rewrite(vert_word, word_list):
     
     characters = list(vert_word)
     word_length = len(characters)
-    word_num = len(word_list) + 1
+    word_num = len(word_list)
     
-    if word_length - word_num > 2:
+    if word_length - word_num >= 4:
         part_of_speech = 'A'
         tags = ['positive']
-    elif word_length - word_num == 2:
+    elif word_length - word_num == 3:
         part_of_speech = 'NP'
         tags = ['animal']
-    elif word_length - word_num == 1:
+    elif word_length+ - word_num == 2:
         part_of_speech = 'VP'
         tags = ['make_music']
-    elif word_length - word_num == 0:
+    elif word_length - word_num == 1:
         part_of_speech = 'NP'
         tags = ['instrument']
-    
-    add_first_letter_filter(filters, vert_word[word_num])
+        
+    add_first_letter_filter(filters, characters[word_num])
     add_part_of_speech_filter(filters, part_of_speech)
     add_tag_list_filter(filters, tags)
     
     return [filters, part_of_speech, tags]
-
-def animals_jamming(vert_word):
-               
-    characters = list(vert_word)
-    
-    if len(characters) == 1:
-        constr = ['NP']
-        tags = ['instrument']
-    elif len(characters) == 2:
-        constr = ['NP','VP']
-        tags = ['animal','make_music']
-    else:
-        constr = ['NP','VP','NP']
-        tags = ['animal','make_music','instrument']
-    
-    if len(characters) > 3:
-        
-        counter = 3
-        while counter < len(characters):
-            counter += 1
-            constr.insert(0,'A')
-            tags.insert(0,'positive')
-    
-    counter = 0
-    
-    filter_set = []
-    while counter < len(constr):
-        filters = []
-        add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech_filter(filters, constr[counter])
-        add_tag_filter(filters, tags[counter])
-        filter_set.append(filters)
-        counter += 1
-            
-    return [filter_set, constr, tags]
 
 
 def exclamation_animals_jamming(vert_word):

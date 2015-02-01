@@ -10,7 +10,7 @@ import random
 import re
 
 from .populate import import_alpha_list
-from .build_construction import create_acrostic_data
+from .build_construction import create_filters
 
 from .models import Word, Acrostic
     
@@ -32,8 +32,6 @@ def generate_random_acrostic(vert_word, theme_name):
         theme_name = random.choice(list(construction_dictionary.keys()))
     
     construction_preference_level = 0
-    
-    #initialization: first-string
     construction_id_list = construction_dictionary[theme_name][construction_preference_level]
     
     build_or_rebuild_required = True
@@ -42,19 +40,24 @@ def generate_random_acrostic(vert_word, theme_name):
         build_or_rebuild_required = False
     
         construction_type = random.choice(construction_id_list)
+        construction_type = 1
         
-        filter_set_data = create_acrostic_data(vert_word, theme_name, construction_type)
-        filter_sets = filter_set_data[0]
-        construction_list = filter_set_data[1]
-        tag_list = filter_set_data[2]
-    
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
+        parts_of_speech = []
+        tags_list = []
+        
         counter = 0
         characters = list(vert_word)
-    
-        for filter_set in filter_sets:
         
+        #for filter_set in filter_sets:
+        while counter < len(characters):
+        
+            acrostic_data = create_filters(vert_word, horz_word_list, theme_name, construction_type)
+            filter_set = acrostic_data[0]
+            parts_of_speech.append(acrostic_data[1])
+            tags_list.append(acrostic_data[2])
+            
             #initial state- all objects
             pre_filter = Word.objects.all()
         
@@ -108,13 +111,13 @@ def generate_random_acrostic(vert_word, theme_name):
     for horz_word in horz_wordtext_list:
         horz_words = "{0}{1};".format(horz_words,horz_word)
                 
-    #Create Acrostic from all relevant data
+    #Create acrostic from all relevant data
     acrostic = Acrostic()
     acrostic.vertical_word = vert_word
     acrostic.horizontal_words = horz_words
     acrostic.theme_name = theme_name
-    acrostic.construction_sequence = construction_list
-    acrostic.tag_sequence = tag_list
+    acrostic.construction_sequence = parts_of_speech
+    acrostic.tag_sequence = tags_list
 
     print("Acrostic:\n", acrostic.__str__())
     

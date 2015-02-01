@@ -22,7 +22,7 @@ def add_part_of_speech_filter(filters, pos):
     filters.append(Q(part_of_speech=pos),)
     return filters
 
-def condense_tags_to_list(tag_list_list):
+def condense_tags_list(tag_list_list):
     formatted_tag_list = []
     for tag_list in tag_list_list:
         formatted_tag_list.append(";".join(tag_list))

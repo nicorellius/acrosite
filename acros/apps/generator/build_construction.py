@@ -6,7 +6,7 @@ Created on Jan 18, 2015
 
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 from .tags import same_except_last
-from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_to_list
+from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_list
 
 def create_acrostic_data(vert_word, theme_name, construction_type):
     
@@ -25,7 +25,7 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
         elif construction_type == 3:
             acrostic_data = exclamation_animals_jamming(vert_word)
         elif construction_type == 4:
-            acrostic_data = music_connexpr(vert_word);
+            acrostic_data = instruments_making_music(vert_word);
         
     elif theme_name=='politics':
     
@@ -41,27 +41,14 @@ def create_filters(vert_word, horz_words, theme_name, construction_type):
     
     if theme_name == 'music':
         if construction_type == 1:
+            acrostic_data = instruments_making_music(vert_word, horz_words)
+        elif construction_type == 2:
             acrostic_data = animals_jamming(vert_word, horz_words)
-    
+        elif construction_type == 3:
+            acrostic_data = just_instruments(vert_word, horz_words)
+            
     return acrostic_data
 
-def create_filter_example(vert_word, word_list):
-    
-    filters = []
-    tags = []
-    part_of_speech = ''
-    
-    word_number = len(word_list) + 1
-    
-    characters = list(vert_word)
-    add_first_letter_filter(filters, characters[word_number])
-    
-    '''
-    TODO: add all filters, tags, parts of speech as necessary as a function of the
-    current list of words, and position (word_number).
-    This way, we can have a more relaxed definition as to when to add certain kinds of constructions.
-    '''
-    return [filters, tags, part_of_speech]
 
 def cute_animals_theme(vert_word, construction_type):
     
@@ -194,7 +181,7 @@ def animals_jamming(vert_word, word_list):
     
     return [filters, part_of_speech, tags]
 
-
+#TODO: merge with animals_jamming
 def exclamation_animals_jamming(vert_word):
     
     constr = []
@@ -248,36 +235,34 @@ def exclamation_animals_jamming(vert_word):
         counter += 1
     
     
-    formatted_tags = condense_tags_to_list(tags)
+    formatted_tags = condense_tags_list(tags)
     return [filter_set, constr, formatted_tags]
     
-def just_instruments(vert_word):
+    
+def just_instruments(vert_word, word_list):
+    
+    filters = []
+    part_of_speech = 'NP'
+    tags = ['instrument','music']
     
     characters = list(vert_word)
     
-    parts_of_speech = []
-    tags = []
-    filter_set = []
+    add_first_letter_filter(filters, characters[len(word_list)])
+    add_part_of_speech_filter(filters, part_of_speech)
+    add_tag_list_filter(filters, tags)
     
-    for character in characters:
-        parts_of_speech.append('NP')
-        tags.append('instrument')
-        filters = []
-        add_first_letter_filter(filters, character)
-        add_part_of_speech_filter(filters, 'NP')
-        add_tag_filter(filters, 'instrument')
-        add_tag_filter(filters, 'music')
-        filter_set.append(filters)
-    
-    return [filter_set, parts_of_speech, tags] 
+    return [filters, part_of_speech, tags]
 
 
-def music_connexpr(vert_word):
+# TODO: handle punctuation appropriately, possibly reformat entirely
+def instruments_making_music(vert_word, word_list):
     
     tags = []
+    filters = []
     parts_of_speech = []
     
     characters = list(vert_word)
+    word_num = len(word_list)
     
     if len(characters) == 1:
         parts_of_speech = ['NP']
@@ -351,17 +336,9 @@ def music_connexpr(vert_word):
             
             counter += 4
 
-    filter_set = []
-    counter = 0;
-    while counter < len(characters):
-        filters = []
-        add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech_filter(filters, parts_of_speech[counter])
-        add_tag_list_filter(filters, tags[counter])
-        filter_set.append(filters)
-        counter += 1
-
-    formatted_tags = condense_tags_to_list(tags)
-    return [filter_set,parts_of_speech,formatted_tags]
-
+    add_first_letter_filter(filters, characters[word_num])
+    add_part_of_speech_filter(filters, parts_of_speech[word_num])
+    add_tag_list_filter(filters, tags[word_num])
+    
+    return [filters, parts_of_speech[word_num], condense_tags_list(tags[word_num])]
     

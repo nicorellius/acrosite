@@ -24,7 +24,7 @@ def generate_random_acrostic(vert_word, theme_name):
     construction_dictionary = {
         'cute_animals':[[1],[2,3,4]],
         'politics':[[1,2]],
-        'music':[[3,4],[1],[2]],
+        'music':[[1],[2],[3]],
         }
     
     #in case the user does not select a theme
@@ -40,7 +40,6 @@ def generate_random_acrostic(vert_word, theme_name):
         build_or_rebuild_required = False
     
         construction_type = random.choice(construction_id_list)
-        construction_type = 1
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen

@@ -48,8 +48,6 @@ def generate_random_acrostic(vert_word, theme_name):
             add_on_value = random.choice(add_ons)
             construction_type += add_on_value
         
-        construction_type = 2
-        
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
         parts_of_speech = []

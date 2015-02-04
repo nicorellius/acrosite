@@ -29,14 +29,14 @@ def create_acrostic_data(vert_word, theme_name, construction_type):
             acrostic_data = exclamation_animals_jamming(vert_word)
         elif construction_type == 4:
             acrostic_data = instruments_making_music(vert_word);
-        
+    '''  
     elif theme_name=='politics':
     
         if construction_type == 1 or construction_type == 2:
             acrostic_data = politics_theme(vert_word, construction_type)
         elif construction_type == 3:
             acrostic_data = political_figure_question(vert_word)
-            
+    '''        
     return acrostic_data
 
 def create_filters(vert_word, word_list, theme_name, construction_type):
@@ -45,18 +45,21 @@ def create_filters(vert_word, word_list, theme_name, construction_type):
     if theme_name == 'my_name':
         '''
         [1,2] have equal priority. 3 and 4 are hidden types, which are
-        realized when 1 or 2 is seleted, and then there is 1/3 chance that
+        realized when 1 or 2 is selected, and then there is 1/3 chance that
         1 or 2 will be converted to 3 or 4.  1 and 3 are the same (except positive)
         2 and 4are the same (except negative).
         '''
         if construction_type == 1:
-            acrostic_data = positive_adjectives(vert_word, word_list, True)
+            acrostic_data = adjectives(vert_word, word_list, True)
         elif construction_type == 2:
-            acrostic_data = positive_adv_adj(vert_word, word_list, True)
+            acrostic_data = adv_adj(vert_word, word_list, True)
         elif construction_type == 3:
-            acrostic_data = positive_adjectives(vert_word, word_list, False)
+            acrostic_data = adjectives(vert_word, word_list, False)
         elif construction_type == 4:
-            acrostic_data = positive_adv_adj(vert_word, word_list, False)
+            acrostic_data = adv_adj(vert_word, word_list, False)
+    elif theme_name == 'cute_animals':
+        if construction_type == 1:
+            acrostic_data = [];
     elif theme_name == 'music':
         if construction_type == 1:
             acrostic_data = instruments_making_music(vert_word, word_list)
@@ -67,7 +70,7 @@ def create_filters(vert_word, word_list, theme_name, construction_type):
             
     return acrostic_data
 
-def positive_adjectives(vert_word, word_list, is_positive):
+def adjectives(vert_word, word_list, is_positive):
     
     part_of_speech = 'A'
     if is_positive:
@@ -103,9 +106,7 @@ def positive_adjectives(vert_word, word_list, is_positive):
 
 
 
-#TODO
-
-def positive_adv_adj(vert_word, word_list, is_positive):
+def adv_adj(vert_word, word_list, is_positive):
 
     characters = list(vert_word)
     word_length = len(characters)
@@ -179,68 +180,6 @@ def cute_animals_theme(vert_word, construction_type):
     
     return [filter_set,parts_of_speech,tags]
 
-
-
-def politics_theme(vert_word, construction_type):
-    
-    print('Building politics acrostic with construction type {0}'.format(construction_type))
- 
-    if construction_type == 1:
-        parts_of_speech = adj_to_noun(vert_word, False)
-        tags = same_except_last(vert_word, 'positive','idea')
-    elif construction_type == 2:
-        parts_of_speech = adj_to_noun(vert_word, True)
-        tags = same_except_last(vert_word, 'negative','person')
-    
-    filter_set = [];
-    counter = 0;
-    
-    characters = list(vert_word)
-    
-    while counter < len(characters):
-        filters = []
-        add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech_filter(filters, parts_of_speech[counter])
-        add_tag_filter(filters,'politics')
-        add_tag_filter(filters, tags[counter])
-        
-        filter_set.append(filters)
-        counter += 1
-    
-    return [filter_set,parts_of_speech,tags]
-
-
-# TODO: unfinished
-def political_figure_question(vert_word):
-    
-    filter_set = []
-    tags = []
-    parts_of_speech = []
-    
-    characters= list(vert_word)
-    
-    if len(characters) == 1:
-        tags = [['political_figure']]
-        parts_of_speech = ['NS']
-    elif len(characters) == 2:
-        tags = [['political_figure'],[]]
-        parts_of_speech = ['NS','VP']
-    elif len(characters) == 3:
-        tags = [['political_figure'],['politics'],['positive']]
-        parts_of_speech = ['NS','VP','D']
-    elif len(characters) == 4:
-        tags = [['political_figure'],['politics'],['politics'],['positive']]
-        parts_of_speech = ['NS','VP','NP','D']
-        
-    counter = 0
-    while counter < len(characters):
-        filters = []
-        add_part_of_speech_filter(filters, parts_of_speech[counter])
-        add_tag_list_filter(filters, tags[counter])
-        filter_set.append(filters)
-        counter += 1    
-        
-    return [filter_set, parts_of_speech, tags]
 
 
 def animals_jamming(vert_word, word_list):

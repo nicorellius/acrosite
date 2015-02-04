@@ -80,28 +80,12 @@ def adjectives(vert_word, word_list, is_positive):
         
     characters = list(vert_word)
     word_num = len(word_list)
-    
-    exact = True
-    
-    #TODO: this is the variable-connexpr part - doesn't seem to be working that well here.
-    '''   
-    if len(characters) - word_num > 3 and word_num > 3:
-        if word_list[word_num-1] is not None:
-            previous_word = word_list[word_num-1]
-            if previous_word.part_of_speech == 'A':
-                exact = False   #either a connecting expression or an adjective.
-    
-    '''
+
     filters = []
     add_first_letter_filter(filters, characters[word_num])
-    
-    if exact:  
-        add_part_of_speech_filter(filters, part_of_speech)
-        add_tag_list_filter(filters, tags)
-    else:
-        add_pos_OR_filter(filters, 'C','A')
-        add_tag_OR_filter(filters, 'connexpr','positive')
-        
+    add_part_of_speech_filter(filters, part_of_speech)
+    add_tag_list_filter(filters, tags)
+
     return [filters, part_of_speech, tags]
 
 

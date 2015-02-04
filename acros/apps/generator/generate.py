@@ -48,6 +48,8 @@ def generate_random_acrostic(vert_word, theme_name):
             add_on_value = random.choice(add_ons)
             construction_type += add_on_value
         
+        construction_type = 2
+        
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
         parts_of_speech = []
@@ -85,7 +87,17 @@ def generate_random_acrostic(vert_word, theme_name):
             # if no words remain after all filters have been applied, try a different construction
             # if no construction works, return an empty character.
             if not duplicate_filtered:
-                if len(construction_id_list) == 1: # no more constructions in this preference level
+                
+                #check if the character is not a word character - in which case, just ignore
+                if (characters[counter].upper() not in
+                    ['A','B','C','D','E','F','G','H','I','J','K','L','M',
+                     'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']):
+                    
+                    #treat strange character as a 'None', return just the character
+                    horz_word_list.append(None)
+                    horz_wordtext_list.append(characters[counter])
+                    
+                elif len(construction_id_list) == 1: # no more constructions in this preference level
                     if (construction_preference_level+1) < len(construction_dictionary[theme_name]):
                         # move to the next preference level
                         build_or_rebuild_required = True

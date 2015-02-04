@@ -36,3 +36,61 @@ def condense_tags_list(tag_list_list):
         formatted_tag_list.append(";".join(tag_list))
     
     return formatted_tag_list
+
+def get_valid_chars(vert_word):
+    
+    characters = list(vert_word)
+    valid_char_list = []
+    
+    for character in characters:
+        if (character.upper() in 
+            ['A','B','C','D','E','F','G','H','I','J','K','L','M',
+             'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']):
+            valid_char_list.append(1)
+        else:
+            valid_char_list.append(0)
+            
+    return valid_char_list
+
+def len_valid_characters(vert_word):
+    
+    characters = list(vert_word)
+    counter = 0
+    for character in characters:
+        if (character.upper() in 
+            ['A','B','C','D','E','F','G','H','I','J','K','L','M',
+             'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']):
+            counter += 1
+    
+    return counter
+    
+def len_valid_words(word_list):
+    
+    counter = 0
+    for word in word_list:
+        if word is not None:
+            counter += 1
+         
+    return counter
+
+#TODO: currently unusued, but may be useful in future?
+def valid_char_at(vert_word, desired_valid_char_number):
+    
+    characters = list(vert_word)
+    valid_chars = get_valid_chars(vert_word)
+    total_valid = len_valid_characters(vert_word)
+    
+    if desired_valid_char_number >= total_valid:
+        return '?'
+    
+    any_char_number = 0
+    valid_char_number = -1
+    while valid_char_number < desired_valid_char_number:
+        valid_char_number += valid_chars[any_char_number]
+        any_char_number += 1
+
+    print('VALID CHAR:{0}'.format(characters[any_char_number-1]))
+    return characters[any_char_number-1]
+    
+    
+    

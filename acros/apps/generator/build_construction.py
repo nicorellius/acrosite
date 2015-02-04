@@ -8,7 +8,7 @@ import random
 
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 from .tags import same_except_last
-from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_list,add_tag_OR_filter,add_pos_OR_filter
+from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_list,add_tag_OR_filter,add_pos_OR_filter,len_valid_words,len_valid_characters
 from .models import Word
 
 def create_acrostic_data(vert_word, theme_name, construction_type):
@@ -109,8 +109,8 @@ def adjectives(vert_word, word_list, is_positive):
 def adv_adj(vert_word, word_list, is_positive):
 
     characters = list(vert_word)
-    word_length = len(characters)
-    word_num = len(word_list)
+    word_length = len_valid_characters(characters)
+    word_num = len_valid_words(word_list)
     
     part_of_speech = ''
     if is_positive:
@@ -136,8 +136,9 @@ def adv_adj(vert_word, word_list, is_positive):
                 part_of_speech = 'D'
                 
     filters = []
-    add_first_letter_filter(filters, characters[word_num])
-    add_tag_filter(filters, tags[0])
+    
+    add_first_letter_filter(filters, characters[len(word_list)])
+    add_tag_list_filter(filters, tags)
     add_part_of_speech_filter(filters, part_of_speech)
     
     return [filters, part_of_speech, tags]

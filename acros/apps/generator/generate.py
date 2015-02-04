@@ -44,11 +44,9 @@ def generate_random_acrostic(vert_word, theme_name):
         #TODO: think about handling this in a more intelligent way
         add_on_value = 0
         if theme_name == 'my_name':
-            add_ons = [0,0,2]
+            add_ons = [0,0,0,2]
             add_on_value = random.choice(add_ons)
             construction_type += add_on_value
-        
-        construction_type = 2;
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
@@ -111,7 +109,6 @@ def generate_random_acrostic(vert_word, theme_name):
                 horz_word_list.append(w)
                 horz_wordtext_list.append(re.sub('[_]', ' ', w.name))
 
-            print(horz_word_list)
             counter += 1
     
     horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)

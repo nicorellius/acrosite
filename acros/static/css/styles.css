@@ -185,3 +185,32 @@ button { margin-bottom: 1em; }
     left: 48%;
     z-index: 100;
 }
+
+/* rate it */
+div.bigstars div.rateit-range
+{
+    background: url(star-white24.png);
+    height: 24px;
+}
+
+div.bigstars div.rateit-hover
+{
+    background: url(star-gold24.png);
+}
+
+div.bigstars div.rateit-selected
+{
+    background: url(star-gold24.png);
+}
+
+div.bigstars div.rateit-reset
+{
+    background: url(star-black32.png);
+    width: 24px;
+    height: 24px;
+}
+
+div.bigstars div.rateit-reset:hover
+{
+    background: url(star-white24.png);
+}

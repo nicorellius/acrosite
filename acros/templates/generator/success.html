@@ -13,16 +13,25 @@
 		
 		<p style="color: slategray; font-size: 25px; letter-spacing: 2px; margin-left: 10px;">
 
-		{% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
+		    {% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
 
         </p>
+
+        <div style="margin: 0.8em 0 0 0.8em; vertical-align: middle;" class="rateit bigstars" data-rateit-resetable="false"
+            data-rateit-starwidth="24" data-rateit-starheight="24">
+            <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Rate it! </span>
+        </div>
+
+{#        <span class="icon-mail-squared" style="font-size: 40px; color: #333333;">#}
+{#            <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Send it! </span>#}
+{#        </span>#}
 		
 		<div class="clear-both"></div>
 
         <div class="ctr-container margin-top-2em">
 
 			<div class="ctr-left pad-10px">
-				<a href="/generate/acrostic/" class="btn btn-lg btn-block btn-warning">Start over</a>
+				<a href="/generate/acrostic/" class="btn btn-lg btn-block btn-primary">Start over</a>
 			</div>
 
 			<div class="ctr-right pad-10px">

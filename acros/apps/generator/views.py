@@ -8,7 +8,7 @@ description  :   views for word generator
 import re
 import json
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, render_to_response
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
@@ -90,14 +90,18 @@ class GenerateAcrosticFormView(View):
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
 
             if not request.is_ajax():
-                # return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
-                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}'.format(
+                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                     vert_word,
                     theme,
+                    acrostic_slug,
                 ))
             else:
-                return HttpResponse()
-        
+                response_data = {}
+                response_data['error'] = 'warning'
+                response_data['message'] = 'please select the content type'
+                return HttpResponse(json.dumps(response_data), content_type="application/json")
+                # return HttpResponse("Text only, please.", content_type="text/plain")
+
         return render(request, self.template_name, {
             'form': form,
             'theme': theme,

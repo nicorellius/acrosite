@@ -174,8 +174,8 @@ def animals_jamming(vert_word, word_list):
     tags = []
     
     characters = list(vert_word)
-    word_length = len(characters)
-    word_num = len(word_list)
+    word_length = len_valid_characters(characters)
+    word_num = len_valid_words(word_list)
     
     if word_length - word_num >= 4:
         part_of_speech = 'A'
@@ -190,7 +190,7 @@ def animals_jamming(vert_word, word_list):
         part_of_speech = 'NP'
         tags = ['instrument']
         
-    add_first_letter_filter(filters, characters[word_num])
+    add_first_letter_filter(filters, characters[len(word_list)])
     add_part_of_speech_filter(filters, part_of_speech)
     add_tag_list_filter(filters, tags)
     

@@ -727,6 +727,7 @@ nod	VP	cute_animals;positive;
 noisily	D	cute_animals;positive;
 noodle	VP	make_music;music;
 normally	D	positive;negative;
+nose_flutes	NP	instrument;music;
 note	NS	component;music;
 notes	NP	component;music;
 notoriously	D	negative;
@@ -838,6 +839,7 @@ quails	NP	animal;cute_animals;
 quaint	A	cute_animals;positive;
 quaintly	D	cute_animals;positive;
 quarrelsome	A	common;cute_animals;music;negative;
+quenas	NP	music;instrument;
 question	VP	cute_animals;positive;
 questionable	A	negative;
 questionably	D	negative;
@@ -847,13 +849,12 @@ quickly	D	cute_animals;positive;
 quiet	A	common;cute_animals;music;positive;
 quietly	D	cute_animals;positive;negative;
 quilt	VP	cute_animals;positive;
+quintephone	VP	music;instrument;
 quote	VP	cute_animals;positive;
 rabbit	NS	animal;cute_animals;
 rabbits	NP	animal;cute_animals;
 raccoon	NS	animal;cute_animals;
 raccoons	NP	animal;cute_animals;
-race	NS	
-races	NP	
 rah_rah!	E	exclamation;positive;
 rainstick	NS	instrument;music;
 rainsticks	NP	instrument;music;
@@ -872,8 +873,6 @@ recorder	NS	instrument;music;
 recorders	NP	instrument;music;
 reed	NS	instrument;music;
 reeds	NP	instrument;music;
-reelection	NS	
-reelections	NP	
 rejoice	VP	cute_animals;positive;
 relax	VP	cute_animals;positive;
 reliable	A	common;cute_animals;music;positive;
@@ -1213,6 +1212,7 @@ yes!	E	exclamation;positive;
 yet	C	connexpr;
 yippee!	E	exclamation;positive;
 yodel	VP	cute_animals;positive;
+yotars	NP	music;instruments;
 you_don't_say!	E	exclamation;positive;
 young	A	positive;
 youthful	A	positive;

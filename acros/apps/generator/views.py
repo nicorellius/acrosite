@@ -56,17 +56,17 @@ class GenerateAcrosticFormView(View):
         consider using messages framework instead:
             https://stackoverflow.com/questions/1463489/
         """
-        ts = request.POST.get('theme', '')
-        print('ts: {0}'.format(ts))
+        # ts = request.POST.get('theme', '')
+        # print('ts: {0}'.format(ts))
 
         name = request.POST.get('name', '')
         theme = request.POST.get('theme', '')
-        ecrostic = request.POST.get('acrostic', '')
+        # ecrostic = request.POST.get('ecrostic', '')
         
         print("this view is trying to create an acrostic object...")
         print('post name: {0}'.format(name))
         print('post theme: {0}'.format(theme))
-        print('post acrostic: {0}'.format(ecrostic))
+        # print('post acrostic: {0}'.format(ecrostic))
         
         form = self.form_class(request.POST)
         
@@ -74,11 +74,9 @@ class GenerateAcrosticFormView(View):
 
             if name != '':
                 vert_word = name
-                name_tag = True
 
             else:
                 vert_word = form.cleaned_data['name']
-                name_tag = False
 
             construction = adj_to_noun_sin_verb_sin_adj(vert_word)
 
@@ -90,20 +88,9 @@ class GenerateAcrosticFormView(View):
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
 
-            # TODO - look into the if/else because it actually generates new acrostic each time button is clicked
-            # TODO - but try to use both success and generate pages
-            # if name_tag is True:
-            #     return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
-            #         vert_word,
-            #         ts,
-            #         acrostic_slug,
-            #     ))
-            #
-            # else:
-
-            return HttpResponseRedirect('/generate/acrostic/success/?name={0}&theme={1}&ecrostic={2}'.format(
+            return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                 vert_word,
-                ts,
+                theme,
                 acrostic_slug,
             ))
         

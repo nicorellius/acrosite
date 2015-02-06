@@ -66,7 +66,7 @@ def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
 
         sequence += 'NP;VP;D;'
     
-    print(sequence)
+    print('Construction: {0}'.format(sequence))
     
     construction = Construction()
     construction.sequence = sequence

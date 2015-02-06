@@ -1,6 +1,8 @@
 // ajax.js for holding ajax js scripts
 $(document).ready(function() {
-    $(".redo").click(function() {
+    $(".redo").click(function(e) {
+
+        e.preventDefault();
 
 		$('#loading-spinner').show();
 		
@@ -20,20 +22,20 @@ $(document).ready(function() {
 		if ($(this).attr('data-target') == 'acrostic_id') {
 			$.ajax({
 				type: 'post',
-				url: '/generate/acrostic/',
+				url: '/generate/',
 				data: {
                     name: name,
-                    theme: theme,
-                    ecrostic: ecrostic
+                    theme: theme
                 },
 				success: function(response) {
 					console.log(date_time + ": " + "ajax call succeeded!");
+                    location.replace('/generate/acrostic/?name=' + name + '&theme=' + theme + '&ecrostic=' + ecrostic);
+                    //location.reload();
 				},
 				error: function(response) {
 					console.log(date_time + ": " + "ajax call failed!");
-				},
+				}
 			});
-            //preventDefault();
 		}
 		
 		else {

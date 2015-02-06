@@ -73,6 +73,6 @@ def generate_random_acrostic(vert_word, *args):
     acrostic.vertical_word = vert_word
     acrostic.horizontal_words = horz_words
 
-    print("Acrostic:\n", acrostic.__str__());
+    print("Acrostic:{0}".format(acrostic.__str__()))
 
     return acrostic

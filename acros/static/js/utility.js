@@ -20,6 +20,16 @@ function get_month() {
 	return month;
 }
 
+function get_timestamp() {
+
+    var date = new Date();
+	var date_time = date.toLocaleString();
+	var month = get_month();
+	var date_time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.toTimeString();
+
+    return date_time;
+}
+
 $('#gen-acrostic-btn').click(function() {
 	$('#loading-spinner').show();
 	alert("no backend hooked up yet...");
@@ -87,9 +97,13 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var value = $.QueryString['theme'];
-    console.log(value);
-    $('#theme-selector [value=" + value + "]').prop('selected', true)
+    var name = $.QueryString['name'];
+    var theme = $.QueryString['theme'];
+    var ecrostic = $.QueryString['ecrostic'];
+
+    console.log(get_timestamp() + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
+
+    //$('#theme-selector [value=" + value + "]').prop('selected', true)
 });
 
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript

@@ -5,26 +5,35 @@ $(document).ready(function() {
 		$('#loading-spinner').show();
 		
 		var id = $(this).attr('id');
-		var date = new Date();
+
+        var date = new Date();
 		var date_time = date.toLocaleString();
-		
 		var month = get_month();
 		var date_time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.toTimeString();
-		
+
+        var name = $.QueryString['name'];
+        var theme = $.QueryString['theme'];
+        var ecrostic = $.QueryString['ecrostic'];
+
+        console.log(date_time + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
+
 		if ($(this).attr('data-target') == 'acrostic_id') {
 			$.ajax({
 				type: 'post',
-				url: '/admin/generator/acrostic/delete/' + id + '/',
-				data: id,
+				url: '/generate/acrostic/',
+				data: {
+                    name: name,
+                    theme: theme,
+                    ecrostic: ecrostic
+                },
 				success: function(response) {
-					//alert('Document deleted successfully');
-					console.log(date_time + ": " + response);
-					location.reload();
+					console.log(date_time + ": " + "ajax call succeeded!");
 				},
 				error: function(response) {
 					console.log(date_time + ": " + "ajax call failed!");
 				},
 			});
+            //preventDefault();
 		}
 		
 		else {

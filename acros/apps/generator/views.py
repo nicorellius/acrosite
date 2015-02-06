@@ -5,10 +5,12 @@ module       :   generator
 classes      :   GeneratorView, GeneratorFormView
 description  :   views for word generator
 """
+import re
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
+from django.utils.text import slugify
 
 from .models import Acrostic, Theme
 from .forms import GenerateAcrosticForm
@@ -29,11 +31,14 @@ class GenerateAcrosticFormView(View):
         
         name = request.GET.get('name', '')
         theme = request.GET.get('theme', '')
+        ecrostic = request.GET.get('ecrostic', '')
 
-        print('{0} {1}'.format(name, theme))
+        print('get name: {0}'.format(name))
+        print('get theme: {0}'.format(theme))
+        print('get acrostic: {0}'.format(ecrostic))
         
         if name != '':
-            form = self.form_class(request.GET, name)
+            form = self.form_class(request.GET)
             
         else:
             form = self.form_class()
@@ -51,45 +56,60 @@ class GenerateAcrosticFormView(View):
         consider using messages framework instead:
             https://stackoverflow.com/questions/1463489/
         """
-        ts = request.POST.get('theme-selector', '')
-        print(ts)
-        
-        acrostic = Acrostic()
-        # theme = Theme()
+        ts = request.POST.get('theme', '')
+        print('ts: {0}'.format(ts))
+
+        name = request.POST.get('name', '')
+        theme = request.POST.get('theme', '')
+        ecrostic = request.POST.get('acrostic', '')
         
         print("this view is trying to create an acrostic object...")
+        print('post name: {0}'.format(name))
+        print('post theme: {0}'.format(theme))
+        print('post acrostic: {0}'.format(ecrostic))
         
-        form = self.form_class(request.POST, instance=acrostic)
+        form = self.form_class(request.POST)
         
-        if form.is_valid(): 
-                        
-            vert_word = form.cleaned_data['name']
- 
-            # construction = adj_to_noun(vert_word)
-            # construction = adj_adj_noun_pattern(vert_word)
+        if form.is_valid():
+
+            if name != '':
+                vert_word = name
+                name_tag = True
+
+            else:
+                vert_word = form.cleaned_data['name']
+                name_tag = False
+
             construction = adj_to_noun_sin_verb_sin_adj(vert_word)
-            
-            # construction = Construction()
-            # construction.sequence = "P;A;N;VI;AV"
-            # construction.sequence = "N;VI;N;N;VI;AV"
-            # construction.sequence = "A;A;NS;VS;D"
+
             acrostic = generate_random_acrostic(vert_word, construction)
-            # acrostic = generate_random_acrostic(vert_word)
-            
             acrostic.save()
 
-            # theme.name = ts  # form.cleaned_data['theme-selector']
-            # theme.save()
+            acrostic_slug = slugify(re.sub(';', ' ', acrostic.horizontal_words))
                         
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
-            
-            return HttpResponseRedirect('/generate/acrostic/success/?theme={0}'.format(ts))
+
+            # TODO - look into the if/else because it actually generates new acrostic each time button is clicked
+            # TODO - but try to use both success and generate pages
+            # if name_tag is True:
+            #     return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
+            #         vert_word,
+            #         ts,
+            #         acrostic_slug,
+            #     ))
+            #
+            # else:
+
+            return HttpResponseRedirect('/generate/acrostic/success/?name={0}&theme={1}&ecrostic={2}'.format(
+                vert_word,
+                ts,
+                acrostic_slug,
+            ))
         
         return render(request, self.template_name, {
             'form': form,
-            'theme-selector': ts,
-            # 'theme': theme,
+            'theme': ts,
         })
     
 

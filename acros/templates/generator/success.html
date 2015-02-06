@@ -35,11 +35,16 @@
 			</div>
 
 			<div class="ctr-right pad-10px">
-				<a href="/generate/acrostic?name={{ acrostic.vertical_word }}&theme={{ acrostic.theme }}"
-                    class="btn btn-lg btn-block btn-success redo">
+                <a href="/generate/acrostic/"
+                    class="btn btn-lg btn-block btn-success redo" data-target="acrostic_id">
 					Generate another
 				</a>
 				<!--
+                <a href="/generate/acrostic?name={#{ acrostic.vertical_word }#}&theme={#{ acrostic.theme }#}"
+                    class="btn btn-lg btn-block btn-success redo">
+					Generate another
+				</a>
+
 				    <button type="button"
 				    class="btn btn-lg btn-block btn-success redo" id="{# {{ acrostic.pk }} #}"
 				    data-target="acrostic_id">

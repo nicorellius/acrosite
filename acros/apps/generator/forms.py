@@ -15,7 +15,13 @@ class GenerateAcrosticForm(forms.ModelForm):
 
     class Meta:
         model = Word
-        fields = ['name']
+        fields = ['name', 'theme']
+
+    THEME_CHOICES = (
+        ('name', 'My Name'),
+        ('cute-animals', 'Cute Animals'),
+        ('music', 'Music'),
+    )
     
     name = forms.CharField(
         max_length=50,
@@ -25,20 +31,21 @@ class GenerateAcrosticForm(forms.ModelForm):
                 'id': 'vertical-word',
                 'type': 'text',
                 'name': 'name',
-                'placeholder': 'Enter vertical word',
+                'placeholder': 'Enter your name or anther word',
             }
         )
     )
 
-    # theme = forms.CharField(
-    #     max_length=50,
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             'class': 'form-control input-tall control-label',
-    #             'id': 'vertical-word',
-    #             'type': 'text',
-    #             'name': 'name',
-    #             'placeholder': 'Enter vertical word',
-    #         }
-    #     )
-    # )
+    theme = forms.ChoiceField(
+        choices=THEME_CHOICES,
+        widget=forms.Select(
+            attrs={
+                'class': 'bootstrap-select show-tick',
+                'id': 'theme-selector',
+                'type': 'button',
+                'name': 'theme',
+                'data-live-search': 'true',
+                'data-style': 'btn-success',
+            }
+        )
+    )

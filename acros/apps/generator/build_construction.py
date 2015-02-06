@@ -8,7 +8,11 @@ import random
 
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
 from .tags import same_except_last
-from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter,add_tag_list_filter,condense_tags_list,add_tag_OR_filter,add_pos_OR_filter,len_valid_words,len_valid_characters
+
+from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter
+from .build_filter import add_tag_list_filter,condense_tags_list,add_tag_OR_filter,add_pos_OR_filter
+from. build_filter import len_valid_words,len_valid_characters,clean_word
+
 from .models import Word
 
 def create_acrostic_data(vert_word, theme_name, construction_type):
@@ -58,8 +62,7 @@ def create_filters(vert_word, word_list, theme_name, construction_type):
         elif construction_type == 4:
             acrostic_data = adv_adj(vert_word, word_list, False)
     elif theme_name == 'cute_animals':
-        if construction_type == 1:
-            acrostic_data = [];
+        acrostic_data = cute_animals_theme_rewrite(vert_word, word_list, construction_type)
     elif theme_name == 'music':
         if construction_type == 1:
             acrostic_data = instruments_making_music(vert_word, word_list)
@@ -129,8 +132,6 @@ def adv_adj(vert_word, word_list, is_positive):
 
 def cute_animals_theme(vert_word, construction_type):
     
-    print('Building cute animals acrostic with construction type {0}'.format(construction_type))
-    
     # retrieve original constructions
     if construction_type == 1:
         parts_of_speech = adj_to_noun_verb_adv(vert_word, True)
@@ -165,7 +166,40 @@ def cute_animals_theme(vert_word, construction_type):
     
     return [filter_set,parts_of_speech,tags]
 
+def cute_animals_theme_rewrite(vert_word, word_list, construction_type):
+    
+    # retrieve original constructions
+    if construction_type == 1:
+        parts_of_speech = adj_to_noun_verb_adv(clean_word(vert_word), True)
+    elif construction_type == 2:
+        parts_of_speech = adj_to_noun(clean_word(vert_word), True);
+    elif construction_type == 3:
+        parts_of_speech = adj_adj_noun_pattern(clean_word(vert_word), True);
+    elif construction_type == 4:
+        parts_of_speech = all_nouns(clean_word(vert_word), True)
+    
+    characters = list(vert_word)
+    word_num = len_valid_words(word_list)
+       
+    filters = []
 
+    add_first_letter_filter(filters, characters[len(word_list)])
+    tags = []
+    if word_num < len(parts_of_speech):
+        part_of_speech = parts_of_speech[word_num]
+        add_part_of_speech_filter(filters, parts_of_speech[word_num])
+    
+        tags = ['cute_animals']
+        if parts_of_speech[word_num] == 'A':
+            tags.append('positive')
+        elif parts_of_speech[word_num] == 'NP':
+            tags.append('animal')
+        
+        add_tag_list_filter(filters, tags)
+    else:
+        part_of_speech = ''        
+    
+    return [filters, part_of_speech, condense_tags_list(tags)]
 
 def animals_jamming(vert_word, word_list):
     

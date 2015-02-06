@@ -73,6 +73,21 @@ def len_valid_words(word_list):
          
     return counter
 
+def clean_word(vert_word):
+    
+    characters = list(vert_word)
+    counter = 0;
+    valid_chars = [];
+    for character in characters:
+        if (character.upper() in 
+            ['A','B','C','D','E','F','G','H','I','J','K','L','M',
+             'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']):
+            valid_chars.append(character)
+            counter += 1
+    
+    cleaned_word = ''.join(str(x) for x in valid_chars)
+    return cleaned_word
+
 #TODO: currently unusued, but may be useful in future?
 def valid_char_at(vert_word, desired_valid_char_number):
     

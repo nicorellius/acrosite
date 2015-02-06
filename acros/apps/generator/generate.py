@@ -101,6 +101,7 @@ def generate_random_acrostic(vert_word, theme_name):
                         build_or_rebuild_required = True
                         construction_preference_level += 1
                         construction_id_list = construction_dictionary[theme_name][construction_preference_level]
+                        break;
                     else:
                         # no more preference levels, and no more constructions in this preference level.
                         # just return the characters, and a 'None' word.

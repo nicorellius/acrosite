@@ -277,54 +277,55 @@ def instruments_making_music(vert_word, word_list):
     parts_of_speech = []
     
     characters = list(vert_word)
-    word_num = len(word_list)
+    word_length = len_valid_characters(characters)
+    word_num = len_valid_words(word_list)
     
-    if len(characters) == 1:
+    if word_length == 1:
         parts_of_speech = ['NP']
         tags = [['instrument','music']]
-    elif len(characters) == 2:
+    elif word_length == 2:
         parts_of_speech = ['NP','VP']
         tags = [['instrument','music'],['make_music']]
-    elif len(characters) == 3:
+    elif word_length == 3:
         parts_of_speech = ['NP','VP','D']
         tags = [['instrument','music'],['make_music'],['positive']]
-    elif len(characters) == 4:
+    elif word_length == 4:
         parts_of_speech = ['A','NP','VP','D']
         tags = [['positive'],['instrument','music'],['make_music'],['positive']]
-    elif len(characters) == 5:
+    elif word_length == 5:
         parts_of_speech = ['NP','VP','C','NP','VP']
         tags = [['instrument','music'],['make_music'],['connexpr'],['instrument','music'],['make_music']]
-    elif len(characters) == 6:
+    elif word_length == 6:
         parts_of_speech = ['NP','VP','C','NP','VP','D']
         tags = [['instrument','music'],['make_music'],['connexpr'],['instrument','music'],['make_music'],['positive']]
-    elif len(characters) == 7:
+    elif word_length == 7:
         parts_of_speech = ['NP','VP','D','C','NP','VP','D']
         tags = [['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
-    elif len(characters) == 8:
+    elif word_length == 8:
         parts_of_speech = ['A','NP','VP','D','C','NP','VP','D']
         tags = [['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
-    elif len(characters) == 9:
+    elif word_length == 9:
         parts_of_speech = ['A','NP','VP','D','C','A','NP','VP','D']
         tags = [['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['positive'],['instrument','music'],['make_music'],['positive']]
-    elif len(characters) == 10:
+    elif word_length == 10:
         parts_of_speech = ['A','A','NP','VP','D','C','A','NP','VP','D']
         tags = [['positive'],['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['positive'],['instrument','music'],['make_music'],['positive']]
-    elif len(characters) == 11:
+    elif word_length == 11:
         parts_of_speech = ['NP','VP','D','C','NP','VP','D','C','NP','VP','D']
         tags = [['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
     else:
-        if len(characters) % 4 == 0:
+        if word_length % 4 == 0:
             tags.append(['positive'])
             parts_of_speech.append('A')
             
-        elif len(characters) % 4 == 1:
+        elif word_length % 4 == 1:
             tags.append(['positive'])
             parts_of_speech.append('A')
             
             tags.append(['positive'])
             parts_of_speech.append('A')
 
-        elif len(characters) % 4 == 2:
+        elif word_length % 4 == 2:
 
             tags.append(['positive'])
             parts_of_speech.append('A')
@@ -336,7 +337,7 @@ def instruments_making_music(vert_word, word_list):
             parts_of_speech.append('A')
 
         counter = 0
-        while counter < len(characters):
+        while counter < word_length:
             parts_of_speech.append('NP')
             parts_of_speech.append('VP')
             parts_of_speech.append('D')
@@ -345,13 +346,13 @@ def instruments_making_music(vert_word, word_list):
             tags.append(['make_music'])
             tags.append(['positive'])
             
-            if counter + 3 < len(characters):
+            if counter + 3 < word_length:
                 parts_of_speech.append('C')
                 tags.append(['connexpr'])
             
             counter += 4
 
-    add_first_letter_filter(filters, characters[word_num])
+    add_first_letter_filter(filters, characters[len(word_list)])
     add_part_of_speech_filter(filters, parts_of_speech[word_num])
     add_tag_list_filter(filters, tags[word_num])
     

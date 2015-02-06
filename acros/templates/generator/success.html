@@ -10,21 +10,17 @@
 	<section class="center-section">
 
         <h1 class="big-header move-up-30px">ecrostic<span style="font-size: 20px;">.com</span></h1>
-		
-		<p style="color: slategray; font-size: 25px; letter-spacing: 2px; margin-left: 10px;">
 
-		    {% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
-
-        </p>
+        <div data-acrostic_id="{{ acrostic.id }}">
+            <p style="color: slategray; font-size: 25px; letter-spacing: 2px; margin-left: 10px;">
+                {% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
+            </p>
+        </div>
 
         <div style="margin: 0.8em 0 0 0.8em; vertical-align: middle;" class="rateit bigstars" data-rateit-resetable="false"
             data-rateit-starwidth="24" data-rateit-starheight="24">
             <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Rate it! </span>
         </div>
-
-{#        <span class="icon-mail-squared" style="font-size: 40px; color: #333333;">#}
-{#            <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Send it! </span>#}
-{#        </span>#}
 		
 		<div class="clear-both"></div>
 

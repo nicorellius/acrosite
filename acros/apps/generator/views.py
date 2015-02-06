@@ -50,24 +50,14 @@ class GenerateAcrosticFormView(View):
     
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-
-        """
-        debug for theme drop down values
-        consider using messages framework instead:
-            https://stackoverflow.com/questions/1463489/
-        """
-        # ts = request.POST.get('theme', '')
-        # print('ts: {0}'.format(ts))
+    def post(self, request):
 
         name = request.POST.get('name', '')
         theme = request.POST.get('theme', '')
-        # ecrostic = request.POST.get('ecrostic', '')
         
         print("this view is trying to create an acrostic object...")
         print('post name: {0}'.format(name))
         print('post theme: {0}'.format(theme))
-        # print('post acrostic: {0}'.format(ecrostic))
         
         form = self.form_class(request.POST)
         
@@ -97,8 +87,8 @@ class GenerateAcrosticFormView(View):
                 ))
             else:
                 response_data = {}
-                response_data['error'] = 'warning'
-                response_data['message'] = 'please select the content type'
+                response_data['status'] = 'debug'
+                response_data['message'] = 'you are using ajax response'
                 return HttpResponse(json.dumps(response_data), content_type="application/json")
                 # return HttpResponse("Text only, please.", content_type="text/plain")
 
@@ -128,3 +118,34 @@ class GenerateAcrosticSuccessView(View):
             'acrostic': acrostic,
             'theme': theme,
         })
+
+
+class RateAcrosticView(View):
+
+    template_name = 'generator/success.html'
+    model = Acrostic
+
+    # TODO: we may want consider using login_required decorator
+    # @method_decorator(login_required)
+    def get(self, request):
+
+        value = request.GET.get('value', '')
+        print('here is value of star rating: {0}'.format(value))
+
+        return render(request, self.template_name, {
+            'value': value
+        })
+
+    # TODO: we may want consider using login_required decorator
+    # @method_decorator(login_required)
+    def post(self, request):
+
+        value = request.POST.get('value', '')
+        print('here is value of star rating: {0}'.format(value))
+
+        response_data = {
+            'message': 'here is value of star rating:',
+            'value': value
+        }
+
+        return HttpResponse(json.dumps(response_data), content_type="application/json")

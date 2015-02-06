@@ -11,7 +11,9 @@ from django.views.generic import TemplateView
 
 from django.contrib import admin
 
-from apps.generator.views import GenerateAcrosticFormView, GenerateAcrosticSuccessView
+from apps.generator.views import GenerateAcrosticFormView
+from apps.generator.views import GenerateAcrosticSuccessView
+from apps.generator.views import RateAcrosticView
 
 admin.autodiscover()
 
@@ -28,5 +30,6 @@ urlpatterns = patterns(
     # acrostic viewer
     url(r'^generate/$', GenerateAcrosticFormView.as_view(), name='generate_acrostic_form_view'),
     url(r'^generate/acrostic/$', GenerateAcrosticSuccessView.as_view(), name='generate_acrostic_success_view'),
+    url(r'^acrostic/rate/$', RateAcrosticView.as_view(), name='rate_acrostic_view'),
 
 )

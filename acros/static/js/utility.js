@@ -99,9 +99,9 @@ $(document).ready(function () {
 $(document).ready(function () {
     var name = $.QueryString['name'];
     var theme = $.QueryString['theme'];
-    var ecrostic = $.QueryString['ecrostic'];
+    //var ecrostic = $.QueryString['ecrostic'];
 
-    console.log(get_timestamp() + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
+    console.log(get_timestamp() + ": " + 'name: ' + name + '; theme: ' + theme); // + '; ecrostic: ' + ecrostic);
 
     //$('#theme-selector [value=" + value + "]').prop('selected', true)
 });

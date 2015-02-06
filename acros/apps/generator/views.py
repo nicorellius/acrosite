@@ -6,10 +6,11 @@ classes      :   GeneratorView, GeneratorFormView
 description  :   views for word generator
 """
 import re
+import json
 
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.base import View
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
 
 from .models import Acrostic, Theme
@@ -88,32 +89,38 @@ class GenerateAcrosticFormView(View):
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
 
-            return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
-                vert_word,
-                theme,
-                acrostic_slug,
-            ))
+            if not request.is_ajax():
+                # return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
+                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}'.format(
+                    vert_word,
+                    theme,
+                ))
+            else:
+                return HttpResponse()
         
         return render(request, self.template_name, {
             'form': form,
-            'theme': ts,
+            'theme': theme,
         })
     
 
 class GenerateAcrosticSuccessView(View):
 
+    template_name = 'generator/success.html'
+    model = Acrostic
+
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
     def get(self, request):
         
-        # to fetch the `newest` item
+        # this fetches the newest object
         acrostic = Acrostic.objects.all().last()
 
         # consider using messages framework instead:
         #     https://stackoverflow.com/questions/1463489/
-        ts = request.GET.get('theme', '')
+        theme = request.GET.get('theme', '')
         
-        return render(request, 'generator/success.html', {
+        return render(request, self.template_name, {
             'acrostic': acrostic,
-            'ts': ts,
+            'theme': theme,
         })

@@ -29,8 +29,8 @@ $(document).ready(function() {
                 },
 				success: function(response) {
 					console.log(date_time + ": " + "ajax call succeeded!");
-                    location.replace('/generate/acrostic/?name=' + name + '&theme=' + theme + '&ecrostic=' + ecrostic);
-                    //location.reload();
+                    //location.replace('/generate/acrostic/?name=' + name + '&theme=' + theme + '&ecrostic=' + ecrostic);
+                    location.reload();
 				},
 				error: function(response) {
 					console.log(date_time + ": " + "ajax call failed!");

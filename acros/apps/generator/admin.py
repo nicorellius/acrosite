@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Word, Acrostic, Construction, Theme, Score
+from .models import Word, Acrostic, Construction, Theme
 
 
 class WordAdmin(admin.ModelAdmin):
@@ -54,7 +54,7 @@ class ConstructionAdmin(admin.ModelAdmin):
 class AcrosticAdmin(admin.ModelAdmin):
     
     # fields display on change list
-    list_display = ['vertical_word', 'horizontal_words', 'construction', 'theme', 'slug']
+    list_display = ['vertical_word', 'horizontal_words', 'construction', 'theme', 'score', 'slug']
     
     # fields to filter the change list with
     list_filter = ['created', ]
@@ -97,35 +97,9 @@ class ThemeAdmin(admin.ModelAdmin):
             'fields': ('name', 'group', 'tags',)
         }),
     )
-
-
-class ScoreAdmin(admin.ModelAdmin):
-
-    # fields display on change list
-    list_display = ['value', 'acrostic', 'user', ]
-
-    # fields to filter the change list with
-    list_filter = ['created', ]
-
-    # fields to search in change list
-    search_fields = ['value', ]
-
-    # enable the date drill down on change list
-    date_hierarchy = 'created'
-
-    # enable the save buttons on top on change form
-    save_on_top = True
-
-    fieldsets = (
-        (None, {
-            'fields': ('value', 'acrostic', 'user',)
-        }),
-    )
-
  
 # register classes in admin, uses auto_register for apps
 admin.site.register(Word, WordAdmin)
 admin.site.register(Construction, ConstructionAdmin)
 admin.site.register(Acrostic, AcrosticAdmin)
 admin.site.register(Theme, ThemeAdmin)
-admin.site.register(Score, ScoreAdmin)

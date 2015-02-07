@@ -8,7 +8,7 @@ description :   forms for word generator
 
 from django import forms
 
-from .models import Word
+from .models import Word, Acrostic
 
 
 class GenerateAcrosticForm(forms.ModelForm):
@@ -47,5 +47,33 @@ class GenerateAcrosticForm(forms.ModelForm):
                 'data-live-search': 'true',
                 'data-style': 'btn-success',
             }
+        )
+    )
+
+
+class RateAcrosticForm(forms.ModelForm):
+
+    class Meta:
+        model = Acrostic
+        fields = ['value']
+
+    VALUE_CHOICES = (
+        ('default', 0.0),
+        ('point-five', 0.5),
+        ('one', 1.0),
+        ('one-point-five', 1.5),
+        ('two', 2.0),
+        ('two-point-five', 2.5),
+        ('three', 3.0),
+        ('three-point-five', 3.5),
+        ('four', 4.0),
+        ('four-point-five', 4.5),
+        ('five', 5.0),
+    )
+
+    value = forms.ChoiceField(
+        choices=VALUE_CHOICES,
+        widget=forms.RadioSelect(
+            attrs={}
         )
     )

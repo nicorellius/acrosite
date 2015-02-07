@@ -13,10 +13,10 @@ from django.views.generic.base import View
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
 
-from .models import Acrostic, Theme
+from .models import Acrostic
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
-from .constructions import adj_to_noun, adj_adj_noun_pattern, adj_to_noun_sin_verb_sin_adj
+from .constructions import adj_to_noun_sin_verb_sin_adj
 
     
 class GenerateAcrosticFormView(View):
@@ -80,17 +80,18 @@ class GenerateAcrosticFormView(View):
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
 
             if not request.is_ajax():
-                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
+                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}'.format(
                     vert_word,
                     theme,
-                    acrostic_slug,
                 ))
-            else:
-                response_data = {}
-                response_data['status'] = 'debug'
-                response_data['message'] = 'you are using ajax response'
-                return HttpResponse(json.dumps(response_data), content_type="application/json")
-                # return HttpResponse("Text only, please.", content_type="text/plain")
+            # else:
+            #     response_data = {
+            #         'status': 'debug',
+            #         'message': 'this view is using an ajax response'
+            #     }
+            #
+            #     return HttpResponse(json.dumps(response_data), content_type="application/json")
+            #     return HttpResponse("Text only, please.", content_type="text/plain")
 
         return render(request, self.template_name, {
             'form': form,
@@ -140,12 +141,29 @@ class RateAcrosticView(View):
     # @method_decorator(login_required)
     def post(self, request):
 
-        value = request.POST.get('value', '')
-        print('here is value of star rating: {0}'.format(value))
+        acrostic = Acrostic.objects.all().last()
+
+        xhr = 'xhr' in request.GET
+        print(xhr)
+
+        star_value = request.POST.get('value', '')
+        print('here is value of star rating: {0}'.format(star_value))
+
+        acrostic.score = star_value
+        acrostic.save()
 
         response_data = {
-            'message': 'here is value of star rating:',
-            'value': value
+            'message': 'value of star rating:',
+            'value': star_value
         }
 
-        return HttpResponse(json.dumps(response_data), content_type="application/json")
+        if xhr and star_value:
+            response_data.update({'success': True})
+
+        else:
+            response_data.update({'success': False})
+
+        if xhr:
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
+
+        return render_to_response(self.template_name, response_data)

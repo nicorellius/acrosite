@@ -80,7 +80,9 @@ def adjectives(vert_word, word_list, is_positive):
         tags = ['positive']
     else:
         tags = ['negative']    
-        
+       
+    tags.append('to_person')
+      
     characters = list(vert_word)
     word_num = len(word_list)
 
@@ -121,6 +123,11 @@ def adv_adj(vert_word, word_list, is_positive):
                 part_of_speech = 'A'
             else:
                 part_of_speech = 'D'
+    
+    if part_of_speech == 'A':
+        tags.append('to_person')
+    elif part_of_speech == 'D':
+        tags.append('precede_adjective')
                 
     filters = []
     
@@ -189,12 +196,17 @@ def cute_animals_theme_rewrite(vert_word, word_list, construction_type):
         part_of_speech = parts_of_speech[word_num]
         add_part_of_speech_filter(filters, parts_of_speech[word_num])
     
-        tags = ['cute_animals']
+        tags = []
         if parts_of_speech[word_num] == 'A':
             tags.append('positive')
+            tags.append('cute_animal_theme')
         elif parts_of_speech[word_num] == 'NP':
-            tags.append('animal')
-        
+            tags.append('cute_animal')
+        elif parts_of_speech[word_num] == 'VP':
+            tags.append('cute_animal_theme')
+        elif parts_of_speech[word_num] == 'D':
+            tags.append('follow_verb')
+            tags.append('cute_animal_theme')
         add_tag_list_filter(filters, tags)
     else:
         part_of_speech = ''        

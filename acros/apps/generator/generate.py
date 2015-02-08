@@ -12,19 +12,11 @@ import re
 from .populate import subject_database
 # from .populate import populate_database
 
-from .models import Word, Acrostic, Theme
+from .models import Word, Acrostic
 
 
 def generate_random_acrostic(vert_word, *args):
 
-    theme = Theme()
-
-    acrostic = Acrostic()
-    acrostic.vertical_word = vert_word
-    
-    if len(args) == 1:
-        construction = args[0].get_list()
-    
     # build word database if no words currently in database.
     if not Word.objects.all():
 
@@ -34,10 +26,11 @@ def generate_random_acrostic(vert_word, *args):
 
         subject_database('resources/cute_animals.txt')
 
-        theme.name = 'cute animals'
-        theme.group = 'animals'
-        theme.tags = 'cute, animals'
-        theme.save()
+    acrostic = Acrostic()
+    acrostic.vertical_word = vert_word
+    
+    if len(args) == 1:
+        construction = args[0].get_list()
             
     characters = list(vert_word)  # returns array of characters
 

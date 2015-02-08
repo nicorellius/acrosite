@@ -92,10 +92,16 @@ span.nojs-warning {
 </header>
 
 <div id="content">
-	
+
 	<div class="col-sm-9 col-md-12 main">
-			
-		{% block content %}{% endblock content %}
+
+        <section class="center-section">
+
+            <h1 class="big-header move-up-30px">ecrostic<span class="show-admin" style="font-size: 20px;">.com</span></h1>
+
+            {% block content %}{% endblock content %}
+
+        </section>
     
 	</div>
 	
@@ -105,24 +111,25 @@ span.nojs-warning {
 	
 	<div class="container">
 
-        	<section class="center-section">
+        <section class="center-section">
 
-		        <div class="ctr-container">
+            <div class="ctr-container">
 
+                <div class="top-mar-2em">
                     <a href="#"><span style="font-size: 40px; color: #333333;" class="icon-twitter-squared"></span></a>
                     <a href="#"><span style="font-size: 40px; color: #333333;" class="icon-facebook-squared"></span></a>
                     <a href="#"><span style="font-size: 40px; color: #333333;" class="icon-gplus-squared"></span></a>
                     <a href="/"><span style="font-size: 40px; color: #333333; float: right;" class="icon-home"></span></a>
-
-			        <div class="ctr-left top-mar-2em">
-
-                        <p class="push-right-1em">Click here for <a href="/admin/" target="_blank">admin</a> access.</p>
-
-                    </div>
-
                 </div>
 
-            </section>
+                {#<span id="show-admin" class="icon-cog"></span>#}
+                <p id="admin-access" class="top-mar-2em">
+                    Click here for <a href="/admin/" target="_blank">admin</a> access.
+                </p>
+
+            </div>
+
+        </section>
 
         {% block footer %}{% endblock footer %}
 

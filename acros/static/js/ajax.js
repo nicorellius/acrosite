@@ -76,6 +76,12 @@ $(document).ready(function() {
              console.log(date_time + ": " + "ajax call succeeded!");
              console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
              console.log(date_time + ": " + "ajax response: " + response);
+             var $a = '#average';
+             var $t = '#total';
+             $($a).html('');
+             $($t).html('');
+             $($a).append('('+ data['average'] + ')');
+             $($t).append(data['total']);
          },
          error: function(data, response) {
              console.log(date_time + ": " + "ajax call failed!");

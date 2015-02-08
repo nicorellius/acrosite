@@ -5,9 +5,11 @@ module      :   generator
 classes     :   Word, Theme, Construction, Acrostic, Score
 description :   models for arostic generator
 """
+import re
 
+from django.utils.text import slugify
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 # check out common/models.py for BaseModel definition
 from common.models import BaseModel
@@ -36,11 +38,11 @@ class Word(BaseModel):
         return string
 
 
-class Theme(BaseModel):
-
-    name = models.CharField(max_length=200, default='default')
-    group = models.CharField(max_length=200, default='main')
-    tags = models.CharField(max_length=200, blank=True)
+# class Theme(BaseModel):
+#
+#     name = models.CharField(max_length=200, default='default')
+#     group = models.CharField(max_length=200, default='main')
+#     tags = models.CharField(max_length=200, blank=True)
 
 
 class Construction(BaseModel):
@@ -63,7 +65,8 @@ class Acrostic(BaseModel):
     horizontal_words = models.CharField(max_length=200, default='so;happy;it\s;thursday')
     construction = models.CharField(max_length=200, default='A;A;NV;N')
     theme = models.CharField(max_length=200, default='offensive')
-    score = models.FloatField(max_length=1, default=0)
+    # when we need users to own acrostics
+    # owner = models.ForeignKey(User)
     
     def __str__(self):
         
@@ -75,3 +78,21 @@ class Acrostic(BaseModel):
             string = ''.join([string, '\n', word])
             
         return string
+
+    def save(self, **kwargs):
+
+        slugify(re.sub(';', ' ', self.horizontal_words))
+
+        super(BaseModel, self).save(**kwargs)
+
+
+class Score(BaseModel):
+
+    value = models.FloatField(max_length=1, blank=True, default=0)
+    mean = models.FloatField(max_length=2, blank=True, default=0)
+    total = models.IntegerField(max_length=10, blank=True, default=0)
+    acrostic = models.ForeignKey(Acrostic)
+
+    def __str__(self):
+
+        return str(self.value)

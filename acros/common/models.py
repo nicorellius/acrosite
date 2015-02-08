@@ -5,7 +5,6 @@ module      :   common
 classes     :   BaseModel
 description :   base model for all other models
 """
-
 from django.db import models
 
 

@@ -5,18 +5,14 @@
 {% block title %} So Happy It's Thursday {% endblock %}
 
 {% block content %}
-	
-	<section class="center-section">
-
-    <h1 class="big-header move-up-30px margin-bottom-70px">ecrostic<span style="font-size: 20px;">.com</span></h1>
 
     <div class="acrostic-form">
 
-			<form id="generate-acrostic-form" role="form" method="post" onsubmit="return validate_generate_acrostic_form(this);">
+        <form id="generate-acrostic-form" role="form" method="post" onsubmit="return validate_generate_acrostic_form(this);">
 
-				{% csrf_token %}
+            {% csrf_token %}
 
-                <div class="ctr-right move-up-3em"> <!--style="margin-right: -240px"-->
+            <div class="ctr-right move-up-3em"> <!--style="margin-right: -240px"-->
 
 {#					<select id="theme-selector" class="bootstrap-select show-tick"#}
 {#                            name="theme-selector" data-live-search="true" data-style="btn-success">#}
@@ -25,26 +21,24 @@
 {#						<option value="cute-animals">Cute Animals</option>#}
 {#						<option value="music">Music</option>#}
 {#					</select>#}
-                    <div class="form-group">
-                    <label for="theme"></label>
-                    <div class="text-danger"><strong><em>{{ form.theme.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
-                    {{ form.theme }}
-                </div>
+                <div class="form-group">
+                <label for="theme"></label>
+                <div class="text-danger"><strong><em>{{ form.theme.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
+                {{ form.theme }}
+            </div>
 
-                </div>
+            </div>
 
-				<div class="form-group">
-                    <label for="name"></label>
-                    <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
-                    {{ form.name }}
-                </div>
+            <div class="form-group">
+                <label for="name"></label>
+                <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
+                {{ form.name }}
+            </div>
 
-				<button type="submit" class="btn btn-primary btn-lg btn-block spinner">Generate Acrostic</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block spinner">Generate Acrostic</button>
 
-			</form>
+        </form>
 
-		</div>
-		
-	</section>
+    </div>
 
 {% endblock content %}

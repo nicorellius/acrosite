@@ -125,7 +125,7 @@ button { margin-bottom: 1em; }
 }
 
 .acrostic-form {
-	margin-top: 2em;
+	margin-top: 5em;
 }
 
 .ctr-container {
@@ -161,6 +161,10 @@ button { margin-bottom: 1em; }
 .big-header {
     font-size: 110px;
 }
+
+#admin-access { display: none; }
+
+.show-admin:hover { cursor: default; }
 
 /* loading page spinner */
 

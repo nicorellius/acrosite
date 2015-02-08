@@ -7,13 +7,14 @@ description  :   views for word generator
 """
 import re
 import json
+import numpy
 
 from django.shortcuts import render, render_to_response
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
 
-from .models import Acrostic
+from .models import Acrostic, Score
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
 from .constructions import adj_to_noun_sin_verb_sin_adj
@@ -72,9 +73,9 @@ class GenerateAcrosticFormView(View):
             construction = adj_to_noun_sin_verb_sin_adj(vert_word)
 
             acrostic = generate_random_acrostic(vert_word, construction)
+            slug = slugify(re.sub(';', ' ', acrostic.horizontal_words))
+            acrostic.slug = slug
             acrostic.save()
-
-            acrostic_slug = slugify(re.sub(';', ' ', acrostic.horizontal_words))
                         
             if acrostic != '':
                 print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
@@ -141,20 +142,40 @@ class RateAcrosticView(View):
     # @method_decorator(login_required)
     def post(self, request):
 
+        star_value = request.POST.get('value', '')
+        print('value of star rating: {0}'.format(star_value))
+
         acrostic = Acrostic.objects.all().last()
 
+        score = Score()
+        score.acrostic = acrostic
+        score.value = star_value
+        score.save()
+
+        score_objects = acrostic.score_set.all()
+        scores = []
+        for score in score_objects:
+            # print(score.value)
+            scores.append(score.value)
+
+        average = round(numpy.mean(scores), 1)
+        total = len(score_objects)
+
+        # score.mean = numpy.mean(scores)
+        # score.total = len(score_objects)
+        # score.save()
+
+        print('scores: {0}'.format(scores))
+        print('average: {0}'.format(average))
+
         xhr = 'xhr' in request.GET
-        print(xhr)
-
-        star_value = request.POST.get('value', '')
-        print('here is value of star rating: {0}'.format(star_value))
-
-        acrostic.score = star_value
-        acrostic.save()
+        print('XHR in request: {0}'.format(xhr))
 
         response_data = {
             'message': 'value of star rating:',
-            'value': star_value
+            'value': star_value,
+            'average': average,
+            'total': total
         }
 
         if xhr and star_value:

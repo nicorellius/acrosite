@@ -3,7 +3,15 @@
 // jquery ready function
 //$(document).ready(function() {});
 
+// hide things by default
 $('#loading-spinner').hide();
+
+$(document).ready(function() {
+    $( ".show-admin" ).click(function() {
+        $("#admin-access").toggle( "slow" );
+    });
+});
+
 
 // get month function
 function get_month() {

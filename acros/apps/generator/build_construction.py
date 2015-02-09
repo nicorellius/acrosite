@@ -225,16 +225,16 @@ def animals_jamming(vert_word, word_list):
     
     if word_length - word_num >= 4:
         part_of_speech = 'A'
-        tags = ['positive']
+        tags = ['positive','to_person']
     elif word_length - word_num == 3:
         part_of_speech = 'NP'
-        tags = ['animal']
+        tags = ['cute_animal']
     elif word_length+ - word_num == 2:
         part_of_speech = 'VP'
         tags = ['make_music']
     elif word_length - word_num == 1:
         part_of_speech = 'NP'
-        tags = ['instrument']
+        tags = ['musical_instrument']
         
     add_first_letter_filter(filters, characters[len(word_list)])
     add_part_of_speech_filter(filters, part_of_speech)
@@ -304,7 +304,7 @@ def just_instruments(vert_word, word_list):
     
     filters = []
     part_of_speech = 'NP'
-    tags = ['instrument','music']
+    tags = ['musical_instrument']
     
     characters = list(vert_word)
     
@@ -315,7 +315,6 @@ def just_instruments(vert_word, word_list):
     return [filters, part_of_speech, tags]
 
 
-# TODO: handle punctuation appropriately, possibly reformat entirely
 def instruments_making_music(vert_word, word_list):
     
     tags = []
@@ -328,58 +327,58 @@ def instruments_making_music(vert_word, word_list):
     
     if word_length == 1:
         parts_of_speech = ['NP']
-        tags = [['instrument','music']]
+        tags = [['musical_instrument']]
     elif word_length == 2:
         parts_of_speech = ['NP','VP']
-        tags = [['instrument','music'],['make_music']]
+        tags = [['musical_instrument'],['make_music']]
     elif word_length == 3:
         parts_of_speech = ['NP','VP','D']
-        tags = [['instrument','music'],['make_music'],['positive']]
+        tags = [['musical_instrument'],['make_music'],['positive','follow_verb']]
     elif word_length == 4:
         parts_of_speech = ['A','NP','VP','D']
-        tags = [['positive'],['instrument','music'],['make_music'],['positive']]
+        tags = [['positive','to_person'],['musical_instrument'],['make_music'],['positive','follow_verb']]
     elif word_length == 5:
         parts_of_speech = ['NP','VP','C','NP','VP']
-        tags = [['instrument','music'],['make_music'],['connexpr'],['instrument','music'],['make_music']]
+        tags = [['musical_instrument'],['make_music'],[],['musical_instrument'],['make_music']]
     elif word_length == 6:
         parts_of_speech = ['NP','VP','C','NP','VP','D']
-        tags = [['instrument','music'],['make_music'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+        tags = [['musical_instrument'],['make_music'],[],['musical_instrument'],['make_music'],['positive','follow_verb']]
     elif word_length == 7:
         parts_of_speech = ['NP','VP','D','C','NP','VP','D']
-        tags = [['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+        tags = [['musical_instrument'],['make_music'],['positive','follow_verb'],[],['musical_instrument'],['make_music'],['positive','follow_verb']]
     elif word_length == 8:
         parts_of_speech = ['A','NP','VP','D','C','NP','VP','D']
-        tags = [['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+        tags = [['to_person','positive'],['musical_instrument'],['make_music'],['positive','follow_verb'],[],['musical_instrument'],['make_music'],['positive','follow_verb']]
     elif word_length == 9:
         parts_of_speech = ['A','NP','VP','D','C','A','NP','VP','D']
-        tags = [['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['positive'],['instrument','music'],['make_music'],['positive']]
+        tags = [['positive','to_person'],['musical_instrument'],['make_music'],['positive','follow_verb'],[],['to_person','positive'],['musical_instrument'],['make_music'],['positive','follow_verb']]
     elif word_length == 10:
         parts_of_speech = ['A','A','NP','VP','D','C','A','NP','VP','D']
-        tags = [['positive'],['positive'],['instrument','music'],['make_music'],['positive'],['connexpr'],['positive'],['instrument','music'],['make_music'],['positive']]
+        tags = [['to_person','positive'],['to_person','positive'],['musical_instrument'],['make_music'],['positive','follow_verb'],[],['to_person','positive'],['musical_instrument'],['make_music'],['positive','follow_verb']]
     elif word_length == 11:
         parts_of_speech = ['NP','VP','D','C','NP','VP','D','C','NP','VP','D']
-        tags = [['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive'],['connexpr'],['instrument','music'],['make_music'],['positive']]
+        tags = [['musical_instrument'],['make_music'],['positive','follow_verb'],[],['musical_instrument'],['make_music'],['positive','follow_verb'],[],['musical_instrument'],['make_music'],['positive','follow_verb']]
     else:
         if word_length % 4 == 0:
-            tags.append(['positive'])
+            tags.append(['positive','to_person'])
             parts_of_speech.append('A')
             
         elif word_length % 4 == 1:
-            tags.append(['positive'])
+            tags.append(['positive','to_person'])
             parts_of_speech.append('A')
             
-            tags.append(['positive'])
+            tags.append(['positive','to_person'])
             parts_of_speech.append('A')
 
         elif word_length % 4 == 2:
 
-            tags.append(['positive'])
+            tags.append(['positive','to_person'])
             parts_of_speech.append('A')
             
-            tags.append(['positive'])
+            tags.append(['positive','to_person'])
             parts_of_speech.append('A')
             
-            tags.append(['positive'])
+            tags.append(['positive','to_person'])
             parts_of_speech.append('A')
 
         counter = 0
@@ -388,13 +387,13 @@ def instruments_making_music(vert_word, word_list):
             parts_of_speech.append('VP')
             parts_of_speech.append('D')
                 
-            tags.append(['instrument','music'])
+            tags.append(['musical_instrument'])
             tags.append(['make_music'])
-            tags.append(['positive'])
+            tags.append(['positive','follow_verb'])
             
             if counter + 3 < word_length:
                 parts_of_speech.append('C')
-                tags.append(['connexpr'])
+                tags.append([])
             
             counter += 4
 

@@ -61,7 +61,7 @@ although,	C	;
 alto_saxophone	NS	musical_instrument;
 alto_saxophones	NP	musical_instrument;
 always	D	cute_animal_theme;positive;precede_adjective;follow_verb;
-amazingly	D	cute_animal_theme;positive;precede_adjective;follow_verb;
+amazingly	D	positive;precede_adjective;follow_verb;
 ambitious	A	cute_animal_theme;positive;to_person;
 amen!	E	positive;
 amiable	A	cute_animal_theme;positive;to_person;

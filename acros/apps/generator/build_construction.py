@@ -159,18 +159,206 @@ def animals_jamming(vert_word, word_list):
     word_length = len_valid_characters(characters)
     word_num = len_valid_words(word_list)
     
-    if word_length - word_num >= 4:
-        part_of_speech = 'A'
-        tags = ['positive','to_person']
-    elif word_length - word_num == 3:
+    if word_length > 10:
+        
+        parts_of_speech = []
+        tags_list = []
+        
+        if word_length % 4 == 0:
+            tags_list.append([])
+            parts_of_speech.append('E')
+            
+        elif word_length % 4 == 1:
+            tags_list.append([])
+            parts_of_speech.append('E')
+            
+            tags_list.append(['positive','cute_animal_theme'])
+            parts_of_speech.append('A')
+
+        elif word_length % 4 == 2:
+
+            tags_list.append([])
+            parts_of_speech.append('E')
+            
+            tags_list.append(['positive','cute_animal_theme'])
+            parts_of_speech.append('A')
+            
+            tags_list.append(['positive','cute_animal_theme'])
+            parts_of_speech.append('A')
+            
+        counter = 0
+        while counter < word_length:
+            parts_of_speech.append('NP')
+            parts_of_speech.append('VP')
+            parts_of_speech.append('NP')
+                
+            tags_list.append(['cute_animal'])
+            tags_list.append(['make_music'])
+            tags_list.append(['musical_instrument'])
+            
+            if counter + 3 < word_length:
+                parts_of_speech.append('C')
+                tags_list.append([])
+            
+            counter += 4
+         
+        part_of_speech = parts_of_speech[word_num]
+        tags = tags_list[word_num]
+
+    if word_length == 10:
+        if word_num == 0:
+            part_of_speech = 'E'
+            tags = []
+        elif word_num == 1:
+            part_of_speech = 'A'
+            tags = ['positive','cute_animal_theme']
+        elif word_num == 2:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 3:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 4:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+        elif word_num == 5:
+            part_of_speech = 'C'
+            tags = []
+        elif word_num == 6:
+            part_of_speech = 'A'
+            tags = ['cute_animal_theme','positive']
+        elif word_num == 7:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 8:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 9:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+                
+    if word_length == 9:
+        if word_num == 0:
+            part_of_speech = 'A'
+            tags = ['positive','cute_animal_theme']
+        elif word_num == 1:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 2:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 3:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+        elif word_num == 4:
+            part_of_speech = 'C'
+            tags = []
+        elif word_num == 5:
+            part_of_speech = 'A'
+            tags = ['cute_animal_theme','positive']
+        elif word_num == 6:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 7:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 8:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+    
+    if word_length == 8:
+        if word_num == 0:
+            part_of_speech = 'E'
+            tags = []
+        elif word_num == 1:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 2:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 3:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+        elif word_num == 4:
+            part_of_speech = 'C'
+            tags = []
+        elif word_num == 5:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 6:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 7:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+    
+    
+    if word_length == 7:
+        if word_num == 0:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 1:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 2:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+        elif word_num == 3:
+            part_of_speech = 'C'
+            tags = []
+        elif word_num == 4:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 5:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 6:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+    
+    # start with exclamation.
+    if word_length > 3 and word_length < 7:
+        if word_length - word_num  == 6:
+            part_of_speech = 'E'
+            tags = ['positive']
+        elif word_length - word_num == 5:
+            part_of_speech = 'A'
+            tags = ['positive','cute_animal_theme']
+        elif word_length - word_num == 4:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_length - word_num == 3:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_length - word_num == 2:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+        elif word_length - word_num == 1:
+            part_of_speech = 'D'
+            tags = ['follow_verb','positive']
+    
+    if word_length == 3:
+        if word_num == 0:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 1:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+        elif word_num == 2:
+            part_of_speech = 'NP'
+            tags = ['musical_instrument']
+
+    if word_length == 2:
+        if word_num == 0:
+            part_of_speech = 'NP'
+            tags = ['cute_animal']
+        elif word_num == 1:
+            part_of_speech = 'VP'
+            tags = ['make_music']
+
+    if word_length == 1:
         part_of_speech = 'NP'
         tags = ['cute_animal']
-    elif word_length+ - word_num == 2:
-        part_of_speech = 'VP'
-        tags = ['make_music']
-    elif word_length - word_num == 1:
-        part_of_speech = 'NP'
-        tags = ['musical_instrument']
         
     add_first_letter_filter(filters, characters[len(word_list)])
     add_part_of_speech_filter(filters, part_of_speech)
@@ -188,19 +376,19 @@ def exclamation_animals_jamming(vert_word):
     
     if len(characters) == 1:
         constr = ['NP']
-        tags = [['instrument','music']]
+        tags = [['musical_instrument']]
     elif len(characters) == 2:
         constr = ['NP','VP']
         tags = [['animal'],['make_music']]
     elif len(characters) == 3:
         constr = ['NP','VP','NP']
-        tags = [['animal'],['make_music'],['instrument','music']]
+        tags = [['animal'],['make_music'],['musical_instrument']]
     elif len(characters) == 4:
         constr = ['NP','VP','NP','D']
         tags = [['animal'],['make_music'],['instrument','music'],['positive','cute_animals']]
     elif len(characters) == 5:
         constr = ['E','NP','VP','NP','D']
-        tags = [['exclamation','positive'],['animal'],['make_music'],['instrument','music'],['positive','cute_animals']]
+        tags = [['exclamation','positive'],['animal'],['make_music'],['musical_instrument'],['positive','cute_animals']]
     else:
         counter = 5;
         constr = ['E']
@@ -217,7 +405,7 @@ def exclamation_animals_jamming(vert_word):
         
         tags.append(['animal'])
         tags.append(['make_music'])
-        tags.append(['instrument','music'])
+        tags.append(['musical_instrument'])
         tags.append(['positive','cute_animals'])
     
     

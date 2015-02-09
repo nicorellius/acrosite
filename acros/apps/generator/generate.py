@@ -31,6 +31,7 @@ def generate_random_acrostic(vert_word, theme_name):
     if theme_name not in construction_dictionary:
         theme_name = random.choice(list(construction_dictionary.keys()))
     
+    theme_name = 'music'
     construction_preference_level = 0
     construction_id_list = construction_dictionary[theme_name][construction_preference_level]
     
@@ -40,6 +41,8 @@ def generate_random_acrostic(vert_word, theme_name):
         build_or_rebuild_required = False
     
         construction_type = random.choice(construction_id_list)
+        
+        construction_type = 2
         
         #TODO: think about handling this in a more intelligent way
         add_on_value = 0

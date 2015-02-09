@@ -366,63 +366,7 @@ def animals_jamming(vert_word, word_list):
     
     return [filters, part_of_speech, tags]
 
-#TODO: merge with animals_jamming
-def exclamation_animals_jamming(vert_word):
-    
-    constr = []
-    tags = []
-    
-    characters = list(vert_word)
-    
-    if len(characters) == 1:
-        constr = ['NP']
-        tags = [['musical_instrument']]
-    elif len(characters) == 2:
-        constr = ['NP','VP']
-        tags = [['animal'],['make_music']]
-    elif len(characters) == 3:
-        constr = ['NP','VP','NP']
-        tags = [['animal'],['make_music'],['musical_instrument']]
-    elif len(characters) == 4:
-        constr = ['NP','VP','NP','D']
-        tags = [['animal'],['make_music'],['instrument','music'],['positive','cute_animals']]
-    elif len(characters) == 5:
-        constr = ['E','NP','VP','NP','D']
-        tags = [['exclamation','positive'],['animal'],['make_music'],['musical_instrument'],['positive','cute_animals']]
-    else:
-        counter = 5;
-        constr = ['E']
-        tags = [['exclamation','positive']]
-        while counter < len(characters):
-            constr.append('A')
-            tags.append(['positive'])
-            counter += 1
-        
-        constr.append('NP')
-        constr.append('VP')
-        constr.append('NP')
-        constr.append('D')
-        
-        tags.append(['animal'])
-        tags.append(['make_music'])
-        tags.append(['musical_instrument'])
-        tags.append(['positive','cute_animals'])
-    
-    
-    filter_set = []
-    counter = 0
-    while counter < len(characters):
-        filters = []
-        add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech_filter(filters, constr[counter])
-        add_tag_list_filter(filters, tags[counter])
-        filter_set.append(filters)
-        counter += 1
-    
-    
-    formatted_tags = condense_tags_list(tags)
-    return [filter_set, constr, formatted_tags]
-    
+
     
 def just_instruments(vert_word, word_list):
     

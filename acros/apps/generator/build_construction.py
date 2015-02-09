@@ -15,35 +15,7 @@ from. build_filter import len_valid_words,len_valid_characters,clean_word
 
 from .models import Word
 
-def create_acrostic_data(vert_word, theme_name, construction_type):
-    
-    acrostic_data = []
-    
-    if theme_name=='cute_animals':
-        if construction_type <= 4:
-            acrostic_data = cute_animals_theme(vert_word, construction_type)
-        
-    elif theme_name=='music':
-               
-        if construction_type == 1:
-            acrostic_data = animals_jamming(vert_word)
-        elif construction_type == 2:
-            acrostic_data = just_instruments(vert_word)
-        elif construction_type == 3:
-            acrostic_data = exclamation_animals_jamming(vert_word)
-        elif construction_type == 4:
-            acrostic_data = instruments_making_music(vert_word);
-    '''  
-    elif theme_name=='politics':
-    
-        if construction_type == 1 or construction_type == 2:
-            acrostic_data = politics_theme(vert_word, construction_type)
-        elif construction_type == 3:
-            acrostic_data = political_figure_question(vert_word)
-    '''        
-    return acrostic_data
-
-def create_filters(vert_word, word_list, theme_name, construction_type):
+def create_acrostic_filters(vert_word, word_list, theme_name, construction_type):
     acrostic_data = []
     
     if theme_name == 'my_name':
@@ -54,15 +26,15 @@ def create_filters(vert_word, word_list, theme_name, construction_type):
         2 and 4are the same (except negative).
         '''
         if construction_type == 1:
-            acrostic_data = adjectives(vert_word, word_list, True)
+            acrostic_data = my_name_adjectives(vert_word, word_list, True)
         elif construction_type == 2:
-            acrostic_data = adv_adj(vert_word, word_list, True)
+            acrostic_data = my_name_adv_adj(vert_word, word_list, True)
         elif construction_type == 3:
-            acrostic_data = adjectives(vert_word, word_list, False)
+            acrostic_data = my_name_adjectives(vert_word, word_list, False)
         elif construction_type == 4:
-            acrostic_data = adv_adj(vert_word, word_list, False)
+            acrostic_data = my_name_adv_adj(vert_word, word_list, False)
     elif theme_name == 'cute_animals':
-        acrostic_data = cute_animals_theme_rewrite(vert_word, word_list, construction_type)
+        acrostic_data = cute_animals_theme(vert_word, word_list, construction_type)
     elif theme_name == 'music':
         if construction_type == 1:
             acrostic_data = instruments_making_music(vert_word, word_list)
@@ -73,7 +45,7 @@ def create_filters(vert_word, word_list, theme_name, construction_type):
             
     return acrostic_data
 
-def adjectives(vert_word, word_list, is_positive):
+def my_name_adjectives(vert_word, word_list, is_positive):
     
     part_of_speech = 'A'
     if is_positive:
@@ -95,7 +67,7 @@ def adjectives(vert_word, word_list, is_positive):
 
 
 
-def adv_adj(vert_word, word_list, is_positive):
+def my_name_adv_adj(vert_word, word_list, is_positive):
 
     characters = list(vert_word)
     word_length = len_valid_characters(characters)
@@ -137,43 +109,7 @@ def adv_adj(vert_word, word_list, is_positive):
     
     return [filters, part_of_speech, tags]
 
-def cute_animals_theme(vert_word, construction_type):
-    
-    # retrieve original constructions
-    if construction_type == 1:
-        parts_of_speech = adj_to_noun_verb_adv(vert_word, True)
-    elif construction_type == 2:
-        parts_of_speech = adj_to_noun(vert_word, True);
-    elif construction_type == 3:
-        parts_of_speech = adj_adj_noun_pattern(vert_word, True);
-    elif construction_type == 4:
-        parts_of_speech = all_nouns(vert_word, True)
-    
-    # initialize empty
-    filter_set = []
-    tags = []
-    counter = 0;
-    
-    characters = list(vert_word)
-        
-    while counter < len(characters):
-        filters = []
-        tags_list = []
-        add_first_letter_filter(filters, characters[counter])
-        add_part_of_speech_filter(filters, parts_of_speech[counter])
-        add_tag_filter(filters,'cute_animals')
-        tags_list.append('cute_animals')
-        if (parts_of_speech[counter] == 'A'):
-            add_tag_filter(filters, 'positive')
-            tags_list.append('positive')
-        
-        tags.append(tags_list)
-        filter_set.append(filters)
-        counter += 1
-    
-    return [filter_set,parts_of_speech,tags]
-
-def cute_animals_theme_rewrite(vert_word, word_list, construction_type):
+def cute_animals_theme(vert_word, word_list, construction_type):
     
     # retrieve original constructions
     if construction_type == 1:

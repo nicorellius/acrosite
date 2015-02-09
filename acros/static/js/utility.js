@@ -38,19 +38,9 @@ function get_timestamp() {
     return date_time;
 }
 
-$('#gen-acrostic-btn').click(function() {
-	$('#loading-spinner').show();
-	alert("no backend hooked up yet...");
-	$('#loading-spinner').hide();
-});
-
 // loading spinner script
 $('.spinner').click(function() {
 	$('#loading-spinner').show();
-});
-
-$(document).ajaxComplete(function() {
-    $('#loading').hide();
 });
 
 // back to top widget

@@ -1,0 +1,26 @@
+# Structure is as follows:
+#	each line is a Word, with field values separated by tabs:
+#	
+#	name	part_of_speech	tags	valuation
+#
+#	Required args:
+#		name, part_of_speech
+#
+#	Optional args:
+#		tags, valuation
+
+# Adjectives
+awesome	A
+angelic	A
+beautiful	A
+
+# Plural Nouns
+christs	NP
+catholics	NP
+crosses	NP
+
+# Plural Verbs
+offer	VP
+
+# Adverbs
+nobly	D

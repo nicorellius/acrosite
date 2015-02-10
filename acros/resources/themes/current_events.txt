@@ -1,0 +1,23 @@
+# Structure is as follows:
+#	each line is a Word, with field values separated by tabs:
+#	
+#	name	part_of_speech	tags	valuation
+#
+#	Required args:
+#		name, part_of_speech
+#
+#	Optional args:
+#		tags, valuation
+
+# Adjectives
+#a-CE	A
+#b-CE	A
+
+# Plural Nouns
+charlie_hebdo	NP
+
+# Plural Verbs
+#o-CE	VP
+
+# Adverbs
+#n-CE	D

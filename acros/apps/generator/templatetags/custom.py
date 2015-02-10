@@ -6,6 +6,8 @@ classes     :
 description :   custom templatetags for generator app
 """
 
+import re
+
 from django import template
 
 
@@ -14,6 +16,7 @@ register = template.Library()
 
 @register.filter(name='usplit')
 def usplit(value, arg):
+
     return value.split(arg)
 
 
@@ -44,8 +47,18 @@ def acrosticize(value):
                 else:
                     formatted_text = formatted_text + char.lower()
 
+
                 first_character = False
 
             formatted_text += "<br>"
 
     return formatted_text
+
+
+@register.filter(name='prettify')
+def prettify(value, delimiter):
+
+    value = re.sub('_', delimiter, value)
+    value = value.title()
+
+    return value

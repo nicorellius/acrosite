@@ -1,0 +1,30 @@
+# Structure is as follows:
+#	each line is a Word, with field values separated by tabs:
+#	
+#	name	part_of_speech	tags	valuation
+#
+#	Required args:
+#		name, part_of_speech
+#
+#	Optional args:
+#		tags, valuation
+
+# Adjectives
+asshole	A
+abhorrent	A
+blasphemous	A
+
+# Plural Nouns
+congressmen	NP
+coup d'états	NP
+committees	NP
+
+# Plural Verbs
+occupy	VP
+overreach	VP
+
+# Adverbs
+negligently	D
+noticeably	D
+notoriously	D
+

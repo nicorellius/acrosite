@@ -331,7 +331,7 @@ loudly
 lovingly
 loyally
 luckily
-luxuriously
+luxuriouslys
 madly
 magically
 mainly
@@ -464,7 +464,7 @@ reluctantly
 remarkably
 repeatedly
 reproachfully
-reponsibly
+responsibly
 resentfully
 respectably
 respectfully
@@ -518,7 +518,7 @@ softly
 solely
 solemnly
 solidly
-silicitiously
+solicitiously
 somehow
 sometimes
 somewhat

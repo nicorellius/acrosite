@@ -20,20 +20,19 @@ from common.util import get_timestamp
 from .models import Acrostic, Score
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
-from .constructions import adj_to_noun_sin_verb_sin_adj
 
 
 logger = logging.getLogger(__name__)
 
 timestamp = get_timestamp()
 
-    
+
 class GenerateAcrosticFormView(View):
-    
+
+    model = Acrostic
     form_class = GenerateAcrosticForm
     initial = {'key': 'value'}
     template_name = 'generator/generate.html'
-    model = Acrostic
     
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
@@ -52,7 +51,7 @@ class GenerateAcrosticFormView(View):
             
         else:
             form = self.form_class()
-        
+
         logger.info("{0}: ip address for debug-toolbar: {1}".format(timestamp, request.META['REMOTE_ADDR']))
         
         return render(request, self.template_name, {'form': form})
@@ -67,9 +66,9 @@ class GenerateAcrosticFormView(View):
         logger.info("{0}: this view is trying to create an acrostic object...".format(timestamp))
         logger.info("{0}: post name: {1}".format(timestamp, name))
         logger.info("{0}: post theme: {1}".format(timestamp, theme))
-        
+
         form = self.form_class(request.POST)
-        
+
         if form.is_valid():
 
             if name != '':
@@ -78,8 +77,7 @@ class GenerateAcrosticFormView(View):
             else:
                 vert_word = form.cleaned_data['name']
 
-            construction = adj_to_noun_sin_verb_sin_adj(vert_word)
-            acrostic = generate_random_acrostic(vert_word, construction)
+            acrostic = generate_random_acrostic(vert_word, theme)
             slug = slugify(re.sub(';', ' ', acrostic.horizontal_words))
             acrostic.slug = slug
             acrostic.save()

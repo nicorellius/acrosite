@@ -60,6 +60,9 @@ $(document).ready(function() {
 
      e.preventDefault();
 
+     // TODO - move this below to success if necessary
+     //$('.rateit').attr('data-rateit-readonly', 'true');
+
      var date_time = get_timestamp();
      var ri = $(this);
      var value = ri.rateit('value');
@@ -78,6 +81,7 @@ $(document).ready(function() {
              console.log(date_time + ": " + "ajax response: " + response);
              var $a = '#average';
              var $t = '#total';
+             // TODO - figure out how to lock score after one vote
              $($a).html('');
              $($t).html('');
              $($a).append('('+ data['average'] + ')');

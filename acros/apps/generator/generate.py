@@ -23,7 +23,7 @@ def generate_random_acrostic(vert_word, theme_name):
     #master list of available options
     construction_dictionary = {
         'my_name':[[1,2]],
-        'cute_animals':[[1],[2,3,4]],
+        'cute_animals':[[1,2],[3,4],[5]],
         'music':[[1],[2],[3]],
         }
     

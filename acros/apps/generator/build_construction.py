@@ -6,8 +6,7 @@ Created on Jan 18, 2015
 
 import random
 
-from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_adj, all_nouns
-from .tags import same_except_last
+from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun, adj_adj_noun_pattern, all_nouns,adj_noun_verb_adv_conn_pattern
 
 from .build_filter import add_first_letter_filter,add_part_of_speech_filter,add_tag_filter
 from .build_filter import add_tag_list_filter,condense_tags_list,add_tag_OR_filter,add_pos_OR_filter
@@ -113,14 +112,15 @@ def cute_animals_theme(vert_word, word_list, construction_type):
     
     # retrieve original constructions
     if construction_type == 1:
-        parts_of_speech = adj_to_noun_verb_adv(clean_word(vert_word), True)
+        parts_of_speech = adj_noun_verb_adv_conn_pattern(clean_word(vert_word))
     elif construction_type == 2:
-        parts_of_speech = adj_to_noun(clean_word(vert_word), True);
-    elif construction_type == 3:
         parts_of_speech = adj_adj_noun_pattern(clean_word(vert_word), True);
+    elif construction_type == 3:
+        parts_of_speech = adj_to_noun_verb_adv(clean_word(vert_word), True)
     elif construction_type == 4:
+        parts_of_speech = adj_to_noun(clean_word(vert_word), True);
+    elif construction_type == 5:
         parts_of_speech = all_nouns(clean_word(vert_word), True)
-    
     characters = list(vert_word)
     word_num = len_valid_words(word_list)
        
@@ -133,7 +133,9 @@ def cute_animals_theme(vert_word, word_list, construction_type):
         add_part_of_speech_filter(filters, parts_of_speech[word_num])
     
         tags = []
-        if parts_of_speech[word_num] == 'A':
+        if parts_of_speech[word_num] == 'E':
+            tags.append('positive')
+        elif parts_of_speech[word_num] == 'A':
             tags.append('positive')
             tags.append('cute_animal_theme')
         elif parts_of_speech[word_num] == 'NP':

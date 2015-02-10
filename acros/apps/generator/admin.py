@@ -84,7 +84,7 @@ class AcrosticAdmin(admin.ModelAdmin):
 class ScoreAdmin(admin.ModelAdmin):
 
     # fields display on change list
-    list_display = ['value', 'acrostic', 'mean', 'total', ]
+    list_display = ['value', 'acrostic', 'mean', 'total', 'created', 'modified', ]
     list_filter = ['created', ]
     search_fields = ['name', ]
     date_hierarchy = 'created'

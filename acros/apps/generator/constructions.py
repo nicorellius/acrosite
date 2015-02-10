@@ -6,6 +6,14 @@ classes     :
 description :   A repository for different sorts of constructions.
 """
 from .models import Construction
+import logging
+
+from common.util import get_timestamp
+
+
+logger = logging.getLogger(__name__)
+
+timestamp = get_timestamp()
 
 """
 KEY:
@@ -66,7 +74,7 @@ def adj_to_noun_sin_verb_sin_adj(vertical_word):  # A_to_NS_VS_D
 
         sequence += 'NP;VP;D;'
     
-    print('Construction: {0}'.format(sequence))
+    logger.info("{0}: Construction: {1}".format(timestamp, sequence))
     
     construction = Construction()
     construction.sequence = sequence

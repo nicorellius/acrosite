@@ -8,11 +8,17 @@ description :   Generate an acrostic based on various inputs and the database of
 
 import random
 import re
+import logging
 
 from .populate import subject_database
 # from .populate import populate_database
-
 from .models import Word, Acrostic
+from common.util import get_timestamp
+
+
+logger = logging.getLogger(__name__)
+
+timestamp = get_timestamp()
 
 
 def generate_random_acrostic(vert_word, *args):
@@ -20,14 +26,15 @@ def generate_random_acrostic(vert_word, *args):
     # build word database if no words currently in database.
     if not Word.objects.all():
 
-        print("populating database...")
+        logger.info("{0}: populating database...".format(timestamp))
 
         # populate_database()
 
         subject_database('resources/cute_animals.txt')
 
-    acrostic = Acrostic()
-    acrostic.vertical_word = vert_word
+    # TODO - https://docs.djangoproject.com/en/1.7/ref/models/querysets/#get-or-create
+    # acrostic = Acrostic()
+    # acrostic.vertical_word = vert_word
     
     if len(args) == 1:
         construction = args[0].get_list()
@@ -62,10 +69,24 @@ def generate_random_acrostic(vert_word, *args):
             horz_words = "{0}{1};".format(horz_words, horz)
 
         counter += 1
-        
-    acrostic.vertical_word = vert_word
-    acrostic.horizontal_words = horz_words
 
-    print("Acrostic:{0}".format(acrostic.__str__()))
+    logger.info("{0}: calling get_or_create()...".format(get_timestamp()))
+
+    # calling get_or_create
+    # https://docs.djangoproject.com/en/1.7/ref/models/querysets/#get-or-create
+    acrostic, created = Acrostic.objects.get_or_create(
+        vertical_word=vert_word,
+        horizontal_words=horz_words
+    )
+
+    # TODO - finalize the above get_or_create usage
+    #acrostic = Acrostic()
+    #acrostic.vertical_word = vert_word
+    #acrostic.horizontal_words = horz_words
+
+    level_acrostic = re.sub(';', ' ', acrostic.horizontal_words)
+
+    logger.info("{0}: acrostic created with vertical word: '{1}'".format(timestamp, vert_word))
+    logger.info("{0}: acrostic:    {1}".format(timestamp, level_acrostic))
 
     return acrostic

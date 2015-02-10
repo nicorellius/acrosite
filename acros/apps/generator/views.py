@@ -8,16 +8,24 @@ description  :   views for word generator
 import re
 import json
 import numpy
+import logging
 
 from django.shortcuts import render, render_to_response
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
 
+from common.util import get_timestamp
+
 from .models import Acrostic, Score
 from .forms import GenerateAcrosticForm
 from .generate import generate_random_acrostic
 from .constructions import adj_to_noun_sin_verb_sin_adj
+
+
+logger = logging.getLogger(__name__)
+
+timestamp = get_timestamp()
 
     
 class GenerateAcrosticFormView(View):
@@ -35,9 +43,9 @@ class GenerateAcrosticFormView(View):
         theme = request.GET.get('theme', '')
         ecrostic = request.GET.get('ecrostic', '')
 
-        print('get name: {0}'.format(name))
-        print('get theme: {0}'.format(theme))
-        print('get acrostic: {0}'.format(ecrostic))
+        logger.info("{0}: get name: {1}".format(timestamp, name))
+        logger.info("{0}: get theme: {1}".format(timestamp, theme))
+        logger.info("{0}: get acrostic: {1}".format(timestamp, ecrostic))
         
         if name != '':
             form = self.form_class(request.GET)
@@ -45,7 +53,7 @@ class GenerateAcrosticFormView(View):
         else:
             form = self.form_class()
         
-        print("ip address for debug-toolbar: {0}".format(request.META['REMOTE_ADDR']))
+        logger.info("{0}: ip address for debug-toolbar: {1}".format(timestamp, request.META['REMOTE_ADDR']))
         
         return render(request, self.template_name, {'form': form})
     
@@ -56,9 +64,9 @@ class GenerateAcrosticFormView(View):
         name = request.POST.get('name', '')
         theme = request.POST.get('theme', '')
         
-        print("this view is trying to create an acrostic object...")
-        print('post name: {0}'.format(name))
-        print('post theme: {0}'.format(theme))
+        logger.info("{0}: this view is trying to create an acrostic object...".format(timestamp))
+        logger.info("{0}: post name: {1}".format(timestamp, name))
+        logger.info("{0}: post theme: {1}".format(timestamp, theme))
         
         form = self.form_class(request.POST)
         
@@ -71,14 +79,18 @@ class GenerateAcrosticFormView(View):
                 vert_word = form.cleaned_data['name']
 
             construction = adj_to_noun_sin_verb_sin_adj(vert_word)
-
             acrostic = generate_random_acrostic(vert_word, construction)
             slug = slugify(re.sub(';', ' ', acrostic.horizontal_words))
             acrostic.slug = slug
             acrostic.save()
-                        
-            if acrostic != '':
-                print("acrostic object created with vertical word: '{0}'".format(request.POST['name']))
+
+            """
+            # using get_or_create() in generate to check for existing acrostic
+            # https://docs.djangoproject.com/en/1.7/ref/models/querysets/#get-or-create
+            acrostic_exists = Acrostic.objects.filter(horizontal_words=acrostic.horizontal_words).exists()
+            if acrostic_exists:
+                print("acrostic matched: {0}".format(acrostic))
+            """
 
             if not request.is_ajax():
                 return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}'.format(
@@ -108,17 +120,28 @@ class GenerateAcrosticSuccessView(View):
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
     def get(self, request):
-        
-        # this fetches the newest object
-        acrostic = Acrostic.objects.all().last()
 
-        # consider using messages framework instead:
-        #     https://stackoverflow.com/questions/1463489/
+        acrostic = Acrostic.objects.all().last()
+        score_data = acrostic.score_set.all()
+        scores = []
+        score_means = []
+        score_totals = []
+        for score_datum in score_data:
+            scores.append(score_datum.value)
+            score_means.append(score_datum.mean)
+            score_totals.append(score_datum.total)
+        logger.info("{0}: GET score data: {1}".format(timestamp, scores))
+        logger.info("{0}: GET score mean data: {1}".format(timestamp, score_means))
+        logger.info("{0}: GET score total data: {1}".format(timestamp, score_totals))
+
         theme = request.GET.get('theme', '')
         
         return render(request, self.template_name, {
             'acrostic': acrostic,
             'theme': theme,
+            'scores': scores,
+            'score_means': score_means,
+            'score_totals': score_totals
         })
 
 
@@ -131,11 +154,16 @@ class RateAcrosticView(View):
     # @method_decorator(login_required)
     def get(self, request):
 
-        value = request.GET.get('value', '')
-        print('here is value of star rating: {0}'.format(value))
+        star_value = request.GET.get('value', '')
+        logger.info("{0}: GET here is value of the current star rating: {1}".format(timestamp, star_value))
+
+        score = Score.objects.all().last()
+        logger.info("{0}: mean score for this get request: {1}".format(timestamp, score.mean))
+        logger.info("{0}: total number of scores reported for this get request: {1}".format(timestamp, score.total))
 
         return render(request, self.template_name, {
-            'value': value
+            'value': star_value,
+            'score': score
         })
 
     # TODO: we may want consider using login_required decorator
@@ -143,7 +171,7 @@ class RateAcrosticView(View):
     def post(self, request):
 
         star_value = request.POST.get('value', '')
-        print('value of star rating: {0}'.format(star_value))
+        logger.info("{0}: POST here is value of the current star rating: {1}".format(timestamp, star_value))
 
         acrostic = Acrostic.objects.all().last()
 
@@ -154,22 +182,24 @@ class RateAcrosticView(View):
 
         score_objects = acrostic.score_set.all()
         scores = []
-        for score in score_objects:
+        for score_object in score_objects:
             # print(score.value)
-            scores.append(score.value)
+            scores.append(score_object.value)
 
+        # calculate averages and totals
         average = round(numpy.mean(scores), 1)
         total = len(score_objects)
 
-        # score.mean = numpy.mean(scores)
-        # score.total = len(score_objects)
-        # score.save()
+        # save averages and totals to database
+        score.mean = average
+        score.total = total
+        score.save()
 
-        print('scores: {0}'.format(scores))
-        print('average: {0}'.format(average))
+        logger.info("{0}: scores: {1}".format(timestamp, scores))
+        logger.info("{0}: average: {1}".format(timestamp, average))
 
         xhr = 'xhr' in request.GET
-        print('XHR in request: {0}'.format(xhr))
+        logger.info("{0}: XHR in request: {1}".format(timestamp, xhr))
 
         response_data = {
             'message': 'value of star rating:',

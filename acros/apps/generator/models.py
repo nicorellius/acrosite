@@ -79,11 +79,11 @@ class Acrostic(BaseModel):
             
         return string
 
-    def save(self, **kwargs):
-
-        slugify(re.sub(';', ' ', self.horizontal_words))
-
-        super(BaseModel, self).save(**kwargs)
+    # def save(self, **kwargs):
+    #
+    #     slugify(re.sub(';', ' ', self.horizontal_words))
+    #
+    #     super(BaseModel, self).save(**kwargs)
 
 
 class Score(BaseModel):

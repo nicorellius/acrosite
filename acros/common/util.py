@@ -7,18 +7,17 @@ desription  :   common uitlity tools and functions
 """
  
 import datetime
-import random, string
+import random
+import string
 import hashlib
 
 
-"""
-get time in format I like
-
-"""
+# get time in format I like
 def get_timestamp():
     
     dt = datetime.datetime.now()
-    timestamp = dt.strftime("%Y-%m%d, %X")
+
+    timestamp = dt.strftime("%Y-%m-%d %X")
     return timestamp
 
 
@@ -30,4 +29,4 @@ def gen_uid(length):
     
     hashed_id = ''.join(random.sample(concat_string, length))
     
-    return hashed_i
+    return hashed_id

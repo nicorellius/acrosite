@@ -14,13 +14,14 @@
     </div>
 
     <div style="margin: 0.8em 0 0 0.8em; vertical-align: middle;" class="rateit bigstars" data-rateit-resetable="false"
-        data-rateit-starwidth="24" data-rateit-starheight="24">
+        data-rateit-starwidth="24" data-rateit-starheight="24"
+            data-rateit-value="{{ score_means.0 }}" data-rateit-ispreset="true">
         <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Rate it! </span>
     </div>
 
     <span style="font-size: 12px; color: darkslategray; vertical-align: text-bottom; font-weight: bold;">
-        <span id="average"></span>
-        <span id="total"></span>
+        <span id="average">{% if scores %}({% endif %}{{ score_means.0 }}{% if scores %}){% endif %}</span>
+        <span id="total">{{ score_totals|last }}</span>
     </span>
 
     <div class="clear-both"></div>

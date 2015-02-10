@@ -1,7 +1,7 @@
 // utility.js for holding misc js scripts
 
 // jquery ready function
-//$(document).ready(function() {});
+//$(d$(document).ready(function() {});
 
 // hide things by default
 $('#loading-spinner').hide();

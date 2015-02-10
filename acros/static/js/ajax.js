@@ -85,7 +85,7 @@ $(document).ready(function() {
          },
          error: function(data, response) {
              console.log(date_time + ": " + "ajax call failed!");
-             console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
+             //console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
              console.log(date_time + ": " + "ajax response: " + response);
          }
      });

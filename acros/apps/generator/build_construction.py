@@ -125,11 +125,11 @@ def cute_animals_theme(vert_word, word_list, construction_type):
     if construction_type == 1:
         parts_of_speech = adj_noun_verb_adv_conn_pattern(clean_word(vert_word))
     elif construction_type == 2:
-        parts_of_speech = adj_adj_noun_pattern(clean_word(vert_word), True);
+        parts_of_speech = adj_adj_noun_pattern(clean_word(vert_word), True)
     elif construction_type == 3:
         parts_of_speech = adj_to_noun_verb_adv(clean_word(vert_word), True)
     elif construction_type == 4:
-        parts_of_speech = adj_to_noun(clean_word(vert_word), True);
+        parts_of_speech = adj_to_noun(clean_word(vert_word), True)
     elif construction_type == 5:
         parts_of_speech = all_nouns(clean_word(vert_word), True)
 
@@ -192,7 +192,7 @@ def animals_jamming(vert_word, word_list):
             tags_list.append([])
             parts_of_speech.append('E')
             
-            tags_list.append(['positive','cute_animal_theme'])
+            tags_list.append(['positive', 'cute_animal_theme'])
             parts_of_speech.append('A')
 
         elif word_length % 4 == 2:
@@ -200,10 +200,10 @@ def animals_jamming(vert_word, word_list):
             tags_list.append([])
             parts_of_speech.append('E')
             
-            tags_list.append(['positive','cute_animal_theme'])
+            tags_list.append(['positive', 'cute_animal_theme'])
             parts_of_speech.append('A')
             
-            tags_list.append(['positive','cute_animal_theme'])
+            tags_list.append(['positive', 'cute_animal_theme'])
             parts_of_speech.append('A')
             
         counter = 0
@@ -233,7 +233,7 @@ def animals_jamming(vert_word, word_list):
             tags = []
         elif word_num == 1:
             part_of_speech = 'A'
-            tags = ['positive','cute_animal_theme']
+            tags = ['positive', 'cute_animal_theme']
         elif word_num == 2:
             part_of_speech = 'NP'
             tags = ['cute_animal']
@@ -248,7 +248,7 @@ def animals_jamming(vert_word, word_list):
             tags = []
         elif word_num == 6:
             part_of_speech = 'A'
-            tags = ['cute_animal_theme','positive']
+            tags = ['cute_animal_theme', 'positive']
         elif word_num == 7:
             part_of_speech = 'NP'
             tags = ['cute_animal']
@@ -263,7 +263,7 @@ def animals_jamming(vert_word, word_list):
 
         if word_num == 0:
             part_of_speech = 'A'
-            tags = ['positive','cute_animal_theme']
+            tags = ['positive', 'cute_animal_theme']
         elif word_num == 1:
             part_of_speech = 'NP'
             tags = ['cute_animal']
@@ -278,7 +278,7 @@ def animals_jamming(vert_word, word_list):
             tags = []
         elif word_num == 5:
             part_of_speech = 'A'
-            tags = ['cute_animal_theme','positive']
+            tags = ['cute_animal_theme', 'positive']
         elif word_num == 6:
             part_of_speech = 'NP'
             tags = ['cute_animal']
@@ -340,7 +340,9 @@ def animals_jamming(vert_word, word_list):
             tags = ['musical_instrument']
     
     # start with exclamation.
-    if word_length > 3 and word_length < 7:
+    # if word_length > 3 and word_length < 7:
+    # simplified this chained comparison
+    if 7 > word_length > 3:
 
         if word_length - word_num == 6:
             part_of_speech = 'E'

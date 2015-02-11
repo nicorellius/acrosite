@@ -1,8 +1,9 @@
 """
-Django developer specific settings for acrosite project.
-
-2014-1026
-nicorellius
+file        :   nick.py
+date        :   2014-10-26
+module      :   settings
+classes     :
+description :   Nick-specific development settings
 """
 
 from .local import *

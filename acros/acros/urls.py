@@ -15,6 +15,7 @@ from apps.generator.views import GenerateAcrosticFormView
 from apps.generator.views import GenerateAcrosticSuccessView
 from apps.generator.views import RateAcrosticView
 
+
 admin.autodiscover()
 
 urlpatterns = patterns(

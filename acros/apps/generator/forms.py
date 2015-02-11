@@ -18,8 +18,8 @@ class GenerateAcrosticForm(forms.ModelForm):
         fields = ['name', 'theme']
 
     THEME_CHOICES = (
-        ('name', 'My Name'),
-        ('cute-animals', 'Cute Animals'),
+        ('my_name', 'My Name'),
+        ('cute_animals', 'Cute Animals'),
         ('music', 'Music'),
     )
     

@@ -85,6 +85,68 @@ span.nojs-warning {
 
 </noscript>
 
+<div class="navbar navbar-inverse navbar-fixed-top">
+
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img style="margin-top: -0.45em;" src="{% static 'images/ecrostic_logo_header.png' %}">
+            </a>
+            <a class="navbar-brand" href="/">ecrostic.com</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Resources</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/accounts/login/">Log in</a></li>
+                        <li><a href="/accounts/signup/">Register</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Terms of Use</li>
+                        <li><a href="/terms/">Terms</a></li>
+                        <li><a href="/privacy/">Privacy</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+
+            <form class="form-inline navbar-form navbar-right" role="form" method="get" action="/search/">
+                {% if user.is_authenticated %}
+                <span class="nav-inv-clr">Logged in as {{ user.username }}</span>
+                <a href="/accounts/logout/">
+                    <button type="button" class="btn btn-danger logout">
+                        <span class="glyphicon glyphicon-log-out"></span> Log out
+                    </button>
+                </a>
+                {% else %}
+                <a href="/accounts/login/">
+                    <button type="button" class="btn btn-success login">
+                        <span class="glyphicon glyphicon-log-in"></span> Log in
+                    </button>
+                </a>
+                {% endif %}
+                <div class="form-group">
+                    <label class="sr-only" for="id_q">Search this site</label>
+                        <input class="form-control" type="text" name="q" id="id_q" placeholder="Search" />
+                    </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 <header>
 	
 	<div class="container"></div>

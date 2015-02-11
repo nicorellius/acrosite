@@ -6,6 +6,8 @@ classes     :
 description :   Search word database
 """
 
+import logging
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic.base import View
@@ -13,34 +15,34 @@ from django.db.models import Q
 
 from apps.generator.models import Word
 
+from common.util import get_timestamp
+
+
+logger = logging.getLogger(__name__)
+
+timestamp = get_timestamp()
+
 
 class WordListSearchView(View):
 
     def get(self, request):
 
         query = request.GET.get('q', '')
-        word_results = []
-        results = []
 
         if query:
-            word_results = Word.objects.filter(Q(name__contains=query))
 
-            # (wordlistsearch__keyword__in=query.split()).distinct()
+            result = Word.objects.filter(name__icontains=query)
 
+            logger.info("{0} Found a word search match for {1}".format(timestamp, result))
 
-        if len(word_results) == 1:
-            return HttpResponseRedirect(word_results[0].get_absolute_url())
-
-        results.append(Word.objects.filter(name__icontains=query))
-
-        # TODO - consider return render_to_response( # replace with 'return render(request'
-        # see this post: http://stackoverflow.com/questions/6261823/
-        # and this one: http://stackoverflow.com/questions/6740112/
+            return render(request, 'search/search.html', {
+                'result': result,
+                'query': query
+            })
 
         return render(
             request, 'search/search.html', {
                 'query': query,
-                'keyword_results': word_results,
-                'results': results
+                'result': 'none'
             }
         )

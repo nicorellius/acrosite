@@ -7,39 +7,33 @@
     <h2 class="page-title bottom-mar-1em">Search Pages</h2>
     
     <div class="page-base">
-    
-        {% if keyword_results or results %}
+
         <p class="top-mar-2em">You searched for "{{ query }}".</p>
-            
-            {% if keyword_results %}
-            <p>Recommended pages:</p>
     
-            <ul>
-                {% for page in keyword_results %}
-                <li><a href="{{page.get_absolute_url}}">{{ page.title }}</a></li>
-                {% endfor %}
-            </ul>
-        
-            {% endif %}
-        
-            {% if results %}
+        {% if result %}
             <p>Search results:</p>
-    
-            <ul>
-                {%for page in results %}
-                <li><a href="{{page.get_absolute_url}}">{{ page.title }}</a></li>
-                {% endfor %}
-            </ul>
-        
-            {% endif %}
-        {% endif %}
-            
-        {% if query and not keyword_results and not results %}
-        <p>No results found.</p>
-    
+
+            <div class="alert alert-success" role="alert">
+                <strong>{{ result }}</strong> matched our records.
+            </div>
+
+            <p>Type a search query into the box above and press "Submit" to search.<p>
+
+        {% elif result == 'none' %}
+
+            <p>Type a search query into the box above and press "Submit" to search.<p>
+
         {% else %}
-        <p>Type a search query into the box above and press "Submit" to search.<p>
-        
+
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Sorry, the word <strong>{{ query }}</strong> isn't in our word database.
+            </div>
+
+            <p>Type a search query into the box above and press "Submit" to search.<p>
+
         {% endif %}
         
         <form class="form-inline top-mar-2em bottom-mar-2em" role="form" method="get" action="/search/">

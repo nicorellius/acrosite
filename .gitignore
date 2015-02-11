@@ -68,16 +68,11 @@ target/
 # for now, no images, videos, fonts...
 *.avi
 *.ai
-*.jpg
-*.ico
-*.png
-*.gif
 *.swf
 *.pdf
 *.mov
 *.svn
 *.eps
 *.psd
-*.jpeg
 
 *.prefs

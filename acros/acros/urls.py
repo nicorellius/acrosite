@@ -14,7 +14,7 @@ from django.contrib import admin
 from apps.generator.views import GenerateAcrosticFormView
 from apps.generator.views import GenerateAcrosticSuccessView
 from apps.generator.views import RateAcrosticView
-
+from apps.search.views import WordListSearchView
 
 admin.autodiscover()
 
@@ -24,6 +24,9 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^accounts/', include('allauth.urls')),
+
+    # url(r'^search/$', 'search.views.search'),
+    url(r'^search/$', WordListSearchView.as_view(), name='word_list_search_view'),
 
     # main page index
     url(r'^$', TemplateView.as_view(template_name="index.html")),

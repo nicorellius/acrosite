@@ -24,6 +24,7 @@ EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 INSTALLED_APPS += (
     'debug_toolbar',
     'sslserver',
+    'apps.search'
 )
 
 from django.conf.locale.en import formats as en_formats

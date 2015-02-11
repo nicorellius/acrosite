@@ -1,6 +1,13 @@
 from django.contrib import admin
 
 from .models import Word, Acrostic, Score
+from apps.search.models import WordListSearch
+
+
+class WordListSearchInline(admin.TabularInline):
+
+    model = WordListSearch
+    extra = 3
 
 
 class WordAdmin(admin.ModelAdmin):
@@ -17,8 +24,12 @@ class WordAdmin(admin.ModelAdmin):
         }),
     )
 
+    model = Word
+    inlines = [WordListSearchInline]
+
 
 class ScoreInline(admin.StackedInline):
+
     model = Score
 
     fields = ('value', )
@@ -66,3 +77,7 @@ class ScoreAdmin(admin.ModelAdmin):
 admin.site.register(Word, WordAdmin)
 admin.site.register(Acrostic, AcrosticAdmin)
 admin.site.register(Score, ScoreAdmin)
+
+
+
+

@@ -3,7 +3,7 @@ from django.db import models
 from apps.generator.models import Word
 
 
-class SearchWordList(models.Model):
+class WordListSearch(models.Model):
     keyword = models.CharField(max_length=50)
     word = models.ForeignKey(Word)
 

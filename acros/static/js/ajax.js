@@ -53,6 +53,110 @@ $(document).ready(function() {
 		
         
     });
+    
+    $(".new-word").click(function(e) {
+
+        e.preventDefault();
+
+		$('#loading-spinner').show();
+		
+		var id = $(this).attr('id');
+
+        var date_time = get_timestamp();
+
+        var name = $.QueryString['name'];
+        var theme = $.QueryString['theme'];
+        var ecrostic = $.QueryString['ecrostic'];
+
+        // pushState()
+        //var stateObj = { acrostic: 'acrostic' };
+        //history.pushState(stateObj, "page 2", '/generate/acrostic/');
+
+        console.log(date_time + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
+
+		if ($(this).attr('data-target') == 'acrostic_id') {
+			$.ajax({
+				type: 'post',
+				url: '/generate/',
+				data: {
+                    name: 'secret-code:new-word',
+                    theme: theme
+                },
+				success: function(data, response) {
+					console.log(date_time + ": " + "ajax call succeeded!");
+                    //location.replace('/generate/acrostic/?name=' + name + '&theme=' + theme + '&ecrostic=' + ecrostic);
+                    //console.log(date_time + ": " + "ajax data: " + data);
+                    console.log(date_time + ": " + "ajax response: " + response);
+                    location.reload();
+				},
+				error: function(data, response) {
+                    console.log(date_time + ": " + "ajax call failed!");
+                    console.log(date_time + ": " + "ajax data: " + data);
+                    console.log(date_time + ": " + "ajax response: " + response);
+				}
+			});
+		}
+		
+		else {
+			console.log(date_time + ": " + 'user canceled delete operation...');
+			$('#loading-spinner').hide();
+			return;
+		}
+		
+        
+    });
+    
+    $(".new-theme").click(function(e) {
+
+        e.preventDefault();
+
+		$('#loading-spinner').show();
+		
+		var id = $(this).attr('id');
+
+        var date_time = get_timestamp();
+
+        var name = $.QueryString['name'];
+        var theme = $.QueryString['theme'];
+        var ecrostic = $.QueryString['ecrostic'];
+
+        // pushState()
+        //var stateObj = { acrostic: 'acrostic' };
+        //history.pushState(stateObj, "page 2", '/generate/acrostic/');
+
+        console.log(date_time + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
+
+		if ($(this).attr('data-target') == 'acrostic_id') {
+			$.ajax({
+				type: 'post',
+				url: '/generate/',
+				data: {
+                    name: 'secret-code:new-word',
+                    theme: 'new-theme'
+                },
+				success: function(data, response) {
+					console.log(date_time + ": " + "ajax call succeeded!");
+                    //location.replace('/generate/acrostic/?name=' + name + '&theme=' + theme + '&ecrostic=' + ecrostic);
+                    //console.log(date_time + ": " + "ajax data: " + data);
+                    console.log(date_time + ": " + "ajax response: " + response);
+                    location.reload();
+				},
+				error: function(data, response) {
+                    console.log(date_time + ": " + "ajax call failed!");
+                    console.log(date_time + ": " + "ajax data: " + data);
+                    console.log(date_time + ": " + "ajax response: " + response);
+				}
+			});
+		}
+		
+		else {
+			console.log(date_time + ": " + 'user canceled delete operation...');
+			$('#loading-spinner').hide();
+			return;
+		}
+		
+        
+    });
 });
 
 // rateit ajax script

@@ -9,6 +9,15 @@ def add_first_letter_filter(filters, letter):
     filters.append(Q(name__startswith=letter),)
     return filters
 
+def add_word_length_filter(filters, min_length, max_length):
+    if min_length:
+        filters.append(Q(word_length__lte = max_length))
+        
+    if max_length:    
+        filters.append(Q(word_length__gte = min_length))
+    
+    return filters
+
 def add_tag_filter(filters, tag):
     filters.append(Q(tags__contains=tag),)
     return filters

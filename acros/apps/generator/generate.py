@@ -16,6 +16,7 @@ from .models import Word, Acrostic
 from .populate import import_alpha_list
 from .build_construction import create_acrostic_filters
 
+from .build_filter import add_tag_filter,add_part_of_speech_filter,add_word_length_filter
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +28,7 @@ def generate_random_acrostic(vert_word, theme_name):
     # database rebuilding: for use with database file import testing
     # rebuild_database(True)
     # rebuild_database(False)
-    
+        
     # master list of available options
     construction_dictionary = {
         'my_name': [[1, 2]],
@@ -38,6 +39,10 @@ def generate_random_acrostic(vert_word, theme_name):
     # in case the user does not select a theme
     if theme_name not in construction_dictionary:
         theme_name = random.choice(list(construction_dictionary.keys()))
+        print('NEW THEME: {0}'.format(theme_name))
+    
+    if vert_word == 'secret-code:new-word':
+        vert_word = ajax_regenerate_modifications(vert_word, theme_name);
     
     construction_preference_level = 0
     construction_id_list = construction_dictionary[theme_name][construction_preference_level]
@@ -190,6 +195,32 @@ def punctuation_modifications(horz_word_list, horz_wordtext_list):
 
     return horz_wordtext_list
 
+def ajax_regenerate_modifications(vert_word, theme_name):
+
+    # get a cute animal
+    if theme_name == "cute_animals" or theme_name == "my_name":
+        filters = []
+        add_tag_filter(filters,'cute_animal_theme')
+        add_tag_filter(filters, 'positive')
+        add_part_of_speech_filter(filters, 'A')
+        add_word_length_filter(filters, 4, 8)
+        
+    elif theme_name == "music":
+        filters = []
+        add_tag_filter(filters,'musical_instrument')
+        add_part_of_speech_filter(filters, 'NP')
+        add_word_length_filter(filters, 4, 8)
+    
+    pre_filter = Word.objects.all()
+        
+    # filter based on construction and vertical word
+    for filter_query in filters:
+        post_filter = pre_filter.filter(filter_query)
+        pre_filter = post_filter
+        
+    w = random.choice(post_filter)
+    
+    return w.name
 
 def rebuild_database(force_rebuild):
     

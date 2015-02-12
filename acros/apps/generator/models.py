@@ -14,6 +14,7 @@ from common.models import BaseModel
 class Word(BaseModel):
 
     name = models.CharField(max_length=200, default='')
+    word_length = models.IntegerField(max_length=10, default = 0)
     part_of_speech = models.CharField(max_length=200, default='NS')
     tags = models.CharField(max_length=200, blank=True)
     valuation = models.FloatField(default=-1.0, blank=True)  # a -1 flag implies "no valuation assigned"

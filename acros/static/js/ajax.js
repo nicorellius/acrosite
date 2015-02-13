@@ -32,10 +32,14 @@ $(document).ready(function() {
                 },
 				success: function(data, response) {
 					console.log(date_time + ": " + "ajax call succeeded!");
-                    //location.replace('/generate/acrostic/?name=' + name + '&theme=' + theme + '&ecrostic=' + ecrostic);
                     //console.log(date_time + ": " + "ajax data: " + data);
                     console.log(date_time + ": " + "ajax response: " + response);
                     location.reload();
+                    //window.history.pushState(
+                    //    "object or string",
+                    //    "Title",
+                    //    "/generate/acrostic/?name=" + name + "&theme=" + theme + "&ecrostic=" + ecrostic
+                    //);
 				},
 				error: function(data, response) {
                     console.log(date_time + ": " + "ajax call failed!");
@@ -55,18 +59,23 @@ $(document).ready(function() {
     });
 });
 
+var counter = 0;
+
 // rateit ajax script
  $('.rateit').bind('click', function(e) {
 
      e.preventDefault();
 
-     // TODO - move this below to success if necessary
-     //$('.rateit').attr('data-rateit-readonly', 'true');
-
      var date_time = get_timestamp();
      var ri = $(this);
      var value = ri.rateit('value');
      var acrostic_id = ri.data('acrostic_id');
+
+     // TODO - move this below to success if necessary
+     //$(ri).attr('data-rateit-readonly', 'true');
+     if (counter >= 5) {
+         $(ri).rateit('readonly', !$(ri).rateit('readonly'));
+     }
 
      $.ajax({
          url: '/acrostic/rate/?xhr',
@@ -79,6 +88,7 @@ $(document).ready(function() {
              console.log(date_time + ": " + "ajax call succeeded!");
              console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
              console.log(date_time + ": " + "ajax response: " + response);
+             console.log(date_time + ": " + "click counter: " + counter);
              var $a = '#average';
              var $t = '#total';
              // TODO - figure out how to lock score after one vote
@@ -93,4 +103,7 @@ $(document).ready(function() {
              console.log(date_time + ": " + "ajax response: " + response);
          }
      });
+
+     counter++;
+
  });

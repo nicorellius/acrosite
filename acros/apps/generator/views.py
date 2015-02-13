@@ -91,10 +91,12 @@ class GenerateAcrosticFormView(View):
             """
 
             if not request.is_ajax():
-                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}'.format(
+                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                     vert_word,
                     theme,
+                    acrostic.slug
                 ))
+
             # else:
             #     response_data = {
             #         'status': 'debug',
@@ -124,10 +126,12 @@ class GenerateAcrosticSuccessView(View):
         scores = []
         score_means = []
         score_totals = []
+
         for score_datum in score_data:
             scores.append(score_datum.value)
             score_means.append(score_datum.mean)
             score_totals.append(score_datum.total)
+
         logger.info("{0}: GET score data: {1}".format(timestamp, scores))
         logger.info("{0}: GET score mean data: {1}".format(timestamp, score_means))
         logger.info("{0}: GET score total data: {1}".format(timestamp, score_totals))

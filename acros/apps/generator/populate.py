@@ -7,7 +7,7 @@ description :   Populate the database with Word models.
 """
 
 from .models import Word
-
+from .build_construction import len_valid_characters
 
 def import_alpha_list():
 
@@ -31,11 +31,13 @@ def import_alpha_list():
                 
                 # required arguments
                 word.name = params[0]
+                word.name_length = len_valid_characters(list(params[0]))
                 word.part_of_speech = params[1]
                 word.tags = params[2]
                 word.save()
 
                 counter += 1
+
     print("Constructed Word database with {0} Entries.".format(counter))        
     return
 

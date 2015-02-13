@@ -47,7 +47,7 @@ def generate_random_acrostic(vert_word, theme_name):
         build_or_rebuild_required = False
     
         construction_type = weighted_random_construction(construction_ids_w_weights)
-        print('Construction Type:{0}'.format(construction_type))
+        print('Construction Type: {0}'.format(construction_type))
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen

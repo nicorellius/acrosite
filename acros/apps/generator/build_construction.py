@@ -214,7 +214,7 @@ def animals_jamming(vert_word, word_list):
             parts_of_speech.append('NP')
                 
             tags_list.append(['cute_animal'])
-            tags_list.append(['make_music'])
+            tags_list.append(['operate_musical_instrument'])
             tags_list.append(['musical_instrument'])
             
             if counter + 3 < word_length:
@@ -239,7 +239,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 3:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 4:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -254,7 +254,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 8:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 9:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -269,7 +269,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 2:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 3:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -284,7 +284,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 7:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 8:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -299,7 +299,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 2:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 3:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -311,7 +311,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 6:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 7:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -322,7 +322,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 1:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 2:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -334,7 +334,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 5:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 6:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -355,7 +355,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_length - word_num == 3:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_length - word_num == 2:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -370,7 +370,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 1:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
         elif word_num == 2:
             part_of_speech = 'NP'
             tags = ['musical_instrument']
@@ -382,7 +382,7 @@ def animals_jamming(vert_word, word_list):
             tags = ['cute_animal']
         elif word_num == 1:
             part_of_speech = 'VP'
-            tags = ['make_music']
+            tags = ['operate_musical_instrument']
 
     if word_length == 1:
 
@@ -428,13 +428,13 @@ def instruments_making_music(vert_word, word_list):
         parts_of_speech = ['NP', 'VP']
         tags = [
             ['musical_instrument'],
-            ['make_music']
+            ['produce_music']
         ]
     elif word_length == 3:
         parts_of_speech = ['NP', 'VP', 'D']
         tags = [
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     elif word_length == 4:
@@ -442,36 +442,36 @@ def instruments_making_music(vert_word, word_list):
         tags = [
             ['positive', 'to_person'],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     elif word_length == 5:
         parts_of_speech = ['NP', 'VP', 'C', 'NP', 'VP']
         tags = [
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             [],
             ['musical_instrument'],
-            ['make_music']
+            ['produce_music']
         ]
     elif word_length == 6:
         parts_of_speech = ['NP', 'VP', 'C', 'NP', 'VP', 'D']
         tags = [
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             [],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     elif word_length == 7:
         parts_of_speech = ['NP', 'VP', 'D', 'C', 'NP', 'VP', 'D']
         tags = [
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb'],
             [], ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     elif word_length == 8:
@@ -479,11 +479,11 @@ def instruments_making_music(vert_word, word_list):
         tags = [
             ['to_person', 'positive'],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb'],
             [],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     elif word_length == 9:
@@ -491,12 +491,12 @@ def instruments_making_music(vert_word, word_list):
         tags = [
             ['positive', 'to_person'],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb'],
             [],
             ['to_person', 'positive'],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     elif word_length == 10:
@@ -505,27 +505,27 @@ def instruments_making_music(vert_word, word_list):
             ['to_person', 'positive'],
             ['to_person', 'positive'],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb'],
             [],
             ['to_person', 'positive'],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     elif word_length == 11:
         parts_of_speech = ['NP', 'VP', 'D', 'C', 'NP', 'VP', 'D', 'C', 'NP', 'VP', 'D']
         tags = [
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb'],
             [],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb'],
             [],
             ['musical_instrument'],
-            ['make_music'],
+            ['produce_music'],
             ['positive', 'follow_verb']
         ]
     else:
@@ -560,7 +560,7 @@ def instruments_making_music(vert_word, word_list):
             parts_of_speech.append('D')
                 
             tags.append(['musical_instrument'])
-            tags.append(['make_music'])
+            tags.append(['produce_music'])
             tags.append(['positive', 'follow_verb'])
             
             if counter + 3 < word_length:

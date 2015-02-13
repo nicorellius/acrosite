@@ -28,19 +28,17 @@ def generate_random_acrostic(vert_word, theme_name):
     # rebuild_database(True)
     # rebuild_database(False)
     
-    # master list of available options
+    # master list of available options, with weights
     construction_dictionary = {
-        'my_name': [[1, 2]],
-        'cute_animals': [[1, 2], [3, 4], [5]],
-        'music': [[1], [2], [3]],
+        'my_name': {1:4,2:3,3:2,4:1},
+        'cute_animals': {1:5,2:2,3:1,4:1,5:1},
+        'music': {1:7,2:2,3:1},
         }
-    
     # in case the user does not select a theme
     if theme_name not in construction_dictionary:
         theme_name = random.choice(list(construction_dictionary.keys()))
     
-    construction_preference_level = 0
-    construction_id_list = construction_dictionary[theme_name][construction_preference_level]
+    construction_ids_w_weights = construction_dictionary[theme_name]
     
     build_or_rebuild_required = True
     
@@ -48,15 +46,8 @@ def generate_random_acrostic(vert_word, theme_name):
 
         build_or_rebuild_required = False
     
-        construction_type = random.choice(construction_id_list)
-        
-        # TODO: think about handling this in a more intelligent way
-        add_on_value = 0
-
-        if theme_name == 'my_name':
-            add_ons = [0, 0, 0, 2]
-            add_on_value = random.choice(add_ons)
-            construction_type += add_on_value
+        construction_type = weighted_random_construction(construction_ids_w_weights)
+        print('Construction Type:{0}'.format(construction_type))
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
@@ -106,22 +97,20 @@ def generate_random_acrostic(vert_word, theme_name):
                     horz_word_list.append(None)
                     horz_wordtext_list.append(characters[counter])
                     
-                elif len(construction_id_list) == 1:  # no more constructions in this preference level
-                    if (construction_preference_level+1) < len(construction_dictionary[theme_name]):
-                        # move to the next preference level
-                        build_or_rebuild_required = True
-                        construction_preference_level += 1
-                        construction_id_list = construction_dictionary[theme_name][construction_preference_level]
-                        break
-                    else:
-                        # no more preference levels, and no more constructions in this preference level.
-                        # just return the characters, and a 'None' word.
-                        horz_word_list.append(None)
-                        horz_wordtext_list.append(characters[counter])
+                elif len(construction_ids_w_weights) == 1:
+
+                    # No more valid constructions are available.
+                    # just return the characters, and a 'None' word.
+                    horz_word_list.append(None)
+                    horz_wordtext_list.append(characters[counter])
+                    
                 else:
-                    # check other constructions in this level
+                    
+                    #schedule a rebuild
                     build_or_rebuild_required = True
-                    construction_id_list.remove(construction_type-add_on_value)
+                    
+                    # remove this construction type from the dictionary
+                    del(construction_ids_w_weights[construction_type])
                     break
 
             # select a word at random
@@ -156,6 +145,17 @@ def generate_random_acrostic(vert_word, theme_name):
     
     return acrostic
 
+def weighted_random_construction(construction_ids_w_weights):
+        
+    construction_id_list = []
+    for construction_id in construction_ids_w_weights:
+        weight = construction_ids_w_weights[construction_id]
+        counter = 0
+        while counter < weight:
+            construction_id_list.append(construction_id)
+            counter += 1
+    
+    return random.choice(construction_id_list)
 
 def punctuation_modifications(horz_word_list, horz_wordtext_list):
     

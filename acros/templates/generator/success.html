@@ -7,32 +7,52 @@
 
 {% block content %}
 
-    <div data-acrostic_id="{{ acrostic.id }}">
-        <p style="color: slategray; font-size: 25px; letter-spacing: 2px; margin-left: 10px;">
-            {% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
-        </p>
-    </div>
+    {% if acrostic %}
 
-    <div style="margin: 0.8em 0 0 0.8em; vertical-align: middle;" class="rateit bigstars" data-rateit-resetable="false"
-        data-rateit-starwidth="24" data-rateit-starheight="24"
-            data-rateit-value="{{ score_means.0 }}" data-rateit-ispreset="true">
-        <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Rate it! </span>
-    </div>
+        <div data-acrostic_id="{{ acrostic.id }}">
+            <p style="color: slategray; font-size: 25px; letter-spacing: 2px; margin-left: 10px;">
+                {% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
+            </p>
+        </div>
 
-    <span style="font-size: 12px; color: darkslategray; vertical-align: text-bottom; font-weight: bold;">
-        <span id="average">{% if scores %}({% endif %}{{ score_means.0 }}{% if scores %}){% endif %}</span>
-        <span id="total">{{ score_totals|last }}</span>
-    </span>
+        <div style="margin: 0.8em 0 0 0.8em; vertical-align: middle;" class="rateit bigstars" data-rateit-resetable="false"
+            data-rateit-starwidth="24" data-rateit-starheight="24"
+                data-rateit-value="{{ score_means.0 }}" data-rateit-ispreset="true">
+            <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Rate it! </span>
+        </div>
+
+        <span style="font-size: 12px; color: darkslategray; vertical-align: text-bottom; font-weight: bold;">
+            <span id="average">{% if scores %}({% endif %}{{ score_means.0 }}{% if scores %}){% endif %}</span>
+            <span id="total">{{ score_totals|last }}</span>
+        </span>
+
+    {% else %}
+
+        <div class="alert alert-danger alert-dismissible margin-top-2em" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                The acrostic <strong>"{{ pseudo_acrostic }}"</strong> was not found...
+        </div>
+
+        <div class="ctr-container margin-top-2em">
+            <a href="/generate/" class="btn btn-lg btn-block btn-primary">Try again...</a>
+        </div>
+
+        <style>
+            #generate-another, #start-over { display: none; }
+        </style>
+
+    {% endif %}
 
     <div class="clear-both"></div>
 
     <div class="ctr-container margin-top-2em">
 
-        <div class="ctr-left pad-10px">
+        <div id="start-over" class="ctr-left pad-10px">
             <a href="/generate/" class="btn btn-lg btn-block btn-primary">Start over</a>
         </div>
 
-        <div class="ctr-right pad-10px">
+        <div id="generate-another" class="ctr-right pad-10px">
             <a href="/generate/"
                 class="btn btn-lg btn-block btn-success redo" data-target="acrostic_id">
                 Generate another

@@ -14,8 +14,10 @@ from django.shortcuts import render, render_to_response
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
+from django.contrib import messages
 
 from common.util import get_timestamp
+from common.signals import ecrostic_not_found
 
 from .models import Acrostic, Score
 from .forms import GenerateAcrosticForm
@@ -23,8 +25,6 @@ from .generate import generate_random_acrostic
 
 
 logger = logging.getLogger(__name__)
-
-timestamp = get_timestamp()
 
 
 class GenerateAcrosticFormView(View):
@@ -40,11 +40,9 @@ class GenerateAcrosticFormView(View):
         
         name = request.GET.get('name', '')
         theme = request.GET.get('theme', '')
-        ecrostic = request.GET.get('ecrostic', '')
 
-        logger.info("{0}: GET name: {1}".format(timestamp, name))
-        logger.info("{0}: GET theme: {1}".format(timestamp, theme))
-        logger.info("{0}: GET acrostic: {1}".format(timestamp, ecrostic))
+        logger.info("{0}: GET name: {1}".format(get_timestamp(), name))
+        logger.info("{0}: GET theme: {1}".format(get_timestamp(), theme))
         
         if name != '':
             form = self.form_class(request.GET)
@@ -52,7 +50,7 @@ class GenerateAcrosticFormView(View):
         else:
             form = self.form_class()
 
-        logger.info("{0}: IP address for debug-toolbar: {1}".format(timestamp, request.META['REMOTE_ADDR']))
+        logger.info("{0}: IP address for debug-toolbar: {1}".format(get_timestamp(), request.META['REMOTE_ADDR']))
         
         return render(request, self.template_name, {'form': form})
     
@@ -63,9 +61,9 @@ class GenerateAcrosticFormView(View):
         name = request.POST.get('name', '')
         theme = request.POST.get('theme', '')
         
-        logger.info("{0}: This view is trying to create an acrostic object...".format(timestamp))
-        logger.info("{0}: POST name: {1}".format(timestamp, name))
-        logger.info("{0}: POST theme: {1}".format(timestamp, theme))
+        logger.info("{0}: This view is trying to create an acrostic object...".format(get_timestamp()))
+        logger.info("{0}: POST name: {1}".format(get_timestamp(), name))
+        logger.info("{0}: POST theme: {1}".format(get_timestamp(), theme))
 
         form = self.form_class(request.POST)
 
@@ -82,27 +80,12 @@ class GenerateAcrosticFormView(View):
             acrostic.slug = slug
             acrostic.save()
 
-            """
-            # using get_or_create() in generate to check for existing acrostic
-            # https://docs.djangoproject.com/en/1.7/ref/models/querysets/#get-or-create
-            acrostic_exists = Acrostic.objects.filter(horizontal_words=acrostic.horizontal_words).exists()
-            if acrostic_exists:
-                print("acrostic matched: {0}".format(acrostic))
-            """
-
             if not request.is_ajax():
-                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}'.format(
+                return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                     vert_word,
                     theme,
+                    acrostic.slug
                 ))
-            # else:
-            #     response_data = {
-            #         'status': 'debug',
-            #         'message': 'this view is using an ajax response'
-            #     }
-            #
-            #     return HttpResponse(json.dumps(response_data), content_type="application/json")
-            #     return HttpResponse("Text only, please.", content_type="text/plain")
 
         return render(request, self.template_name, {
             'form': form,
@@ -130,12 +113,29 @@ class GenerateAcrosticSuccessView(View):
             score_means.append(score_datum.mean)
             score_totals.append(score_datum.total)
 
-        logger.info("{0}: GET score data: {1}".format(timestamp, scores))
-        logger.info("{0}: GET score mean data: {1}".format(timestamp, score_means))
-        logger.info("{0}: GET score total data: {1}".format(timestamp, score_totals))
+        logger.info("{0}: GET score data: {1}".format(get_timestamp(), scores))
+        logger.info("{0}: GET score mean data: {1}".format(get_timestamp(), score_means))
+        logger.info("{0}: GET score total data: {1}".format(get_timestamp(), score_totals))
 
+        name = request.GET.get('name', '')
         theme = request.GET.get('theme', '')
-        
+        ecrostic = request.GET.get('ecrostic', '')
+
+        logger.info("{0}: GET name: {1}".format(get_timestamp(), name))
+        logger.info("{0}: GET theme: {1}".format(get_timestamp(), theme))
+        logger.info("{0}: GET acrostic: {1}".format(get_timestamp(), ecrostic))
+
+        acrostic_string = '{0};'.format(re.sub('-', ';', ecrostic))
+        pseudo_acrostic = re.sub('-', ' ', ecrostic)
+
+        if not Acrostic.objects.filter(horizontal_words=acrostic_string).exists():
+
+            logger.info("{0}: Acrostic `{1}` not found.".format(get_timestamp(), pseudo_acrostic))
+            # self.ecrostic_not_found_message(request)
+            messages.add_message(request, messages.INFO, '{0}'.format(pseudo_acrostic))
+
+            return HttpResponseRedirect('/generate/')
+
         return render(request, self.template_name, {
             'acrostic': acrostic,
             'theme': theme,
@@ -143,6 +143,13 @@ class GenerateAcrosticSuccessView(View):
             'score_means': score_means,
             'score_totals': score_totals
         })
+
+    # message signal
+    # def ecrostic_not_found_message(self, request):
+    #
+    #     logger.info("{0}: Preparing for signal deployment".format(get_timestamp()))
+    #
+    #     ecrostic_not_found.send(sender=self, request=request)
 
 
 class RateAcrosticView(View):
@@ -155,11 +162,11 @@ class RateAcrosticView(View):
     def get(self, request):
 
         star_value = request.GET.get('value', '')
-        logger.info("{0}: GET here is value of the current star rating: {1}".format(timestamp, star_value))
+        logger.info("{0}: GET here is value of the current star rating: {1}".format(get_timestamp(), star_value))
 
         score = Score.objects.all().last()
-        logger.info("{0}: Mean score for this get request: {1}".format(timestamp, score.mean))
-        logger.info("{0}: Total number of scores reported for this get request: {1}".format(timestamp, score.total))
+        logger.info("{0}: Mean score for this get request: {1}".format(get_timestamp(), score.mean))
+        logger.info("{0}: Total number of scores reported for this request: {1}".format(get_timestamp(), score.total))
 
         return render(request, self.template_name, {
             'value': star_value,
@@ -171,7 +178,7 @@ class RateAcrosticView(View):
     def post(self, request):
 
         star_value = request.POST.get('value', '')
-        logger.info("{0}: POST value of the current star rating: {1}".format(timestamp, star_value))
+        logger.info("{0}: POST value of the current star rating: {1}".format(get_timestamp(), star_value))
 
         acrostic = Acrostic.objects.all().last()
 
@@ -195,11 +202,11 @@ class RateAcrosticView(View):
         score.total = total
         score.save()
 
-        logger.info("{0}: Scores: {1}".format(timestamp, scores))
-        logger.info("{0}: Average: {1}".format(timestamp, average))
+        logger.info("{0}: Scores: {1}".format(get_timestamp(), scores))
+        logger.info("{0}: Average: {1}".format(get_timestamp(), average))
 
         xhr = 'xhr' in request.GET
-        logger.info("{0}: XHR in request: {1}".format(timestamp, xhr))
+        logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
 
         response_data = {
             'message': 'Value of star rating:',

@@ -30,10 +30,11 @@ def generate_random_acrostic(vert_word, theme_name):
     
     # master list of available options, with weights
     construction_dictionary = {
-        'my_name': {1:4,2:3,3:2,4:1},
-        'cute_animals': {1:5,2:2,3:1,4:1,5:1},
-        'music': {1:7,2:2,3:1},
+        'my_name': {1: 4, 2: 3, 3: 2, 4: 1},
+        'cute_animals': {1: 5, 2: 2, 3: 1, 4: 1, 5: 1},
+        'music': {1: 7, 2: 2, 3: 1},
         }
+
     # in case the user does not select a theme
     if theme_name not in construction_dictionary:
         theme_name = random.choice(list(construction_dictionary.keys()))
@@ -47,7 +48,9 @@ def generate_random_acrostic(vert_word, theme_name):
         build_or_rebuild_required = False
     
         construction_type = weighted_random_construction(construction_ids_w_weights)
+
         print('Construction Type: {0}'.format(construction_type))
+        logger.info("{0}: Construction Type: {1}".format(get_timestamp(), construction_type))
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
@@ -106,7 +109,7 @@ def generate_random_acrostic(vert_word, theme_name):
                     
                 else:
                     
-                    #schedule a rebuild
+                    # schedule a rebuild
                     build_or_rebuild_required = True
                     
                     # remove this construction type from the dictionary
@@ -145,6 +148,7 @@ def generate_random_acrostic(vert_word, theme_name):
     
     return acrostic
 
+
 def weighted_random_construction(construction_ids_w_weights):
         
     construction_id_list = []
@@ -156,6 +160,7 @@ def weighted_random_construction(construction_ids_w_weights):
             counter += 1
     
     return random.choice(construction_id_list)
+
 
 def punctuation_modifications(horz_word_list, horz_wordtext_list):
     
@@ -197,7 +202,8 @@ def rebuild_database(force_rebuild):
         Word.objects.all().delete()
     
     if not Word.objects.all():
-        logger.info("{0}: Rebuilding entire database...")
+        logger.info("{0}: Rebuilding entire database...".format(timestamp))
         import_alpha_list()
+        logger.info("{0}: Database rebuild complete.".format(timestamp))
         
     return

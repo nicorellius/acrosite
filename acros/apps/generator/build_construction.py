@@ -12,7 +12,7 @@ from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun
 from .parts_of_speech import adj_adj_noun_pattern, all_nouns, adj_noun_verb_adv_conn_pattern
 
 from .build_filter import add_first_letter_filter, add_part_of_speech_filter, add_tag_filter
-from .build_filter import add_tag_list_filter, condense_tags_list, add_tag_OR_filter, add_pos_OR_filter
+from .build_filter import add_tag_list_filter, condense_tags_list, add_tag_or_filter, add_pos_or_filter
 from. build_filter import len_valid_words, len_valid_characters, clean_word
 
 from .models import Word

@@ -42,9 +42,9 @@ class GenerateAcrosticFormView(View):
         theme = request.GET.get('theme', '')
         ecrostic = request.GET.get('ecrostic', '')
 
-        logger.info("{0}: get name: {1}".format(timestamp, name))
-        logger.info("{0}: get theme: {1}".format(timestamp, theme))
-        logger.info("{0}: get acrostic: {1}".format(timestamp, ecrostic))
+        logger.info("{0}: GET name: {1}".format(timestamp, name))
+        logger.info("{0}: GET theme: {1}".format(timestamp, theme))
+        logger.info("{0}: GET acrostic: {1}".format(timestamp, ecrostic))
         
         if name != '':
             form = self.form_class(request.GET)
@@ -52,7 +52,7 @@ class GenerateAcrosticFormView(View):
         else:
             form = self.form_class()
 
-        logger.info("{0}: ip address for debug-toolbar: {1}".format(timestamp, request.META['REMOTE_ADDR']))
+        logger.info("{0}: IP address for debug-toolbar: {1}".format(timestamp, request.META['REMOTE_ADDR']))
         
         return render(request, self.template_name, {'form': form})
     
@@ -63,9 +63,9 @@ class GenerateAcrosticFormView(View):
         name = request.POST.get('name', '')
         theme = request.POST.get('theme', '')
         
-        logger.info("{0}: this view is trying to create an acrostic object...".format(timestamp))
-        logger.info("{0}: post name: {1}".format(timestamp, name))
-        logger.info("{0}: post theme: {1}".format(timestamp, theme))
+        logger.info("{0}: This view is trying to create an acrostic object...".format(timestamp))
+        logger.info("{0}: POST name: {1}".format(timestamp, name))
+        logger.info("{0}: POST theme: {1}".format(timestamp, theme))
 
         form = self.form_class(request.POST)
 
@@ -124,10 +124,12 @@ class GenerateAcrosticSuccessView(View):
         scores = []
         score_means = []
         score_totals = []
+
         for score_datum in score_data:
             scores.append(score_datum.value)
             score_means.append(score_datum.mean)
             score_totals.append(score_datum.total)
+
         logger.info("{0}: GET score data: {1}".format(timestamp, scores))
         logger.info("{0}: GET score mean data: {1}".format(timestamp, score_means))
         logger.info("{0}: GET score total data: {1}".format(timestamp, score_totals))
@@ -156,8 +158,8 @@ class RateAcrosticView(View):
         logger.info("{0}: GET here is value of the current star rating: {1}".format(timestamp, star_value))
 
         score = Score.objects.all().last()
-        logger.info("{0}: mean score for this get request: {1}".format(timestamp, score.mean))
-        logger.info("{0}: total number of scores reported for this get request: {1}".format(timestamp, score.total))
+        logger.info("{0}: Mean score for this get request: {1}".format(timestamp, score.mean))
+        logger.info("{0}: Total number of scores reported for this get request: {1}".format(timestamp, score.total))
 
         return render(request, self.template_name, {
             'value': star_value,
@@ -169,7 +171,7 @@ class RateAcrosticView(View):
     def post(self, request):
 
         star_value = request.POST.get('value', '')
-        logger.info("{0}: POST here is value of the current star rating: {1}".format(timestamp, star_value))
+        logger.info("{0}: POST value of the current star rating: {1}".format(timestamp, star_value))
 
         acrostic = Acrostic.objects.all().last()
 
@@ -193,14 +195,14 @@ class RateAcrosticView(View):
         score.total = total
         score.save()
 
-        logger.info("{0}: scores: {1}".format(timestamp, scores))
-        logger.info("{0}: average: {1}".format(timestamp, average))
+        logger.info("{0}: Scores: {1}".format(timestamp, scores))
+        logger.info("{0}: Average: {1}".format(timestamp, average))
 
         xhr = 'xhr' in request.GET
         logger.info("{0}: XHR in request: {1}".format(timestamp, xhr))
 
         response_data = {
-            'message': 'value of star rating:',
+            'message': 'Value of star rating:',
             'value': star_value,
             'average': average,
             'total': total

@@ -14,13 +14,41 @@ from common.models import BaseModel
 class Word(BaseModel):
 
     name = models.CharField(max_length=200, default='')
-    name_length = models.IntegerField(max_length=10, default = 0)
+    valid_name_length = models.IntegerField(max_length=5, default=0)
+    name_length = models.IntegerField(max_length=5, default=0)
     part_of_speech = models.CharField(max_length=200, default='NS')
     tags = models.CharField(max_length=200, blank=True)
     valuation = models.FloatField(default=-1.0, blank=True)  # a -1 flag implies "no valuation assigned"
     prevalence = models.IntegerField(max_length=1, default=0)  # values of 1, 2, 3 for general prevalence
     themes = models.CharField(max_length=1000, default='all')
-    
+
+    def get_valid_name_length(self):
+
+        characters = list(str(self.name))
+        counter = 0
+
+        for character in characters:
+
+            if (character.upper() in
+                ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']):
+
+                counter += 1
+
+        return counter
+
+    def get_name_length(self):
+
+        return len(str(self.name))
+
+    def save(self, *args, **kwargs):
+
+        if not self.pk:
+
+            self.valid_name_length = self.get_valid_name_length()
+            self.name_length = self.get_name_length()
+            super(Word, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 

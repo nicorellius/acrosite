@@ -12,7 +12,7 @@ class WordListSearchInline(admin.TabularInline):
 
 class WordAdmin(admin.ModelAdmin):
 
-    list_display = ['name', 'part_of_speech', 'themes', 'tags', 'valuation', ]
+    list_display = ['name', 'part_of_speech', 'themes', 'tags', 'name_length', 'valid_name_length', 'valuation', ]
     list_filter = ['created', ]
     search_fields = ['name', ]
     date_hierarchy = 'created'
@@ -20,7 +20,7 @@ class WordAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (None, {
-            'fields': ('name', 'part_of_speech', 'themes', 'tags', 'valuation',)
+            'fields': ('name', 'part_of_speech', 'themes', 'tags', 'name_length', 'valid_name_length', 'valuation',)
         }),
     )
 

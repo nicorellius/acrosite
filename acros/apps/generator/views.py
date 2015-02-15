@@ -127,16 +127,17 @@ class GenerateAcrosticSuccessView(View):
 
         acrostic_string = '{0};'.format(re.sub('-', ';', ecrostic))
         pseudo_acrostic = re.sub('-', ' ', ecrostic)
+        level_acrostic = re.sub(';', ' ', acrostic.horizontal_words)
 
         if not Acrostic.objects.filter(horizontal_words=acrostic_string).exists():
 
             logger.info("{0}: Acrostic `{1}` not found.".format(get_timestamp(), pseudo_acrostic))
-            # self.ecrostic_not_found_message(request)
             messages.add_message(request, messages.INFO, '{0}'.format(pseudo_acrostic))
 
             return HttpResponseRedirect('/generate/')
 
         return render(request, self.template_name, {
+            'level_acrostic': level_acrostic,
             'acrostic': acrostic,
             'theme': theme,
             'scores': scores,

@@ -32,7 +32,4 @@ urlpatterns = patterns(
     url(r'^generate/$', GenerateAcrosticFormView.as_view(), name='generate_acrostic_form_view'),
     url(r'^generate/acrostic/$', GenerateAcrosticSuccessView.as_view(), name='generate_acrostic_success_view'),
     url(r'^acrostic/rate/$', RateAcrosticView.as_view(), name='rate_acrostic_view'),
-
 )
-
-# urlpatterns += patterns('django.contrib.flatpages.views', url(r'^(?P<url>.*/)$', 'flatpage'))

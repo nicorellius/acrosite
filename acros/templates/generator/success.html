@@ -9,6 +9,10 @@
 
     {% if acrostic %}
 
+        <span style="display: none;">
+            {% block twitter %}Check out my ecrostic! {{ acrostic.vertical_word }}: {{ level_acrostic }}{% endblock %}
+        </span>
+
         <div data-acrostic_id="{{ acrostic.id }}">
             <p style="color: slategray; font-size: 25px; letter-spacing: 2px; margin-left: 10px;">
                 {% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}

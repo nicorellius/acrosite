@@ -34,3 +34,5 @@ urlpatterns = patterns(
     url(r'^acrostic/rate/$', RateAcrosticView.as_view(), name='rate_acrostic_view'),
 
 )
+
+# urlpatterns += patterns('django.contrib.flatpages.views', url(r'^(?P<url>.*/)$', 'flatpage'))

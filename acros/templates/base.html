@@ -41,7 +41,17 @@
 </head>
 
 <body id="body">
-    
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
 <noscript>
 
 <style type="text/css">
@@ -189,8 +199,8 @@ span.nojs-warning {
                     <a href="https://twitter.com/intent/tweet?url=https://www.ecrostic.com&text={% block twitter %}{% endblock twitter %}&" target="_blank">
                         <span style="font-size: 40px; color: #333333;" class="icon-twitter-squared"></span>
                     </a>
-                    <a href="#"><span style="font-size: 40px; color: #333333;" class="icon-facebook-squared"></span></a>
-                    <a href="#"><span style="font-size: 40px; color: #333333;" class="icon-gplus-squared"></span></a>
+                    <a href="http://www.facebook.com/share.php?u={% block facebook %}{% endblock facebook %}" target="_blank"><span style="font-size: 40px; color: #333333;" class="icon-facebook-squared"></span></a>
+                    <a href="https://plus.google.com/share?url={% block google_plus %}{% endblock google_plus %}" target="_blank"><span style="font-size: 40px; color: #333333;" class="icon-gplus-squared"></span></a>
                     <a href="/"><span style="font-size: 40px; color: #333333; float: right;" class="icon-home"></span></a>
                 </div>
 
@@ -208,13 +218,15 @@ span.nojs-warning {
         <section class="margin-top-2em">
 
             <p style="float: left; color: darkslategray;" class="top-mar-2em">
-                &copy; 2015 ecrostic.com
+                Copyright 2015 &copy; ecrostic.com
             </p>
 
             <p style="float: right;" class="top-mar-2em">
-                <a href="/terms/">terms</a>
+                <a href="/contact/">Contact</a>
                 &nbsp;
-                <a href="/privacy/">privacy</a>
+                <a href="/terms/">Terms</a>
+                &nbsp;
+                <a href="/privacy/">Privacy</a>
             </p>
 
         </section>

@@ -62,5 +62,5 @@ STATIC_ROOT = '/var/www/acros/static'
 ALLOWED_HOSTS = ['ecrostic.com', 'www.ecrostic.com', 'dev.ecrostic.com']
 
 TEMPLATE_DIRS = (
-    '/home/dev/django/projects/acrosite/acros/templates'
+    '/home/dev/django/projects/acrosite/acros/templates',
 )

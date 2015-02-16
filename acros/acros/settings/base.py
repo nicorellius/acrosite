@@ -88,9 +88,9 @@ INSTALLED_APPS = (
     'apps.logs',
     'localflavor',
     # allauth registration and providers
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
     # 'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.stackexchange',

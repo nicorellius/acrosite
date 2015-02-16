@@ -59,9 +59,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # allauth configuration
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/accounts/profile/'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+# LOGIN_REDIRECT_URL = '/accounts/profile/'
 
 """
 site id for main site. This should be changed it deploying to development or production

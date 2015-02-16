@@ -4,8 +4,8 @@ Django production settings for acrosite project.
 
 from .base import *
 
-# set to `True` for development
-DEBUG = True
+# set to `false` for production
+DEBUG = False
 
 # secret key in local settings
 with open('/home/dev/prv/acros/secret_key.txt') as secret_key:

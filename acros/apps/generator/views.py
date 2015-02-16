@@ -7,7 +7,7 @@ description  :   views for word generator
 """
 import re
 import json
-#import numpy
+# import numpy
 import logging
 
 from django.shortcuts import render, render_to_response

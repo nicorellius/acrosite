@@ -7,7 +7,7 @@ description  :   views for word generator
 """
 import re
 import json
-import numpy
+#import numpy
 import logging
 
 from django.shortcuts import render, render_to_response
@@ -195,7 +195,8 @@ class RateAcrosticView(View):
             scores.append(score_object.value)
 
         # calculate averages and totals
-        average = round(numpy.mean(scores), 1)
+        # average = round(numpy.mean(scores), 1)
+        average = round(float(sum(scores))/len(scores) if len(scores) > 0 else float('nan'), 1)
         total = len(score_objects)
 
         # save averages and totals to database

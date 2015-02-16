@@ -153,8 +153,8 @@ LOGGING = {
         'log_file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
-            # 'filename': os.path.join(PROJECT_ROOT, 'apps/logs/debug.log'),
-            'filename': '/home/dev/django/projects/acrosite/acros/apps/logs/debug.log',
+            'filename': os.path.join(PROJECT_ROOT, 'apps/logs/debug.log'),
+            # 'filename': '/home/dev/django/projects/acrosite/acros/apps/logs/debug.log',
             'maxBytes': 16777216,
             'formatter': 'verbose'
         },

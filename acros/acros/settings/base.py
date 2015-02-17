@@ -47,8 +47,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # Required by allauth template tags
     'django.core.context_processors.request',
     # allauth specific context processors
-    # 'allauth.account.context_processors.account',
-    # 'allauth.socialaccount.context_processors.socialaccount',
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -59,9 +59,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # allauth configuration
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
-# LOGIN_REDIRECT_URL = '/accounts/profile/'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
 
 """
 site id for main site. This should be changed it deploying to development or production
@@ -85,9 +85,9 @@ INSTALLED_APPS = (
     'apps.logs',
     'localflavor',
     # allauth registration and providers
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     # 'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.twitter',
     # 'allauth.socialaccount.providers.stackexchange',
@@ -154,7 +154,6 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'filename': os.path.join(PROJECT_ROOT, 'apps/logs/debug.log'),
-            # 'filename': '/home/dev/django/projects/acrosite/acros/apps/logs/debug.log',
             'maxBytes': 16777216,
             'formatter': 'verbose'
         },

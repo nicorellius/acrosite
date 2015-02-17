@@ -16,7 +16,7 @@ from apps.generator.views import GenerateAcrosticSuccessView
 from apps.generator.views import RateAcrosticView
 
 # This goes in the production urls.py
-# from acros.settings import production
+from acros.settings import production
 
 
 admin.autodiscover()
@@ -38,11 +38,11 @@ urlpatterns = patterns(
 
     # This goes in the production urls.py
     # static file mappings
-    # url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
-    #     'document_root': production.STATIC_ROOT,
-    # }),
-    #
-    # url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-    #     'document_root': production.MEDIA_ROOT,
-    # }),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': production.STATIC_ROOT,
+    }),
+
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': production.MEDIA_ROOT,
+    }),
 )

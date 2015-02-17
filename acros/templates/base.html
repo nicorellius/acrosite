@@ -157,7 +157,7 @@ span.nojs-warning {
 
 <header>
 
-	<div id="big-header-container" class="center-section">
+	<div id="big-header-container">
         <h1 class="big-header">
             ecrostic<span class="show-admin" style="font-size: 20px;">.com</span>
         </h1>
@@ -167,15 +167,11 @@ span.nojs-warning {
 
 <div id="content">
 
-	<div class="col-sm-9 col-md-12 main">
+    <section class="center-section">
 
-        <section class="center-section">
+        {% block content %}{% endblock content %}
 
-            {% block content %}{% endblock content %}
-
-        </section>
-    
-	</div>
+    </section>
 	
 </div>
 

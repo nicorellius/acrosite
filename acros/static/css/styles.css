@@ -15,10 +15,9 @@ body {
 	min-height: 100%;
 }
 
-header .container, .container #content {
+header {
     margin: 0 auto;
-    overflow: hidden;
-    padding: 0 60px;
+    max-width: 32em;
 }
 
 a, a:hover, a:active, a:focus, a:link {
@@ -31,7 +30,6 @@ footer {
     color: #000;
     clear: both;
 	width: 100%;
-	margin-top: 5em;
 	height: 15em;
 	bottom: 0px;
 }
@@ -110,6 +108,10 @@ button { margin-bottom: 1em; }
 	height: 45px;
 }
 
+#content {
+    margin: 0 auto;
+}
+
 .center-section {
     max-width: 32em;
     margin-left: auto;
@@ -159,7 +161,7 @@ button { margin-bottom: 1em; }
 .jumbotron { background-color: #fff; }
 
 .big-header {
-    font-size: 110px;
+    font-size: 115px;
     vertical-align: middle;
     display: table-cell;
     padding-top: 30px;

@@ -160,6 +160,9 @@ button { margin-bottom: 1em; }
 
 .big-header {
     font-size: 110px;
+    vertical-align: middle;
+    display: table-cell;
+    padding-top: 30px;
 }
 
 #admin-access { display: none; }

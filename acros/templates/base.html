@@ -20,9 +20,7 @@
 
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
-
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css">
-
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/ResponsiveSlides.js/1.53/responsiveslides.min.css">
   
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -158,8 +156,12 @@ span.nojs-warning {
 </div>
 
 <header>
-	
-	<div class="container"></div>
+
+	<div id="big-header-container" class="center-section">
+        <h1 class="big-header">
+            ecrostic<span class="show-admin" style="font-size: 20px;">.com</span>
+        </h1>
+    </div>
 
 </header>
 
@@ -168,13 +170,6 @@ span.nojs-warning {
 	<div class="col-sm-9 col-md-12 main">
 
         <section class="center-section">
-
-        <!--<div style="display: table; margin-left: -1.2em;">-->
-            <!--<a href="/"><img src="{% static 'images/ecrostic_logo.png' %}"></a>-->
-            <h1 class="big-header move-up-30px" style="vertical-align: middle; display: table-cell;">
-                ecrostic<span class="show-admin" style="font-size: 20px;">.com</span>
-            </h1>
-        <!--</div>-->
 
             {% block content %}{% endblock content %}
 

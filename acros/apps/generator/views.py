@@ -84,7 +84,7 @@ class GenerateAcrosticFormView(View):
                 return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                     vert_word,
                     theme,
-                    acrostic.slug
+                    acrostic.slug,
                 ))
 
         return render(request, self.template_name, {

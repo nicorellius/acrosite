@@ -2,6 +2,7 @@
 
 // re-generate ecrostic script on button click
 $(document).ready(function() {
+
     $(".redo").click(function(e) {
 
         e.preventDefault();
@@ -59,41 +60,46 @@ $(document).ready(function() {
 });
 
 // rateit ajax script
- $('.rateit').bind('click', function(e) {
+$(document).ready(function() {
 
-     e.preventDefault();
+    $('.rateit').bind('click', function(e) {
 
-     // TODO - move this below to success if necessary
-     //$('.rateit').attr('data-rateit-readonly', 'true');
+        e.preventDefault();
 
-     var date_time = get_timestamp();
-     var ri = $(this);
-     var value = ri.rateit('value');
-     var acrostic_id = ri.data('acrostic_id');
+        // TODO - move this below to success if necessary
+        //$('.rateit').attr('data-rateit-readonly', 'true');
 
-     $.ajax({
-         url: '/acrostic/rate/?xhr',
-         data: {
+        var date_time = get_timestamp();
+        var ri = $(this);
+        var value = ri.rateit('value');
+        var acrostic_id = ri.data('acrostic_id');
+
+        $.ajax({
+            url: '/acrostic/rate/?xhr',
+            data: {
              acrostic_id: acrostic_id,
              value: value
-         },
-         type: 'post',
-         success: function(data, response) {
-             console.log(date_time + ": " + "ajax call succeeded!");
-             console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
-             console.log(date_time + ": " + "ajax response: " + response);
-             var $a = '#average';
-             var $t = '#total';
-             // TODO - figure out how to lock score after one vote
-             $($a).html('');
-             $($t).html('');
-             $($a).append('('+ data['average'] + ')');
-             $($t).append(data['total']);
-         },
-         error: function(data, response) {
-             console.log(date_time + ": " + "ajax call failed!");
-             //console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
-             console.log(date_time + ": " + "ajax response: " + response);
-         }
-     });
- });
+            },
+            type: 'post',
+        success: function(data, response) {
+            console.log(date_time + ": " + "ajax call succeeded!");
+            console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
+            console.log(date_time + ": " + "ajax response: " + response);
+            var $a = '#average';
+            var $t = '#total';
+            // TODO - figure out how to lock score after one vote
+            $($a).html('');
+            $($t).html('');
+            $($a).append('('+ data['average'] + ')');
+            $($t).append(data['total']);
+            $(ri).rateit('readonly', true);
+            $('.rateit').off( 'click');
+        },
+        error: function(data, response) {
+            console.log(date_time + ": " + "ajax call failed!");
+            //console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
+            console.log(date_time + ": " + "ajax response: " + response);
+            }
+        });
+    });
+});

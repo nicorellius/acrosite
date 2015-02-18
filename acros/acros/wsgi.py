@@ -21,3 +21,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "acros.settings.production")
 from django.core.wsgi import get_wsgi_application
 
 application = get_wsgi_application()
+
+# enable HTTPS
+os.environ['HTTPS'] = "on"

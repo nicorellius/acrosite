@@ -64,3 +64,14 @@ ALLOWED_HOSTS = ['ecrostic.com', 'www.ecrostic.com', 'dev.ecrostic.com']
 TEMPLATE_DIRS = (
     '/home/dev/django/projects/acrosite/acros/templates',
 )
+
+# secure proxy SSL header and secure cookies
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# session expire at browser close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# wsgi scheme
+os.environ['wsgi.url_scheme'] = 'https'

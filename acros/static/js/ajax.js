@@ -16,23 +16,28 @@ $(document).ready(function() {
         var theme = $.QueryString['theme'];
         var ecrostic = $.QueryString['ecrostic'];
 
-        // pushState()
-        //var stateObj = { acrostic: 'acrostic' };
-        //history.pushState(stateObj, "page 2", '/generate/acrostic/');
-
         console.log(date_time + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
 
 		if ($(this).attr('data-target') == 'acrostic_id') {
+
+            // TODO - sort this out. this works only because I'm pushing an URL without the ecrostic
+            // TODO - need to figure out how to get that damn ecrostic into this script.
+            //var acros = $('#get-acrostic').text();
+            // pushState()
+            var stateObj = {acrostic: 'acrostic'};
+            history.pushState(
+                stateObj, '', '?name=' + name + '&theme=' + theme
+            );
+
 			$.ajax({
 				type: 'post',
-				url: '/generate/',
+				url: '/generate/?xhr',
 				data: {
                     name: name,
                     theme: theme
                 },
 				success: function(data, response) {
 					console.log(date_time + ": " + "ajax call succeeded!");
-                    //location.replace('/generate/acrostic/?name=' + name + '&theme=' + theme + '&ecrostic=' + ecrostic);
                     //console.log(date_time + ": " + "ajax data: " + data);
                     console.log(date_time + ": " + "ajax response: " + response);
                     location.reload();
@@ -50,8 +55,6 @@ $(document).ready(function() {
 			$('#loading-spinner').hide();
 			return;
 		}
-		
-        
     });
 });
 

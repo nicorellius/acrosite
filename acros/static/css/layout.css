@@ -32,6 +32,12 @@
     .center-section {
         padding: 0 1em;
     }
+
+    #dropdown-hide { margin-right: 1em; }
+
+    .big-header {
+        padding-left: 10px;
+    }
 }
 
 
@@ -49,9 +55,43 @@
 
     .big-header {
         font-size: 80px;
+        padding: 30px 0 0 0;
     }
 
     .center-section {
         padding: 0 2.5em;
     }
+
+    #dropdown-show {
+        display: block;
+    }
+
+    #dropdown-hide { display: none; }
+
+    #dropdown-show .bootstrap-select {
+        width: 250px !important;
+    }
 }
+
+
+/* */
+@media all and (max-width: 350px) {
+
+    #big-header-container {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .big-header {
+        font-size: 20vw;
+    }
+
+    #dropdown-show .bootstrap-select {
+        width: 230px !important;
+    }
+
+    #social-icons span {
+        font-size: 30px !important;
+    }
+}
+

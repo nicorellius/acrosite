@@ -18,8 +18,8 @@ function get_month() {
 	
 	var date = new Date();
 	
-	month = date.getMonth();
-	month = month + 1;
+	var month = date.getMonth();
+	month += 1;
 	
 	if (month < 10) {
 		month = '0' + month;
@@ -31,7 +31,7 @@ function get_month() {
 function get_timestamp() {
 
     var date = new Date();
-	var date_time = date.toLocaleString();
+	//var date_time = date.toLocaleString();
 	var month = get_month();
 	var date_time = date.getFullYear() + '-' + month + '-' + date.getDate() + ' ' + date.toTimeString();
 
@@ -97,9 +97,9 @@ $(document).ready(function () {
 $(document).ready(function () {
     var name = $.QueryString['name'];
     var theme = $.QueryString['theme'];
-    //var ecrostic = $.QueryString['ecrostic'];
+    var ecrostic = $.QueryString['ecrostic'];
 
-    console.log(get_timestamp() + ": " + 'name: ' + name + '; theme: ' + theme); // + '; ecrostic: ' + ecrostic);
+    console.log(get_timestamp() + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
 
     //$('#theme-selector [value=" + value + "]').prop('selected', true)
 });

@@ -15,9 +15,10 @@ from django.views.generic.base import View
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.text import slugify
 from django.contrib import messages
+from django.core import serializers
 
 from common.util import get_timestamp
-from common.signals import ecrostic_not_found
+# from common.signals import ecrostic_not_found
 
 from .models import Acrostic, Score
 from .forms import GenerateAcrosticForm
@@ -87,6 +88,18 @@ class GenerateAcrosticFormView(View):
                     acrostic.slug
                 ))
 
+            #########################################################################################
+            # TODO - sort this out. this works only because I'm pushing an URL without the ecrostic
+            # TODO - need to figure out how to get that damn ecrostic into this script.
+            xhr = 'xhr' in request.GET
+            logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
+
+            if xhr:
+                data = serializers.serialize('json', [acrostic, ], fields='slug')
+                return HttpResponse(json.dumps(data), content_type="application/json")
+
+            #########################################################################################
+
         return render(request, self.template_name, {
             'form': form,
             'theme': theme,
@@ -130,6 +143,16 @@ class GenerateAcrosticSuccessView(View):
         level_acrostic = re.sub(';', ' ', acrostic.horizontal_words)
 
         if not Acrostic.objects.filter(horizontal_words=acrostic_string).exists():
+
+            if pseudo_acrostic == '':
+                return render(request, self.template_name, {
+                    'level_acrostic': level_acrostic,
+                    'acrostic': acrostic,
+                    'theme': theme,
+                    'scores': scores,
+                    'score_means': score_means,
+                    'score_totals': score_totals
+                })
 
             logger.info("{0}: Acrostic `{1}` not found.".format(get_timestamp(), pseudo_acrostic))
             messages.add_message(request, messages.INFO, '{0}'.format(pseudo_acrostic))

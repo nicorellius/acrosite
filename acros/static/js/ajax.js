@@ -59,6 +59,9 @@ $(document).ready(function() {
     });
 });
 
+// start counter for star clicks
+var counter = 0;
+
 // rateit ajax script
 $(document).ready(function() {
 
@@ -92,8 +95,10 @@ $(document).ready(function() {
             $($t).html('');
             $($a).append('('+ data['average'] + ')');
             $($t).append(data['total']);
-            $(ri).rateit('readonly', true);
-            $('.rateit').off( 'click');
+            if (counter >= 3) {
+                $(ri).rateit('readonly', true);
+                $('.rateit').off('click');
+            }
         },
         error: function(data, response) {
             console.log(date_time + ": " + "ajax call failed!");
@@ -101,5 +106,7 @@ $(document).ready(function() {
             console.log(date_time + ": " + "ajax response: " + response);
             }
         });
+
+        counter++;
     });
 });

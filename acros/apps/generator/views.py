@@ -91,13 +91,13 @@ class GenerateAcrosticFormView(View):
             #########################################################################################
             # TODO - sort this out. this works only because I'm pushing an URL without the ecrostic
             # TODO - need to figure out how to get that damn ecrostic into this script.
-            xhr = 'xhr' in request.GET
-            logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
-
-            if xhr:
-                data = serializers.serialize('json', [acrostic, ], fields='slug')
-                return HttpResponse(json.dumps(data), content_type="application/json")
-
+            # xhr = 'xhr' in request.GET
+            # logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
+            #
+            # if xhr:
+            #     data = serializers.serialize('json', [acrostic, ], fields='slug')
+            #     return HttpResponse(json.dumps(data), content_type="application/json")
+            #
             #########################################################################################
 
         return render(request, self.template_name, {
@@ -227,7 +227,7 @@ class RateAcrosticView(View):
         logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
 
         response_data = {
-            'message': 'Value of star rating:',
+            'message': 'Statistics for star rating',
             'value': star_value,
             'average': average,
             'total': total

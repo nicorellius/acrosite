@@ -90,14 +90,20 @@ $(document).ready(function() {
             console.log(date_time + ": " + "ajax response: " + response);
             var $a = '#average';
             var $t = '#total';
-            // TODO - figure out how to lock score after one vote
             $($a).html('');
             $($t).html('');
             $($a).append('('+ data['average'] + ')');
             $($t).append(data['total']);
+            // TODO - figure out how to lock score after one vote
             if (counter >= 3) {
+                var $ric = '.rateit';
+                $($ric).unbind('mouseenter mouseleave')
+                $($ric).off('click');
                 $(ri).rateit('readonly', true);
-                $('.rateit').off('click');
+                $($ric).rateit('value', value);
+                //$('.rateit').on('rated', function() {
+                //    $(ri).rateit('readonly', true);
+                //});
             }
         },
         error: function(data, response) {

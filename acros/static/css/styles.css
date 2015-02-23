@@ -112,7 +112,13 @@ button { margin-bottom: 1em; }
     margin: 0 auto;
 }
 
-#dropdown-show { display: none; }
+#theme-dropdown-box {
+    float: right;
+}
+
+#copyright { color: darkslategray; }
+
+#footer { padding: 0 50px}
 
 .center-section {
     max-width: 32em;

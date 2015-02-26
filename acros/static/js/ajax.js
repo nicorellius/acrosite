@@ -23,12 +23,10 @@ $(document).ready(function() {
 
             // TODO - sort this out. this works only because I'm pushing an URL without the ecrostic
             // TODO - need to figure out how to get that damn ecrostic into this script.
-            //var acros = $('#get-acrostic').text();
+            // var acros = $('#get-acrostic').text();
             // pushState()
             var stateObj = {acrostic: 'acrostic'};
-            history.pushState(
-                stateObj, '', '?name=' + name + '&theme=' + theme
-            );
+            history.pushState(stateObj, '', '?name=' + name + '&theme=' + theme);
 
 			$.ajax({
 				type: 'post',

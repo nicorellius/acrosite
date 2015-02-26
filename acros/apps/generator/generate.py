@@ -123,7 +123,7 @@ def generate_random_acrostic(vert_word, theme_name):
             counter += 1
 
         # debugging... check acrostic_data
-        logger.info("{0}: 'acrostic_data': {1}".format(get_timestamp(), acrostic_data))
+        logger.info("{0}: 'Acrostic data': {1}".format(get_timestamp(), acrostic_data))
     
     horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)
     
@@ -132,7 +132,7 @@ def generate_random_acrostic(vert_word, theme_name):
     for horz_word in horz_wordtext_list:
         horz_words = "{0}{1};".format(horz_words, horz_word)
 
-    logger.info("{0}: Calling get_or_create()...".format(get_timestamp()))
+    logger.info("{0}: Calling `get_or_create()`...".format(get_timestamp()))
 
     acrostic, created = Acrostic.objects.get_or_create(
         vertical_word=vert_word,

@@ -5,10 +5,11 @@ module      :   generator.templatetags
 classes     :   
 description :   custom templatetags for generator app
 """
-
 import re
+import unicodedata
 
 from django import template
+from django.utils.safestring import mark_safe
 
 
 register = template.Library()
@@ -62,3 +63,15 @@ def prettify(value, delimiter):
     value = value.title()
 
     return value
+
+@register.filter(name='slagify')
+def slagify(value):
+    """
+    Converts to lowercase and converts spaces to hyphens. Also strips leading and
+    trailing whitespace. Similar to slugify but leaves special characters.
+    """
+    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
+    value.strip().lower()
+
+    return mark_safe(re.sub('[-\s]+', '-', value))
+

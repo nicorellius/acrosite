@@ -5,7 +5,7 @@ from .models import Word, Acrostic, Score
 
 class WordAdmin(admin.ModelAdmin):
 
-    list_display = ['name', 'part_of_speech', 'themes', 'tags', 'name_length', 'valid_name_length', 'valuation', ]
+    list_display = ['name', 'id', 'part_of_speech', 'themes', 'tags', 'name_length', 'valid_name_length', 'valuation', ]
     list_filter = ['created', ]
     search_fields = ['name', ]
     date_hierarchy = 'created'
@@ -26,7 +26,7 @@ class ScoreInline(admin.StackedInline):
     
 class AcrosticAdmin(admin.ModelAdmin):
 
-    list_display = ['vertical_word', 'horizontal_words', 'construction_sequence', 'theme_name', 'uaid']
+    list_display = ['vertical_word', 'id', 'uaid', 'theme_name', 'construction_sequence', 'horizontal_words']
     list_filter = ['created', ]
     search_fields = ['horizontal_words', ]
     date_hierarchy = 'created'

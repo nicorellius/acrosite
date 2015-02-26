@@ -10,13 +10,13 @@
     {% if acrostic %}
 
         <span style="display: none;">
-            {% block twitter %}Check out my ecrostic! {{ acrostic.vertical_word }}: {{ level_acrostic }}{% endblock %}
+            {% block twitter %}Check out my ecrostic! {{ acrostic.vertical_word }}: {{ pseudo_ecrostic }}{% endblock %}
         </span>
         <span style="display: none;">
-            {% block facebook %}https://www.ecrostic.com?name={{ vert_word }}&theme={{ theme }}&ecrostic={{ acrostic.slug }}{% endblock %}
+            {% block facebook %}Check out my ecrostic! {{ acrostic.vertical_word }}: {{ pseudo_ecrostic }}{% endblock %}
         </span>
         <span style="display: none;">
-            {% block google_plus %}https://www.ecrostic.com?name={{ vert_word }}&theme={{ theme }}&ecrostic={{ acrostic.slug }}{% endblock %}
+            {% block google_plus %}https://www.ecrostic.com/?name={{ name }};theme={{ theme }};ecrostic={{ acrostic_uri }}{% endblock %}
         </span>
 
         <div data-acrostic_id="{{ acrostic.id }}">

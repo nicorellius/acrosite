@@ -133,17 +133,17 @@ span.nojs-warning {
             <form class="form-inline navbar-form navbar-right" role="form" method="get" action="/search/">
                 {% if user.is_authenticated %}
                 <span class="nav-inv-clr">Logged in as {{ user.username }}</span>
-                <a href="#">
+{#                <a href="#">#}
                     <button type="button" class="btn btn-danger logout" disabled="disabled">
                         <span class="glyphicon glyphicon-log-out"></span> Log out
                     </button>
-                </a>
+{#                </a>#}
                 {% else %}
-                    <a href="#">
+{#                    <a href="#">#}
                     <button type="button" class="btn btn-success login" disabled="disabled">
                         <span class="glyphicon glyphicon-log-in"></span> Log in
                     </button>
-                </a>
+{#                </a>#}
                 {% endif %}
                 <div class="form-group">
                     <label class="sr-only" for="id_q">Search not ready yet</label>

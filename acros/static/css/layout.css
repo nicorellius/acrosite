@@ -34,6 +34,8 @@
         float: left;
         margin-bottom: 0;
     }
+
+    .login, .logout { margin-bottom: 5px; }
 }
 
 /* */
@@ -75,4 +77,6 @@
     .big-header { font-size: 20vw; }
 
     #social-icons span { font-size: 30px !important; }
+
+    .hide-me { display: none; }
 }

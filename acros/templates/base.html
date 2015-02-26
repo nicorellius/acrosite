@@ -132,7 +132,7 @@ span.nojs-warning {
 
             <form class="form-inline navbar-form navbar-right" role="form" method="get" action="/search/">
                 {% if user.is_authenticated %}
-                <span class="nav-inv-clr">Logged in as {{ user.username }}</span>
+                <span class="nav-inv-clr">Logged in as {{ user.username }} &nbsp;</span>
                 <a href="/accounts/logout/">
                     <button type="button" class="btn btn-danger logout">
                         <span class="glyphicon glyphicon-log-out"></span> Log out

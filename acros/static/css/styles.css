@@ -108,6 +108,12 @@ button { margin-bottom: 1em; }
 	height: 45px;
 }
 
+.nav-inv-clr {
+    color: rgb(153, 153, 153);
+}
+
+.login, .logout { margin-bottom: 5px; }
+
 #content {
     margin: 0 auto;
 }

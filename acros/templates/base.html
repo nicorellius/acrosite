@@ -119,8 +119,8 @@ span.nojs-warning {
                     <ul class="dropdown-menu">
                         <li><a href="/resources/">Resources</a></li>
                         <li class="divider"></li>
-                        <li><a href="/accounts/login/">Log in</a></li>
-                        <li><a href="/accounts/signup/">Register</a></li>
+                        <li class="disabled"><a href="/accounts/log">Log in</a></li>
+                        <li class="disabled"><a href="/accounts/signup/">Register</a></li>
                         <li class="divider"></li>
                         <li class="dropdown-header">Terms of Use</li>
                         <li><a href="/terms/">Terms</a></li>
@@ -133,23 +133,23 @@ span.nojs-warning {
             <form class="form-inline navbar-form navbar-right" role="form" method="get" action="/search/">
                 {% if user.is_authenticated %}
                 <span class="nav-inv-clr">Logged in as {{ user.username }}</span>
-                <a href="/accounts/logout/">
-                    <button type="button" class="btn btn-danger logout">
+                <a href="#">
+                    <button type="button" class="btn btn-danger logout" disabled="disabled">
                         <span class="glyphicon glyphicon-log-out"></span> Log out
                     </button>
                 </a>
                 {% else %}
-                    <a href="/accounts/login/">
-                    <button type="button" class="btn btn-success login">
+                    <a href="#">
+                    <button type="button" class="btn btn-success login" disabled="disabled">
                         <span class="glyphicon glyphicon-log-in"></span> Log in
                     </button>
                 </a>
                 {% endif %}
                 <div class="form-group">
-                    <label class="sr-only" for="id_q">Search our words</label>
-                        <input class="form-control" type="text" name="q" id="id_q" placeholder="Search our words" />
+                    <label class="sr-only" for="id_q">Search not ready yet</label>
+                        <input class="form-control" type="text" name="q" id="id_q" placeholder="Search not ready yet" />
                     </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default" disabled="disabled">Submit</button>
             </form>
 
         </div>

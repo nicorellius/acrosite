@@ -5,10 +5,13 @@ module      :   generator
 classes     :   Word, Theme, Construction, Acrostic, Score
 description :   models for arostic generator
 """
+import uuid
+
 from django.db import models
 # from django.contrib.auth.models import User
 
 from common.models import BaseModel
+from common.util import gen_uid
 
 
 class Word(BaseModel):
@@ -55,13 +58,21 @@ class Word(BaseModel):
 
 class Acrostic(BaseModel):
 
+    uaid = models.CharField(max_length=10, default=gen_uid(10))
     vertical_word = models.CharField(max_length=200, default='shit')
     horizontal_words = models.CharField(max_length=200, default='so;happy;it\'s;thursday')
-    theme_name = models.CharField(max_length=200,default='')
+    theme_name = models.CharField(max_length=200, default='')
     construction_sequence = models.CharField(max_length=200, default='P;A;VS;NS')
     tag_sequence = models.CharField(max_length=200, default='')
     # when we need users to own acrostics
     # owner = models.ForeignKey(User)
+
+    def save(self, *args, **kwargs):
+
+        if not self.pk:
+
+            self.uaid = gen_uid(10)
+            super(Acrostic, self).save(*args, **kwargs)
 
     def __str__(self):
         

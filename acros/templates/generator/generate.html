@@ -35,19 +35,23 @@
 
             {% csrf_token %}
 
-            <div class="ctr-right move-up-3em">
+            <div id="theme-dropdown-box" class="move-up-3em">
 
                 <div class="form-group">
-                <label for="theme"></label>
-                <div class="text-danger"><strong><em>{{ form.theme.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
-                {{ form.theme }}
-            </div>
+                    <label for="theme"></label>
+                    <div class="text-danger">
+                        <strong><em>{{ form.theme.errors.as_text|cut:"*"|cut:"." }}</em></strong>
+                    </div>
+                    {{ form.theme }}
+                </div>
 
             </div>
 
             <div class="form-group">
                 <label for="name"></label>
-                <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
+                <div class="text-danger">
+                    <strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong>
+                </div>
                 {{ form.name }}
             </div>
 

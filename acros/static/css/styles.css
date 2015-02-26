@@ -112,6 +112,14 @@ button { margin-bottom: 1em; }
     margin: 0 auto;
 }
 
+#theme-dropdown-box {
+    float: right;
+}
+
+#copyright { color: darkslategray; }
+
+#footer { padding: 0 50px}
+
 .center-section {
     max-width: 32em;
     margin-left: auto;
@@ -154,17 +162,17 @@ button { margin-bottom: 1em; }
 
 .clear-both { clear: both; }
 
-.bold { font-weight: bold; }
+.bold { font-weight: bold; } 
 
 .heading { margin-top: 2em; }
 
 .jumbotron { background-color: #fff; }
 
 .big-header {
-    font-size: 115px;
+    font-size: 110px;
     vertical-align: middle;
     display: table-cell;
-    padding-top: 30px;
+    padding: 30px 0 0 5px;
 }
 
 #admin-access { display: none; }
@@ -196,30 +204,25 @@ button { margin-bottom: 1em; }
 }
 
 /* rate it */
-div.bigstars div.rateit-range
-{
+div.bigstars div.rateit-range {
     background: url(star-white24.png);
     height: 24px;
 }
 
-div.bigstars div.rateit-hover
-{
+div.bigstars div.rateit-hover {
     background: url(star-gold24.png);
 }
 
-div.bigstars div.rateit-selected
-{
+div.bigstars div.rateit-selected {
     background: url(star-gold24.png);
 }
 
-div.bigstars div.rateit-reset
-{
+div.bigstars div.rateit-reset {
     background: url(star-black32.png);
     width: 24px;
     height: 24px;
 }
 
-div.bigstars div.rateit-reset:hover
-{
+div.bigstars div.rateit-reset:hover {
     background: url(star-white24.png);
 }

@@ -31,6 +31,8 @@
         float: left;
         margin-bottom: 0em;
     }
+
+    .login, .logout { margin-bottom: 5px; }
 }
 
 
@@ -59,6 +61,8 @@
     #footer { padding: 30px 0 0 0; }
 
     #copyright, #footer-links { text-align: center; }
+
+    .hide-me { display: none; }
 }
 
 
@@ -73,5 +77,7 @@
     .big-header { font-size: 20vw; }
 
     #social-icons span { font-size: 30px !important; }
+
+    .hide-me { display: none; }
 }
 

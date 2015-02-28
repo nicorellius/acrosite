@@ -395,6 +395,30 @@ def animals_jamming(vert_word, word_list):
     
     return [filters, part_of_speech, tags]
 
+def flexible_animals_jamming(vert_word, word_list):
+    '''
+    Description:
+    ------------
+    Rather than hard-code a construct like adjective-verb-adverb,
+    this construct allows for more flexible word creation.  Based on
+    (1) knowledge of the final length of the word
+    and
+    (2) the previous words used,
+    an acceptable word is chosen.  For example, following a verb, both
+    an adverb (modifying the previous verb) or a noun (indicating a new sentence),
+    or a connecting expresion (also indicating a new sentence) or an adjective (indicating
+    the modifier of a new sentence) might be acceptable.  Depending on what is chosen, however,
+    the following word should change.
+    '''
+    filters = []
+    part_of_speech = ''
+    tags = []
+    
+    characters = list(vert_word)
+    word_length = len_valid_characters(characters)
+    word_num = len_valid_words(word_list)
+    
+    return [filters, part_of_speech, tags]
 
 def just_instruments(vert_word, word_list):
     

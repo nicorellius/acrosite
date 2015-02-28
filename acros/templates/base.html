@@ -195,7 +195,8 @@ span.nojs-warning {
 
                 {#<span id="show-admin" class="icon-cog"></span>#}
                 <p id="admin-access" class="top-mar-2em">
-                    Click here for <a href="/admin/" target="_blank">admin</a> access.
+                    Click here for <a href="/admin/" target="_blank">admin</a> or
+                    <a href="/sitemap.xml" target="_blank">sitemap</a> access.
                 </p>
 
             </div>
@@ -224,7 +225,7 @@ span.nojs-warning {
 	
 </footer>
 
-<!-- loading spinner modal - todo: choose which elements to use spinner on -->
+{# loading spinner modal #}
 <div id="loading-spinner">
     <img id="load-spinner-image" src="{% static 'images/ajax_loader.gif' %}" alt="Loading page..." />
 </div>
@@ -240,6 +241,15 @@ span.nojs-warning {
 
 {% endblock javascript %}
 
+{# google analytics #}
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-60193971-1', 'auto');
+  ga('send', 'pageview');
+</script>
 </body>
 
 </html>

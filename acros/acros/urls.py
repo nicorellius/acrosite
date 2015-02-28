@@ -3,9 +3,10 @@ file        :   urls.py
 date        :   2014-1026
 module      :   acros
 classes     :   
-description :   main URLConf for acrosite
+description :   main URLConf for ecrostic.com
 """
 
+from django.http import HttpResponse
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
@@ -57,4 +58,6 @@ urlpatterns = patterns(
     }),
 
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
+    url(r'^robots\.txt$', lambda r: HttpResponse("User-agent: *\nDisallow: /static/", content_type="text/plain"))
 )

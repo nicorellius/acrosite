@@ -1,17 +1,23 @@
 // utility.js for holding misc js scripts
 
 // jquery ready function
-//$(d$(document).ready(function() {});
+//$(document).ready(function() {});
 
 // hide things by default
 $('#loading-spinner').hide();
 
 $(document).ready(function() {
-    $( ".show-admin" ).click(function() {
+    $(".show-admin" ).click(function() {
         $("#admin-access").toggle( "slow" );
     });
 });
 
+// temp alert for clicking search and login buttons
+$(document).ready(function() {
+    $('.tmp-alert').click(function() {
+        alert("Sign up, log in and search functionality not ready yet.");
+    });
+});
 
 // get month function
 function get_month() {

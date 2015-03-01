@@ -12,7 +12,8 @@ from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun
 from .parts_of_speech import adj_adj_noun_pattern, all_nouns, adj_noun_verb_adv_conn_pattern
 
 from .build_filter import add_first_letter_filter, add_part_of_speech_filter, add_tag_filter
-from .build_filter import add_tag_list_filter, condense_tags_list, add_tag_or_filter, add_pos_or_filter
+from .build_filter import add_tag_list_filter, condense_tags_list
+from .build_filter import add_tag_or_filter, add_list_pos_or_filter, add_pos_to_tags_dictionary_filter
 from. build_filter import len_valid_words, len_valid_characters, clean_word
 
 from .models import Word
@@ -44,7 +45,8 @@ def create_acrostic_filters(vert_word, word_list, theme_name, construction_type)
         if construction_type == 1:
             acrostic_data = instruments_making_music(vert_word, word_list)
         elif construction_type == 2:
-            acrostic_data = animals_jamming(vert_word, word_list)
+            #acrostic_data = animals_jamming(vert_word, word_list)
+            acrostic_data = flexible_animals_jamming(vert_word, word_list)
         elif construction_type == 3:
             acrostic_data = just_instruments(vert_word, word_list)
             
@@ -417,6 +419,29 @@ def flexible_animals_jamming(vert_word, word_list):
     characters = list(vert_word)
     word_length = len_valid_characters(characters)
     word_num = len_valid_words(word_list)
+    words_remaining = word_length - word_num
+    
+    add_first_letter_filter(filters, characters[len(word_list)])
+        
+    # first word - can be noun, adjective, or exclamation (if long enough)
+    if word_num == 0:
+        
+        # this works!
+        pos_tags_dictionary = {
+        'NP': ['cute_animal'],
+        'A': ['positive', 'cute_animal_theme'],
+        }
+        if word_length > 4:
+            pos_tags_dictionary['E'] = []
+        
+        add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+        
+    else:
+        last_word = word_list[word_num-1]
+        part_of_speech = last_word.part_of_speech
+        tags = last_word.tags
+
+    
     
     return [filters, part_of_speech, tags]
 

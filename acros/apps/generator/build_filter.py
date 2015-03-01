@@ -8,6 +8,8 @@ description :   Generate an acrostic based on various inputs and the database of
 import logging
 
 from django.db.models import Q
+import operator
+import functools
 
 from common.util import get_timestamp
 
@@ -42,13 +44,26 @@ def add_part_of_speech_filter(filters, pos):
 
     return filters
 
-
-def add_pos_or_filter(filters, pos1, pos2):
-    filters.append((Q(part_of_speech=pos1) | Q(part_of_speech=pos2)))
-
+def add_list_pos_or_filter(filters, list_pos):
+    or_filters = []
+    for pos in list_pos:
+        or_filters.append(Q(part_of_speech=pos))
+    
+    filters.append(functools.reduce(operator.or_, or_filters))
     return filters
 
-
+def add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary):
+    combined_filter = []
+    for pos, list_tags in pos_tags_dictionary.items():
+        entry_filter = []
+        entry_filter.append(Q(part_of_speech=pos))
+        for tag in list_tags:
+            entry_filter.append(Q(tags__contains=tag))
+        combined_filter.append(functools.reduce(operator.and_, entry_filter))
+        
+    filters.append(functools.reduce(operator.or_, combined_filter))
+    return filters
+    
 def add_tag_or_filter(filters, tag1, tag2):
     filters.append((Q(tags__contains=tag1) | Q(tags__contains=tag2)))
 

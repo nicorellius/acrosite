@@ -49,6 +49,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # allauth specific context processors
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    # common context processor
+    "common.context_processors.get_url",
 )
 
 AUTHENTICATION_BACKENDS = (

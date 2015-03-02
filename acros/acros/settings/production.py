@@ -75,3 +75,6 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # wsgi scheme
 os.environ['wsgi.url_scheme'] = 'https'
+
+# site to be used in templates
+# SITE_URL = 'https://www.ecrostic.com'

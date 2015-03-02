@@ -112,6 +112,11 @@ button { margin-bottom: 1em; }
     color: rgb(153, 153, 153);
 }
 
+.social-home-icons {
+    font-size: 40px;
+    color: #333333;
+}
+
 #content {
     margin: 0 auto;
 }

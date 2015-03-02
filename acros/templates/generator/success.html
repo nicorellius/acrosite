@@ -16,7 +16,7 @@
             {% block facebook %}Check out my ecrostic! {{ acrostic.vertical_word }}: {{ pseudo_ecrostic }}{% endblock %}
         </span>
         <span style="display: none;">
-            {% block google_plus %}https://www.ecrostic.com/?name={{ name }};theme={{ theme }};ecrostic={{ acrostic_uri }}{% endblock %}
+            {% block google_plus %}{{ site_root }}/generate/acrostic/?name={{ name }};theme={{ theme }};ecrostic={{ acrostic_uri }}{% endblock %}
         </span>
 
         <div data-acrostic_id="{{ acrostic.id }}">

@@ -30,8 +30,8 @@ def generate_random_acrostic(vert_word, theme_name):
     construction_dictionary = {
         'my_name': {1: 4, 2: 3, 3: 2, 4: 1},
         'cute_animals': {1: 5, 2: 2, 3: 1, 4: 1, 5: 1},
-        'music': {1: 7, 2: 2, 3: 1},
-        #'music': {2: 1,},  #for debugging
+        #'music': {1: 7, 2: 2, 3: 1},
+        'music': {2: 1,},  #for debugging
         }
 
     # in case the user does not select a theme

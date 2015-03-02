@@ -419,29 +419,168 @@ def flexible_animals_jamming(vert_word, word_list):
     characters = list(vert_word)
     word_length = len_valid_characters(characters)
     word_num = len_valid_words(word_list)
-    words_remaining = word_length - word_num
+    num_words_remaining = word_length - word_num
     
+    # first letter must always match
     add_first_letter_filter(filters, characters[len(word_list)])
         
     # first word - can be noun, adjective, or exclamation (if long enough)
     if word_num == 0:
         
-        # this works!
         pos_tags_dictionary = {
         'NP': ['cute_animal'],
-        'A': ['positive', 'cute_animal_theme'],
         }
-        if word_length > 4:
+        if num_words_remaining > 3:
+            pos_tags_dictionary['A'] = ['positive', 'cute_animal_theme']
+        if num_words_remaining > 4:
             pos_tags_dictionary['E'] = []
         
-        add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+        #cannot start with noun in certain cases
+        if num_words_remaining == 5 or num_words_remaining == 6:
+            pos_tags_dictionary = {
+            'A': ['positive', 'cute_animal_theme'],
+            'E': []
+            }
+         
+        add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)   
+        
+        # TODO - handle this?
+        # special case - so that 7-letter words don't contain 4 adjectives
+        #if num_words_remaining is 7:
+            #add_tag_filter(filters, 'cute_animal')
+            #add_part_of_speech_filter(filters, 'NP')
+        #else:
+        #    add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
         
     else:
         last_word = word_list[word_num-1]
-        part_of_speech = last_word.part_of_speech
-        tags = last_word.tags
+        last_pos = last_word.part_of_speech
+        last_tags = last_word.tags.split(';')
+        print(last_tags)
+        
+        # last = cute animal -> verb: operate musical instrument
+        if last_pos == 'NP' and 'cute_animal' in last_tags:
+            add_part_of_speech_filter(filters, 'VP')
+            add_tag_filter(filters, 'operate_musical_instrument')
+        
+        # last = operate musical instrument -> musical_instrument
+        if last_pos == 'VP':
+            add_part_of_speech_filter(filters, 'NP')
+            add_tag_filter(filters, 'musical_instrument')
+        
+        # last = adverb -> connexpr
+        if last_pos == 'D':
+            add_part_of_speech_filter(filters, 'C')
+        
+        # last = exclamation -> adjective or cute animal
+        if last_pos == 'E':
+            pos_tags_dictionary = {
+            'A': ['positive', 'cute_animal_theme'],
+            'NP': ['cute_animal']
+            }
+            
+            if num_words_remaining == 3:
+                add_part_of_speech_filter(filters, 'NP')
+                add_tag_filter(filters, 'cute_animal')
+            elif num_words_remaining == 4:
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+            elif num_words_remaining == 5 or num_words_remaining == 6:
+                add_part_of_speech_filter(filters, 'A')
+                add_tag_list_filter(filters, ['positive', 'cute_animal_theme'])
+            elif num_words_remaining == 7:
+                add_part_of_speech_filter(filters, 'NP')
+                add_tag_filter(filters, 'cute_animal')
+            
+            # more than 7 words remaining
+            else:
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+                        
+        # last = adjective -> more adjectives or cute animal
+        if last_pos == 'A':
+            pos_tags_dictionary = {
+            'A': ['positive', 'cute_animal_theme'],
+            'NP': ['cute_animal']
+            }
+            
+            if num_words_remaining == 3:
+                add_part_of_speech_filter(filters,'NP')
+                add_tag_filter(filters,'cute_animal')
+            elif num_words_remaining == 4:
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+            elif num_words_remaining == 5 or num_words_remaining == 6:
+                add_part_of_speech_filter(filters, 'A')
+                add_tag_list_filter(filters, ['positive', 'cute_animal_theme'])
+            elif num_words_remaining == 7:
+                add_part_of_speech_filter(filters,'NP')
+                add_tag_filter(filters,'cute_animal')
+            else:
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+                   
+        # last = musical instrument - adverb or connexpr
+        if last_pos == 'NP' and 'musical_instrument' in last_tags:
+            pos_tags_dictionary = {
+            'D': ['follow_verb','positive'],
+            'C': [],
+            }
+            
+            #last word must be an adverb
+            if num_words_remaining == 1:
+                add_part_of_speech_filter(filters, 'D')
+                add_tag_list_filter(filters, ['follow_verb', 'positive'])
+            
+            # no choice but to enter a connexpr-cute_animal-play_music-instrument cycle.
+            elif num_words_remaining == 4:
+                add_part_of_speech_filter(filters, 'C')
+                
+            # could be either
+            else:
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+        
+        # last = connexpr -> cute animal or adjective
+        if last_pos == 'C':
+            
+            # cute_animal-play_music-instrument cycle
+            if num_words_remaining == 3:
+                add_part_of_speech_filter(filters, 'NP')
+                add_tag_filter(filters, 'cute_animal')
+            
+            # cute_animal-play_music-instrument-adverb
+            # or
+            # adjective-cute_animal-play_music-instrument
+            elif num_words_remaining == 4:
+                pos_tags_dictionary = {
+                    'A': ['cute_animal_theme','positive'],
+                    'NP': ['cute_animal'],
+                }
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+                
+            # 5:
+            # adjective-cute_animal-plays_music-instrument-adverb
+            # or
+            # adjective-adjective-cute_animal-plays_music-instrument
+            # 
+            # 6:
+            # adjective-adjective-cute_animal-plays_music-instrument-adverb
+            # or
+            # adjective-adjective-adjective-cute_animal-plays_music-instrument
+            elif num_words_remaining == 5 or num_words_remaining == 6:
+                add_part_of_speech_filter(filters, 'A')
+                add_tag_list_filter(filters, ['positive', 'cute_animal_theme'])
 
-    
+            #force to enter double-construction mode to avoid too many adjectives
+            elif num_words_remaining == 7:
+                add_part_of_speech_filter(filters, 'NP')
+                add_tag_filter('cute_animal')
+            
+            # more than 7
+            else:
+                pos_tags_dictionary = {
+                    'A': ['cute_animal_theme','positive'],
+                    'NP': ['cute_animal'],
+                }
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+
+                
     
     return [filters, part_of_speech, tags]
 

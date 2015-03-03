@@ -159,7 +159,7 @@ class GenerateAcrosticSuccessView(View):
         acrostic_uri = re.sub(';', '_', acrostic_uri)
         acrostic_uri = acrostic_uri[:-1]
 
-        logger.info("{0}: Acrostic string (sub hyphens for semi-colons): {1}".format(get_timestamp(), ecrostic_string))
+        logger.info("{0}: Ecrostic string (sub hyphens for semi-colons): {1}".format(get_timestamp(), ecrostic_string))
         logger.info("{0}: Pseudo ecrostic (sub hyphens for spaces): {1}".format(get_timestamp(), pseudo_ecrostic))
         logger.info("{0}: Level acrostic (words separated by spaces): {1}".format(get_timestamp(), level_acrostic))
         logger.info("{0}: Acrostic URI fragment (browser friendly): {1}".format(get_timestamp(), acrostic_uri))

@@ -50,7 +50,7 @@ $(document).ready(function() {
 		}
 		
 		else {
-			console.log(date_time + ": " + 'user canceled delete operation...');
+			console.log(date_time + ": " + "user canceled delete operation...");
 			$('#loading-spinner').hide();
 			return;
 		}
@@ -92,7 +92,7 @@ $(document).ready(function() {
             $($t).html('');
             $($a).append('('+ data['average'] + ')');
             $($t).append(data['total']);
-            // TODO - figure out how to lock score after one vote
+            // TODO - figure out how to remove the artifact of mousing and catching the hovered value on mouseout
             if (counter >= 3) {
                 var $ric = '.rateit';
                 $($ric).unbind('mouseenter mouseleave')

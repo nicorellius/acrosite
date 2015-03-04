@@ -55,7 +55,7 @@ $(document).ready(function() {
 		}
 		
 		else {
-			console.log(date_time + ": " + 'user canceled delete operation...');
+			console.log(date_time + ": " + "user canceled delete operation...");
 			$('#loading-spinner').hide();
 			return;
 		}

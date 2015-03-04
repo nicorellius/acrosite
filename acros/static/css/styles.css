@@ -15,10 +15,9 @@ body {
 	min-height: 100%;
 }
 
-header .container, .container #content {
+header {
     margin: 0 auto;
-    overflow: hidden;
-    padding: 0 60px;
+    max-width: 32em;
 }
 
 a, a:hover, a:active, a:focus, a:link {
@@ -31,7 +30,6 @@ footer {
     color: #000;
     clear: both;
 	width: 100%;
-	margin-top: 5em;
 	height: 15em;
 	bottom: 0px;
 }
@@ -110,6 +108,27 @@ button { margin-bottom: 1em; }
 	height: 45px;
 }
 
+.nav-inv-clr {
+    color: rgb(153, 153, 153);
+}
+
+.social-home-icons {
+    font-size: 40px;
+    color: #333333;
+}
+
+#content {
+    margin: 0 auto;
+}
+
+#theme-dropdown-box {
+    float: right;
+}
+
+#copyright { color: darkslategray; }
+
+#footer { padding: 0 50px}
+
 .center-section {
     max-width: 32em;
     margin-left: auto;
@@ -160,6 +179,9 @@ button { margin-bottom: 1em; }
 
 .big-header {
     font-size: 110px;
+    vertical-align: middle;
+    display: table-cell;
+    padding: 30px 0 0 5px;
 }
 
 #admin-access { display: none; }

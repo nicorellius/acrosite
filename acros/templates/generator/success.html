@@ -9,11 +9,24 @@
 
     {% if acrostic %}
 
+        <span style="display: none;">
+            {% block twitter %}Check out my ecrostic! {{ acrostic.vertical_word }}: {{ pseudo_ecrostic }}{% endblock %}
+        </span>
+        <span style="display: none;">
+            {% block facebook %}Check out my ecrostic! {{ acrostic.vertical_word }}: {{ pseudo_ecrostic }}{% endblock %}
+        </span>
+        <span style="display: none;">
+            {% block google_plus %}{{ site_root }}/generate/acrostic/?name={{ name }};theme={{ theme }};ecrostic={{ acrostic_uri }}{% endblock %}
+        </span>
+
         <div data-acrostic_id="{{ acrostic.id }}">
             <p style="color: slategray; font-size: 25px; letter-spacing: 2px; margin-left: 10px;">
                 {% autoescape off %}{{ acrostic.horizontal_words|acrosticize }}{% endautoescape %}
             </p>
         </div>
+
+        {# working on pushState() for updating URL after Ajax call #}
+        <span id="get-acrostic" style="display: none; ">{{ acrostic.slug }}</span>
 
         <div style="margin: 0.8em 0 0 0.8em; vertical-align: middle;" class="rateit bigstars" data-rateit-resetable="false"
             data-rateit-starwidth="24" data-rateit-starheight="24"
@@ -49,13 +62,14 @@
     <div class="ctr-container margin-top-2em">
 
         <div id="start-over" class="ctr-left pad-10px">
-            <a href="/generate/" class="btn btn-lg btn-block btn-primary">Start over</a>
+            <a href="/generate/" class="btn btn-lg btn-block btn-primary">
+                <span class="icon-reply grow-btn-icon"></span><span class="hide-me">&nbsp; Start over</a>
         </div>
 
         <div id="generate-another" class="ctr-right pad-10px">
             <a href="/generate/"
                 class="btn btn-lg btn-block btn-success redo" data-target="acrostic_id">
-                Generate another
+                <span class="icon-cw grow-btn-icon"></span><span class="hide-me">&nbsp; Another!</span>
             </a>
         </div>
 

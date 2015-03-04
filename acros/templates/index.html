@@ -5,6 +5,16 @@
 {% block title %} So Happy It's Thursday {% endblock %}
 
 {% block content %}
+
+    <span style="display: none;">
+        {% block twitter %}Let%27s+make+some+ecrostics%21{% endblock %}
+    </span>
+    <span style="display: none;">
+        {% block facebook %}https://www.ecrostic.com/generate/#i-love-ecrostics{% endblock %}
+    </span>
+    <span style="display: none;">
+        {% block google_plus %}https://www.ecrostic.com/generate/#i-love-ecrostics{% endblock %}
+    </span>
 		
     <div class="ctr-container">
 
@@ -35,7 +45,9 @@
     <div class="margin-top-2em">
 
         <a href="/generate/">
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Start making ecrostics!</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                <span class="icon-cog-alt">&nbsp;</span> Start making ecrostics!
+            </button>
         </a>
 
     </div>

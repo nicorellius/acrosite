@@ -54,11 +54,6 @@ DATABASES = {
 }
 """
 
-# static and media files
-STATICFILES_DIRS = (
-    '/var/www/acros/static',
-)
-
 MEDIA_ROOT = '/var/www/acros/media'
 
 STATIC_ROOT = '/var/www/acros/static'

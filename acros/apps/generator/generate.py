@@ -19,8 +19,6 @@ from .build_construction import create_acrostic_filters
 
 logger = logging.getLogger(__name__)
 
-timestamp = get_timestamp()
-
 
 def generate_random_acrostic(vert_word, theme_name):
     
@@ -123,6 +121,9 @@ def generate_random_acrostic(vert_word, theme_name):
                 horz_wordtext_list.append(re.sub('[_]', ' ', w.name))
 
             counter += 1
+
+        # debugging... check acrostic_data
+        logger.info("{0}: 'Acrostic data': {1}".format(get_timestamp(), acrostic_data))
     
     horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)
     
@@ -131,7 +132,7 @@ def generate_random_acrostic(vert_word, theme_name):
     for horz_word in horz_wordtext_list:
         horz_words = "{0}{1};".format(horz_words, horz_word)
 
-    logger.info("{0}: Calling get_or_create()...".format(get_timestamp()))
+    logger.info("{0}: Calling `get_or_create()`...".format(get_timestamp()))
 
     acrostic, created = Acrostic.objects.get_or_create(
         vertical_word=vert_word,
@@ -141,10 +142,12 @@ def generate_random_acrostic(vert_word, theme_name):
         tag_sequence=tags_list
     )
 
+    logger.info("{0}: Created new acrostic: {1}".format(get_timestamp(), created))
+
     level_acrostic = re.sub(';', ' ', acrostic.horizontal_words)
 
-    logger.info("{0}: Acrostic created with vertical word: '{1}'".format(timestamp, vert_word))
-    logger.info("{0}: Acrostic:    {1}".format(timestamp, level_acrostic))
+    logger.info("{0}: Acrostic created with vertical word: '{1}'".format(get_timestamp(), vert_word))
+    logger.info("{0}: Acrostic:    {1}".format(get_timestamp(), level_acrostic))
     
     return acrostic
 
@@ -202,8 +205,8 @@ def rebuild_database(force_rebuild):
         Word.objects.all().delete()
     
     if not Word.objects.all():
-        logger.info("{0}: Rebuilding entire database...".format(timestamp))
+        logger.info("{0}: Rebuilding entire database...".format(get_timestamp()))
         import_alpha_list()
-        logger.info("{0}: Database rebuild complete.".format(timestamp))
+        logger.info("{0}: Database rebuild complete.".format(get_timestamp()))
         
     return

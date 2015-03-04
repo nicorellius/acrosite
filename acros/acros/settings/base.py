@@ -41,9 +41,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-# set before deployment to dev test and production
-ALLOWED_HOSTS = []
-
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'django.contrib.auth.context_processors.auth',
@@ -52,13 +49,15 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     # allauth specific context processors
     'allauth.account.context_processors.account',
     'allauth.socialaccount.context_processors.socialaccount',
+    # common context processor
+    "common.context_processors.get_url",
 )
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     "django.contrib.auth.backends.ModelBackend",
     # `allauth` specific authentication methods, such as login by e-mail
-    "allauth.account.auth_backends.AuthenticationBackend",
+    # "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 # allauth configuration
@@ -77,10 +76,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
+    'django.contrib.flatpages',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'common',
     'apps.accounts',
     'apps.generator',
@@ -104,6 +105,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'acros.urls'

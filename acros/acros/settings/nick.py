@@ -30,6 +30,9 @@ INSTALLED_APPS += (
 from django.conf.locale.en import formats as en_formats
 en_formats.DATETIME_FORMAT = "Y-m-d, H:i:s"
 
+# site to be used in templates
+# SITE_URL = 'http://localhost:8000'
+
 # # nick's logging
 # LOGGING = {
 #     'version': 1,

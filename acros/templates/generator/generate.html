@@ -6,6 +6,16 @@
 
 {% block content %}
 
+    <span style="display: none;">
+        {% block twitter %}Let%27s+make+some+ecrostics%21{% endblock %}
+    </span>
+    <span style="display: none;">
+        {% block facebook %}https://www.ecrostic.com/generate/#i-love-ecrostics{% endblock %}
+    </span>
+    <span style="display: none;">
+        {% block google_plus %}https://www.ecrostic.com/generate/#i-love-ecrostics{% endblock %}
+    </span>
+
     {% if messages %}
 
         <div class="alert alert-danger alert-dismissible margin-top-2em" role="alert">
@@ -25,23 +35,30 @@
 
             {% csrf_token %}
 
-            <div class="ctr-right move-up-3em">
+            <div id="theme-dropdown-box" class="move-up-3em">
 
                 <div class="form-group">
-                <label for="theme"></label>
-                <div class="text-danger"><strong><em>{{ form.theme.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
-                {{ form.theme }}
-            </div>
+                    <label for="theme"></label>
+                    <div class="text-danger">
+                        <strong><em>{{ form.theme.errors.as_text|cut:"*"|cut:"." }}</em></strong>
+                    </div>
+                    {{ form.theme }}
+                </div>
 
             </div>
 
             <div class="form-group">
                 <label for="name"></label>
-                <div class="text-danger"><strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong></div>
+                <div class="text-danger">
+                    <strong><em>{{ form.name.errors.as_text|cut:"*"|cut:"." }}</em></strong>
+                </div>
                 {{ form.name }}
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg btn-block spinner">Generate Acrostic</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block spinner">
+                <span class="icon-forward">&nbsp;</span>
+                Generate ecrostic
+            </button>
 
         </form>
 

@@ -13,11 +13,12 @@ import logging
 from django.shortcuts import render, render_to_response
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect, HttpResponse
-from django.utils.text import slugify
 from django.contrib import messages
+# from django.utils.text import slugify
 
 from common.util import get_timestamp
-from common.signals import ecrostic_not_found
+from apps.generator.templatetags.custom import slagify
+# from common.signals import ecrostic_not_found
 
 from .models import Acrostic, Score
 from .forms import GenerateAcrosticForm
@@ -76,16 +77,38 @@ class GenerateAcrosticFormView(View):
                 vert_word = form.cleaned_data['name']
 
             acrostic = generate_random_acrostic(vert_word, theme)
-            slug = slugify(re.sub(';', ' ', acrostic.horizontal_words))
-            acrostic.slug = slug
+            # using custom templatetag `slagify` which leaves in punctuation
+            # word_list = acrostic.horizontal_words.split(';')
+            # for word in word_list:
+            #     if '-' in word:
+            #         print('Word has hyphen: {0}'.format(word))
+            # slug = slagify(re.sub(';', ' ', acrostic.horizontal_words))
+            # acrostic.slug = slug
+            # TODO - create generate uri function to add DRY-ness to code on this acrostic_uri bit
+            acrostic_uri = re.sub(' ', '+', acrostic.horizontal_words)
+            acrostic_uri = re.sub(';', '_', acrostic_uri)
+            acrostic_uri = acrostic_uri[:-1]
+            logger.info("{0}: Horizontal words: {1}".format(get_timestamp(), acrostic.horizontal_words))
             acrostic.save()
 
             if not request.is_ajax():
                 return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                     vert_word,
                     theme,
-                    acrostic.slug
+                    acrostic_uri
                 ))
+
+            #########################################################################################
+            # TODO - sort this out. this works only because I'm pushing an URL without the ecrostic
+            # TODO - need to figure out how to get that damn ecrostic into this script.
+            # xhr = 'xhr' in request.GET
+            # logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
+            #
+            # if xhr:
+            #     data = serializers.serialize('json', [acrostic, ], fields='slug')
+            #     return HttpResponse(json.dumps(data), content_type="application/json")
+            #
+            #########################################################################################
 
         return render(request, self.template_name, {
             'form': form,
@@ -103,7 +126,9 @@ class GenerateAcrosticSuccessView(View):
     def get(self, request):
 
         acrostic = Acrostic.objects.all().last()
+
         score_data = acrostic.score_set.all()
+
         scores = []
         score_means = []
         score_totals = []
@@ -123,33 +148,66 @@ class GenerateAcrosticSuccessView(View):
 
         logger.info("{0}: GET name: {1}".format(get_timestamp(), name))
         logger.info("{0}: GET theme: {1}".format(get_timestamp(), theme))
-        logger.info("{0}: GET acrostic: {1}".format(get_timestamp(), ecrostic))
+        logger.info("{0}: GET ecrostic: {1}".format(get_timestamp(), ecrostic))
+        logger.info("{0}: Current acrostic: {1}".format(get_timestamp(), acrostic.horizontal_words))
 
-        acrostic_string = '{0};'.format(re.sub('-', ';', ecrostic))
-        pseudo_acrostic = re.sub('-', ' ', ecrostic)
+        ecrostic_string = '{0};'.format(re.sub('_', ';', ecrostic))
+        pseudo_ecrostic = re.sub('_', ' ', ecrostic)
+        level_acrostic = re.sub(';', ' ', acrostic.horizontal_words)
 
-        if not Acrostic.objects.filter(horizontal_words=acrostic_string).exists():
+        acrostic_uri = re.sub(' ', '+', acrostic.horizontal_words)
+        acrostic_uri = re.sub(';', '_', acrostic_uri)
+        acrostic_uri = acrostic_uri[:-1]
 
-            logger.info("{0}: Acrostic `{1}` not found.".format(get_timestamp(), pseudo_acrostic))
-            # self.ecrostic_not_found_message(request)
-            messages.add_message(request, messages.INFO, '{0}'.format(pseudo_acrostic))
+        logger.info("{0}: Ecrostic string (sub hyphens for semi-colons): {1}".format(get_timestamp(), ecrostic_string))
+        logger.info("{0}: Pseudo ecrostic (sub hyphens for spaces): {1}".format(get_timestamp(), pseudo_ecrostic))
+        logger.info("{0}: Level acrostic (words separated by spaces): {1}".format(get_timestamp(), level_acrostic))
+        logger.info("{0}: Acrostic URI fragment (browser friendly): {1}".format(get_timestamp(), acrostic_uri))
+
+        # TODO - find a better way to check if acrostic exists!
+        if Acrostic.objects.filter(horizontal_words=ecrostic_string).exists():
+
+            return render(request, self.template_name, {
+                'acrostic': acrostic,
+                'acrostic_uri': acrostic_uri,
+                'pseudo_ecrostic': pseudo_ecrostic,
+                'name': name,
+                'theme': theme,
+                'scores': scores,
+                'score_means': score_means,
+                'score_totals': score_totals
+            })
+
+        elif not Acrostic.objects.filter(horizontal_words=ecrostic_string).exists():
+
+            if ecrostic == '':
+
+                return render(request, self.template_name, {
+                    'acrostic': acrostic,
+                    'acrostic_uri': acrostic_uri,
+                    'pseudo_ecrostic': pseudo_ecrostic,
+                    'name': name,
+                    'theme': theme,
+                    'scores': scores,
+                    'score_means': score_means,
+                    'score_totals': score_totals
+                })
+
+            logger.info("{0}: Ecrostic `{1}` not found.".format(get_timestamp(), pseudo_ecrostic))
+            messages.add_message(request, messages.INFO, '{0}'.format(pseudo_ecrostic))
 
             return HttpResponseRedirect('/generate/')
 
         return render(request, self.template_name, {
             'acrostic': acrostic,
+            'acrostic_uri': acrostic_uri,
+            'pseudo_ecrostic': pseudo_ecrostic,
+            'name': name,
             'theme': theme,
             'scores': scores,
             'score_means': score_means,
             'score_totals': score_totals
         })
-
-    # message signal
-    # def ecrostic_not_found_message(self, request):
-    #
-    #     logger.info("{0}: Preparing for signal deployment".format(get_timestamp()))
-    #
-    #     ecrostic_not_found.send(sender=self, request=request)
 
 
 class RateAcrosticView(View):
@@ -195,6 +253,7 @@ class RateAcrosticView(View):
 
         # calculate averages and totals
         average = round(numpy.mean(scores), 1)
+        # average = round(float(sum(scores))/len(scores) if len(scores) > 0 else float('nan'), 1)
         total = len(score_objects)
 
         # save averages and totals to database
@@ -209,7 +268,7 @@ class RateAcrosticView(View):
         logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
 
         response_data = {
-            'message': 'Value of star rating:',
+            'message': 'Statistics for star rating',
             'value': star_value,
             'average': average,
             'total': total

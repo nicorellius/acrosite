@@ -2,147 +2,82 @@
 @file layout.css
 @description css media query styles
 @author nick vincent-maloney
-@date 2014-0525
+@date 2015-0217
 */
 
 /* */
-@media all and (min-width: 1351px) {
-	
-	.container { width: 1450px; }
-	
-	header { padding: 2em 0; }
-	
-	#main-logo { padding: 4em 0 0 0; }
+@media all and (min-width: 993px) {
+
+	header { margin-top: 4em; }
 }
 
 /* */
-@media all and (max-width: 1350px) {
-	
-	header { padding: 2em 0; }
-	
-	#main-logo { margin: -1.5em 0 0 0; }
+@media all and (max-width: 992px) {
 
+	header { margin-top: 7em; }
 }
 
-/* */
-@media all and (min-width: 990px) and (max-width: 1350px) {}
-
-/* */
-@media all and (max-width: 991px) {
-
-	.content-hide { display: none; }
-	
-	.back-to-top { padding: 1em; }
-	
-	#search-form { display: none; }
-	
-	#search-hide {
-		display: block;
-		font-size: 14px;
-		color: #a7a9ac;
-		font-weight: bold;
-	}
-	
-	#main-logo {
-		margin: -2.5em 0 0 -2em;
-		z-index: 9999;
-	}
-}
-
-@media only screen and (min-width: 768px) and (max-width : 1200px) {
-	
-	.jumbotron h1 { font-size: 50px }
-	
-	.caption { font-size: 40px; }
-
-}
-
-/* */
-@media all and (min-width: 768px) and (max-width: 999px) {
-
-}
 
 /* */
 @media all and (max-width: 768px) {
 
-	.back-to-top {
-		padding: 0.5em;
-	}
-	
-	.thumbnail-heading {
-		font-size: 30px;
-		padding: 0.5em;
-	}
-	
-	.footer-text {
-		padding-right: 3em;
-	}
-	
-	.caption { font-size: 30px; }
-	
-	.nav li a:hover {
-		background-color: #d8d8d8;
-	}
-	
-	header {
-		padding: 2em 0 2em 0;		
-	}
-	
-	#dashboard-menu { float: left; }
-	
-	#search-hide { display: none; }
-	
-	#search-form {
-		display: block;
-		float: right;
-		margin: 0 20px 10px 0;
-	}
-	
-	#signup-button, #logout-button { margin-top: 11px; }
-	
-	#menu-button {
-		display: block;
-		font-size: 24px;
-		float: right;
-	}
-	
-	#menu-button:hover { cursor: pointer; }
-	
-	#main-nav li:first-of-type { padding-top: 1em; }
-	
-	#main-nav {
-		display: none;
-		width: 100%;
-		top: 0;
-		position: static;
-		height: auto;
-		background-color: #eee;
-		border-radius: 4px;
-	}
-		
-	#main-nav li {
-		float: none;
-	}
-	
+	header { margin-top: 4em; }
+
+    .center-section { padding: 0 1em; }
+
+    .big-header { padding-left: 10px; }
+
+    #theme-dropdown-box {
+        float: left;
+        margin-bottom: 0em;
+    }
+
+    .login, .logout { margin-bottom: 5px; }
 }
 
-/* */
-@media all and (min-width: 480px) and (max-width: 767px) {
-    	
-	#search-form {
-		max-width: 350px;
-	}
-}
 
 /* */
-@media all and (max-width: 510px) {
-    
-	.caption {
-		font-size: 24px;
-		margin-bottom: -1.5em;
-	}
-	
-	#search-form {
-		max-width: 200px;
-	}
+@media all and (max-width: 445px) {
+
+    footer { margin-top: 0; }
+
+    #big-header-container {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    .big-header {
+        font-size: 80px;
+        padding: 30px 0 0 0;
+    }
+
+    .center-section { padding: 0 2.5em; }
+
+    #footer, #copyright, #footer-links {
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    #footer { padding: 30px 0 0 0; }
+
+    #copyright, #footer-links { text-align: center; }
+
+    .hide-me { display: none; }
+
+    .grow-btn-icon { font-size: 30px; }
 }
+
+
+/* */
+@media all and (max-width: 350px) {
+
+    #big-header-container {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .big-header { font-size: 20vw; }
+
+    #social-icons span { font-size: 30px !important; }
+}
+

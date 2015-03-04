@@ -2,6 +2,7 @@
 
 // re-generate ecrostic script on button click
 $(document).ready(function() {
+
     $(".redo").click(function(e) {
 
         e.preventDefault();
@@ -16,16 +17,20 @@ $(document).ready(function() {
         var theme = $.QueryString['theme'];
         var ecrostic = $.QueryString['ecrostic'];
 
-        // pushState()
-        //var stateObj = { acrostic: 'acrostic' };
-        //history.pushState(stateObj, "page 2", '/generate/acrostic/');
-
         console.log(date_time + ": " + 'name: ' + name + '; theme: ' + theme + '; ecrostic: ' + ecrostic);
 
 		if ($(this).attr('data-target') == 'acrostic_id') {
+
+            // TODO - sort this out. this works only because I'm pushing an URL without the ecrostic
+            // TODO - need to figure out how to get that damn ecrostic into this script.
+            // var acros = $('#get-acrostic').text();
+            // pushState()
+            var stateObj = {acrostic: 'acrostic'};
+            history.pushState(stateObj, '', '?name=' + name + '&theme=' + theme);
+
 			$.ajax({
 				type: 'post',
-				url: '/generate/',
+				url: '/generate/?xhr',
 				data: {
                     name: name,
                     theme: theme
@@ -54,56 +59,64 @@ $(document).ready(function() {
 			$('#loading-spinner').hide();
 			return;
 		}
-		
-        
     });
 });
 
+
+// start counter for star clicks
 var counter = 0;
 
 // rateit ajax script
- $('.rateit').bind('click', function(e) {
+$(document).ready(function() {
 
-     e.preventDefault();
+    $('.rateit').bind('click', function(e) {
 
-     var date_time = get_timestamp();
-     var ri = $(this);
-     var value = ri.rateit('value');
-     var acrostic_id = ri.data('acrostic_id');
+        e.preventDefault();
 
-     // TODO - move this below to success if necessary
-     //$(ri).attr('data-rateit-readonly', 'true');
-     if (counter >= 5) {
-         $(ri).rateit('readonly', !$(ri).rateit('readonly'));
-     }
+        // TODO - move this below to success if necessary
+        //$('.rateit').attr('data-rateit-readonly', 'true');
 
-     $.ajax({
-         url: '/acrostic/rate/?xhr',
-         data: {
+        var date_time = get_timestamp();
+        var ri = $(this);
+        var value = ri.rateit('value');
+        var acrostic_id = ri.data('acrostic_id');
+
+        $.ajax({
+            url: '/acrostic/rate/?xhr',
+            data: {
              acrostic_id: acrostic_id,
              value: value
-         },
-         type: 'post',
-         success: function(data, response) {
-             console.log(date_time + ": " + "ajax call succeeded!");
-             console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
-             console.log(date_time + ": " + "ajax response: " + response);
-             console.log(date_time + ": " + "click counter: " + counter);
-             var $a = '#average';
-             var $t = '#total';
-             // TODO - figure out how to lock score after one vote
-             $($a).html('');
-             $($t).html('');
-             $($a).append('('+ data['average'] + ')');
-             $($t).append(data['total']);
-         },
-         error: function(data, response) {
-             console.log(date_time + ": " + "ajax call failed!");
-             //console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
-             console.log(date_time + ": " + "ajax response: " + response);
-         }
-     });
+            },
+            type: 'post',
+        success: function(data, response) {
+            console.log(date_time + ": " + "ajax call succeeded!");
+            console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
+            console.log(date_time + ": " + "ajax response: " + response);
+            var $a = '#average';
+            var $t = '#total';
+            $($a).html('');
+            $($t).html('');
+            $($a).append('('+ data['average'] + ')');
+            $($t).append(data['total']);
+            // TODO - figure out how to lock score after one vote
+            if (counter >= 3) {
+                var $ric = '.rateit';
+                $($ric).unbind('mouseenter mouseleave')
+                $($ric).off('click');
+                $(ri).rateit('readonly', true);
+                $($ric).rateit('value', value);
+                //$('.rateit').on('rated', function() {
+                //    $(ri).rateit('readonly', true);
+                //});
+            }
+        },
+        error: function(data, response) {
+            console.log(date_time + ": " + "ajax call failed!");
+            //console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
+            console.log(date_time + ": " + "ajax response: " + response);
+            }
+        });
 
-     counter++;
-
- });
+        counter++;
+    });
+});

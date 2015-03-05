@@ -159,48 +159,12 @@ class GenerateAcrosticSuccessView(View):
         acrostic_uri = re.sub(';', '_', acrostic_uri)
         acrostic_uri = acrostic_uri[:-1]
 
-        logger.info("{0}: Acrostic string (sub hyphens for semi-colons): {1}".format(get_timestamp(), ecrostic_string))
+        logger.info("{0}: Ecrostic string (sub hyphens for semi-colons): {1}".format(get_timestamp(), ecrostic_string))
         logger.info("{0}: Pseudo ecrostic (sub hyphens for spaces): {1}".format(get_timestamp(), pseudo_ecrostic))
         logger.info("{0}: Level acrostic (words separated by spaces): {1}".format(get_timestamp(), level_acrostic))
         logger.info("{0}: Acrostic URI fragment (browser friendly): {1}".format(get_timestamp(), acrostic_uri))
 
-        # TODO - find a better way to check if acrostic exists!
-        if Acrostic.objects.filter(horizontal_words=ecrostic_string).exists():
-
-            return render(request, self.template_name, {
-                'acrostic': acrostic,
-                'acrostic_uri': acrostic_uri,
-                'pseudo_ecrostic': pseudo_ecrostic,
-                'level_acrostic': level_acrostic,
-                'name': name,
-                'theme': theme,
-                'scores': scores,
-                'score_means': score_means,
-                'score_totals': score_totals
-            })
-
-        elif not Acrostic.objects.filter(horizontal_words=ecrostic_string).exists():
-
-            if ecrostic == '':
-
-                return render(request, self.template_name, {
-                    'acrostic': acrostic,
-                    'acrostic_uri': acrostic_uri,
-                    'pseudo_ecrostic': pseudo_ecrostic,
-                    'level_acrostic': level_acrostic,
-                    'name': name,
-                    'theme': theme,
-                    'scores': scores,
-                    'score_means': score_means,
-                    'score_totals': score_totals
-                })
-
-            logger.info("{0}: Ecrostic `{1}` not found.".format(get_timestamp(), pseudo_ecrostic))
-            messages.add_message(request, messages.INFO, '{0}'.format(pseudo_ecrostic))
-
-            return HttpResponseRedirect('/generate/')
-
-        return render(request, self.template_name, {
+        data_dict = {
             'acrostic': acrostic,
             'acrostic_uri': acrostic_uri,
             'pseudo_ecrostic': pseudo_ecrostic,
@@ -210,7 +174,25 @@ class GenerateAcrosticSuccessView(View):
             'scores': scores,
             'score_means': score_means,
             'score_totals': score_totals
-        })
+        }
+
+        # TODO - find a better way to check if acrostic exists!
+        if Acrostic.objects.filter(horizontal_words=ecrostic_string).exists():
+
+            return render(request, self.template_name, data_dict)
+
+        elif not Acrostic.objects.filter(horizontal_words=ecrostic_string).exists():
+
+            if ecrostic == '':
+
+                return render(request, self.template_name, data_dict)
+
+            logger.info("{0}: Ecrostic `{1}` not found.".format(get_timestamp(), pseudo_ecrostic))
+            messages.add_message(request, messages.INFO, '{0}'.format(pseudo_ecrostic))
+
+            return HttpResponseRedirect('/generate/')
+
+        return render(request, self.template_name, data_dict)
 
 
 class RateAcrosticView(View):

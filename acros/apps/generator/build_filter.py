@@ -147,7 +147,23 @@ def clean_word(vert_word):
 
     return cleaned_word
 
-
+def nth_previous_valid_word(word_list, num_back):
+    
+    word = None
+    num_back = num_back-1
+    if num_back < len_valid_words(word_list):
+        valid_words_counter = 0
+        all_words_counter = len(word_list)
+        while (valid_words_counter <= num_back):
+            all_words_counter = all_words_counter - 1
+            if word_list[all_words_counter] is not None:
+                valid_words_counter += 1
+                word = word_list[all_words_counter]
+     
+    # for debugging
+    #print('BACK:{0} WORD LIST:{1}'.format((num_back+1), word_list))
+    #print('BACK:{0} PREV WORD:{1}'.format((num_back+1), word))           
+    return word
 # TODO: currently unusued, but may be useful in future?
 def valid_char_at(vert_word, desired_valid_char_number):
     

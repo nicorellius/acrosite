@@ -14,7 +14,7 @@ from .parts_of_speech import adj_adj_noun_pattern, all_nouns, adj_noun_verb_adv_
 from .build_filter import add_first_letter_filter, add_part_of_speech_filter, add_tag_filter
 from .build_filter import add_tag_list_filter, condense_tags_list
 from .build_filter import add_tag_or_filter, add_list_pos_or_filter, add_pos_to_tags_dictionary_filter
-from. build_filter import len_valid_words, len_valid_characters, clean_word
+from. build_filter import len_valid_words, len_valid_characters, clean_word, nth_previous_valid_word
 
 from .models import Word
 
@@ -442,21 +442,22 @@ def flexible_animals_jamming(vert_word, word_list):
             'E': []
             }
          
-        add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)   
+        # add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)   
         
-        # TODO - handle this?
-        # special case - so that 7-letter words don't contain 4 adjectives
-        #if num_words_remaining is 7:
-            #add_tag_filter(filters, 'cute_animal')
-            #add_part_of_speech_filter(filters, 'NP')
-        #else:
-        #    add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+        #So that 7-letter words don't contain 4 adjectives in a row
+        if num_words_remaining is 7:
+            pos_tags_dictionary = {
+            'NP': ['cute_animal'],
+            'E': []
+            }
         
-    else:
-        last_word = word_list[word_num-1]
+        add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+        
+    elif nth_previous_valid_word(word_list, 1) is not None:
+        
+        last_word = nth_previous_valid_word(word_list,1)
         last_pos = last_word.part_of_speech
         last_tags = last_word.tags.split(';')
-        print(last_tags)
         
         # last = cute animal -> verb: operate musical instrument
         if last_pos == 'NP' and 'cute_animal' in last_tags:
@@ -506,6 +507,13 @@ def flexible_animals_jamming(vert_word, word_list):
                 add_part_of_speech_filter(filters,'NP')
                 add_tag_filter(filters,'cute_animal')
             elif num_words_remaining == 4:
+                
+                # prevents a run of 3 adjectives in a row for short vert_words (up to about 9 letters).
+                if word_num >= 2:
+                    if (nth_previous_valid_word(word_list, 1).part_of_speech == 'A' 
+                        and nth_previous_valid_word(word_list, 2).part_of_speech == 'A'):
+                        del pos_tags_dictionary['A']
+                        
                 add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
             elif num_words_remaining == 5 or num_words_remaining == 6:
                 add_part_of_speech_filter(filters, 'A')
@@ -516,7 +524,7 @@ def flexible_animals_jamming(vert_word, word_list):
             else:
                 add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
                    
-        # last = musical instrument - adverb or connexpr
+        # last = musical instrument - adverb or connecting expression
         if last_pos == 'NP' and 'musical_instrument' in last_tags:
             pos_tags_dictionary = {
             'D': ['follow_verb','positive'],
@@ -528,7 +536,7 @@ def flexible_animals_jamming(vert_word, word_list):
                 add_part_of_speech_filter(filters, 'D')
                 add_tag_list_filter(filters, ['follow_verb', 'positive'])
             
-            # no choice but to enter a connexpr-cute_animal-play_music-instrument cycle.
+            # no choice but to enter a connecting expression-cute_animal-play_music-instrument cycle.
             elif num_words_remaining == 4:
                 add_part_of_speech_filter(filters, 'C')
                 
@@ -536,7 +544,7 @@ def flexible_animals_jamming(vert_word, word_list):
             else:
                 add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
         
-        # last = connexpr -> cute animal or adjective
+        # last = connecting expression -> cute animal or adjective
         if last_pos == 'C':
             
             # cute_animal-play_music-instrument cycle
@@ -570,7 +578,7 @@ def flexible_animals_jamming(vert_word, word_list):
             #force to enter double-construction mode to avoid too many adjectives
             elif num_words_remaining == 7:
                 add_part_of_speech_filter(filters, 'NP')
-                add_tag_filter('cute_animal')
+                add_tag_filter(filters, 'cute_animal')
             
             # more than 7
             else:

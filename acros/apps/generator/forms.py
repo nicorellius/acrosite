@@ -20,7 +20,7 @@ class GenerateAcrosticForm(forms.ModelForm):
     THEME_CHOICES = (
         ('default', 'Choose a theme'),
         ('my_name', 'My name'),
-        ('cute_animals', 'Cute nnimals'),
+        ('cute_animals', 'Cute animals'),
         ('music', 'Music'),
     )
     

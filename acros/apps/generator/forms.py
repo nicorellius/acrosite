@@ -18,8 +18,9 @@ class GenerateAcrosticForm(forms.ModelForm):
         fields = ['name', 'theme']
 
     THEME_CHOICES = (
-        ('my_name', 'My Name'),
-        ('cute_animals', 'Cute Animals'),
+        ('default', 'Choose a theme'),
+        ('my_name', 'My name'),
+        ('cute_animals', 'Cute animals'),
         ('music', 'Music'),
     )
     
@@ -31,7 +32,7 @@ class GenerateAcrosticForm(forms.ModelForm):
                 'id': 'vertical-word',
                 'type': 'text',
                 'name': 'name',
-                'placeholder': 'Enter your name or anther word',
+                'placeholder': 'Enter your name or another word',
             }
         )
     )

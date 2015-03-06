@@ -378,6 +378,18 @@ def just_instruments(vert_word, word_list):
     
     return [filters, part_of_speech, tags]
 
+# TODO
+def flexible_instruments_making_music(vert_word, word_list):
+    filters = []
+    part_of_speech = ''
+    tags = []
+    
+    characters = list(vert_word)
+    word_length = len_valid_characters(characters)
+    word_num = len_valid_words(word_list)
+    num_words_remaining = word_length - word_num
+    
+    return [filters, part_of_speech, tags]
 
 def instruments_making_music(vert_word, word_list):
     

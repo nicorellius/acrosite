@@ -94,7 +94,7 @@ class GenerateAcrosticFormView(View):
             if not request.is_ajax():
                 return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                     vert_word,
-                    theme,
+                    acrostic.theme_name,
                     acrostic_uri
                 ))
 

@@ -31,7 +31,7 @@ class GenerateAcrosticForm(forms.ModelForm):
                 'id': 'vertical-word',
                 'type': 'text',
                 'name': 'name',
-                'placeholder': 'Enter your name or anther word',
+                'placeholder': 'Enter your name or another word',
             }
         )
     )

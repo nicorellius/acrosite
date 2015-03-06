@@ -97,7 +97,12 @@ def generate_random_acrostic(vert_word, theme_name):
                     
                     # treat strange character as a 'None', return just the character
                     horz_word_list.append(None)
-                    horz_wordtext_list.append(characters[counter])
+                    
+                    #TODO: consider re-factor how to handle special characters
+                    if characters[counter] is '_':
+                        horz_wordtext_list.append('-')
+                    else:
+                        horz_wordtext_list.append(characters[counter])
                     
                 elif len(construction_ids_w_weights) == 1:
 

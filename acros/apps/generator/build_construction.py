@@ -39,7 +39,10 @@ def create_acrostic_filters(vert_word, word_list, theme_name, construction_type)
             acrostic_data = my_name_adv_adj(vert_word, word_list, False)
 
     elif theme_name == 'cute_animals':
-        acrostic_data = cute_animals_theme(vert_word, word_list, construction_type)
+        if construction_type is 1:
+            acrostic_data = cute_animals_to_pattern(vert_word, word_list)
+        else:
+            acrostic_data = cute_animals_theme(vert_word, word_list, construction_type)
 
     elif theme_name == 'music':
         if construction_type == 1:
@@ -170,6 +173,18 @@ def cute_animals_theme(vert_word, word_list, construction_type):
     
     return [filters, part_of_speech, condense_tags_list(tags)]
 
+def cute_animals_to_pattern(vert_word, word_list):
+    
+    pos_tags_master = {
+        'E':[],
+        'A':['cute_animal_theme','positive'],
+        'NP':['cute_animal'],
+        'VP':['cute_animal_theme','positive'],
+        'D':['follow_verb','positive'],
+        'C':[],
+    }
+    
+    return E_A_NP_VP_D_C_pattern(pos_tags_master,vert_word, word_list)
 
 def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
 # a general purpose theme-independent construction that allows
@@ -190,9 +205,6 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
     or a connecting expresion (also indicating a new sentence) or an adjective (indicating
     the modifier of a new sentence) might be acceptable.  Depending on what is chosen, however,
     the following word should change.
-    
-    In this case, there are two NPs - NP1 and NP2.
-    
     '''
     filters = []
     part_of_speech = ''
@@ -216,24 +228,17 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
     if word_num == 0:
         
         pos_tags_dictionary = {
-        'NP': pos_tags_master['NP1'],
+        'NP': pos_tags_master['NP'],
         }
-        if num_words_remaining > 3:
+        if num_words_remaining >= 3:
             pos_tags_dictionary['A'] = pos_tags_master['A']
-        if num_words_remaining > 4:
+        if num_words_remaining >= 4:
             pos_tags_dictionary['E'] = pos_tags_master['E']
         
         #cannot start with noun in certain cases
-        if num_words_remaining == 5 or num_words_remaining == 6:
+        if num_words_remaining == 4:
             pos_tags_dictionary = {
             'A': pos_tags_master['A'],
-            'E': pos_tags_master['E'],
-            }  
-        
-        #So that 7-letter words don't contain 4 adjectives in a row
-        if num_words_remaining is 7:
-            pos_tags_dictionary = {
-            'NP': pos_tags_master['NP1'],
             'E': pos_tags_master['E'],
             }
         
@@ -258,17 +263,14 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
             'C': pos_tags_master['C'],
             }
             
-            #last word must be D
+            #must proceed as D
             if num_words_remaining == 1:
                 add_part_of_speech_filter(filters, 'D')
                 add_tag_list_filter(filters, pos_tags_master['D'])
-            
-            # no choice but to enter a C-NP1-VP-NP2 cycle.
-            elif num_words_remaining == 4:
+            # must proceed as C-NP-VP
+            elif num_words_remaining == 3:
                 add_part_of_speech_filter(filters, 'C')
                 add_tag_list_filter(filters, pos_tags_master['C'])
-                
-            # could be either
             else:
                 add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
         
@@ -280,32 +282,30 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
         # last = E -> A or NP
         elif last_pos == 'E':
             
-            if num_words_remaining == 3 or num_words_remaining == 7:
+            # must proceed as NP-VP
+            if num_words_remaining == 2:
                 add_part_of_speech_filter(filters, 'NP')
                 add_tag_list_filter(filters, pos_tags_master['NP'])
+            # must proceed as A-NP-VP-D
             elif num_words_remaining == 4:
-                add_pos_to_tags_dictionary_filter(filters, A_NP_dict)
-            elif num_words_remaining == 5 or num_words_remaining == 6:
                 add_part_of_speech_filter(filters, 'A')
                 add_tag_list_filter(filters, pos_tags_master['A'])
-            
-            # more than 7 words remaining
             else:
                 add_pos_to_tags_dictionary_filter(filters, A_NP_dict)
                         
         # last = A -> A or NP
         elif last_pos == 'A':
             
-            if num_words_remaining == 3 or num_words_remaining == 7:
+            # must proceed as NP-VP
+            if num_words_remaining == 2:
                 add_part_of_speech_filter(filters,'NP')
                 add_tag_list_filter(filters,pos_tags_master['NP'])
-            elif num_words_remaining == 4:
+            elif num_words_remaining == 3:
                 
-                # prevents a run of 3 adjectives in a row for short vert_words (up to 9 letters).
+                # prevents a run of 3 adjectives in a row.
                 use_dict = True
                 if word_num >= 2:
-                    if (nth_previous_valid_word(word_list, 1).part_of_speech == 'A' 
-                        and nth_previous_valid_word(word_list, 2).part_of_speech == 'A'):
+                    if nth_previous_valid_word(word_list, 2).part_of_speech == 'A':
                         use_dict = False
                 
                 if use_dict:
@@ -313,39 +313,32 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
                 else:
                     add_part_of_speech_filter(filters,'NP')
                     add_tag_list_filter(filters,pos_tags_master['NP'])
-                    
-            elif num_words_remaining == 5 or num_words_remaining == 6:
-                add_part_of_speech_filter(filters, 'A')
-                add_tag_list_filter(filters, pos_tags_master['A'])
+            
+            # must proceed as A-NP-VP-D
+            elif num_words_remaining == 4:
+                add_part_of_speech_filter(filters,'A')
+                add_tag_list_filter(filters,pos_tags_master['A'])
+            # must proceed as NP-VP-C-NP-VP
+            elif num_words_remaining == 5:
+                add_part_of_speech_filter(filters,'NP')
+                add_tag_list_filter(filters,pos_tags_master['NP'])
             else:
                 add_pos_to_tags_dictionary_filter(filters, A_NP_dict)
                    
         # last = C -> NP or A
         elif last_pos == 'C':
             
-            # NP1-D-NP2 cycle
-            if num_words_remaining == 3:
+            # must proceed as NP-VP
+            if num_words_remaining == 2 or num_words_remaining == 5:
                 add_part_of_speech_filter(filters, 'NP')
                 add_tag_list_filter(filters, pos_tags_master['NP'])
-            
-            # NP1-VP-NP2-D or A-NP1-VP-NP2
+            # must proceed as A-NP-VP-D
             elif num_words_remaining == 4:
-                add_pos_to_tags_dictionary_filter(filters, A_NP_dict)
-            
-            # 5: A-NP1-VP-NP2-D or A-A-NP1-VP-NP2
-            # 6: A-A-NP1-VP-NP-NP2-D (A-A-A-NP1-VP-NP2 is explicitly prevented elsewhere)
-            elif num_words_remaining == 5 or num_words_remaining == 6:
                 add_part_of_speech_filter(filters, 'A')
                 add_tag_list_filter(filters, pos_tags_master['A'])
-
-            #to avoid to many adjectives, enter NP1-VP-NP2-C-NP1-VP-NP2
-            elif num_words_remaining == 7:
-                add_part_of_speech_filter(filters, 'NP')
-                add_tag_list_filter(filters, pos_tags_master['NP'])
-            
-            # more than 7
             else:
                 add_pos_to_tags_dictionary_filter(filters, A_NP_dict)
+
 
     return [filters, part_of_speech, tags]  
 
@@ -478,6 +471,7 @@ def E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list):
                 add_tag_list_filter(filters,pos_tags_master['NP1'])
             elif num_words_remaining == 4:
                 
+                # TODO: last pos is already an A, change conditional statement
                 # prevents a run of 3 adjectives in a row for short vert_words (up to 9 letters).
                 use_dict = True
                 if word_num >= 2:

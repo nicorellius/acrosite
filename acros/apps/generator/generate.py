@@ -10,6 +10,9 @@ import random
 import re
 import logging
 
+import operator
+import functools
+
 from common.util import get_timestamp
 
 from .models import Word, Acrostic
@@ -29,10 +32,10 @@ def generate_random_acrostic(vert_word, theme_name):
     # master list of available options, with weights
     construction_dictionary = {
         'my_name': {1: 4, 2: 3, 3: 2, 4: 1},
-        #'cute_animals': {1: 5, 2: 2, 3: 1, 4: 1, 5: 1},
-        'cute_animals': {1: 1}, # for debugging
-        #'music': {1: 7, 2: 2, 3: 1},
-        'music': {1: 1,},  #for debugging
+        'cute_animals': {1: 5, 2: 2, 3: 1, 4: 1, 5: 1},
+        #'cute_animals': {1: 1}, # for debugging
+        'music': {1: 7, 2: 2, 3: 1},
+        #'music': {1: 1,},  #for debugging
         }
 
     # in case the user does not select a theme
@@ -69,13 +72,16 @@ def generate_random_acrostic(vert_word, theme_name):
             tags_list.append(acrostic_data[2])
             
             # initial state- all objects
-            pre_filter = Word.objects.all()
+            #pre_filter = Word.objects.all()
         
             # filter based on construction and vertical word
-            for filter_query in filter_set:
-                post_filter = pre_filter.filter(filter_query)
-                pre_filter = post_filter
-        
+            #for filter_query in filter_set:
+            #    post_filter = pre_filter.filter(filter_query)
+            #    pre_filter = post_filter
+            
+            condensed_filter = functools.reduce(operator.and_, filter_set)
+            post_filter = Word.objects.all().filter(condensed_filter)
+            
             # handle duplicates - disallow duplicates unless the entire filtered list has been exhausted
             available_words = list(post_filter)
             duplicate_filtered = list(available_words)

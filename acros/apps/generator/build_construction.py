@@ -270,7 +270,6 @@ def E_A_NP_VP_NP_D_C_pattern(pos_tags_master, vert_word, word_list):
         last_tags.remove('\n')
         
         set_last_tags = set(last_tags)
-        print("LAST TAGS SET: {0}".format(set_last_tags))
         
         # last = NP1 -> VP
         if last_pos == 'NP' and set(pos_tags_master['NP1']).issubset(set_last_tags):

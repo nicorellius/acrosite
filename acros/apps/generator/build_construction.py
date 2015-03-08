@@ -232,7 +232,6 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
         }
         if num_words_remaining >= 3:
             pos_tags_dictionary['A'] = pos_tags_master['A']
-        if num_words_remaining >= 4:
             pos_tags_dictionary['E'] = pos_tags_master['E']
         
         #cannot start with noun in certain cases
@@ -249,7 +248,8 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
         last_word = nth_previous_valid_word(word_list,1)
         last_pos = last_word.part_of_speech
         last_tags = last_word.tags.split(';')
-        last_tags.remove('\n')
+        if '\n' in last_tags:
+            last_tags.remove('\n')
         
         # last = NP -> VP
         if last_pos == 'NP':

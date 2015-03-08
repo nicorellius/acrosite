@@ -32,9 +32,10 @@ def add_tag_filter(filters, tag):
 
 
 def add_tag_list_filter(filters, tag_list):
-
-    for tag in tag_list:
-        add_tag_filter(filters, tag)
+    
+    if tag_list is not []:
+        for tag in tag_list:
+            add_tag_filter(filters, tag)
 
     return filters
 

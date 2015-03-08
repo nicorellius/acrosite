@@ -45,7 +45,8 @@ def create_acrostic_filters(vert_word, word_list, theme_name, construction_type)
         if construction_type == 1:
             acrostic_data = instruments_making_music(vert_word, word_list)
         elif construction_type == 2:
-            acrostic_data = animals_jamming(vert_word, word_list)
+            #acrostic_data = animals_jamming(vert_word, word_list)
+            acrostic_data = animals_jamming_to_pattern(vert_word, word_list)
         elif construction_type == 3:
             acrostic_data = just_instruments(vert_word, word_list)
             
@@ -168,6 +169,216 @@ def cute_animals_theme(vert_word, word_list, construction_type):
         part_of_speech = ''        
     
     return [filters, part_of_speech, condense_tags_list(tags)]
+
+
+def EANVDC_pattern(pos_to_tags_dictionary, vert_word, word_list):
+# a general purpose theme-independent construction that allows
+# plugging in a mapping of tags to parts of speech
+# used by:
+# (1) cute animals
+# (2) instruments making music
+
+    return 
+
+
+# TODO- refactor the construction into a general place to make this easier.
+def animals_jamming_to_pattern(vert_word, word_list):
+    
+    #TODO: new-lines are an error
+    pos_tags_master = {
+        'E':[],
+        'A':['positive','cute_animal_theme'],
+        'NP1':['cute_animal'],
+        'VP':['operate_musical_instrument'],
+        'NP2':['musical_instrument'],
+        'D':['follow_verb','positive'],
+        'C':[],
+    }
+    
+    return E_A_NP_VP_NP_D_C_pattern(pos_tags_master, vert_word, word_list)
+
+
+
+def E_A_NP_VP_NP_D_C_pattern(pos_tags_master, vert_word, word_list):    
+    '''
+    Description:
+    ------------
+    Rather than hard-code a construct like adjective-verb-adverb,
+    this construct allows for more flexible word creation.  Based on
+    (1) knowledge of the final length of the word
+    and
+    (2) the previous words used,
+    an acceptable word is chosen.  For example, following a verb, both
+    an adverb (modifying the previous verb) or a noun (indicating a new sentence),
+    or a connecting expresion (also indicating a new sentence) or an adjective (indicating
+    the modifier of a new sentence) might be acceptable.  Depending on what is chosen, however,
+    the following word should change.
+    
+    In this case, there are two NPs - NP1 and NP2.
+    
+    '''
+    filters = []
+    part_of_speech = ''
+    tags = []
+    
+    characters = list(vert_word)
+    word_length = len_valid_characters(characters)
+    word_num = len_valid_words(word_list)
+    num_words_remaining = word_length - word_num
+    
+    # first letter must always match
+    add_first_letter_filter(filters, characters[len(word_list)])
+        
+    # dictionary is used often, so initialize here
+    A_NP1_dict = {
+        'A': pos_tags_master['A'],
+        'NP': pos_tags_master['NP1'],
+    }
+        
+    # first word - can be noun, adjective, or exclamation (if long enough)
+    if word_num == 0:
+        
+        pos_tags_dictionary = {
+        'NP': pos_tags_master['NP1'],
+        }
+        if num_words_remaining > 3:
+            pos_tags_dictionary['A'] = pos_tags_master['A']
+        if num_words_remaining > 4:
+            pos_tags_dictionary['E'] = pos_tags_master['E']
+        
+        #cannot start with noun in certain cases
+        if num_words_remaining == 5 or num_words_remaining == 6:
+            pos_tags_dictionary = {
+            'A': pos_tags_master['A'],
+            'E': pos_tags_master['E'],
+            }  
+        
+        #So that 7-letter words don't contain 4 adjectives in a row
+        if num_words_remaining is 7:
+            pos_tags_dictionary = {
+            'NP': pos_tags_master['NP1'],
+            'E': pos_tags_master['E'],
+            }
+        
+        add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+        
+    elif nth_previous_valid_word(word_list, 1) is not None:
+        
+        last_word = nth_previous_valid_word(word_list,1)
+        last_pos = last_word.part_of_speech
+        last_tags = last_word.tags.split(';')
+        last_tags.remove('\n')
+        
+        set_last_tags = set(last_tags)
+        print("LAST TAGS SET: {0}".format(set_last_tags))
+        
+        # last = NP1 -> VP
+        if last_pos == 'NP' and set(pos_tags_master['NP1']).issubset(set_last_tags):
+            add_part_of_speech_filter(filters, 'VP')
+            add_tag_list_filter(filters, pos_tags_master['VP'])
+        
+        # last = VP -> NP2
+        elif last_pos == 'VP':
+            add_part_of_speech_filter(filters, 'NP')
+            add_tag_list_filter(filters, pos_tags_master['NP2'])
+        
+        # last = D -> C
+        elif last_pos == 'D':
+            add_part_of_speech_filter(filters, 'C')
+            add_tag_list_filter(filters, pos_tags_master['C'])
+        
+        # last = E -> A or NP1
+        elif last_pos == 'E':
+            
+            if num_words_remaining == 3 or num_words_remaining == 7:
+                add_part_of_speech_filter(filters, 'NP')
+                add_tag_list_filter(filters, pos_tags_master['NP1'])
+            elif num_words_remaining == 4:
+                add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
+            elif num_words_remaining == 5 or num_words_remaining == 6:
+                add_part_of_speech_filter(filters, 'A')
+                add_tag_list_filter(filters, pos_tags_master['A'])
+            
+            # more than 7 words remaining
+            else:
+                add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
+                        
+        # last = A -> A or NP1
+        elif last_pos == 'A':
+            
+            if num_words_remaining == 3 or num_words_remaining == 7:
+                add_part_of_speech_filter(filters,'NP')
+                add_tag_list_filter(filters,pos_tags_master['NP1'])
+            elif num_words_remaining == 4:
+                
+                # prevents a run of 3 adjectives in a row for short vert_words (up to 9 letters).
+                use_dict = True
+                if word_num >= 2:
+                    if (nth_previous_valid_word(word_list, 1).part_of_speech == 'A' 
+                        and nth_previous_valid_word(word_list, 2).part_of_speech == 'A'):
+                        use_dict = False
+                
+                if use_dict:
+                    add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
+                else:
+                    add_part_of_speech_filter(filters,'NP')
+                    add_tag_list_filter(filters,pos_tags_master['NP1'])
+                    
+            elif num_words_remaining == 5 or num_words_remaining == 6:
+                add_part_of_speech_filter(filters, 'A')
+                add_tag_list_filter(filters, pos_tags_master['A'])
+            else:
+                add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
+                   
+        # last = NP2 -> D or C
+        elif last_pos == 'NP' and set(pos_tags_master['NP2']).issubset(set_last_tags):
+            pos_tags_dictionary = {
+            'D': pos_tags_master['D'],
+            'C': pos_tags_master['C'],
+            }
+            
+            #last word must be D
+            if num_words_remaining == 1:
+                add_part_of_speech_filter(filters, 'D')
+                add_tag_list_filter(filters, pos_tags_master['D'])
+            
+            # no choice but to enter a C-NP1-VP-NP2 cycle.
+            elif num_words_remaining == 4:
+                add_part_of_speech_filter(filters, 'C')
+                add_tag_list_filter(filters, pos_tags_master['C'])
+                
+            # could be either
+            else:
+                add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary)
+        
+        # last = C -> NP1 or A
+        elif last_pos == 'C':
+            
+            # NP1-D-NP2 cycle
+            if num_words_remaining == 3:
+                add_part_of_speech_filter(filters, 'NP')
+                add_tag_list_filter(filters, pos_tags_master['NP1'])
+            
+            # NP1-VP-NP2-D or A-NP1-VP-NP2
+            elif num_words_remaining == 4:
+                add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
+            
+            # 5: A-NP1-VP-NP2-D or A-A-NP1-VP-NP2
+            # 6: A-A-NP1-VP-NP-NP2-D (A-A-A-NP1-VP-NP2 is explicitly prevented elsewhere)
+            elif num_words_remaining == 5 or num_words_remaining == 6:
+                add_part_of_speech_filter(filters, 'A')
+                add_tag_list_filter(filters, pos_tags_master['A'])
+
+            #to avoid to many adjectives, enter NP1-VP-NP2-C-NP1-VP-NP2
+            elif num_words_remaining == 7:
+                add_part_of_speech_filter(filters, 'NP')
+                add_tag_list_filter(filters, pos_tags_master['NP1'])
+            
+            # more than 7
+            else:
+                add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
+
+    return [filters, part_of_speech, tags]  
 
 def animals_jamming(vert_word, word_list):
     '''
@@ -378,7 +589,10 @@ def just_instruments(vert_word, word_list):
     
     return [filters, part_of_speech, tags]
 
+
+
 # TODO
+
 def flexible_instruments_making_music(vert_word, word_list):
     filters = []
     part_of_speech = ''

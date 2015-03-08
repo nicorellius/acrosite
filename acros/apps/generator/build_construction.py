@@ -46,7 +46,8 @@ def create_acrostic_filters(vert_word, word_list, theme_name, construction_type)
 
     elif theme_name == 'music':
         if construction_type == 1:
-            acrostic_data = instruments_making_music(vert_word, word_list)
+            # acrostic_data = instruments_making_music(vert_word, word_list)
+            acrostic_data = pattern_instruments_making_music(vert_word, word_list)
         elif construction_type == 2:
             #acrostic_data = animals_jamming(vert_word, word_list)
             acrostic_data = animals_jamming_to_pattern(vert_word, word_list)
@@ -341,6 +342,8 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
 
 
     return [filters, part_of_speech, tags]  
+
+
 
 
 # TODO- refactor the construction into a general place to make this easier.
@@ -765,6 +768,20 @@ def flexible_instruments_making_music(vert_word, word_list):
     num_words_remaining = word_length - word_num
     
     return [filters, part_of_speech, tags]
+
+def pattern_instruments_making_music(vert_word, word_list):
+    
+    pos_tags_master = {
+        'E':[],
+        'A':['positive', 'to_person'],
+        'NP':['musical_instrument'],
+        'VP':['produce_music'],
+        'D':['follow_verb','positive'],
+        'C':[],
+    }
+    
+    return E_A_NP_VP_D_C_pattern(pos_tags_master,vert_word, word_list)
+
 
 def instruments_making_music(vert_word, word_list):
     

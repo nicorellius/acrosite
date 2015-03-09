@@ -52,8 +52,6 @@ def generate_random_acrostic(vert_word, theme_name):
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
-        parts_of_speech = []
-        tags_list = []
         
         counter = 0
         characters = list(vert_word)
@@ -116,8 +114,14 @@ def generate_random_acrostic(vert_word, theme_name):
 
             counter += 1
     
+    # adjust punctuation accordingly
     horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)
     
+    # retrieve other relevant acrostic data, for storage
+    parts_of_speech_and_tags = get_pos_and_tags(horz_word_list)
+    parts_of_speech = parts_of_speech_and_tags[0]
+    tags_list = parts_of_speech_and_tags[1]
+        
     horz_words = ''
 
     for horz_word in horz_wordtext_list:
@@ -142,6 +146,17 @@ def generate_random_acrostic(vert_word, theme_name):
     
     return acrostic
 
+def get_pos_and_tags(word_list):
+    
+    parts_of_speech = []
+    tags_list = []
+    
+    for word in word_list:
+        if word is not None:
+            parts_of_speech.append(word.part_of_speech)
+            tags_list.append(word.tags)
+    
+    return [parts_of_speech, tags_list]
 
 def weighted_random_construction(construction_ids_w_weights):
         

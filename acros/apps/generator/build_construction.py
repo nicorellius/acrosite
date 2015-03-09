@@ -47,6 +47,8 @@ def create_word_filter(vert_word, word_list, theme_name, construction_type):
             word_filter = cute_animals_verbs(vert_word, word_list)
         elif construction_type == 2:
             word_filter = cute_animals_adj_noun(vert_word, word_list)
+        elif construction_type == 5:
+            word_filter = just_cute_animals(vert_word, word_list)
         else:
             word_filter = cute_animals_theme(vert_word, word_list, construction_type)
 
@@ -130,15 +132,6 @@ def cute_animals_theme(vert_word, word_list, construction_type):
     
     return functools.reduce(operator.and_, filters)
 
-def cute_animals_adj_noun(vert_word, word_list):
-    
-    pos_tags_master = {
-    'A':['cute_animal_theme','positive'],
-    'NP':['cute_animal'],
-    }
-    
-    return pos1_pos2('A', 'NP', pos_tags_master, vert_word, word_list)
-
 def cute_animals_verbs(vert_word, word_list):
     
     pos_tags_master = {
@@ -152,6 +145,17 @@ def cute_animals_verbs(vert_word, word_list):
     
     return E_A_NP_VP_D_C_pattern(pos_tags_master,vert_word, word_list)
 
+def cute_animals_adj_noun(vert_word, word_list):
+    
+    pos_tags_master = {
+    'A':['cute_animal_theme','positive'],
+    'NP':['cute_animal'],
+    }
+    
+    return pos1_pos2('A', 'NP', pos_tags_master, vert_word, word_list)
+
+def just_cute_animals(vert_word, word_list):
+    return all_same('NP',['cute_animal'],vert_word, word_list)
 
 def animals_jamming(vert_word, word_list):
     

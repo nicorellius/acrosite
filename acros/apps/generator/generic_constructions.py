@@ -7,10 +7,10 @@ Created on Mar 8, 2015
 import functools
 import operator
 
-from .build_filter import add_first_letter_filter, add_part_of_speech_filter, add_tag_filter
-from .build_filter import add_tag_list_filter, condense_tags_list
+from .build_filter import add_first_letter_filter, add_part_of_speech_filter
+from .build_filter import add_tag_list_filter
 from .build_filter import add_pos_to_tags_dictionary_filter
-from. build_filter import len_valid_words, len_valid_characters, clean_word, nth_previous_valid_word
+from .build_filter import len_valid_words, len_valid_characters, nth_previous_valid_word
 
 def all_same(pos, tags, vert_word, word_list):
     
@@ -22,6 +22,7 @@ def all_same(pos, tags, vert_word, word_list):
     add_tag_list_filter(filters, tags)
     
     return functools.reduce(operator.and_, filters)
+
 
 def pos1_pos2(pos1, pos2, pos_tags_master, vert_word, word_list):
     
@@ -56,29 +57,10 @@ def pos1_pos2(pos1, pos2, pos_tags_master, vert_word, word_list):
     
     return functools.reduce(operator.and_, filters)
 
+
 def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
-# a general purpose theme-independent construction that allows
-# plugging in a mapping of tags to parts of speech
-# used by:
-# (1) cute animals
-# (2) instruments making music
-    '''
-    Description:
-    ------------
-    Rather than hard-code a construct like adjective-verb-adverb,
-    this construct allows for more flexible word creation.  Based on
-    (1) knowledge of the final length of the word
-    and
-    (2) the previous words used,
-    an acceptable word is chosen.  For example, following a verb, both
-    an adverb (modifying the previous verb) or a noun (indicating a new sentence),
-    or a connecting expresion (also indicating a new sentence) or an adjective (indicating
-    the modifier of a new sentence) might be acceptable.  Depending on what is chosen, however,
-    the following word should change.
-    '''
+
     filters = []
-    part_of_speech = ''
-    tags = []
     
     characters = list(vert_word)
     word_length = len_valid_characters(characters)
@@ -212,28 +194,11 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
 
     return functools.reduce(operator.and_, filters) 
 
+
 def E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list):    
-    '''
-    Description:
-    ------------
-    Rather than hard-code a construct like adjective-verb-adverb,
-    this construct allows for more flexible word creation.  Based on
-    (1) knowledge of the final length of the word
-    and
-    (2) the previous words used,
-    an acceptable word is chosen.  For example, following a verb, both
-    an adverb (modifying the previous verb) or a noun (indicating a new sentence),
-    or a connecting expresion (also indicating a new sentence) or an adjective (indicating
-    the modifier of a new sentence) might be acceptable.  Depending on what is chosen, however,
-    the following word should change.
-    
-    In this case, there are two NPs - NP1 and NP2.
-    
-    '''
+
     filters = []
-    part_of_speech = ''
-    tags = []
-    
+
     characters = list(vert_word)
     word_length = len_valid_characters(characters)
     word_num = len_valid_words(word_list)
@@ -377,7 +342,7 @@ def E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list):
                 add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
             
             # 5: A-NP1-VP-NP2-D or A-A-NP1-VP-NP2
-            # 6: A-A-NP1-VP-NP-NP2-D (A-A-A-NP1-VP-NP2 is explicitly prevented elsewhere)
+            # 6: A-A-NP1-VP-NP-NP2-D (A-A-A-NP1-VP-NP2 is explicitly prevented by last_pos='A')
             elif num_words_remaining == 5 or num_words_remaining == 6:
                 add_part_of_speech_filter(filters, 'A')
                 add_tag_list_filter(filters, pos_tags_master['A'])

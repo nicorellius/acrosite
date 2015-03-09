@@ -20,7 +20,7 @@ from. build_filter import len_valid_words, len_valid_characters, clean_word, nth
 
 from .models import Word
 
-from .generic_constructions import all_same, adv_adj
+from .generic_constructions import all_same, pos1_pos2
 from .generic_constructions import E_A_NP_VP_D_C_pattern, E_A_NP1_VP_NP2_D_C_pattern
 
 def create_word_filter(vert_word, word_list, theme_name, construction_type):
@@ -43,8 +43,10 @@ def create_word_filter(vert_word, word_list, theme_name, construction_type):
             word_filter = my_name_adv_adj(vert_word, word_list, False)
 
     elif theme_name == 'cute_animals':
-        if construction_type is 1:
+        if construction_type == 1:
             word_filter = cute_animals_verbs(vert_word, word_list)
+        elif construction_type == 2:
+            word_filter = cute_animals_adj_noun(vert_word, word_list)
         else:
             word_filter = cute_animals_theme(vert_word, word_list, construction_type)
 
@@ -75,12 +77,12 @@ def my_name_adv_adj(vert_word, word_list, is_positive):
     else:
         positivity_tag = 'negative'
     
-    pos_tags_master = {
-        'A':['to_person',positivity_tag],
+    pos_tags_master = {       
         'D':['precede_adjective',positivity_tag],
+        'A':['to_person',positivity_tag],
     }
     
-    return adv_adj(pos_tags_master, vert_word, word_list)
+    return pos1_pos2('D','A', pos_tags_master, vert_word, word_list)
 
 
 def cute_animals_theme(vert_word, word_list, construction_type):
@@ -127,6 +129,15 @@ def cute_animals_theme(vert_word, word_list, construction_type):
         add_tag_list_filter(filters, tags)     
     
     return functools.reduce(operator.and_, filters)
+
+def cute_animals_adj_noun(vert_word, word_list):
+    
+    pos_tags_master = {
+    'A':['cute_animal_theme','positive'],
+    'NP':['cute_animal'],
+    }
+    
+    return pos1_pos2('A', 'NP', pos_tags_master, vert_word, word_list)
 
 def cute_animals_verbs(vert_word, word_list):
     

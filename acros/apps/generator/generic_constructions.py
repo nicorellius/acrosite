@@ -23,7 +23,7 @@ def all_same(pos, tags, vert_word, word_list):
     
     return functools.reduce(operator.and_, filters)
 
-def adv_adj(pos_tags_master, vert_word, word_list):
+def pos1_pos2(pos1, pos2, pos_tags_master, vert_word, word_list):
     
     characters = list(vert_word)
     word_length = len_valid_characters(characters)
@@ -33,20 +33,20 @@ def adv_adj(pos_tags_master, vert_word, word_list):
     
     if word_length % 2 == 0:
         if word_num % 2 == 0:
-            part_of_speech = 'D'
+            part_of_speech = pos1
         else:
-            part_of_speech = 'A'
+            part_of_speech = pos2
     else:
         if word_length - word_num > 3:
             if word_num % 2 == 0:
-                part_of_speech = 'D'
+                part_of_speech = pos1
             else:
-                part_of_speech = 'A'
+                part_of_speech = pos2
         else:
             if word_num >= word_length-1:
-                part_of_speech = 'A'
+                part_of_speech = pos2
             else:
-                part_of_speech = 'D'
+                part_of_speech = pos1
                 
     filters = []
     

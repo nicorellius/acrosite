@@ -34,11 +34,11 @@ def create_word_filter(vert_word, word_list, theme_name, construction_type):
         2 and 4are the same (except negative).
         '''
         if construction_type == 1:
-            word_filter = my_name_adjectives(vert_word, word_list, True)
+            word_filter = my_name_adj(vert_word, word_list, True)
         elif construction_type == 2:
             word_filter = my_name_adv_adj(vert_word, word_list, True)
         elif construction_type == 3:
-            word_filter = my_name_adjectives(vert_word, word_list, False)
+            word_filter = my_name_adj(vert_word, word_list, False)
         elif construction_type == 4:
             word_filter = my_name_adv_adj(vert_word, word_list, False)
 
@@ -59,39 +59,26 @@ def create_word_filter(vert_word, word_list, theme_name, construction_type):
     return word_filter
 
 
-def my_name_adjectives(vert_word, word_list, is_positive):
+def my_name_adj(vert_word, word_list, is_positive):
     
-    part_of_speech = 'A'
-
     if is_positive:
-        tags = ['positive']
+        positivity_tag = 'positive'
     else:
-        tags = ['negative']    
-       
-    tags.append('to_person')
-      
-    characters = list(vert_word)
-    word_num = len(word_list)
-
-    filters = []
-    add_first_letter_filter(filters, characters[word_num])
-    add_part_of_speech_filter(filters, part_of_speech)
-    add_tag_list_filter(filters, tags)
-
-    return functools.reduce(operator.and_, filters)
+        positivity_tag = 'negative'
+        
+    return all_same('A',[positivity_tag,'to_person'],vert_word, word_list)
 
 def my_name_adv_adj(vert_word, word_list, is_positive):
     
     if is_positive:
-        pos_tags_master = {
-            'A':['to_person','positive'],
-            'D':['precede_adjective','positive'],
-        }
+        positivity_tag = 'positive'
     else:
-        pos_tags_master = {
-            'A':['to_person','negative'],
-            'D':['precede_adjective','negative'],
-        }
+        positivity_tag = 'negative'
+    
+    pos_tags_master = {
+        'A':['to_person',positivity_tag],
+        'D':['precede_adjective',positivity_tag],
+    }
     
     return adv_adj(pos_tags_master, vert_word, word_list)
 

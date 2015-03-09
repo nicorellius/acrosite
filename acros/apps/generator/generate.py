@@ -30,7 +30,7 @@ def generate_random_acrostic(vert_word, theme_name):
     construction_dictionary = {
         'my_name': {1: 4, 2: 3, 3: 2, 4: 1},
         'cute_animals': {1: 5, 2: 2, 3: 1},
-        'music': {1: 7, 2: 2, 3: 1},
+        'music': {1: 5, 2: 4, 3: 1},
         }
 
     # in case the user does not select a theme
@@ -47,7 +47,6 @@ def generate_random_acrostic(vert_word, theme_name):
     
         construction_type = weighted_random_construction(construction_ids_w_weights)
 
-        print('Construction Type: {0}'.format(construction_type))
         logger.info("{0}: Construction Type: {1}".format(get_timestamp(), construction_type))
         
         horz_word_list = []         # contains the actual word objects
@@ -102,8 +101,13 @@ def generate_random_acrostic(vert_word, theme_name):
                     # schedule a rebuild
                     build_or_rebuild_required = True
                     
-                    # remove this construction type from the dictionary
-                    del(construction_ids_w_weights[construction_type])
+                    # modify counts - eventually, if impossible, will use back-up
+                    count = construction_ids_w_weights[construction_type]
+                    if count == 1:
+                        del(construction_ids_w_weights[construction_type])
+                    else:
+                        construction_ids_w_weights[construction_type] = count-1
+                    
                     break
 
             # select a word at random

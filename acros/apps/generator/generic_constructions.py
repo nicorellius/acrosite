@@ -12,6 +12,50 @@ from .build_filter import add_tag_list_filter, condense_tags_list
 from .build_filter import add_pos_to_tags_dictionary_filter
 from. build_filter import len_valid_words, len_valid_characters, clean_word, nth_previous_valid_word
 
+def all_same(pos, tags, vert_word, word_list):
+    
+    characters = list(vert_word)
+    
+    filters = []
+    add_first_letter_filter(filters, characters[len(word_list)])
+    add_part_of_speech_filter(filters, pos)
+    add_tag_list_filter(filters, tags)
+    
+    return functools.reduce(operator.and_, filters)
+
+def adv_adj(pos_tags_master, vert_word, word_list):
+    
+    characters = list(vert_word)
+    word_length = len_valid_characters(characters)
+    word_num = len_valid_words(word_list)
+    
+    part_of_speech = ''
+    
+    if word_length % 2 == 0:
+        if word_num % 2 == 0:
+            part_of_speech = 'D'
+        else:
+            part_of_speech = 'A'
+    else:
+        if word_length - word_num > 3:
+            if word_num % 2 == 0:
+                part_of_speech = 'D'
+            else:
+                part_of_speech = 'A'
+        else:
+            if word_num >= word_length-1:
+                part_of_speech = 'A'
+            else:
+                part_of_speech = 'D'
+                
+    filters = []
+    
+    add_first_letter_filter(filters, characters[len(word_list)])
+    add_part_of_speech_filter(filters, part_of_speech)
+    add_tag_list_filter(filters, pos_tags_master[part_of_speech])
+    
+    return functools.reduce(operator.and_, filters)
+
 def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
 # a general purpose theme-independent construction that allows
 # plugging in a mapping of tags to parts of speech

@@ -20,6 +20,7 @@ from. build_filter import len_valid_words, len_valid_characters, clean_word, nth
 
 from .models import Word
 
+from .generic_constructions import all_same, adv_adj
 from .generic_constructions import E_A_NP_VP_D_C_pattern, E_A_NP1_VP_NP2_D_C_pattern
 
 def create_word_filter(vert_word, word_list, theme_name, construction_type):
@@ -79,51 +80,20 @@ def my_name_adjectives(vert_word, word_list, is_positive):
 
     return functools.reduce(operator.and_, filters)
 
-
 def my_name_adv_adj(vert_word, word_list, is_positive):
-
-    characters = list(vert_word)
-    word_length = len_valid_characters(characters)
-    word_num = len_valid_words(word_list)
     
-    part_of_speech = ''
-
     if is_positive:
-        tags = ['positive']
-
+        pos_tags_master = {
+            'A':['to_person','positive'],
+            'D':['precede_adjective','positive'],
+        }
     else:
-        tags = ['negative']
+        pos_tags_master = {
+            'A':['to_person','negative'],
+            'D':['precede_adjective','negative'],
+        }
     
-    if word_length % 2 == 0:
-        if word_num % 2 == 0:
-            part_of_speech = 'D'
-        else:
-            part_of_speech = 'A'
-    else:
-        if word_length - word_num > 3:
-            if word_num % 2 == 0:
-                part_of_speech = 'D'
-            else:
-                part_of_speech = 'A'
-        else:
-            if word_num >= word_length-1:
-                part_of_speech = 'A'
-            else:
-                part_of_speech = 'D'
-    
-    if part_of_speech == 'A':
-        tags.append('to_person')
-
-    elif part_of_speech == 'D':
-        tags.append('precede_adjective')
-                
-    filters = []
-    
-    add_first_letter_filter(filters, characters[len(word_list)])
-    add_tag_list_filter(filters, tags)
-    add_part_of_speech_filter(filters, part_of_speech)
-    
-    return functools.reduce(operator.and_, filters)
+    return adv_adj(pos_tags_master, vert_word, word_list)
 
 
 def cute_animals_theme(vert_word, word_list, construction_type):
@@ -200,19 +170,7 @@ def animals_jamming(vert_word, word_list):
     return E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list)
 
 def just_instruments(vert_word, word_list):
-    
-    filters = []
-    part_of_speech = 'NP'
-    tags = ['musical_instrument']
-    
-    characters = list(vert_word)
-    
-    add_first_letter_filter(filters, characters[len(word_list)])
-    add_part_of_speech_filter(filters, part_of_speech)
-    add_tag_list_filter(filters, tags)
-    
-    return functools.reduce(operator.and_, filters)
-
+    return all_same('NP',['musical_instrument'],vert_word, word_list)
 
 def instruments_making_music(vert_word, word_list):
     

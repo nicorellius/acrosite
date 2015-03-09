@@ -14,7 +14,7 @@ from common.util import get_timestamp
 
 from .models import Word, Acrostic
 from .populate import import_alpha_list
-from .build_construction import create_acrostic_filters
+from .build_construction import create_word_filter
 
 
 logger = logging.getLogger(__name__)
@@ -29,8 +29,8 @@ def generate_random_acrostic(vert_word, theme_name):
     # master list of available options, with weights
     construction_dictionary = {
         'my_name': {1: 4, 2: 3, 3: 2, 4: 1},
-        'cute_animals': {1: 5, 2: 2, 3: 1, 4: 1, 5: 1},
-        'music': {1: 7, 2: 2, 3: 1},
+        'cute_animals': {1: 5, 2: 2, 3: 1},
+        'music': {1: 5, 2: 4, 3: 1},
         }
 
     # in case the user does not select a theme
@@ -47,13 +47,10 @@ def generate_random_acrostic(vert_word, theme_name):
     
         construction_type = weighted_random_construction(construction_ids_w_weights)
 
-        print('Construction Type: {0}'.format(construction_type))
         logger.info("{0}: Construction Type: {1}".format(get_timestamp(), construction_type))
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
-        parts_of_speech = []
-        tags_list = []
         
         counter = 0
         characters = list(vert_word)
@@ -61,21 +58,10 @@ def generate_random_acrostic(vert_word, theme_name):
         # for filter_set in filter_sets:
         while counter < len(characters):
         
-            acrostic_data = create_acrostic_filters(vert_word, horz_word_list, theme_name, construction_type)
-            filter_set = acrostic_data[0]
-            parts_of_speech.append(acrostic_data[1])
-            tags_list.append(acrostic_data[2])
-            
-            # initial state- all objects
-            pre_filter = Word.objects.all()
-        
-            # filter based on construction and vertical word
-            for filter_query in filter_set:
-                post_filter = pre_filter.filter(filter_query)
-                pre_filter = post_filter
-        
+            word_filter = create_word_filter(vert_word, horz_word_list, theme_name, construction_type)
+
             # handle duplicates - disallow duplicates unless the entire filtered list has been exhausted
-            available_words = list(post_filter)
+            available_words = list(Word.objects.all().filter(word_filter))
             duplicate_filtered = list(available_words)
 
             for word in available_words:
@@ -96,7 +82,12 @@ def generate_random_acrostic(vert_word, theme_name):
                     
                     # treat strange character as a 'None', return just the character
                     horz_word_list.append(None)
-                    horz_wordtext_list.append(characters[counter])
+                    
+                    #TODO: consider re-factor how to handle special characters
+                    if characters[counter] is '_':
+                        horz_wordtext_list.append('-')
+                    else:
+                        horz_wordtext_list.append(characters[counter])
                     
                 elif len(construction_ids_w_weights) == 1:
 
@@ -110,8 +101,13 @@ def generate_random_acrostic(vert_word, theme_name):
                     # schedule a rebuild
                     build_or_rebuild_required = True
                     
-                    # remove this construction type from the dictionary
-                    del(construction_ids_w_weights[construction_type])
+                    # modify counts - eventually, if impossible, will use back-up
+                    count = construction_ids_w_weights[construction_type]
+                    if count == 1:
+                        del(construction_ids_w_weights[construction_type])
+                    else:
+                        construction_ids_w_weights[construction_type] = count-1
+                    
                     break
 
             # select a word at random
@@ -121,12 +117,15 @@ def generate_random_acrostic(vert_word, theme_name):
                 horz_wordtext_list.append(re.sub('[_]', ' ', w.name))
 
             counter += 1
-
-        # debugging... check acrostic_data
-        logger.info("{0}: 'Acrostic data': {1}".format(get_timestamp(), acrostic_data))
     
+    # adjust punctuation accordingly
     horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)
     
+    # retrieve other relevant acrostic data, for storage
+    parts_of_speech_and_tags = get_pos_and_tags(horz_word_list)
+    parts_of_speech = parts_of_speech_and_tags[0]
+    tags_list = parts_of_speech_and_tags[1]
+        
     horz_words = ''
 
     for horz_word in horz_wordtext_list:
@@ -151,6 +150,17 @@ def generate_random_acrostic(vert_word, theme_name):
     
     return acrostic
 
+def get_pos_and_tags(word_list):
+    
+    parts_of_speech = []
+    tags_list = []
+    
+    for word in word_list:
+        if word is not None:
+            parts_of_speech.append(word.part_of_speech)
+            tags_list.append(word.tags)
+    
+    return [parts_of_speech, tags_list]
 
 def weighted_random_construction(construction_ids_w_weights):
         

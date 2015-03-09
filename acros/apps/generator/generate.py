@@ -10,14 +10,11 @@ import random
 import re
 import logging
 
-import operator
-import functools
-
 from common.util import get_timestamp
 
 from .models import Word, Acrostic
 from .populate import import_alpha_list
-from .build_construction import create_acrostic_filters
+from .build_construction import create_word_filter
 
 
 logger = logging.getLogger(__name__)
@@ -33,9 +30,7 @@ def generate_random_acrostic(vert_word, theme_name):
     construction_dictionary = {
         'my_name': {1: 4, 2: 3, 3: 2, 4: 1},
         'cute_animals': {1: 5, 2: 2, 3: 1, 4: 1, 5: 1},
-        #'cute_animals': {1: 1}, # for debugging
         'music': {1: 7, 2: 2, 3: 1},
-        #'music': {1: 1,},  #for debugging
         }
 
     # in case the user does not select a theme
@@ -66,24 +61,10 @@ def generate_random_acrostic(vert_word, theme_name):
         # for filter_set in filter_sets:
         while counter < len(characters):
         
-            acrostic_data = create_acrostic_filters(vert_word, horz_word_list, theme_name, construction_type)
-            filter_set = acrostic_data[0]
-            parts_of_speech.append(acrostic_data[1])
-            tags_list.append(acrostic_data[2])
-            
-            # initial state- all objects
-            #pre_filter = Word.objects.all()
-        
-            # filter based on construction and vertical word
-            #for filter_query in filter_set:
-            #    post_filter = pre_filter.filter(filter_query)
-            #    pre_filter = post_filter
-            
-            condensed_filter = functools.reduce(operator.and_, filter_set)
-            post_filter = Word.objects.all().filter(condensed_filter)
-            
+            word_filter = create_word_filter(vert_word, horz_word_list, theme_name, construction_type)
+
             # handle duplicates - disallow duplicates unless the entire filtered list has been exhausted
-            available_words = list(post_filter)
+            available_words = list(Word.objects.all().filter(word_filter))
             duplicate_filtered = list(available_words)
 
             for word in available_words:
@@ -134,9 +115,6 @@ def generate_random_acrostic(vert_word, theme_name):
                 horz_wordtext_list.append(re.sub('[_]', ' ', w.name))
 
             counter += 1
-
-        # debugging... check acrostic_data
-        logger.info("{0}: 'Acrostic data': {1}".format(get_timestamp(), acrostic_data))
     
     horz_wordtext_list = punctuation_modifications(horz_word_list, horz_wordtext_list)
     

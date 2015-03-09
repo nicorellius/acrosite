@@ -7,6 +7,8 @@ description :   Build constructions for generating acrostics
 """
 
 import random
+import operator
+import functools
 
 from .parts_of_speech import adj_to_noun_verb_adv, adj_to_noun
 from .parts_of_speech import adj_adj_noun_pattern, all_nouns, adj_noun_verb_adv_conn_pattern
@@ -19,8 +21,8 @@ from. build_filter import len_valid_words, len_valid_characters, clean_word, nth
 from .models import Word
 
 
-def create_acrostic_filters(vert_word, word_list, theme_name, construction_type):
-    acrostic_data = []
+def create_word_filter(vert_word, word_list, theme_name, construction_type):
+    word_filter = []
     
     if theme_name == 'my_name':
         '''
@@ -30,31 +32,31 @@ def create_acrostic_filters(vert_word, word_list, theme_name, construction_type)
         2 and 4are the same (except negative).
         '''
         if construction_type == 1:
-            acrostic_data = my_name_adjectives(vert_word, word_list, True)
+            word_filter = my_name_adjectives(vert_word, word_list, True)
         elif construction_type == 2:
-            acrostic_data = my_name_adv_adj(vert_word, word_list, True)
+            word_filter = my_name_adv_adj(vert_word, word_list, True)
         elif construction_type == 3:
-            acrostic_data = my_name_adjectives(vert_word, word_list, False)
+            word_filter = my_name_adjectives(vert_word, word_list, False)
         elif construction_type == 4:
-            acrostic_data = my_name_adv_adj(vert_word, word_list, False)
+            word_filter = my_name_adv_adj(vert_word, word_list, False)
 
     elif theme_name == 'cute_animals':
         if construction_type is 1:
-            acrostic_data = cute_animals_to_pattern(vert_word, word_list)
+            word_filter = cute_animals_to_pattern(vert_word, word_list)
         else:
-            acrostic_data = cute_animals_theme(vert_word, word_list, construction_type)
+            word_filter = cute_animals_theme(vert_word, word_list, construction_type)
 
     elif theme_name == 'music':
         if construction_type == 1:
             # acrostic_data = instruments_making_music(vert_word, word_list)
-            acrostic_data = pattern_instruments_making_music(vert_word, word_list)
+            word_filter = pattern_instruments_making_music(vert_word, word_list)
         elif construction_type == 2:
             #acrostic_data = animals_jamming(vert_word, word_list)
-            acrostic_data = animals_jamming_to_pattern(vert_word, word_list)
+            word_filter = animals_jamming_to_pattern(vert_word, word_list)
         elif construction_type == 3:
-            acrostic_data = just_instruments(vert_word, word_list)
+            word_filter = just_instruments(vert_word, word_list)
             
-    return acrostic_data
+    return word_filter
 
 
 def my_name_adjectives(vert_word, word_list, is_positive):
@@ -76,7 +78,7 @@ def my_name_adjectives(vert_word, word_list, is_positive):
     add_part_of_speech_filter(filters, part_of_speech)
     add_tag_list_filter(filters, tags)
 
-    return [filters, part_of_speech, tags]
+    return functools.reduce(operator.and_, filters)
 
 
 def my_name_adv_adj(vert_word, word_list, is_positive):
@@ -122,7 +124,7 @@ def my_name_adv_adj(vert_word, word_list, is_positive):
     add_tag_list_filter(filters, tags)
     add_part_of_speech_filter(filters, part_of_speech)
     
-    return [filters, part_of_speech, tags]
+    return functools.reduce(operator.and_, filters)
 
 
 def cute_animals_theme(vert_word, word_list, construction_type):
@@ -172,7 +174,7 @@ def cute_animals_theme(vert_word, word_list, construction_type):
     else:
         part_of_speech = ''        
     
-    return [filters, part_of_speech, condense_tags_list(tags)]
+    return functools.reduce(operator.and_, filters)
 
 def cute_animals_to_pattern(vert_word, word_list):
     
@@ -341,7 +343,7 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
                 add_pos_to_tags_dictionary_filter(filters, A_NP_dict)
 
 
-    return [filters, part_of_speech, tags]  
+    return functools.reduce(operator.and_, filters)  
 
 
 
@@ -542,7 +544,7 @@ def E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list):
             else:
                 add_pos_to_tags_dictionary_filter(filters, A_NP1_dict)
 
-    return [filters, part_of_speech, tags]  
+    return functools.reduce(operator.and_, filters)  
 
 def animals_jamming(vert_word, word_list):
     '''
@@ -737,7 +739,7 @@ def animals_jamming(vert_word, word_list):
 
                 
     
-    return [filters, part_of_speech, tags]
+    return functools.reduce(operator.and_, filters)
 
 def just_instruments(vert_word, word_list):
     
@@ -751,23 +753,11 @@ def just_instruments(vert_word, word_list):
     add_part_of_speech_filter(filters, part_of_speech)
     add_tag_list_filter(filters, tags)
     
-    return [filters, part_of_speech, tags]
+    return functools.reduce(operator.and_, filters)
 
 
 
 # TODO
-
-def flexible_instruments_making_music(vert_word, word_list):
-    filters = []
-    part_of_speech = ''
-    tags = []
-    
-    characters = list(vert_word)
-    word_length = len_valid_characters(characters)
-    word_num = len_valid_words(word_list)
-    num_words_remaining = word_length - word_num
-    
-    return [filters, part_of_speech, tags]
 
 def pattern_instruments_making_music(vert_word, word_list):
     
@@ -945,4 +935,4 @@ def instruments_making_music(vert_word, word_list):
     add_part_of_speech_filter(filters, parts_of_speech[word_num])
     add_tag_list_filter(filters, tags[word_num])
     
-    return [filters, parts_of_speech[word_num], condense_tags_list(tags[word_num])]
+    return functools.reduce(operator.and_, filters)

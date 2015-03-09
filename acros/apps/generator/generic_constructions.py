@@ -245,7 +245,8 @@ def E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list):
         last_word = nth_previous_valid_word(word_list,1)
         last_pos = last_word.part_of_speech
         last_tags = last_word.tags.split(';')
-        last_tags.remove('\n')
+        if '\n' in last_tags:
+            last_tags.remove('\n')
         
         set_last_tags = set(last_tags)
         

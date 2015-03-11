@@ -1,8 +1,10 @@
-'''
-Created on Mar 8, 2015
-
-@author: phillipseitzer
-'''
+"""
+file        :   generic_constructions.py
+date        :   2015-03-10
+module      :   themes
+classes     :
+description :   Utility methods used for generating filters based on part of speech and supplied tags.
+"""
 
 import functools
 import operator

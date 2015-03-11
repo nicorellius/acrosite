@@ -1,10 +1,11 @@
 """
-file        :   generate.py
-date        :   2015-01-25
-module      :   generator
+file        :   build_filter.py
+date        :   2015-03-10
+module      :   themes
 classes     :
-description :   Generate an acrostic based on various inputs and the database of words.
+description :   Utility methods used in creating a filter out of a word list.
 """
+
 import logging
 
 from django.db.models import Q

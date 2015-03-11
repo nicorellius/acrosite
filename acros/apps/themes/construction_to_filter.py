@@ -1,13 +1,22 @@
 """
-file        :   build_constructions.py
+file        :   construction_to_filter.py
 date        :   2015-01-18
-module      :   generator
+module      :   themes
 classes     :
-description :   Build constructions for generating acrostics
+description :   intermediary between generator and individual constructions
 """
 
-from apps.themes.utils.generic_constructions import all_same, pos1_pos2
-from apps.themes.utils.generic_constructions import E_A_NP_VP_D_C_pattern, E_A_NP1_VP_NP2_D_C_pattern
+from apps.themes.individual_themes.my_name import my_name_adj
+from apps.themes.individual_themes.my_name import my_name_adv_adj
+
+from apps.themes.individual_themes.cute_animals import cute_animals_verbs
+from apps.themes.individual_themes.cute_animals import cute_animals_adj_noun
+from apps.themes.individual_themes.cute_animals import just_cute_animals
+
+from apps.themes.individual_themes.music import instruments_making_music
+from apps.themes.individual_themes.music import animals_jamming
+from apps.themes.individual_themes.music import just_instruments
+
 
 def create_word_filter(vert_word, word_list, theme_name, construction_type):
     word_filter = []
@@ -40,83 +49,3 @@ def create_word_filter(vert_word, word_list, theme_name, construction_type):
             word_filter = just_instruments(vert_word, word_list)
             
     return word_filter
-
-
-def my_name_adj(vert_word, word_list, is_positive):
-    
-    if is_positive:
-        positivity_tag = 'positive'
-    else:
-        positivity_tag = 'negative'
-        
-    return all_same('A',[positivity_tag,'to_person'],vert_word, word_list)
-
-def my_name_adv_adj(vert_word, word_list, is_positive):
-    
-    if is_positive:
-        positivity_tag = 'positive'
-    else:
-        positivity_tag = 'negative'
-    
-    pos_tags_master = {       
-        'D':['precede_adjective',positivity_tag],
-        'A':['to_person',positivity_tag],
-    }
-    
-    return pos1_pos2('D','A', pos_tags_master, vert_word, word_list)
-
-
-def cute_animals_verbs(vert_word, word_list):
-    
-    pos_tags_master = {
-        'E':[],
-        'A':['cute_animal_theme','positive'],
-        'NP':['cute_animal'],
-        'VP':['cute_animal_theme','positive'],
-        'D':['follow_verb','positive'],
-        'C':[],
-    }
-    
-    return E_A_NP_VP_D_C_pattern(pos_tags_master,vert_word, word_list)
-
-def cute_animals_adj_noun(vert_word, word_list):
-    
-    pos_tags_master = {
-    'A':['cute_animal_theme','positive'],
-    'NP':['cute_animal'],
-    }
-    
-    return pos1_pos2('A', 'NP', pos_tags_master, vert_word, word_list)
-
-def just_cute_animals(vert_word, word_list):
-    return all_same('NP',['cute_animal'],vert_word, word_list)
-
-def animals_jamming(vert_word, word_list):
-    
-    pos_tags_master = {
-        'E':[],
-        'A':['positive','cute_animal_theme'],
-        'NP1':['cute_animal'],
-        'VP':['operate_musical_instrument'],
-        'NP2':['musical_instrument'],
-        'D':['follow_verb','positive'],
-        'C':[],
-    }
-    
-    return E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list)
-
-def just_instruments(vert_word, word_list):
-    return all_same('NP',['musical_instrument'],vert_word, word_list)
-
-def instruments_making_music(vert_word, word_list):
-    
-    pos_tags_master = {
-        'E':[],
-        'A':['positive', 'to_person'],
-        'NP':['musical_instrument'],
-        'VP':['produce_music'],
-        'D':['follow_verb','positive'],
-        'C':[],
-    }
-    
-    return E_A_NP_VP_D_C_pattern(pos_tags_master,vert_word, word_list)

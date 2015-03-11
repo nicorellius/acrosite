@@ -14,8 +14,8 @@ from common.util import get_timestamp
 
 from .models import Word, Acrostic
 from .populate import import_alpha_list
-from .build_construction import create_word_filter
 
+from apps.themes.construction_to_filter import create_word_filter
 
 logger = logging.getLogger(__name__)
 

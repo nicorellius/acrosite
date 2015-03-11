@@ -6,8 +6,8 @@ classes     :
 description :   Build constructions for generating acrostics
 """
 
-from .generic_constructions import all_same, pos1_pos2
-from .generic_constructions import E_A_NP_VP_D_C_pattern, E_A_NP1_VP_NP2_D_C_pattern
+from apps.themes.utils.generic_constructions import all_same, pos1_pos2
+from apps.themes.utils.generic_constructions import E_A_NP_VP_D_C_pattern, E_A_NP1_VP_NP2_D_C_pattern
 
 def create_word_filter(vert_word, word_list, theme_name, construction_type):
     word_filter = []

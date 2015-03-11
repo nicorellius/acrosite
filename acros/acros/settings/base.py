@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'apps.accounts',
     'apps.generator',
     'apps.logs',
+    'apps.themes',
     'localflavor',
     # allauth registration and providers
     'allauth',

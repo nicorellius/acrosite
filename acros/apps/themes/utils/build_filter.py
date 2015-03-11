@@ -1,13 +1,16 @@
 """
-file        :   generate.py
-date        :   2015-01-25
-module      :   generator
+file        :   build_filter.py
+date        :   2015-03-10
+module      :   themes
 classes     :
-description :   Generate an acrostic based on various inputs and the database of words.
+description :   Utility methods used in creating a filter out of a word list.
 """
+
 import logging
 
 from django.db.models import Q
+import operator
+import functools
 
 from common.util import get_timestamp
 
@@ -30,9 +33,10 @@ def add_tag_filter(filters, tag):
 
 
 def add_tag_list_filter(filters, tag_list):
-
-    for tag in tag_list:
-        add_tag_filter(filters, tag)
+    
+    if tag_list is not []:
+        for tag in tag_list:
+            add_tag_filter(filters, tag)
 
     return filters
 
@@ -42,13 +46,26 @@ def add_part_of_speech_filter(filters, pos):
 
     return filters
 
-
-def add_pos_or_filter(filters, pos1, pos2):
-    filters.append((Q(part_of_speech=pos1) | Q(part_of_speech=pos2)))
-
+def add_list_pos_or_filter(filters, list_pos):
+    or_filters = []
+    for pos in list_pos:
+        or_filters.append(Q(part_of_speech=pos))
+    
+    filters.append(functools.reduce(operator.or_, or_filters))
     return filters
 
-
+def add_pos_to_tags_dictionary_filter(filters, pos_tags_dictionary):
+    combined_filter = []
+    for pos, list_tags in pos_tags_dictionary.items():
+        entry_filter = []
+        entry_filter.append(Q(part_of_speech=pos))
+        for tag in list_tags:
+            entry_filter.append(Q(tags__contains=tag))
+        combined_filter.append(functools.reduce(operator.and_, entry_filter))
+        
+    filters.append(functools.reduce(operator.or_, combined_filter))
+    return filters
+    
 def add_tag_or_filter(filters, tag1, tag2):
     filters.append((Q(tags__contains=tag1) | Q(tags__contains=tag2)))
 
@@ -132,7 +149,23 @@ def clean_word(vert_word):
 
     return cleaned_word
 
-
+def nth_previous_valid_word(word_list, num_back):
+    
+    word = None
+    num_back = num_back-1
+    if num_back < len_valid_words(word_list):
+        valid_words_counter = 0
+        all_words_counter = len(word_list)
+        while (valid_words_counter <= num_back):
+            all_words_counter = all_words_counter - 1
+            if word_list[all_words_counter] is not None:
+                valid_words_counter += 1
+                word = word_list[all_words_counter]
+     
+    # for debugging
+    #print('BACK:{0} WORD LIST:{1}'.format((num_back+1), word_list))
+    #print('BACK:{0} PREV WORD:{1}'.format((num_back+1), word))           
+    return word
 # TODO: currently unusued, but may be useful in future?
 def valid_char_at(vert_word, desired_valid_char_number):
     

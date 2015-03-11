@@ -10,7 +10,7 @@ import logging
 from common.util import get_timestamp
 
 from .models import Word
-from .build_construction import len_valid_characters
+from apps.themes.utils.build_filter import len_valid_characters
 
 
 logger = logging.getLogger(__name__)

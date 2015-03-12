@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'common',
+    'apps.constants',
     'apps.accounts',
     'apps.generator',
     'apps.logs',

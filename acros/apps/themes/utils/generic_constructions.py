@@ -62,7 +62,7 @@ def pos1_pos2(pos1, pos2, pos_tags_master, vert_word, word_list):
     return functools.reduce(operator.and_, filters)
 
 
-def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
+def connected_intransitive_verbs(pos_tags_master, vert_word, word_list):
 
     filters = []
     
@@ -199,7 +199,7 @@ def E_A_NP_VP_D_C_pattern(pos_tags_master, vert_word, word_list):
     return functools.reduce(operator.and_, filters) 
 
 
-def E_A_NP1_VP_NP2_D_C_pattern(pos_tags_master, vert_word, word_list):    
+def connected_transitive_verbs(pos_tags_master, vert_word, word_list):    
 
     filters = []
 

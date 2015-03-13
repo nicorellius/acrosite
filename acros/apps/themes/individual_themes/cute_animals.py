@@ -7,7 +7,7 @@ description :   constructions associated with cute_animals theme
 """
 
 from apps.themes.utils.generic_constructions import all_same, pos1_pos2
-from apps.themes.utils.generic_constructions import E_A_NP_VP_D_C_pattern
+from apps.themes.utils.generic_constructions import connected_intransitive_verbs
 
 from apps.constants import pos
 
@@ -22,7 +22,7 @@ def cute_animals_verbs(vert_word, word_list):
         pos.CONNECTING_EXPRESSION : [],
     }
     
-    return E_A_NP_VP_D_C_pattern(pos_tags_master,vert_word, word_list)
+    return connected_intransitive_verbs(pos_tags_master,vert_word, word_list)
 
 def cute_animals_adj_noun(vert_word, word_list):
     

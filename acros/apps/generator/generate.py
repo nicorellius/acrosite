@@ -19,6 +19,7 @@ from apps.themes.construction_to_filter import create_word_filter
 
 logger = logging.getLogger(__name__)
 
+from apps.constants import constructions
 
 def generate_random_acrostic(vert_word, theme_name):
     
@@ -28,11 +29,24 @@ def generate_random_acrostic(vert_word, theme_name):
     
     # master list of available options, with weights
     construction_dictionary = {
-        'my_name': {1: 4, 2: 3, 3: 2, 4: 1},
-        'cute_animals': {1: 5, 2: 2, 3: 1},
-        'music': {1: 5, 2: 4, 3: 1},
+        'my_name': {
+                    constructions.MY_NAME_ADJ_POSITIVE : 4,
+                    constructions.MY_NAME_ADJ_ADV_POSITIVE : 3,
+                    constructions.MY_NAME_ADJ_NEGATIVE : 2,
+                    constructions.MY_NAME_ADJ_ADV_NEGATIVE : 1,
+                    },
+        'cute_animals':{
+                    constructions.CUTE_ANIMALS_INTRANSITIVE_VERB : 5,
+                    constructions.CUTE_ANIMALS_ADJ : 2,
+                    constructions.CUTE_ANIMALS_LIST : 1,
+                    },
+        'music': {
+                    constructions.INSTRUMENTS_MAKING_MUSIC : 5,
+                    constructions.CUTE_ANIMALS_PLAYING_MUSIC : 4,
+                    constructions.MUSICAL_INSTRUMENTS_LIST : 1,
+                    },
         }
-
+    
     # in case the user does not select a theme
     if theme_name not in construction_dictionary:
         theme_name = random.choice(list(construction_dictionary.keys()))
@@ -45,9 +59,9 @@ def generate_random_acrostic(vert_word, theme_name):
 
         build_or_rebuild_required = False
     
-        construction_type = weighted_random_construction(construction_ids_w_weights)
+        construction_type_ID = weighted_random_construction(construction_ids_w_weights)
 
-        logger.info("{0}: Construction Type: {1}".format(get_timestamp(), construction_type))
+        logger.info("{0}: Construction Type: {1}".format(get_timestamp(), construction_type_ID))
         
         horz_word_list = []         # contains the actual word objects
         horz_wordtext_list = []     # contains the text to be rendered to the screen
@@ -58,7 +72,7 @@ def generate_random_acrostic(vert_word, theme_name):
         # for filter_set in filter_sets:
         while counter < len(characters):
         
-            word_filter = create_word_filter(vert_word, horz_word_list, theme_name, construction_type)
+            word_filter = create_word_filter(vert_word, horz_word_list, construction_type_ID)
 
             # handle duplicates - disallow duplicates unless the entire filtered list has been exhausted
             available_words = list(Word.objects.all().filter(word_filter))

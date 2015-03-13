@@ -1,3 +1,10 @@
+"""
+file        :   pos.py
+date        :   2015-03-13
+module      :   constants
+classes     :
+description :  Mapping of database string encoding for different parts of speech.
+"""
 ADJECTIVE = 'A'
 ADVERB = 'D'
 CONNECTING_EXPRESSION = 'C'

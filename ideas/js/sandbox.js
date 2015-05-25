@@ -1,15 +1,5 @@
 // ajax.js for holding ajax js scripts
 
-setCookie('lockvote', 'false');
-
-alert(getCookie('lockvote'));
-var lock = document.getElementById('lock-vote');
-
-if (getCookie('lockvote') == 'true') {
-    $('rateit').rateit('readonly', true);
-    lock.disabled = true;
-}
-
 // re-generate ecrostic script on button click
 $(document).ready(function() {
 
@@ -17,9 +7,8 @@ $(document).ready(function() {
 
         e.preventDefault();
 
-        var $ls = $('#loading-spinner');
-		$ls.show();
-		
+		$('#loading-spinner').show();
+
 		var id = $(this).attr('id');
 
         var date_time = get_timestamp();
@@ -56,9 +45,6 @@ $(document).ready(function() {
                     //    "Title",
                     //    "/generate/acrostic/?name=" + name + "&theme=" + theme + "&ecrostic=" + ecrostic
                     //);
-                    var lock = document.getElementById('lock-vote');
-                    lock.disabled = false;
-                    setCookie('lockvote', 'false');
 				},
 				error: function(data, response) {
                     console.log(date_time + ": " + "ajax call failed!");
@@ -67,60 +53,70 @@ $(document).ready(function() {
 				}
 			});
 		}
-		
+
 		else {
 			console.log(date_time + ": " + "user canceled delete operation...");
-			$ls.hide();
+			$('#loading-spinner').hide();
+			return;
 		}
     });
 });
 
-// Add event listener
-// When button clicked, set `click` cookie to true
-// and disable button
-//button.addEventListener('click', function() {
-//    setCookie('lockvote', 'true');
-//    button.disabled = true;
-//}, false);
+
+// start counter for star clicks
+var counter = 0;
 
 // rateit ajax script
 $(document).ready(function() {
 
-    $(lock).bind('click', function(e) {
+    $('.rateit').bind('click', function(e) {
 
         e.preventDefault();
 
-        var $ri = $('.rateit');
+        // TODO - move this below to success if necessary
+        //$('.rateit').attr('data-rateit-readonly', 'true');
+
         var date_time = get_timestamp();
-        var value = $ri.rateit('value');
-        var acrostic_id = $ri.data('acrostic_id');
+        var ri = $(this);
+        var value = ri.rateit('value');
+        var acrostic_id = ri.data('acrostic_id');
+        var lock = $('#lock-vote');
 
         $.ajax({
             url: '/acrostic/rate/?xhr',
             data: {
-                acrostic_id: acrostic_id,
-                value: value
+             acrostic_id: acrostic_id,
+             value: value
             },
             type: 'post',
-            success: function(data, response) {
-                console.log(date_time + ": " + "ajax call succeeded!");
-                console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
-                console.log(date_time + ": " + "ajax response: " + response);
-                $ri.rateit('readonly', true);
-                $(lock).unbind('mouseenter mouseleave').off('click').attr('disabled', false);
-                setCookie('lockvote', 'true');
-                var $avg = $('#average');
-                var $tot = $('#total');
-                $avg.html('');
-                $tot.html('');
-                $avg.append('('+ data['average'] + ')');
-                $tot.append(data['total']);
-            },
-            error: function(data, response) {
-                console.log(date_time + ": " + "ajax call failed!");
-                //console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
-                console.log(date_time + ": " + "ajax response: " + response);
+        success: function(data, response) {
+            console.log(date_time + ": " + "ajax call succeeded!");
+            console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
+            console.log(date_time + ": " + "ajax response: " + response);
+            var $a = '#average';
+            var $t = '#total';
+            $($a).html('');
+            $($t).html('');
+            $($a).append('('+ data['average'] + ')');
+            $($t).append(data['total']);
+            if (counter >= 3) {
+                var $ric = '.rateit';
+                $($ric).unbind('mouseenter mouseleave')
+                $($ric).off('click');
+                $(ri).rateit('readonly', true);
+                $($ric).rateit('value', value);
+                $('rateit').click(function() {
+                    $(ri).rateit('readonly', true);
+                });
+            }
+        },
+        error: function(data, response) {
+            console.log(date_time + ": " + "ajax call failed!");
+            //console.log(date_time + ": " + "ajax data: " + JSON.stringify(data));
+            console.log(date_time + ": " + "ajax response: " + response);
             }
         });
+
+        counter++;
     });
 });

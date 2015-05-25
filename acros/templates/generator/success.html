@@ -24,17 +24,31 @@
         {# working on pushState() for updating URL after Ajax call #}
         <span id="get-acrostic" style="display: none; ">{{ acrostic.slug }}</span>
 
-        <div style="margin: 0.8em 0 0 0.8em; vertical-align: middle;" class="rateit bigstars" data-rateit-resetable="false"
-            data-rateit-starwidth="24" data-rateit-starheight="24"
-                data-rateit-value="{{ score_means.0 }}" data-rateit-ispreset="true">
-            <span style="font-size: 16px; color: darkslategray; vertical-align: super;">Rate it! </span>
+        <div class="horizontal-parent">
+            <div id="rateit-div" class="rateit bigstars" data-rateit-resetable="false"
+                data-rateit-starwidth="24" data-rateit-starheight="24"
+                    data-rateit-value="{{ score_means.0 }}" data-rateit-ispreset="true">
+                {#<span style="font-size: 16px; color: darkslategray; vertical-align: super;">Rate it! </span>#}
+
+{#                {% if request.session.rated == 'user rated ecrostic' %}#}
+{#                    <button id="lock-vote" class="btn btn-xs btn-default" style="margin: -1em 1em 0 0;" disabled>#}
+{#                        <span class="glyphicon glyphicon-lock"></span> Lock vote#}
+{#                    </button>#}
+{#                {% else %}#}
+                <button id="lock-vote" class="btn btn-xs btn-default" style="margin: -1em 1em 0 0;">
+                    <span class="glyphicon glyphicon-lock"></span> Lock vote
+                </button>
+{#                {% endif %}#}
+
+
+            </div>
+
+            <span id="rateit-stats">
+                <span id="average">{% if scores %}({% endif %}{{ score_means.0 }}{% if scores %}){% endif %}</span>
+                <span id="total">{{ score_totals|last }}</span>
+            </span>
+
         </div>
-
-        <span style="font-size: 12px; color: darkslategray; vertical-align: text-bottom; font-weight: bold;">
-            <span id="average">{% if scores %}({% endif %}{{ score_means.0 }}{% if scores %}){% endif %}</span>
-            <span id="total">{{ score_totals|last }}</span>
-        </span>
-
     {% else %}
 
         <div class="alert alert-danger alert-dismissible margin-top-2em" role="alert">
@@ -78,6 +92,7 @@
     {{ block.super }}
         
     <script src="{% static 'js/csrf.js' %}"></script>
+    <script src="{% static 'js/cookie.js' %}"></script>
     <script src="{% static 'js/ajax.js' %}"></script>
         
 {% endblock javascript %}

@@ -21,7 +21,7 @@
 /* */
 @media all and (max-width: 768px) {
 
-	header { margin-top: 4em; }
+	header { margin-top: 2em; }
 
     .center-section { padding: 0 1em; }
 
@@ -40,6 +40,8 @@
 @media all and (max-width: 445px) {
 
     footer { margin-top: 0; }
+
+    header { margin-top: 3em; }
 
     #big-header-container {
         max-width: 320px;

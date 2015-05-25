@@ -17,7 +17,7 @@ from django.contrib import messages
 # from django.utils.text import slugify
 
 from common.util import get_timestamp
-from apps.generator.templatetags.custom import slagify
+# from apps.generator.templatetags.custom import slagify
 # from common.signals import ecrostic_not_found
 
 from .models import Acrostic, Score
@@ -38,6 +38,8 @@ class GenerateAcrosticFormView(View):
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
     def get(self, request):
+
+        logger.info("{0}: GET in view: {1}".format(get_timestamp(), self.__class__.__name__))
         
         name = request.GET.get('name', '')
         theme = request.GET.get('theme', '')
@@ -58,6 +60,8 @@ class GenerateAcrosticFormView(View):
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
     def post(self, request):
+
+        logger.info("{0}: POST in view: {1}".format(get_timestamp(), self.__class__.__name__))
 
         name = request.POST.get('name', '')
         theme = request.POST.get('theme', '')
@@ -91,11 +95,14 @@ class GenerateAcrosticFormView(View):
             logger.info("{0}: Horizontal words: {1}".format(get_timestamp(), acrostic.horizontal_words))
             acrostic.save()
 
+            rated = request.session.get('not_rated', 'user not yet rated ecrostic')
+            logger.info("{0}: Rated session set: '{1}'".format(get_timestamp(), rated))
+
             if not request.is_ajax():
                 return HttpResponseRedirect('/generate/acrostic/?name={0}&theme={1}&ecrostic={2}'.format(
                     vert_word,
                     acrostic.theme_name,
-                    acrostic_uri
+                    acrostic_uri,
                 ))
 
             #########################################################################################
@@ -125,9 +132,14 @@ class GenerateAcrosticSuccessView(View):
     # @method_decorator(login_required)
     def get(self, request):
 
+        logger.info("{0}: GET in view: {1}".format(get_timestamp(), self.__class__.__name__))
+
         acrostic = Acrostic.objects.all().last()
 
         score_data = acrostic.score_set.all()
+
+        rated = request.session.get('rated', 'user not yet rated acrostic')
+        logger.info("{0}: Rated session set: '{1}'".format(get_timestamp(), rated))
 
         scores = []
         score_means = []
@@ -173,7 +185,8 @@ class GenerateAcrosticSuccessView(View):
             'theme': theme,
             'scores': scores,
             'score_means': score_means,
-            'score_totals': score_totals
+            'score_totals': score_totals,
+            'rated': rated,
         }
 
         # TODO - find a better way to check if acrostic exists!
@@ -204,6 +217,8 @@ class RateAcrosticView(View):
     # @method_decorator(login_required)
     def get(self, request):
 
+        logger.info("{0}: GET in view: {1}".format(get_timestamp(), self.__class__.__name__))
+
         star_value = request.GET.get('value', '')
         logger.info("{0}: GET here is value of the current star rating: {1}".format(get_timestamp(), star_value))
 
@@ -213,12 +228,14 @@ class RateAcrosticView(View):
 
         return render(request, self.template_name, {
             'value': star_value,
-            'score': score
+            'score': score,
         })
 
     # TODO: we may want consider using login_required decorator
     # @method_decorator(login_required)
     def post(self, request):
+
+        logger.info("{0}: POST in view: {1}".format(get_timestamp(), self.__class__.__name__))
 
         star_value = request.POST.get('value', '')
         logger.info("{0}: POST value of the current star rating: {1}".format(get_timestamp(), star_value))
@@ -232,6 +249,7 @@ class RateAcrosticView(View):
 
         score_objects = acrostic.score_set.all()
         scores = []
+
         for score_object in score_objects:
             # print(score.value)
             scores.append(score_object.value)
@@ -253,11 +271,18 @@ class RateAcrosticView(View):
         logger.info("{0}: XHR in request: {1}".format(get_timestamp(), xhr))
 
         response_data = {
-            'message': 'Statistics for star rating',
+            'message': 'statistics for star rating',
             'value': star_value,
             'average': average,
-            'total': total
+            'total': total,
         }
+
+        ###################################################################################
+        # another, longer way to set sessions... see above for shorthand, pythonic method
+        # if 'session_active' not in request.session:
+        #     request.session['session_active'] = 'test session'
+        # print("test session: {0}".format(request.session['session_active']))
+        ###################################################################################
 
         if xhr and star_value:
             response_data.update({'success': True})
@@ -265,7 +290,10 @@ class RateAcrosticView(View):
         else:
             response_data.update({'success': False})
 
-        if xhr:
+        if xhr and 'not_rated' not in request.session:
+            rated = request.session.get('rated', 'user rated ecrostic')
+            logger.info("{0}: Rated session set: '{1}'".format(get_timestamp(), rated))
+
             return HttpResponse(json.dumps(response_data), content_type="application/json")
 
         return render_to_response(self.template_name, response_data)

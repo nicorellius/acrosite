@@ -150,7 +150,7 @@ At the top of the file, add these lines:
     export DJANGO_SETTINGS_MODULE='acros.settings.nick'
     
     # export new PYTHONPATH for this virtual environment
-    export PYTHONPATH=/home/nick/dev/django/projects/acrosite/acros
+    export PYTHONPATH=$PYTHONPATH:/home/nick/dev/django/projects/acrosite/acros
     
 Then, when in the working directory, you can issue commands like this:
 

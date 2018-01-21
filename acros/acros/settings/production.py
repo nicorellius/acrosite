@@ -59,7 +59,7 @@ MEDIA_ROOT = '/var/www/acros/media'
 STATIC_ROOT = '/var/www/acros/static'
 
 # set before deployment to dev test and production
-ALLOWED_HOSTS = ['ecrostic.com', 'www.ecrostic.com', 'dev.ecrostic.com']
+ALLOWED_HOSTS = ['ecrostic.opsys.io']
 
 TEMPLATE_DIRS = (
     '/home/dev/django/projects/acrosite/acros/templates',

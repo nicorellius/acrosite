@@ -3,7 +3,7 @@ markdown syntax: http://daringfireball.net/projects/markdown/syntax
 -->
 
 # Acrostic Tees
-#### Created on October 2, 2014
+#### Updated 2020-01-20
 
 There is a T-shirt that one of the developers wears every Thursday, which features something called an 'Acrostic':
 

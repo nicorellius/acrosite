@@ -5,7 +5,7 @@ markdown syntax: http://daringfireball.net/projects/markdown/syntax
 # Acrostic Tees
 #### Updated 2020-01-20
 
-There is a T-shirt that one of the developers wears every Thursday, which features something called an 'Acrostic':
+There is a T-shirt that a friend wears Thursday, which features something called an 'Acrostic':
 
 So    
 Happy    

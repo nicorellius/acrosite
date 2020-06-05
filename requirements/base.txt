@@ -1,6 +1,6 @@
 # requirements base.txt for acrostic shirts project
 distribute==0.7.3
-Django==1.7
+Django==1.11.29
 django_compressor==1.4
 django-localflavor==1.0
 django-session-security==2.2.1

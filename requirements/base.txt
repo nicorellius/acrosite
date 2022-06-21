@@ -11,4 +11,4 @@ pytz
 # note that in order for this to work, you might need to install the
 # python-dev package for your version of Python: `sudo apt-get install python3.3-dev`
 pillow==2.6.1
-numpy===1.9.1
+numpy===1.22.0
